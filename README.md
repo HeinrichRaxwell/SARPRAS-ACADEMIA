@@ -1,7 +1,7 @@
 # Sistem Informasi Manajemen Sarana dan Prasarana (SARPRAS ACADEMIA)
 **Mata Kuliah:** Pemrograman Web 2 (Client-Side Programming)  
 **Topik:** Sistem Manajemen Sarana dan Prasarana (Asset Management)  
-**Bobot Tugas:** Tugas Ke-1 (Project-Based Learning — Milestone 1 Pekan Ke-3)  
+**Bobot Tugas:** Tugas Ke-1 (Project-Based Learning : Milestone 1 Pekan Ke-3)  
 **Tema Desain:** True Ultra-Luxury Glassmorphism (Deep Obsidian Void, Chromatic Ambient Refraction, Specular Beveled Edges)
 
 ---
@@ -24,7 +24,7 @@ Dokumentasi lengkap perancangan sistem, arsitektur menu, konsep ER-D Mermaid, al
 ## 5 Layar Utama Terancang (Google Stitch & Figma High-Fidelity)
 
 1. **Layar 1: Gerbang Autentikasi Admin (`index.html`)**  
-   *Kartu kaca buram 480px melayang di atas pendaran aurora cyan & violet, kredensial NIP & password, tombol SSO Kemendikbudristek.*  
+   *Kartu kaca buram 480px melayang di atas pendaran aurora sian & violet, kredensial NIP & password, tombol SSO Kemendikbudristek.*  
    Berkas: `assets/img/stitch_login.png`
 
 2. **Layar 2: Executive Dashboard (`pages/dashboard.html`)**  
