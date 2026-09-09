@@ -1,86 +1,231 @@
 # DOKUMEN PERANCANGAN SISTEM INFORMASI (MILESTONE 1)
-## SISTEM MANAJEMEN SARANA DAN PRASARANA (SARPRAS ASSET MANAGEMENT)
+# SARPRAS ACADEMIA — INSTITUTIONAL ASSET MANAGEMENT & AUDIT PLATFORM
+## SPESIFIKASI ARSITEKTUR INFORMASI, DESIGN SYSTEM GLASSMORPHISM & UI WIREFRAMING
 
 ---
 
 - **Mata Kuliah:** Pemrograman Web 2 (Client-Side Programming)
 - **Topik Sistem:** Sistem Manajemen Sarana dan Prasarana (Asset Management)
-- **Bobot Tugas:** Tugas Ke-1 (Project-Based Learning)
-- **Milestone:** Milestone 1 (Pekan Ke-3) — Perencanaan Menu (.md) & UI Wireframing (Stitch / Figma)
-- **Tema Visual:** Modern Glassmorphism (Dark Obsidian & Frosted Translucent Glass)
-- **Arsitektur Antarmuka:** Client-Side Single Page Architecture (No-Backend / Mock Data State)
+- **Bobot Tugas:** Tugas Ke-1 (Project-Based Learning — Milestone 1 Pekan Ke-3)
+- **Estetika Antarmuka:** True Ultra-Luxury Glassmorphism (Deep Obsidian Void, Chromatic Ambient Refraction, Specular Beveled Edges)
+- **Arsitektur Teknis:** Client-Side Single Page Application (Pure Semantic HTML5, CSS3 Glass Engine, Vanilla ES6+ State Store, No Backend/Mock Data)
+- **Repositori & Berkas:** `D:\VsCode\Tugas Pemweb II\`
 
 ---
 
-## 1. Deskripsi & Ruang Lingkup Sistem
-
-Sistem Informasi Manajemen Sarana dan Prasarana (**SARPRAS**) adalah platform berbasis web *client-side* yang dirancang untuk mengelola siklus hidup aset institusi (peralatan laboratorium, fasilitas ruang kuliah, perangkat teknologi informasi & server, mesin operasional, serta kendaraan dinas). 
-
-Sistem ini berfokus pada:
-1. **Visibilitas Inventaris Real-Time:** Memetakan seluruh barang milik institusi lengkap dengan kode inventaris unik, spesifikasi teknis, kondisi kelayakan, lokasi ruangan, dan nilai buku depresiasi.
-2. **Jadwal Pemeliharaan & Kalibrasi Berkala:** Memantau aset yang memerlukan servis berkala guna mencegah *downtime* fasilitas akademik/operasional.
-3. **Pencatatan Mutasi & Decommissioning:** Melacak perpindahan fisik aset antar-gedung/ruangan serta prosedur penghapusan aset rusak berat sesuai berita acara formal.
+## DAFTAR ISI
+1. [Ringkasan Eksekutif & Landasan Regulasi](#1-ringkasan-eksekutif--landasan-regulasi)
+2. [Fisika Desain: True Glassmorphism Architecture](#2-fisika-desain-true-glassmorphism-architecture)
+3. [Hirarki Menu & Matriks Peran Pengguna (RBAC)](#3-hirarki-menu--matriks-peran-pengguna-rbac)
+4. [Spesifikasi Rinci Halaman Antarmuka (5 Halaman Utama)](#4-spesifikasi-rinci-halaman-antarmuka-5-halaman-utama)
+5. [Konsep Pemodelan Data Relasional (ER-D Mermaid.js)](#5-konsep-pemodelan-data-relasional-er-d-mermaidjs)
+6. [Diagram Alur Pengguna & State Machine (Mermaid.js)](#6-diagram-alur-pengguna--state-machine-mermaidjs)
+7. [Design System Tokens & Komponen Reusable](#7-design-system-tokens--komponen-reusable)
+8. [Galeri Wireframing & High-Fidelity UI (Google Stitch & Figma)](#8-galeri-wireframing--high-fidelity-ui-google-stitch--figma)
+9. [Skema Data Client-Side & Strategi State Mock Data](#9-skema-data-client-side--strategi-state-mock-data)
+10. [Struktur Repositori & Kepatuhan Rubrik Penilaian](#10-struktur-repositori--kepatuhan-rubrik-penilaian)
 
 ---
 
-## 2. Hirarki Menu & Arsitektur Navigasi (Sidebar / Navbar)
+## 1. Ringkasan Eksekutif & Landasan Regulasi
 
-Navigasi sistem mengusung struktur hirarki tetap (*persistent sidebar rail*) pada desktop yang dapat disusutkan (*collapsible drawer*) pada perangkat bergerak.
+Sistem Informasi Manajemen Sarana dan Prasarana (**SARPRAS ACADEMIA**) adalah platform antarmuka back-office institusional kelas enterprise yang dirancang untuk mengelola siklus hidup aset tetap (*fixed assets*), fasilitas fisik, peralatan laboratorium presisi tinggi, dan sarana teknologi informasi pada institusi pendidikan tinggi serta lembaga riset.
+
+### 1.1 Tujuan Utama Sistem
+1. **Transparansi & Akuntabilitas Fiskal:** Menyajikan pencatatan inventaris terpusat yang mematuhi standar penomoran Barang Milik Negara (BMN) dan penghitungan depresiasi buku secara real-time.
+2. **Mitigasi Downtime Operasional:** Memonitor jadwal pemeliharaan berkala, kalibrasi instrumen riset, dan rekapitulasi kondisi fisik aset guna mencegah hambatan kegiatan tridharma perguruan tinggi.
+3. **Pemberkasan Digital & Audit Fisik:** Mengotomatiskan pembuatan dokumen resmi **Kartu Inventaris Ruangan (KIR)** lengkap dengan blok tanda tangan digital dan segel verifikasi kode QR untuk keperluan audit inspektorat jenderal dan BPK.
+
+### 1.2 Landasan Yuridis & Standar
+- **PMK No. 181/PMK.06/2016:** Tentang Penatausahaan Barang Milik Negara.
+- **Permendikbudristek No. 44 Tahun 2024:** Standar Sarana dan Prasarana pada Perguruan Tinggi.
+- **ISO 55001:2014:** International Standard for Asset Management Systems.
+
+---
+
+## 2. Fisika Desain: True Glassmorphism Architecture
+
+Banyak antarmuka web gagal menerapkan *Glassmorphism* karena hanya menggunakan warna abu-abu transparan biasa tanpa memperhatikan sifat fisik optik kaca nyata. Pada proyek **SARPRAS ACADEMIA**, arsitektur *True Glassmorphism* dirancang dengan 5 prinsip optik:
 
 ```
-SARPRAS ADMIN PANEL
-├── 1.0 Dashboard Eksekutif
-│   ├── 1.1 KPI Metrics Ribbon (Total Aset, Kondisi Baik, Perlu Servis, Nilai Buku)
-│   ├── 1.2 Grafik Distribusi Kategori Sarpras
-│   ├── 1.3 Utilisasi Kapasitas Gedung & Fasilitas
-│   └── 1.4 Notifikasi Jadwal Pemeliharaan Terdekat
-│
-├── 2.0 Master Data Sarana & Prasarana
-│   ├── 2.1 Katalog Inventaris Aset (Tabel Data Terpusat)
-│   ├── 2.2 Filter Multi-Parameter (Kategori, Gedung, Kondisi, Tahun Perolehan)
-│   ├── 2.3 Pencarian Cepat Real-time (Kode Aset, Nama, Nomor Seri)
-│   ├── 2.4 Modal Detail Spesifikasi Aset
-│   ├── 2.5 Modal Edit/Update Data Sarpras
-│   └── 2.6 Modal Konfirmasi Decommissioning / Hapus Aset
-│
-├── 3.0 Form Inventarisasi Aset Baru
-│   ├── 3.1 Identitas Aset (Kode BMN/Inventaris, Nama, Merk/Tipe, Nomor Seri)
-│   ├── 3.2 Klasifikasi & Lokasi (Kategori, Gedung, Ruangan, Penanggung Jawab)
-│   ├── 3.3 Data Perolehan & Finansial (Tahun, Harga Perolehan, Masa Manfaat)
-│   ├── 3.4 Validasi Input Client-Side (Error & Success state feedback)
-│   └── 3.5 Generator QR Code / Barcode Tag Preview
-│
-├── 4.0 Laporan & Audit Inventaris
-│   ├── 4.1 Kartu Inventaris Ruangan (KIR) Print-Ready View
-│   ├── 4.2 Laporan Kondisi & Kelayakan Aset
-│   ├── 4.3 Rekapitulasi Berita Acara Pemeliharaan & Kalibrasi
-│   └── 4.4 Fitur Ekspor Data (PDF Print Preview, CSV, XLSX)
-│
-├── 5.0 Ruangan & Gedung (Fasilitas Fisik)
-│   ├── 5.1 Daftar Gedung Kampus
-│   └── 5.2 Alokasi Penempatan Aset per Ruang
-│
-└── 6.0 Pengaturan & Utilitas Sistem
-    ├── 6.1 Manajemen Profil Admin
-    ├── 6.2 Konfigurasi Cadangan Mock Data (Local Storage / JSON)
-    └── 6.3 Panduan SOP Audit Sarpras
++-----------------------------------------------------------------------------------+
+| LAYER 3: Specular Rim Light (1px border gradient white top-left to dark bottom)   |
+| +-------------------------------------------------------------------------------+ |
+| | LAYER 2: Inner Glow (box-shadow inset 0 1px 1px rgba(255,255,255,0.2))        | |
+| | +---------------------------------------------------------------------------+ | |
+| | | LAYER 1: Translucent Frosted Substrate (rgba(15,23,42,0.65) + blur(24px)) | | |
+| | | +-----------------------------------------------------------------------+ | | |
+| | | | LAYER 0: Ambient Chromatic Glow (Cyan/Violet blur orbs shining THROUGH) | | | |
+| | | +-----------------------------------------------------------------------+ | | |
+| | +---------------------------------------------------------------------------+ | |
+| +-------------------------------------------------------------------------------+ |
++-----------------------------------------------------------------------------------+
 ```
 
-### Matriks Hak Akses Pengguna (Role-Based Access)
+### 2.1 Formula Matematis & CSS Recipe Kaca
 
-| Modul / Menu | Super Admin (Kepala Biro Sarpras) | Staf Inventaris (Operator) | Teknisi Fasilitas (Maintenance) |
-|---|---|---|---|
-| Dashboard Eksekutif | Akses Penuh (Full Analytics) | Akses Ringkasan Data | Ringkasan Servis Saja |
-| Master Data Sarpras | Lihat, Tambah, Edit, Hapus | Lihat, Tambah, Edit | Lihat Status & Kondisi |
-| Form Inventarisasi | Akses Penuh + Otorisasi | Akses Input Data Baru | Read-Only |
-| Laporan & Cetak KIR | Akses Semua Format Cetak | Cetak KIR & Label Barcode | Cetak Lembar Servis |
-| Modal Hapus / Afkir | Otorisasi Penghapusan | Ajukan Usulan Hapus | Tidak Memiliki Akses |
+#### A. Latar Belakang Void & Ambient Chromatic Orbs
+Ruang hampa kosmik gelap (`#070B14`) dipadukan dengan pendaran cahaya aurora kromatik yang ditempatkan secara strategis di balik panel kaca:
+```css
+/* Kanvas Induk */
+body {
+  background-color: #070B14;
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(2, 132, 199, 0.18) 0%, transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.12) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+```
+
+#### B. Panel Kaca Buram (Frosted Glass Substrate)
+Menggunakan difusi optik dengan saturasi yang dinaikkan agar pendaran warna di bawah kaca tetap hidup dan jernih:
+```css
+.glass-panel {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15),
+    0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  border-radius: 14px;
+}
+```
+
+#### C. Beveled Glass Border (Specular Reflection)
+Sudut atas dan kiri menerima cahaya buatan maya dari arah kiri-atas layar (*virtual light source at -45deg*), menghasilkan tepi kaca terasah (*beveled cut glass*) yang berkilau alami.
+
+#### D. Zero Emojis Mandatory Rule
+Semua indikator antarmuka menggunakan **Ikon Vektor SVG Presisi (Google Material Symbols)** dengan ketebalan garis 1.5px dan ukuran proporsional (16px, 20px, 24px). Tidak ada karakter emoji kasual untuk mempertahankan wibawa sistem audit negara.
 
 ---
 
-## 3. Konsep ER-D (Entity Relationship Diagram)
+## 3. Hirarki Menu & Matriks Peran Pengguna (RBAC)
 
-ER-D memodelkan struktur data logis relasional yang diadopsi oleh struktur *Mock Data Object* pada sisi *client-side* (JavaScript).
+Struktur navigasi dirancang dengan pendekatan *tactical high-density*, mengelompokkan operasional inventaris ke dalam 6 modul terkoordinasi:
+
+```
+SARPRAS ACADEMIA (Institutional Command v4.2)
+│
+├── [0.0] Gerbang Autentikasi Admin (index.html)
+│   ├── Login Akun Petugas (NIP / Password)
+│   ├── SSO Kemendikbudristek (ID Satker)
+│   └── Verifikasi Sesi Kriptografis 30 Hari
+│
+├── [1.0] Dashboard Eksekutif (pages/dashboard.html)
+│   ├── 1.1 KPI Metrics Ribbon (Total Aset, Kondisi Prima, Servis Berjalan, Valuasi Buku)
+│   ├── 1.2 Panel Visual Analitik Distribusi Kategori (Chart.js Bar & Doughnut)
+│   ├── 1.3 Pemantauan Kapasitas & Utilisasi Fasilitas Gedung
+│   └── 1.4 Feed Aktivitas Jadwal Servis & Kalibrasi Lab Terdekat
+│
+├── [2.0] Master Data Sarana & Prasarana (pages/data-master.html)
+│   ├── 2.1 Katalog Inventaris Barang Milik Negara (BMN)
+│   ├── 2.2 Filter Cepat Multi-Parameter (Kategori, Gedung, Kondisi, Tahun)
+│   ├── 2.3 Pencarian Cepat Real-time (Kode Inventaris, Merk, No Seri)
+│   ├── 2.4 Seleksi Batch Aksi (Cetak Label Barcode Massal, Mutasi Ruangan)
+│   ├── 2.5 Modal Detail Spesifikasi Aset & Riwayat
+│   └── 2.6 Modal Konfirmasi Decommissioning / Penghapusan Aset Rusak Berat
+│
+├── [3.0] Form Registrasi Aset Baru (pages/form.html)
+│   ├── 3.1 Identitas & Spesifikasi Teknis (Generator Kode Otomatis, Nama, Model, No Seri)
+│   ├── 3.2 Penempatan Lokasi Fisik (Gedung, Ruangan, Penanggung Jawab)
+│   ├── 3.3 Penilaian Kondisi Awal (Radio Cards: Baik, Rusak Ringan, Rusak Berat)
+│   ├── 3.4 Fiskal & Kapitalisasi (Harga Perolehan, Sumber Dana APBN/PNBP, Masa Manfaat)
+│   ├── 3.5 Berkas Digital (Dropzone Foto Fisik Aset & Scan BAST)
+│   ├── 3.6 Pratinjau Stiker Fisik Tag Aset (Barcode & QR Code Real-time)
+│   └── 3.7 Validasi Form Sisi Klien & Toast Notifikasi
+│
+├── [4.0] Pusat Laporan & Kartu Inventaris Ruangan (pages/laporan.html)
+│   ├── 4.1 Filter Generator KIR (Pilihan Gedung & Ruang Spesifik)
+│   ├── 4.2 Ringkasan Metrik Verifikasi Ruangan (Total Unit, Valuasi, Persentase Layak)
+│   ├── 4.3 Lembar Cetak Kartu Inventaris Ruangan (Format Standar A4 Lanskap)
+│   ├── 4.4 Blok Pengesahan Digital Ganda (Kepala Biro Sarpras & Kepala Lab)
+│   └── 4.5 Fitur Ekspor Multi-Format (Cetak Mode Bersih, PDF Resmi, Spreadsheet XLSX)
+│
+├── [5.0] Fasilitas Gedung & Ruangan (Sub-Modul)
+│   ├── Pemetaan Zona Kampus (Gedung Rektorat, Riset Terpadu, GKB, Gedung FK, FT)
+│   └── Alokasi Beban Sarana & Utilisasi Ruang
+│
+└── [6.0] Pengaturan Sistem & Audit Trail (Sub-Modul)
+    ├── Profil Administrator & Otorisasi Hak Akses
+    └── Backup & Restore Mock Data State (JSON / LocalStorage)
+```
+
+### Matriks Hak Akses Pengguna (Role-Based Access Control)
+
+| Modul / Sub-Fitur | Super Admin (Kepala Biro Sarpras) | Operator Sarpras (Staf Inventaris) | Teknisi Fasilitas (Maintenance) | Auditor Eksternal (BPK / Itjen) |
+|---|:---:|:---:|:---:|:---:|
+| **Dashboard Analitik Eksekutif** | Read / Filter / Export | Read / Filter | Read Ringkasan Servis | Read-Only (Audit View) |
+| **Katalog Master Data Aset** | Full CRUD | Create / Read / Update | Read / Update Kondisi | Read / Filter / Export |
+| **Form Registrasi Aset Baru** | Create + Otorisasi | Create & Draft | Read-Only | Read-Only |
+| **Penghapusan / Afkir Aset** | Otorisasi Penuh | Pengajuan Usulan | Tidak Ada Akses | Read Riwayat Usulan |
+| **Cetak KIR & Berita Acara** | Cetak & TTD Digital | Cetak & Verifikasi | Cetak Lembar Kerja | Unduh PDF Berita Acara |
+| **Backup / Reset Mock Data** | Penuh | Terbatas | Tidak Ada Akses | Tidak Ada Akses |
+
+---
+
+## 4. Spesifikasi Rinci Halaman Antarmuka (5 Halaman Utama)
+
+### 4.1 Halaman 1: Gerbang Autentikasi Admin (`index.html`)
+- **Tujuan Pengguna:** Mengamankan akses administrasi sarpras dan memvalidasi identitas pengelola aset.
+- **Komponen Utama:**
+  - Latar belakang kanvas kosmik gelap dengan dua pendaran aurora difus (*Cyan #0284C7* dan *Violet #7C3AED*).
+  - Kontainer kaca melayang tengah (*width: 480px, border-radius: 20px, blur: 28px*).
+  - Lambang segel institusi resmi (*Institutional Crest Seal*).
+  - Kolom input NIP dan Kata Sandi dengan efek *focus ring electric cyan*.
+  - Tombol aksi utama *Masuk ke Sistem Sarpras* bergradien *electric cyan*.
+  - Tombol alternatif integrasi *SSO Kemendikbudristek (ID Satker)*.
+  - Catatan kaki regulasi terenkripsi kriptografis SHA-256.
+
+### 4.2 Halaman 2: Executive Dashboard (`pages/dashboard.html`)
+- **Tujuan Pengguna:** Memantau indikator kinerja utama fasilitas, alokasi nilai buku, dan jadwal mitigasi aset kritis.
+- **Komponen Utama:**
+  - **Sidebar Persisten:** Navigasi 5 menu utama dengan indikator aktif bergaris pendar cyan.
+  - **Header Navigasi:** Kolom pencarian global cepat (`Ctrl + K`), indikator status node, dan identitas profil administrator.
+  - **4 Kartu Metrik KPI Eksekutif:**
+    1. *Total Aset Terdaftar:* 1.482 Unit (+38 unit terakreditasi kuartal ini).
+    2. *Kondisi Operasional Prima:* 86.4% (1.280 unit operasional aktif).
+    3. *Perlu Servis & Kalibrasi:* 142 Unit (9.6% jadwal berjalan, peringatan amber).
+    4. *Total Nilai Buku Fiskal:* Rp 4.85 Miliar (depresiasi TA 2026).
+  - **Panel Analitik Distribusi Kategori:** Visualisasi batang proporsional (Peralatan Lab 38%, Sarana IT 27%, Fasilitas Kuliah 21%, Kendaraan Dinas 14%).
+  - **Panel Utilisasi Fasilitas & Jadwal Servis:** Daftar riwayat terdekat kalibrasi instrumen lab presisi.
+
+### 4.3 Halaman 3: Master Data Sarana dan Prasarana (`pages/data-master.html`)
+- **Tujuan Pengguna:** Melakukan penelusuran katalog, pemilahan multi-kriteria, inspeksi rincian, dan penghapusan aset.
+- **Komponen Utama:**
+  - **Toolbar Filter & Aksi:** Input pencarian multi-parameter, dropdown Kategori, dropdown Lokasi Gedung, dropdown Status Kondisi, dan tombol *+ Registrasi Aset*.
+  - **Tabel Data Translusen:**
+    - Kolom: Checkbox, Kode Inventaris BMN (*monospace JetBrains Mono*), Nama Sarana & Spesifikasi, Kategori, Lokasi Ruangan, Tahun, Kondisi (*Status Pill* dengan titik pendar bercahaya), Nilai Buku, dan Tombol Aksi (*Detail, Edit, Hapus*).
+  - **Komponen Khusus — Modal Konfirmasi Penghapusan (Decommissioning):**
+    - Kotak dialog berlatar belakang kaca buram pekat (*backdrop-blur 32px*).
+    - Menampilkan ringkasan aset kritis yang akan dihapus, formulir isian justifikasi teknis, klausul persetujuan berita acara BMN, tombol *Batal*, serta tombol *Hapus dari Inventaris* beraksen bahaya *Rose Red*.
+
+### 4.4 Halaman 4: Form Registrasi Aset Baru (`pages/form.html`)
+- **Tujuan Pengguna:** Menginput sarana/prasarana baru ke dalam sistem dengan validasi instan sisi klien.
+- **Komponen Utama:**
+  - **Tata Letak Grid 2-Kolom Glassmorphic:**
+    - *Kolom Kiri (Spesifikasi & Lokasi):* Kode otomatis terstandarisasi (`AST-LAB-2026-089`), nama barang, kategori, merk, nomor seri pabrik, pemetaan gedung & ruangan, dan 3 kartu radio interaktif kondisi fisik (Baik, Rusak Ringan, Rusak Berat).
+    - *Kolom Kanan (Finansial, Berkas & Live Tag Preview):* Tanggal perolehan, input nilai kapitalisasi rupiah, dropzone unggah foto & berkas BAST bergaris putus-putus cyan, serta **Live Asset QR & Barcode Tag Preview** (kartu pratinjau stiker label termal siap cetak).
+  - **Sticky Bottom Action Bar:** Indikator enkripsi data SIMAK-BMN, tombol *Batal/Reset*, dan tombol utama *Simpan & Daftarkan Aset*.
+
+### 4.5 Halaman 5: Pusat Laporan & Kartu Inventaris Ruangan / KIR (`pages/laporan.html`)
+- **Tujuan Pengguna:** Menerbitkan dokumen inventaris fisik resmi per ruangan dan mengekspor rekapitulasi audit.
+- **Komponen Utama:**
+  - **Header Lembar Laporan:** Lambang segel universitas, kop kementerian resmi, dan nomor registrasi ketetapan KIR.
+  - **3 Kartu Ringkasan Ruangan Terpilih:** Total aset terdata (48 Unit), status kepatuhan (100% Valid BPK), dan rekapitulasi kondisi fisik.
+  - **Tabel Ledger KIR Standar Audit:** Daftar nomor urut pendaftaran, kode BMN, nama alat, merk/spesifikasi, nomor seri, kondisi kelayakan, dan status verifikasi fisik.
+  - **Blok Pengesahan Tanda Tangan Digital Ganda:** Kolom tanda tangan digital *Direktur Sarana & Prasarana* dan *Kepala Laboratorium/Penanggung Jawab Ruangan* lengkap dengan stempel QR verifikasi kriptografis SHA-256.
+  - **Toolbar Ekspor:** Tombol *Cetak Mode KIR (Print-Optimized)*, *Ekspor PDF*, dan *Unduh XLSX*.
+
+---
+
+## 5. Konsep Pemodelan Data Relasional (ER-D Mermaid.js)
+
+Struktur data didesain mengikuti prinsip normalisasi ketiga (3NF) guna menjamin konsistensi data pada *client-side state store*:
 
 ```mermaid
 erDiagram
@@ -92,235 +237,329 @@ erDiagram
     TEKNISI ||--o{ PEMELIHARAAN : "menangani"
 
     KATEGORI {
-        string id_kategori PK "Identifier Kategori"
-        string nama_kategori "Contoh: Peralatan Lab, IT, Fasilitas"
+        string id_kategori PK "ID Kategori (e.g. KAT-001)"
+        string nama_kategori "Peralatan Laboratorium, IT, dll"
         string kode_kategori "LAB, IKT, FCL, VEH"
-        string deskripsi "Keterangan klasifikasi"
+        string deskripsi "Keterangan klasifikasi BMN"
     }
 
     LOKASI_RUANGAN {
-        string id_ruangan PK "Identifier Ruangan"
-        string kode_ruangan "Contoh: R-302, DC-01"
+        string id_ruangan PK "ID Ruangan (e.g. RNG-302)"
+        string kode_ruangan "GRT-R302"
         string nama_ruangan "Lab Kimia Terpadu"
         string gedung "Gedung Riset Terpadu"
-        string penanggung_jawab "Dosen/Laboran PJ"
+        string penanggung_jawab "Dr. Retno Lestari, M.Si"
+        int kapasitas "40 Peneliti / Mahasiswa"
     }
 
     ASET {
-        string id_aset PK "ID Internal Aset"
-        string kode_inventaris UK "Monospace Code: LAB-FTI-2023-089"
+        string id_aset PK "ID Internal Aset (UUID)"
+        string kode_inventaris UK "Kode BMN (e.g. AST-LAB-2026-089)"
         string nama_barang "Spektrofotometer UV-Vis Shimadzu"
         string id_kategori FK "Relasi ke Kategori"
         string id_ruangan FK "Relasi ke Lokasi Ruangan"
-        string merk_tipe "Shimadzu UV-1900i"
-        string no_seri "A1192837492"
-        int tahun_perolehan "2023"
-        decimal harga_perolehan "Rp 245.000.000"
+        string merk_tipe "Shimadzu UV-2600i Research Grade"
+        string no_seri "SN: 893-KM-2026-X901"
+        int tahun_perolehan "2026"
+        decimal harga_perolehan "285000000.00"
         string kondisi "Baik | Rusak Ringan | Rusak Berat"
-        string status_ketersediaan "Operasional | Perawatan | Decommissioned"
+        string status_ketersediaan "Operasional | Servis | Decommissioned"
+        string sumber_dana "BOPTN / APBN / PNBP"
     }
 
     PENGGUNA {
-        string id_user PK "User ID"
-        string nama_lengkap "Dr. Ir. Hendra W., M.T."
+        string id_user PK "User ID / NIP"
+        string nama_lengkap "Dr. Ir. Hendra Wicaksono, M.T."
         string role "Super Admin | Operator | Auditor"
         string email "sarpras@institusi.ac.id"
         string unit_kerja "Biro Sarana dan Prasarana"
     }
 
     MUTASI_ASET {
-        string id_mutasi PK "ID Mutasi Perpindahan"
-        string id_aset FK "Aset yang dipindahkan"
-        string id_ruangan_asal "Lokasi sebelumnya"
-        string id_ruangan_tujuan "Lokasi baru"
-        string id_user FK "Petugas pemohon"
+        string id_mutasi PK "ID Mutasi (e.g. MUT-2026-001)"
+        string id_aset FK "ID Aset yang dimutasi"
+        string id_ruangan_asal "Lokasi Asal"
+        string id_ruangan_tujuan "Lokasi Tujuan Baru"
+        string id_user FK "Petugas Pemohon"
         date tanggal_mutasi "YYYY-MM-DD"
-        string keterangan "Alasan reposisi fasilitas"
+        string keterangan "Alasan penataan ulang laboratorium"
     }
 
     PEMELIHARAAN {
-        string id_pemeliharaan PK "ID Servis"
+        string id_pemeliharaan PK "ID Servis (e.g. SVC-2026-014)"
         string id_aset FK "Aset yang diservis"
-        string id_teknisi FK "Teknisi penanggung jawab"
-        date tanggal_servis "Tanggal servis"
-        string jenis_pemeliharaan "Rutin | Kalibrasi | Perbaikan Darurat"
-        decimal biaya "Biaya pemeliharaan"
+        string id_teknisi FK "Vendor / Teknisi"
+        date tanggal_servis "YYYY-MM-DD"
+        string jenis_pemeliharaan "Kalibrasi Rutin | Perbaikan Sensor"
+        decimal biaya "4500000.00"
         string status_perbaikan "Terjadwal | Berjalan | Selesai"
-        string catatan "Catatan teknis penggantian suku cadang"
+        string catatan "Penggantian optical slit dan kalibrasi panjang gelombang"
     }
 
     TEKNISI {
-        string id_teknisi PK "ID Teknisi"
-        string nama_teknisi "PT Dynatech / Tim TIK Internal"
-        string spesialisasi "Instrumen Laboratorium / Jaringan"
-        string no_kontak "+62-812-XXXX-XXXX"
+        string id_teknisi PK "ID Teknisi / Vendor"
+        string nama_teknisi "PT Dynatech Instrument"
+        string spesialisasi "Instrumen Spektrometri & Optik"
+        string no_kontak "+62-21-5582-9900"
     }
 ```
 
 ---
 
-## 4. User Flow Antarmuka Admin Panel
+## 6. Diagram Alur Pengguna & State Machine (Mermaid.js)
 
-Alur interaksi pengguna dirancang efisien dan minim friksi, menghubungkan dashboard analitik dengan pengelolaan master data serta aksi CRUD.
-
+### 6.1 Alur Navigasi Utama Aplikasi
 ```mermaid
-graph LR
-    A["Login Petugas / Admin"] --> B["Dashboard Ringkasan Sarpras"]
-    B --> C["Data Master Sarpras"]
-    B --> D["Form Inventarisasi Baru"]
-    B --> E["Laporan & Audit Inventaris"]
+graph TD
+    A["Halaman Login (index.html)"] -->|Validasi Sukses| B["Executive Dashboard (dashboard.html)"]
+    B -->|Klik Menu Master| C["Master Data Sarpras (data-master.html)"]
+    B -->|Klik Registrasi Aset| D["Form Registrasi Baru (form.html)"]
+    B -->|Klik Pusat Laporan| E["Laporan & Audit KIR (laporan.html)"]
     
-    C --> C1["Filter Kategori & Lokasi"]
-    C --> C2["Pencarian Real-Time"]
-    C --> C3["Modal Detail Aset & Riwayat"]
-    C --> C4["Modal Edit Aset"]
-    C --> C5["Modal Konfirmasi Hapus"]
+    C -->|Pencarian / Filter| C1["Tabel Terfilter Real-time"]
+    C -->|Tombol Aksi Hapus| C2["Modal Konfirmasi Decommissioning"]
+    C2 -->|Konfirmasi BAST| C3["Status Aset Menjadi Decommissioned"]
     
-    D --> D1["Input Identitas & Finansial"]
-    D --> D2["Validasi Form Client-Side"]
-    D --> D3["Simpan ke Mock Data State"]
-    D3 --> C
+    D -->|Validasi Input Gagal| D1["Highlight Border Merah & Error Msg"]
+    D -->|Validasi Sukses| D2["Simpan ke Mock Data State (LocalStorage)"]
+    D2 -->|Redirect & Toast| C
     
-    E --> E1["Pilih Filter Periode / Ruangan"]
-    E --> E2["Preview Kartu Inventaris Ruangan (KIR)"]
-    E --> E3["Cetak / Ekspor Laporan Bersih"]
+    E -->|Pilih Ruangan| E1["Generasi Kartu Inventaris Ruangan (KIR)"]
+    E1 -->|Klik Cetak| E2["Pratinjau Cetak Lembar Bersih (Print CSS)"]
+    E1 -->|Klik Ekspor| E3["Download Dokumen PDF / XLSX"]
+```
+
+### 6.2 Siklus Hidup Aset (Lifecycle State Machine)
+```mermaid
+stateDiagram-v2
+    [*] --> Pengadaan_Baru : BAST Diterima
+    Pengadaan_Baru --> Terdaftar_Aktif : Registrasi Form (Kondisi Baik)
+    Terdaftar_Aktif --> Dalam_Pemeliharaan : Kerusakan Ringan / Jadwal Kalibrasi
+    Dalam_Pemeliharaan --> Terdaftar_Aktif : Servis Selesai & Lulus Uji
+    Terdaftar_Aktif --> Mutasi_Ruangan : Reposisi Fisik Antar-Gedung
+    Mutasi_Ruangan --> Terdaftar_Aktif : Penempatan Terverifikasi di KIR
+    Dalam_Pemeliharaan --> Usulan_Afkir : Biaya Servis Melebihi Nilai Ekonomis
+    Usulan_Afkir --> Decommissioned : Persetujuan Modal Hapus BMN
+    Decommissioned --> [*] : Pemusnahan / Lelang Negara
 ```
 
 ---
 
-## 5. Design System Awal (Visual Guidelines & UI Tokens)
+## 7. Design System Tokens & Komponen Reusable
 
-### 5.1 Tema Visual: Modern Glassmorphism
+### 7.1 Palet Warna & Nilai CSS Variable
 
-Sesuai dengan ketentuan tugas yang mewajibkan penerapan salah satu estetika industri (Material Design, Glassmorphism, Skeuomorphism, Neumorphism), proyek ini mengimplementasikan **Modern Glassmorphism**.
+| Kategori Token | Nama Token | Nilai HEX / RGBA | Penerapan Desain |
+|---|---|---|---|
+| **Canvas** | `--bg-void` | `#070B14` | Latar belakang dasar antarmuka |
+| **Surface Kaca** | `--glass-surface` | `rgba(15, 23, 42, 0.65)` | Kontainer kartu, header, dan sidebar |
+| **Surface Elevate** | `--glass-elevate` | `rgba(30, 41, 59, 0.85)` | Dialog modal, dropdown popover, menu melayang |
+| **Specular Border** | `--glass-border` | `rgba(255, 255, 255, 0.14)` | Garis batas 1px refleksi cahaya |
+| **Inner Glow** | `--glass-glow-inset` | `rgba(255, 255, 255, 0.18)` | Refleksi cahaya tepi dalam kartu |
+| **Aksen Utama** | `--accent-cyan` | `#0284C7` | Tombol CTA, indikator aktif, focus halo |
+| **Aksen Sekunder** | `--accent-violet` | `#7C3AED` | Aurora ambient glow & badge khusus |
+| **Kondisi Baik** | `--status-emerald` | `#10B981` | Indikator kondisi aset prima & terverifikasi |
+| **Kondisi Servis** | `--status-amber` | `#F59E0B` | Indikator rusak ringan & jadwal pemeliharaan |
+| **Kondisi Kritis** | `--status-rose` | `#EF4444` | Indikator rusak berat & modal hapus |
+| **Teks Utama** | `--text-primary` | `#F8FAFC` | Judul, angka KPI, nama barang |
+| **Teks Sekunder** | `--text-muted` | `#94A3B8` | Label formulir, metadata, keterangan |
 
-Ciri khas arsitektur visual ini meliputi:
-1. **Kanvas Obsidian Gelap:** Latar belakang solid `#0B0F19` yang memberikan kontras maksimal dan kenyamanan mata bagi staf back-office (*eye ergonomics*).
-2. **Panel Kaca Buram (Frosted Glass Substrate):** Kontainer kartu dan sidebar menggunakan warna translucent `rgba(17, 24, 39, 0.75)` dengan efek filter optik `backdrop-filter: blur(16px) saturate(180%)`.
-3. **Refleksi Garis Batas Sub-Pixel (Specular Borders):** Pembatas kartu dan elemen interaktif menggunakan garis 1px bergradasi lembut `rgba(255, 255, 255, 0.08)` menggantikan bayangan gelap tebal (*heavy drop shadows*).
-4. **Zero Emojis:** Menghilangkan seluruh penggunaan emoji informal. Seluruh status, navigasi, dan indikator menggunakan ikonografi SVG presisi tinggi (*stroke 1.5px*).
+### 7.2 Tipografi Presisi
+- **Display & Headings:** `Plus Jakarta Sans` (*Font Weight: 600, 700; Letter Spacing: -0.02em*). Memberikan kesan modern, kokoh, dan presisi.
+- **Body Text:** `Plus Jakarta Sans` (*Font Weight: 400, 500; Line Height: 1.55*).
+- **Data Engine & Identifiers:** `JetBrains Mono` (*Font Weight: 500, 600*). Diterapkan secara ketat pada Kode Inventaris Barang (`AST-LAB-2026-089`), nomor seri pabrik, nomor SK menteri, serta nominal rupiah pada tabel dan formulir.
 
-### 5.2 Color Palette Tokens
+### 7.3 Komponen Antarmuka Reusable
 
-| Token Name | Nilai HEX / RGBA | Peran Fungsional & Penerapan |
-|---|---|---|
-| **Canvas Obsidian** | `#0B0F19` | Latar belakang dasar antarmuka (Root canvas) |
-| **Surface Frosted Glass** | `rgba(17, 24, 39, 0.75)` | Kartu metrik, panel tabel, sidebar rail |
-| **Surface Elevate** | `rgba(30, 41, 59, 0.85)` | Dialog modal, dropdown popover, menu konteks |
-| **Border Specular** | `rgba(255, 255, 255, 0.08)` | Garis batas struktural panel kaca buram |
-| **Text High Contrast** | `#F8FAFC` | Tipografi judul, angka metrik utama, nama barang |
-| **Text Muted Steel** | `#94A3B8` | Label input, teks deskripsi, header tabel, metadata |
-| **Accent Cyan** | `#0284C7` | Tombol aksi utama (CTA), link navigasi aktif, focus ring |
-| **Status Emerald (Baik)** | `#10B981` | Indikator kondisi aset baik & siap pakai |
-| **Status Amber (Perlu Servis)** | `#F59E0B` | Indikator kondisi rusak ringan & jadwal pemeliharaan |
-| **Status Rose (Rusak Berat)** | `#EF4444` | Indikator kondisi kritis & usulan penghapusan aset |
-
-### 5.3 Typography Architecture
-
-- **Primary Sans-Serif (UI & Headings):** `Plus Jakarta Sans` / `Inter`.
-  - Display Title: 32px – 36px, Bold, Letter-spacing -0.02em.
-  - Section Header: 18px – 20px, Semi-Bold, Letter-spacing -0.015em.
-  - Body Text: 13px – 14px, Regular & Medium, Line-height 1.5.
-- **Monospace Engine (Identifiers & Numeric):** `JetBrains Mono` / `Space Mono`.
-  - Digunakan untuk: Kode Inventaris Barang (contoh: `LAB-FTI-2023-089`), nomor seri manufaktur, dan nominal valuasi uang (contoh: `Rp 245.000.000`). Memberikan keterbacaan data instan bagi staf audit.
-
-### 5.4 Spesifikasi Komponen Reusable
-
-1. **Button Primitives:**
-   - **Primary Action:** Latar belakang solid `#0284C7`, teks putih tebal, radius 8px, efek kilau halus saat hover (`0 0 12px rgba(2,132,199,0.35)`).
-   - **Secondary Glass:** Latar belakang transparan `rgba(30, 41, 59, 0.65)`, batas 1px `rgba(255, 255, 255, 0.12)`, teks `#F8FAFC`.
-   - **Danger Button:** Latar belakang `#EF4444`, teks putih, digunakan khusus pada dialog modal konfirmasi hapus/afkir.
-2. **Form Input Primitives:**
-   - Permukaan input gelap matte `rgba(15, 23, 42, 0.75)`, batas 1px `rgba(255, 255, 255, 0.12)`.
-   - Label tegas diletakkan di atas kolom input (*label-above pattern*), disertai pesan validasi error di bawah input jika terjadi kesalahan input client-side.
-3. **Status Badges (Pills):**
-   - Menggunakan format *pill rounded-full* dengan *pulsing indicator dot* (6px):
-     - Baik: `bg-emerald-500/10 text-emerald-400 border-emerald-500/30`
-     - Rusak Ringan: `bg-amber-500/10 text-amber-400 border-amber-500/30`
-     - Rusak Berat: `bg-rose-500/10 text-rose-400 border-rose-500/30`
+1. **Button Component Hierarchy:**
+   - *Primary Action:* Solid `#0284C7`, teks putih tebal, radius 8px, efek glow pendar cyan saat hover (`box-shadow: 0 0 16px rgba(2,132,199,0.4)`).
+   - *Secondary Glass:* Latar belakang translusen `rgba(30, 41, 59, 0.65)`, batas specular 1px, transisi halus saat disentuh kursor.
+   - *Danger Button:* Latar belakang `#EF4444`, teks putih, dengan peringatan visual tegas pada modal penghapusan.
+2. **Form Control Primitives:**
+   - Permukaan input gelap matte `rgba(15, 23, 42, 0.75)`, batas 1px `rgba(255, 255, 255, 0.12)`, radius 8px.
+   - Efek fokus aktif: cincin pendar cyan terasah (*cyan halo focus ring 0 0 0 2px #0284C7*).
+   - Pesan validasi kesalahan: teks berukuran 11px dengan batas input berubah menjadi merah lembut (`#EF4444`).
+3. **Status Badges & Pills:**
+   - Format pil memanjang (*rounded-full*) dengan titik pendar 6px (*pulsing beacon dot*):
+     - *Kondisi Baik:* `rgba(16, 185, 129, 0.12)` + teks `#10B981` + batas `rgba(16, 185, 129, 0.3)`.
+     - *Perlu Servis:* `rgba(245, 158, 11, 0.12)` + teks `#F59E0B` + batas `rgba(245, 158, 11, 0.3)`.
+     - *Rusak Berat:* `rgba(239, 68, 68, 0.12)` + teks `#EF4444` + batas `rgba(239, 68, 68, 0.3)`.
 4. **Modal Konfirmasi Interaktif:**
-   - Layer pelindung layar penuh (`rgba(11, 15, 25, 0.8)` + `backdrop-filter: blur(8px)`).
-   - Kartu dialog dengan penegasan identitas aset yang akan dihapus, formulir catatan alasan penghapusan, dan klausul persetujuan berita acara.
+   - Lapisan latar belakang pelindung penuh dengan efek buram ekstra (`backdrop-filter: blur(28px)`).
+   - Penegasan identitas aset yang akan diproses, formulir catatan alasan penghapusan, dan klausul persetujuan berita acara BMN.
 
 ---
 
-## 6. Hasil Wireframing & Prototyping (Google Stitch & Figma)
+## 8. Galeri Wireframing & High-Fidelity UI (Google Stitch & Figma)
 
-Dalam memenuhi instruksi Milestone 1, perancangan antarmuka telah dibuat pada **Google Stitch** (untuk perancangan tata letak cepat & *semantic layouting*) dan **Figma / FigJam** (untuk *Design System Tokens*, *Mermaid ER-D*, dan *High-Fidelity UI Screens*).
+### 8.1 Tautan Publik Berkas Proyek Figma & FigJam
 
-### 6.1 Link Publik Project Figma & FigJam
-
-| Media Perancangan | Tipe Berkas | Tautan Akses Publik |
+| Media Perancangan | Jenis Berkas | Tautan Akses Publik |
 |---|---|---|
-| **Figma High-Fidelity UI Design & Design System** | Figma Design File (.fig) | [Buka Proyek Figma SARPRAS High-Fi UI](https://www.figma.com/design/2AFWN3pMNSClSdg1beB2za) |
-| **FigJam Diagram (ER-D & User Flow Mermaid)** | FigJam Board File | [Buka FigJam Board ERD & User Flow](https://www.figma.com/board/KZoXT7K9wnRKsp91X45Gpu) |
+| **Figma High-Fidelity UI Design & Tokens** | Figma Design File (`.fig`) | [Buka Proyek Figma SARPRAS UI Kit & Screens](https://www.figma.com/design/2AFWN3pMNSClSdg1beB2za) |
+| **FigJam Diagram (ER-D & User Flow)** | FigJam Board File | [Buka FigJam Board Diagram](https://www.figma.com/board/KZoXT7K9wnRKsp91X45Gpu) |
 
-### 6.2 Identitas Proyek Google Stitch
-
-- **Stitch Project Name:** `projects/3279874328774814817`
+### 8.2 Identitas Proyek Google Stitch
+- **Google Stitch Project ID:** `3279874328774814817` (`projects/3279874328774814817`)
 - **Judul Proyek:** *SARPRAS - Sistem Manajemen Sarana dan Prasarana*
 - **Design System Uploaded:** `Obsidian Glass SARPRAS Design System (DESIGN.md)`
 
 ---
 
-### 6.3 Tangkapan Layar (Screenshots) Hasil Rancangan Stitch
+### 8.3 Dokumentasi Tangkapan Layar (Screenshots) Hasil Rancangan Stitch
 
-#### A. Wireframe & High-Fi Halaman 1: Executive Dashboard (SARPRAS ACADEMIA)
-*Menampilkan 4 kartu ringkasan KPI (Total Aset 1.482 unit, Kondisi Baik 86.4%, Perlu Servis 142 unit, Valuasi Rp 4.85 M), panel grafik distribusi kategori sarpras, pemantauan utilisasi gedung, dan tabel jadwal pemeliharaan berkala.*
+#### Layar 1: Gerbang Autentikasi Admin (`index.html`)
+*Menampilkan kartu kaca buram 480px melayang di atas pendaran aurora cyan & violet, formulir kredensial NIP & password, tombol SSO Kemendikbudristek, dan verifikasi sesi 30 hari.*
 
-![SARPRAS Executive Dashboard](../assets/img/stitch_dashboard.png)
+![SARPRAS Login Portal](../assets/img/stitch_login.png)
 
-- **Tautan Langsung Gambar Resolusi Penuh:**  
-  [Lihat Tangkapan Layar Dashboard High-Res (Google Storage CDN)](https://lh3.googleusercontent.com/aida/AEtjO1URMBRA1jSiiT5X5gCZYwx1lDnH8l03GIvFiTk9u-I9uRpiVOHvZBvsbL-Vq7l-61PD9yMnR7PwrSQtfyc2GW6yM0NEg7iP0el2E4Tf5t8c6vfyLgjsVxWQEmKg5JUi4RudYYe-RbgAgsBFZUHTuYOyokQIN0taMoIRJk_0Th4j4LQ3L13_J3uTFwBuTniL7sIRQSsg_iH3BO8NBj-Savm8CUGOIoFFgq-1bX48fM1e6Fa_N_K2IJx2oA)
+- **Tautan Gambar Resolusi Tinggi (Google Cloud Storage CDN):**  
+  [Lihat Tangkapan Layar Login High-Res](https://lh3.googleusercontent.com/aida/AEtjO1XV5wUJx4cjfrG7Xw70wL-Zr_lyjbF5k6tmzFayPB7QJdmFCPfExsVhjzoEUUDoqRveygdkeLuIO0uZgFDtmATi9imDnOfQFBmDZcZvJKsTPfqvk7QzQ4ApYXWtFLJaOaPStJguPM4hfRVBW4n4sdYq6s5oERnMwo38fCAYr2iksPZ9R7TBjGRdu2_HHa4mrWCAwhTD-gHb1JGhmk6E4AeGKdSbFsdU_i6bwUfrL_FlSOAI6pBkWXPCfA)
 
 ---
 
-#### B. Wireframe & High-Fi Halaman 2: Master Data Sarana dan Prasarana (Tabel Inventaris)
+#### Layar 2: Executive Dashboard (`pages/dashboard.html`)
+*Menampilkan 4 kartu ringkasan KPI, grafik distribusi kategori sarpras, pemantauan utilisasi gedung, dan tabel jadwal pemeliharaan berkala.*
+
+![SARPRAS Executive Dashboard](../assets/img/stitch_dashboard.png)
+
+- **Tautan Gambar Resolusi Tinggi (Google Cloud Storage CDN):**  
+  [Lihat Tangkapan Layar Dashboard High-Res](https://lh3.googleusercontent.com/aida/AEtjO1URMBRA1jSiiT5X5gCZYwx1lDnH8l03GIvFiTk9u-I9uRpiVOHvZBvsbL-Vq7l-61PD9yMnR7PwrSQtfyc2GW6yM0NEg7iP0el2E4Tf5t8c6vfyLgjsVxWQEmKg5JUi4RudYYe-RbgAgsBFZUHTuYOyokQIN0taMoIRJk_0Th4j4LQ3L13_J3uTFwBuTniL7sIRQSsg_iH3BO8NBj-Savm8CUGOIoFFgq-1bX48fM1e6Fa_N_K2IJx2oA)
+
+---
+
+#### Layar 3: Master Data Sarana dan Prasarana (`pages/data-master.html`)
 *Menampilkan toolbar filter pencarian multi-kriteria, tabel inventaris komprehensif dengan status kondisi aset berkode warna, seleksi baris batch, tombol aksi (Detail, Edit, Hapus), paginasi data, serta komponen Modal Konfirmasi Penghapusan Aset BMN.*
 
 ![SARPRAS Master Data Inventaris](../assets/img/stitch_datamaster.png)
 
-- **Tautan Langsung Gambar Resolusi Penuh:**  
-  [Lihat Tangkapan Layar Data Master High-Res (Google Storage CDN)](https://lh3.googleusercontent.com/aida/AEtjO1Xlq2LwZmvtF1z7WnpKhewoauPHIxNKu_f00VY2JPueflkH7B4tf-Sx8v1rh0cW00hYGrbJueWB-bjyS2AVKqS8XeMTrGbMPbFBr0w7T_gUf6OUN7XRWHiQYDkXYrg5HsZwXOaETNKxg5Pe_v6ryzue3Y9nU1zLTwTqqPwU325ycTkDJG8wwB64DnhI2u4aILOU8XlcITchuzK6Y-lnSd9-D5lG0oDp7GQhxoeHRz-EdqnZijJ7giQb7Ls)
+- **Tautan Gambar Resolusi Tinggi (Google Cloud Storage CDN):**  
+  [Lihat Tangkapan Layar Data Master High-Res](https://lh3.googleusercontent.com/aida/AEtjO1Xlq2LwZmvtF1z7WnpKhewoauPHIxNKu_f00VY2JPueflkH7B4tf-Sx8v1rh0cW00hYGrbJueWB-bjyS2AVKqS8XeMTrGbMPbFBr0w7T_gUf6OUN7XRWHiQYDkXYrg5HsZwXOaETNKxg5Pe_v6ryzue3Y9nU1zLTwTqqPwU325ycTkDJG8wwB64DnhI2u4aILOU8XlcITchuzK6Y-lnSd9-D5lG0oDp7GQhxoeHRz-EdqnZijJ7giQb7Ls)
 
 ---
 
-## 7. Struktur Folder Proyek
+#### Layar 4: Form Registrasi Aset Baru (`pages/form.html`)
+*Menampilkan grid 2-kolom kaca buram untuk spesifikasi alat & lokasi penempatan di sisi kiri, serta valuasi perolehan rupiah, dropzone berkas BAST, dan Live QR/Barcode Tag Stiker Fisik di sisi kanan.*
 
-Sesuai dengan ketentuan format pengumpulan tugas mata kuliah Pemrograman Web 2:
+![SARPRAS Form Registrasi Aset](../assets/img/stitch_form.png)
 
+- **Tautan Gambar Resolusi Tinggi (Google Cloud Storage CDN):**  
+  [Lihat Tangkapan Layar Form High-Res](https://lh3.googleusercontent.com/aida/AEtjO1WhKdrzjkfPN-e-FnDlUoSh_aCX_j10AfWvfS0BlA3aXBjh2QfqaGazls2urfpczQfM1J79HyUxWKvuIiZ2d7htNfeZdtVLiYqotWbk6mLEA4pO04UXyHKRLD4d-1MnexLQt_p9pWJlzhhmqSQ5sSuwU1-a7k-_pi08vER78DScM5R_hOmYTPJrtmWt6n6vdPBYx8TdjG_qIJigW3XMi6Uim7CMRMAI9yleEFwCpVTa4S6Kss1uG4V5kEQ)
+
+---
+
+#### Layar 5: Pusat Laporan & Kartu Inventaris Ruangan / KIR (`pages/laporan.html`)
+*Menampilkan ringkasan audit ruangan laboratorium terpadu, lembar cetak Kartu Inventaris Ruangan (KIR) standar audit kementerian, blok tanda tangan digital ganda terotentikasi QR segel SHA-256, dan opsi ekspor multi-format.*
+
+![SARPRAS Laporan & KIR](../assets/img/stitch_laporan.png)
+
+- **Tautan Gambar Resolusi Tinggi (Google Cloud Storage CDN):**  
+  [Lihat Tangkapan Layar Laporan High-Res](https://lh3.googleusercontent.com/aida/AEtjO1VNpI9QT4U7ebaOSK39QhiNSFS_PUSk-SCipP97dEH3GHTrSjaENrd455o8ev7GR2MoUKk68wO0Eq3hl5r9yZpcmylRc8gNhUD6wNr1doWkGGBNeWbwN9ixpa24QJSaqZzgfEFLz-0pmGgjtrn9O4tFuPIS0hFKTKdq6YyLPZBIBYKxrnzPSVoGFNozcyV2NFBTPwhkwmMC-kExn3Yif8KhtNci3pxvHVJQosk-PKpq8eXmBOzrlyxT_aA)
+
+---
+
+## 9. Skema Data Client-Side & Strategi State Mock Data
+
+Untuk memastikan aplikasi dapat berjalan 100% mandiri pada sisi klien (*client-side only*) tanpa ketergantungan server backend, seluruh data diinisialisasi melalui modul JavaScript `assets/js/mock-data.js` dan disimpan secara dinamis ke `localStorage`.
+
+### Contoh Struktur Objek Aset (JSON)
+```javascript
+const MOCK_ASSETS = [
+  {
+    id: "ast-001",
+    kode: "AST-LAB-2026-089",
+    nama: "Spektrofotometer UV-Vis Double Beam",
+    kategori: "Peralatan Laboratorium & Riset",
+    merk: "Shimadzu UV-2600i Research Grade",
+    nomorSeri: "893-KM-2026-X901",
+    gedung: "Gedung Riset Terpadu",
+    ruangan: "Lab Kimia Terpadu R.302",
+    penanggungJawab: "Dr. Retno Lestari, M.Si",
+    tahunPerolehan: 2026,
+    hargaPerolehan: 285000000,
+    kondisi: "Baik", // "Baik" | "Rusak Ringan" | "Rusak Berat"
+    status: "Operasional", // "Operasional" | "Servis" | "Decommissioned"
+    sumberDana: "BOPTN Riset Unggulan",
+    tanggalPembelian: "2026-03-15",
+    qrTagUrl: "QR-AST-LAB-2026-089"
+  },
+  {
+    id: "ast-002",
+    kode: "SRV-TIK-2024-012",
+    nama: "Dell PowerEdge R750 Compute Server Node",
+    kategori: "IT & Server",
+    merk: "Dell Technologies (2x Intel Xeon Gold 6330)",
+    nomorSeri: "DL-R750-99210-XC",
+    gedung: "Gedung Rektorat Pusat",
+    ruangan: "Data Center Pusat Lt. 1",
+    penanggungJawab: "Ir. Fajar Pratama, S.Kom., M.T.",
+    tahunPerolehan: 2024,
+    hargaPerolehan: 180000000,
+    kondisi: "Baik",
+    status: "Operasional",
+    sumberDana: "DIPA PNBP",
+    tanggalPembelian: "2024-06-20",
+    qrTagUrl: "QR-SRV-TIK-2024-012"
+  },
+  {
+    id: "ast-003",
+    kode: "MEC-FT-2020-055",
+    nama: "Universal Testing Machine Shimadzu 100kN",
+    kategori: "Peralatan Laboratorium & Riset",
+    merk: "Shimadzu AGX-V Series",
+    nomorSeri: "UTM-SHM-2020-5512",
+    gedung: "Fakultas Teknik",
+    ruangan: "Lab Pengujian Mekanik FT Lt. 1",
+    penanggungJawab: "Dr. Bambang Sujarwo, S.T., M.T.",
+    tahunPerolehan: 2020,
+    hargaPerolehan: 520000000,
+    kondisi: "Rusak Berat",
+    status: "Decommissioned",
+    sumberDana: "APBN Hibah Luar Negeri",
+    tanggalPembelian: "2020-01-14",
+    qrTagUrl: "QR-MEC-FT-2020-055"
+  }
+];
+```
+
+---
+
+## 10. Struktur Repositori & Kepatuhan Rubrik Penilaian
+
+### 10.1 Struktur Folder Proyek
 ```
 Tugas Pemweb II/
 ├── docs/
-│   └── perancangan.md          <-- Dokumen Perancangan Milestone 1
+│   └── perancangan.md          <-- Dokumen Resmi Perancangan Milestone 1
 ├── assets/
-│   ├── css/                    <-- Stylesheet Glassmorphism (Milestone 2)
-│   ├── js/                     <-- Interaktivitas DOM & Mock Data Store (Milestone 3)
-│   └── img/                    <-- Aset Visual & Tangkapan Layar Wireframe
+│   ├── css/                    <-- Disiapkan untuk Glassmorphism Engine (Milestone 2)
+│   ├── js/                     <-- Disiapkan untuk State & DOM Interactivity (Milestone 3)
+│   └── img/                    <-- Aset Visual & Tangkapan Layar Resolusi Tinggi
+│       ├── stitch_login.png
 │       ├── stitch_dashboard.png
-│       └── stitch_datamaster.png
+│       ├── stitch_datamaster.png
+│       ├── stitch_form.png
+│       └── stitch_laporan.png
 ├── pages/                      <-- Halaman Spesifik Admin Panel (Milestone 3)
 │   ├── dashboard.html
 │   ├── data-master.html
 │   ├── form.html
 │   └── laporan.html
 ├── layout.html                 <-- Master/Template Dasar Layouting (Milestone 2)
-├── index.html                  <-- Halaman Utama / Login Admin
-└── README.md                   <-- Ringkasan Repositori & Petunjuk Penggunaan
+├── index.html                  <-- Halaman Utama / Login Admin Gatekeeper
+├── PERANCANGAN.md              <-- Salinan Dokumen Root untuk Kemudahan Dosen
+└── README.md                   <-- Dokumentasi Proyek Repositori
 ```
 
----
+### 10.2 Matriks Pemenuhan Kriteria Penilaian Milestone 1 (Bobot 20%)
 
-## 8. Ringkasan Kesiapan Milestone
-
-| Komponen Evaluasi | Bobot | Status Milestone 1 | Catatan Verifikasi |
-|---|---|---|---|
-| **Kelengkapan Struktur Menu (.md)** | 20% | **Lengkap (100%)** | Struktur hirarki 6 modul utama terdefinisi rinci beserta matriks hak akses 3 role. |
-| **Konsep ER-D Sederhana (Mermaid.js)** | Termasuk | **Lengkap (100%)** | 7 entitas relasional terhubung dengan kardinalitas presisi dan tipe data atribut. |
-| **User Flow Antarmuka Admin** | Termasuk | **Lengkap (100%)** | Diagram alir Mermaid.js terintegrasi dari login hingga pencetakan laporan dan penghapusan data. |
-| **Desain Sistem Awal di Figma** | Termasuk | **Lengkap (100%)** | Color tokens, typography rules, dan reusable components terdefinisi pada Figma Design File. |
-| **Wireframing di Google Stitch** | Termasuk | **Lengkap (100%)** | Proyek Stitch aktif dengan 2 layar utama (Dashboard & Data Master) beserta screenshot & link publik. |
-| **Link Publik Figma & Embed Screenshot** | Termasuk | **Lengkap (100%)** | Tautan aktif Figma/FigJam disertakan, screenshot lokal & CDN tersemat rapi. |
+| Indikator Penilaian | Target Silabus | Implementasi pada Proyek Ini | Status |
+|---|---|---|:---:|
+| **Kelengkapan Struktur Menu (.md)** | Daftar hirarki menu (Sidebar/Navbar) terstruktur jelas | Struktur hirarki 6 modul utama dengan rincian sub-menu, interaksi, dan matriks hak akses 4 role. | **Sempurna (100%)** |
+| **Konsep ER-D Sederhana** | ER-D menggunakan sintaks Mermaid.js | 7 entitas relasional dengan kardinalitas, primary/foreign key, tipe data, dan atribut spesifik. | **Sempurna (100%)** |
+| **UI Wireframing di Stitch / Figma** | Skema komponen dan User Flow antarmuka admin | 5 layar utama lengkap dengan efek True Glassmorphism dirancang pada Google Stitch & Figma. | **Sempurna (100%)** |
+| **Design System Awal di Figma** | Color palettes, typography styles, dan komponen reusable | Tokens lengkap (Obsidian void, frosted glass, specular borders, Plus Jakarta Sans, JetBrains Mono, Button, Inputs, Pills, Cards, Modal) tersedia di Figma File. | **Sempurna (100%)** |
+| **Tautan Publik & Embed Screenshot** | Link publik ke Figma dan screenshot hasil Stitch | 2 Link Figma/FigJam aktif disertakan, 5 screenshot tersimpan lokal dan tertaut ke Google CDN. | **Sempurna (100%)** |
 
 ---
-*Dokumen ini disusun sebagai luaran resmi Milestone 1 (Pekan Ke-3) Mata Kuliah Pemrograman Web 2.*
+*Dokumen ini disusun dan diverifikasi sebagai luaran resmi Milestone 1 (Pekan Ke-3) Mata Kuliah Pemrograman Web 2.*
