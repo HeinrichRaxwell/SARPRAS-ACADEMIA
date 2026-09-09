@@ -1,29 +1,41 @@
 # DOKUMEN PERANCANGAN SISTEM INFORMASI (MILESTONE 1)
 # SARPRAS ACADEMIA : INSTITUTIONAL ASSET MANAGEMENT & AUDIT PLATFORM
-## SPESIFIKASI ARSITEKTUR INFORMASI, DESIGN SYSTEM GLASSMORPHISM & UI WIREFRAMING
+## SPESIFIKASI ARSITEKTUR INFORMASI, TITANIUM MONOLITH DESIGN SYSTEM & UI WIREFRAMING
 
 ---
 
 - **Mata Kuliah:** Pemrograman Web 2 (Client-Side Programming)
 - **Topik Sistem:** Sistem Manajemen Sarana dan Prasarana (Asset Management)
 - **Bobot Tugas:** Tugas Ke-1 (Project-Based Learning : Milestone 1 Pekan Ke-3)
-- **Estetika Antarmuka:** True Ultra-Luxury Glassmorphism (Deep Obsidian Void, Chromatic Ambient Refraction, Specular Beveled Edges)
-- **Arsitektur Teknis:** Client-Side Single Page Application (Pure Semantic HTML5, CSS3 Glass Engine, Vanilla ES6+ State Store, No Backend / Mock Data)
+- **Arah Desain:** Titanium Monolith & Smoked Optical Glass (Anti-AI-Slop Industrial Workstation)
+- **Arsitektur Teknis:** Client-Side Single Page Application (Semantic HTML5, Custom CSS3 Titanium Engine, Vanilla ES6+ State Store, No Backend / Mock Data)
 - **Repositori & Berkas:** `D:\VsCode\Tugas Pemweb II\`
 
 ---
 
-## 0. DESIGN READ & ENGINEERING DIRECTIVES (ANTI-SLOP AUDIT)
+## 0. DEKLARASI DESIGN READ & AUDIT ANTI-SLOP
 
 ### 0.1 Declaration of Design Read
 > **Design Read:** Institutional and academic asset management back-office admin panel for university chancellors and BMN facilities auditors, with an ultra-luxury dark glassmorphism aesthetic, leaning toward Apple Liquid Glass web approximation + Emil Kowalski tactile physics + JetBrains Mono data engine + zero AI slop.
 
-### 0.2 Core Configuration Dials
+### 0.2 Audit Eliminasi AI Slop (Kenapa Desain Dirombak Total)
+Pada perancangan awal, generator AI sering menghasilkan palet warna template (Material-You pastel mud, gradien ungu neon, dan kartu-kartu simetris yang seragam). Seluruh elemen klise tersebut telah dieliminasi total:
+
+| Elemen Template Klise (AI Slop Dibuang) | Standar Titanium Monolith (Desain Baru) | Landasan Desain Industri |
+| --- | --- | --- |
+| Latar belakang gradien biru/ungu neon | Kanvas netral pekat Carbon Void `#08090A` | Menghilangkan polusi visual dan memberikan kontras data tertinggi untuk staf audit. |
+| Kartu kaca tebal dengan drop shadow hitam pekat | Smoked Optical Glass (`rgba(255,255,255,0.03)`) + whisper border 1px | Kaca gelap tipis ala instrumen presisi Leica dan workstation Linear. |
+| Tombol utama berwarna biru pastel atau ungu glow | Tombol solid putih kontras `#FFFFFF` dengan teks gelap `#08090A` | Menetapkan fokus hierarki visual instan tanpa efek glow murahan. |
+| Grid 4 kartu metrik simetris seragam | Asymmetric Command Bento (5-col, 3-col, 4-col) | Memberikan ritme visual fungsional sesuai bobot informasi. |
+| Teks judul menggunakan gradien warna-warni | Tipografi solid Chalk White `#EDEDED` (Plus Jakarta Sans) | Tipografi tajam dan berwibawa tanpa efek dekoratif artifisial. |
+| Karakter emoji kasual pada status | Ikon vektor monokromatik SVG 1.5px + Monospace JetBrains Mono | Memenuhi standar dokumentasi resmi Barang Milik Negara (BMN). |
+
+### 0.3 Core Configuration Dials
 - **`DESIGN_VARIANCE: 7`** (Asimetris fungsional: pemisahan grid 2-kolom, bento analitik terarah, dan tabel data densitas tinggi tanpa layout template simetris membosankan).
 - **`MOTION_INTENSITY: 6`** (Animasi fisika pegas / spring physics pada tombol dan modal, transisi responsif di bawah 200ms, tanpa animasi lambat yang membuang waktu operasional admin).
 - **`VISUAL_DENSITY: 6`** (Densitas data seimbang khas workstation institusional: spasi proporsional dengan keterbacaan angka monospaced optimal).
 
-### 0.3 Design Feasibility & Impact Index (DFII)
+### 0.4 Design Feasibility & Impact Index (DFII)
 - **Aesthetic Impact (1-5):** 5/5 (Tampilan visual mewah khas instrumen command center modern).
 - **Context Fit (1-5):** 5/5 (Cocok untuk tata kelola aset kampus, laboratorium riset, dan audit fiskal).
 - **Implementation Feasibility (1-5):** 5/5 (Dapat diwujudkan 100% menggunakan native HTML5, CSS3, dan vanilla JavaScript).
@@ -31,14 +43,14 @@
 - **Consistency Risk (1-5):** 1/5 (Seluruh warna, batas, dan radius dikunci rapat dalam CSS Variables terpusat).
 - **Total DFII Score:** `(5 + 5 + 5 + 4) - 1 = 18 / 15` (Status: Exceptional / Siap Produksi Penuh).
 
-### 0.4 Differentiation Anchor
-> **Anchor Pembeda Visual:** Jika antarmuka ini diambil tangkapan layarnya dengan logo dan judul dihilangkan, sistem ini langsung dikenali dari kanvas obsidian kosmik yang ditembus pendaran aurora kromatik sian dan violet melalui lempengan kaca buram tebal (frosted glass) dengan garis tepi bersudut bias cahaya (specular beveled highlights), tipografi angka BMN monospaced presisi, dan ketiadaan emoji informal.
+### 0.5 Differentiation Anchor
+> **Anchor Pembeda Visual:** Jika antarmuka ini diambil tangkapan layarnya dengan logo dan judul dihilangkan, sistem ini langsung dikenali dari kanvas carbon void `#08090A` dengan panel smoked glass netral, garis tepi whisper border 1px bersudut bias cahaya, tombol utama solid white kontras tinggi, dan tipografi monospaced JetBrains Mono pada seluruh kode BMN serta nilai buku rupiah.
 
 ---
 
 ## 1. EMIL KOWALSKI DESIGN POLISH & INTERACTION REVIEW
 
-Sesuai dengan prinsip rekayasa desain antarmuka modern (Emil Kowalski / animations.dev), seluruh detail mikroskopis diperbaiki sebelum implementasi kode nyata:
+Sesuai dengan prinsip rekayasa desain antarmuka modern (Emil Kowalski / animations.dev), seluruh interaksi mikro diperbaiki secara ketat:
 
 | Sebelum (Kebiasaan Template Umum) | Sesudah (Standar Polish SARPRAS ACADEMIA) | Alasan & Landasan Teknis |
 | --- | --- | --- |
@@ -63,36 +75,71 @@ Sesuai dengan prinsip rekayasa desain antarmuka modern (Emil Kowalski / animatio
 
 ---
 
-## 3. FISIKA KACA: APPLE LIQUID GLASS WEB APPROXIMATION
+## 3. ARSITEKTUR TITANIUM MONOLITH & SMOKED GLASS
 
 ### 3.1 Formula CSS Kaca Terstandarisasi
 ```css
-/* Spesifikasi Elemen Kaca Utama */
-.glass-container {
-  position: relative;
-  isolation: isolate;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%),
-              rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(24px) saturate(180%) contrast(1.05);
-  -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(1.05);
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
-  border-left: 1px solid rgba(255, 255, 255, 0.16);
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
-    0 20px 50px -15px rgba(0, 0, 0, 0.6);
-  border-radius: 14px;
+/* Token Utama Titanium Monolith */
+:root {
+  --bg-void: #08090A;
+  --bg-surface: #0D0F12;
+  --glass-surface: rgba(255, 255, 255, 0.03);
+  --glass-elevate: rgba(255, 255, 255, 0.06);
+  --whisper-border: rgba(255, 255, 255, 0.08);
+  --specular-border: rgba(255, 255, 255, 0.16);
+  --text-chalk: #EDEDED;
+  --text-muted: #71717A;
+  --btn-primary-bg: #FFFFFF;
+  --btn-primary-text: #08090A;
+  --accent-cobalt: #2563EB;
+  --signal-normal: #059669;
+  --signal-warning: #D97706;
+  --signal-critical: #DC2626;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-data: 'JetBrains Mono', monospace;
 }
 
-/* Fallback Aksesibilitas bagi Pengguna yang Mematikan Efek Transparansi */
+/* Kontainer Smoked Optical Glass */
+.smoked-glass-panel {
+  position: relative;
+  isolation: isolate;
+  background: var(--glass-surface);
+  backdrop-filter: blur(20px) saturate(180%) contrast(1.05);
+  -webkit-backdrop-filter: blur(20px) saturate(180%) contrast(1.05);
+  border: 1px solid var(--whisper-border);
+  box-shadow: 
+    inset 0 1px 0 var(--specular-border),
+    0 16px 40px -12px rgba(0, 0, 0, 0.7);
+  border-radius: 6px;
+}
+
+/* Tombol Primary High-Contrast */
+.btn-primary-white {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  transition: transform 120ms cubic-bezier(0.23, 1, 0.32, 1), background-color 120ms ease;
+}
+
+.btn-primary-white:hover {
+  background-color: #E4E4E7;
+}
+
+.btn-primary-white:active {
+  transform: scale(0.97);
+}
+
+/* Aksesibilitas bagi Pengguna yang Mematikan Efek Transparansi */
 @media (prefers-reduced-transparency: reduce) {
-  .glass-container {
-    background: #0F172A;
+  .smoked-glass-panel {
+    background: #0D0F12;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    border: 1px solid #334155;
+    border: 1px solid #27272A;
   }
 }
 ```
@@ -109,11 +156,11 @@ SARPRAS ACADEMIA (Institutional Command v4.2)
 │   ├── SSO Kemendikbudristek (ID Satker)
 │   └── Verifikasi Sesi Kriptografis 30 Hari
 │
-├── [1.0] Dashboard Eksekutif (pages/dashboard.html)
-│   ├── 1.1 KPI Metrics Ribbon (Total Aset, Kondisi Prima, Servis Berjalan, Valuasi Buku)
-│   ├── 1.2 Panel Visual Analitik Distribusi Kategori (Chart.js Bar & Doughnut)
-│   ├── 1.3 Pemantauan Kapasitas & Utilisasi Fasilitas Gedung
-│   └── 1.4 Feed Aktivitas Jadwal Servis & Kalibrasi Lab Terdekat
+├── [1.0] Executive Command Dashboard (pages/dashboard.html)
+│   ├── 1.1 Asymmetric Command Bento (Valuasi BMN Rp 4.85 M, Integritas 86.4%, Tiket Servis 142)
+│   ├── 1.2 Kluster Alokasi Fasilitas (Lab Riset 38%, Server IT 27%, Smart Class 21%, Utilitas 14%)
+│   ├── 1.3 Telemetry Feed Pemeliharaan Kritis
+│   └── 1.4 Data Grid Kalibrasi & Servis Terdekat
 │
 ├── [2.0] Master Data Sarana & Prasarana (pages/data-master.html)
 │   ├── 2.1 Katalog Inventaris Barang Milik Negara (BMN)
@@ -166,31 +213,29 @@ SARPRAS ACADEMIA (Institutional Command v4.2)
 ### 5.1 Halaman 1: Gerbang Autentikasi Admin (`index.html`)
 - **Tujuan Pengguna:** Memvalidasi kredensial petugas sarpras dan mengamankan akses ke workstation inventaris.
 - **Komponen Utama:**
-  - Kanvas kosmik gelap (`#070B14`) dengan pendaran aurora kromatik sian (`#0284C7`) dan violet (`#7C3AED`).
-  - Kartu kaca buram tengah melayang (lebar 480px, radius 20px, blur 28px, border 1px specular).
-  - Insignia segel resmi institusi beraksen pendar lembut.
-  - Kolom input NIP dan Kata Sandi dengan cincin fokus pendar sian (`0 0 0 2px #0284C7`).
-  - Tombol masuk utama bergradien sian elektrik dengan respon tekan taktil `scale(0.97)`.
-  - Tombol federasi akses via SSO Kemendikbudristek (ID Satker).
-  - Indikator keamanan enkripsi kriptografis SHA-256 pada footer kartu.
+  - Kanvas netral Carbon Void (`#08090A`) dengan garis grid tipis mikroskopis.
+  - Kartu smoked optical glass tengah melayang (lebar 460px, radius 6px, border 1px whisper border, inset top highlight).
+  - Insignia segel resmi institusi beraksen monokrom bersih.
+  - Kolom input NIP dan Kata Sandi pada recessed background (`#0D0F12`) dengan cincin fokus presisi kobalt (`0 0 0 1px #2563EB`).
+  - Tombol masuk utama solid white berkontras tinggi (`#FFFFFF`) dengan teks gelap `#08090A` dan respon tekan taktil `scale(0.97)`.
+  - Tombol federasi akses alternatif via SSO Kemendikbudristek (ID Satker).
+  - Indikator kepatuhan regulasi PMK No. 181/PMK.06/2016 dan ISO 55001.
 
-### 5.2 Halaman 2: Executive Dashboard (`pages/dashboard.html`)
-- **Tujuan Pengguna:** Memberikan ikhtisar analitik komprehensif terkait sebaran aset, nilai kapitalisasi buku, dan mitigasi pemeliharaan alat.
+### 5.2 Halaman 2: Executive Command Dashboard (`pages/dashboard.html`)
+- **Tujuan Pengguna:** Menyajikan ringkasan komando asimetris atas total valuasi BMN, kesehatan instrumen, dan jadwal kalibrasi mendesak.
 - **Komponen Utama:**
-  - **Sidebar Persisten (Lebar 260px):** Navigasi menu utama dengan status aktif bercahaya sian, logo instansi, dan indikator status koneksi node.
-  - **Header Navigasi Kaca (Tinggi 64px):** Breadcrumb navigasi, kolom pencarian barcode / aset global (`Ctrl + K`), tombol aksi cepat *+ Registrasi Aset*, dan identitas profil administrator.
-  - **4 Kartu Metrik KPI Eksekutif:**
-    1. *Total Aset Terdaftar:* 1.482 Unit (+38 unit terakreditasi kuartal ini).
-    2. *Kondisi Operasional Prima:* 86.4% (1.280 unit operasional aktif).
-    3. *Perlu Servis & Kalibrasi:* 142 Unit (9.6% jadwal berjalan, peringatan amber).
-    4. *Total Nilai Buku Fiskal:* Rp 4.85 Miliar (depresiasi TA 2026).
-  - **Panel Visual Distribusi Kategori Sarpras:** Grafik proporsional berbasis Chart.js (Peralatan Lab 38%, Sarana IT 27%, Fasilitas Kuliah 21%, Kendaraan Dinas 14%).
-  - **Panel Utilisasi Fasilitas & Jadwal Servis Terdekat:** Daftar antrean kalibrasi alat laboratorium presisi tinggi.
+  - **Sidebar Persisten (Lebar 250px):** Navigasi menu utama dengan tab aktif berlatar smoked glass tipis, indikator status sinkronisasi node SIMAK-BMN.
+  - **Header Navigasi Kaca (Tinggi 64px):** Breadcrumb navigasi, kolom pencarian cepat (`Ctrl + K`), indikator telemetri sistem `SYSTEM NOMINAL // ALL CLUSTERS ONLINE`, dan tombol utama solid white `+ Registrasi Aset`.
+  - **Asymmetric Command Bento Grid (12-Kolom):**
+    - *Cell 1 (5-Kolom - Valuasi & Integritas):* Angka besar Rp 4.85 Miliar (JetBrains Mono bold), trajektori unit baru, dan radial/linear progress gauge kesehatan aset 86.4% dengan sinyal hijau zamrud netral (`#059669`).
+    - *Cell 2 (3-Kolom - Disposisi Servis):* Antrean 142 tiket aktif dengan indikator 23 tiket kritis berlatar sinyal amber/crimson yang lembut.
+    - *Cell 3 (4-Kolom - Alokasi Kluster):* Bar meter tipis untuk kluster Lab Riset (38%), IT Server (27%), Ruang Kuliah (21%), dan Transportasi (14%).
+  - **Tabel Data Grid Kalibrasi & Servis Terdekat:** Grid data presisi untuk jadwal perawatan alat berakurasi tinggi (Spektrofotometer UV-Vis Shimadzu, Server Dell PowerEdge, Mikroskop Leica, Mesin Uji Tarik Tensile).
 
 ### 5.3 Halaman 3: Master Data Sarana dan Prasarana (`pages/data-master.html`)
 - **Tujuan Pengguna:** Mengelola katalog inventaris seluruh aset kampus, melakukan filter multi-kriteria, inspeksi rincian spesifikasi, dan memproses penghapusan BMN.
 - **Komponen Utama:**
-  - **Toolbar Filter & Aksi:** Input pencarian multi-parameter, dropdown Kategori, dropdown Gedung, dropdown Status Kondisi, tombol ekspor (CSV, XLSX, PDF), dan tombol *+ Registrasi Aset*.
+  - **Toolbar Filter & Aksi:** Input pencarian multi-parameter, dropdown Kategori, dropdown Gedung, dropdown Status Kondisi, tombol ekspor (CSV, XLSX, PDF), dan tombol utama solid white `+ Registrasi Aset`.
   - **Tabel Data Translusen Berdensitas Tinggi:**
     - Kolom: Kotak centang, Kode Inventaris BMN (monospace JetBrains Mono), Nama Barang & Spesifikasi, Kategori, Lokasi Ruangan, Tahun, Kondisi (Badge pil berpendar), Nilai Buku, dan Tombol Aksi (Detail, Edit, Hapus).
   - **Komponen Modal Khusus : Konfirmasi Penghapusan (Decommissioning):**
@@ -342,18 +387,18 @@ stateDiagram-v2
 
 | Kategori Token | Nama Token | Nilai HEX / RGBA | Penerapan Desain |
 |---|---|---|---|
-| **Canvas** | `--bg-void` | `#070B14` | Latar belakang dasar antarmuka |
-| **Surface Kaca** | `--glass-surface` | `rgba(15, 23, 42, 0.65)` | Kontainer kartu, header, dan sidebar |
-| **Surface Elevate** | `--glass-elevate` | `rgba(30, 41, 59, 0.85)` | Dialog modal, dropdown popover, menu melayang |
-| **Specular Border** | `--glass-border` | `rgba(255, 255, 255, 0.14)` | Garis batas 1px refleksi cahaya |
-| **Inner Glow** | `--glass-glow-inset` | `rgba(255, 255, 255, 0.18)` | Refleksi cahaya tepi dalam kartu |
-| **Aksen Utama** | `--accent-cyan` | `#0284C7` | Tombol CTA, indikator aktif, focus halo |
-| **Aksen Sekunder** | `--accent-violet` | `#7C3AED` | Aurora ambient glow & badge khusus |
-| **Kondisi Baik** | `--status-emerald` | `#10B981` | Indikator kondisi aset prima & terverifikasi |
-| **Kondisi Servis** | `--status-amber` | `#F59E0B` | Indikator rusak ringan & jadwal pemeliharaan |
-| **Kondisi Kritis** | `--status-rose` | `#EF4444` | Indikator rusak berat & modal hapus |
-| **Teks Utama** | `--text-primary` | `#F8FAFC` | Judul, angka KPI, nama barang |
-| **Teks Sekunder** | `--text-muted` | `#94A3B8` | Label formulir, metadata, keterangan |
+| **Canvas** | `--bg-void` | `#08090A` | Latar belakang dasar antarmuka |
+| **Surface Kaca** | `--glass-surface` | `rgba(255, 255, 255, 0.03)` | Kontainer kartu, header, dan sidebar |
+| **Surface Elevate** | `--glass-elevate` | `rgba(255, 255, 255, 0.06)` | Dialog modal, dropdown popover, menu melayang |
+| **Specular Border** | `--glass-border` | `rgba(255, 255, 255, 0.08)` | Garis batas 1px refleksi cahaya |
+| **Inner Glow** | `--glass-glow-inset` | `rgba(255, 255, 255, 0.16)` | Refleksi cahaya tepi dalam kartu |
+| **Tombol Utama** | `--btn-primary-bg` | `#FFFFFF` | Tombol aksi utama kontras tinggi |
+| **Aksen Sistem** | `--accent-cobalt` | `#2563EB` | Indikator aktif dan cincin fokus |
+| **Kondisi Baik** | `--status-emerald` | `#059669` | Indikator kondisi aset prima & terverifikasi |
+| **Kondisi Servis** | `--status-amber` | `#D97706` | Indikator rusak ringan & jadwal pemeliharaan |
+| **Kondisi Kritis** | `--status-rose` | `#DC2626` | Indikator rusak berat & modal hapus |
+| **Teks Utama** | `--text-chalk` | `#EDEDED` | Judul, angka KPI, nama barang |
+| **Teks Sekunder** | `--text-muted` | `#71717A` | Label formulir, metadata, keterangan |
 
 ### 8.2 Tipografi Presisi
 - **Display & Headings:** `Plus Jakarta Sans` (Font Weight: 600, 700; Letter Spacing: -0.02em). Memberikan kesan modern, kokoh, dan presisi.
@@ -363,18 +408,18 @@ stateDiagram-v2
 ### 8.3 Komponen Antarmuka Reusable
 
 1. **Button Component Hierarchy:**
-   - *Primary Action:* Solid `#0284C7`, teks putih tebal, radius 8px, efek glow pendar sian saat hover (`box-shadow: 0 0 16px rgba(2,132,199,0.4)`), kompresi taktil `:active` `scale(0.97)`.
-   - *Secondary Glass:* Latar belakang translusen `rgba(30, 41, 59, 0.65)`, batas specular 1px, transisi halus saat disentuh kursor.
-   - *Danger Button:* Latar belakang `#EF4444`, teks putih, dengan peringatan visual tegas pada modal penghapusan.
+   - *Primary Action:* Solid `#FFFFFF`, teks gelap `#08090A`, radius 4px, kompresi taktil `:active` `scale(0.97)`.
+   - *Secondary Glass:* Latar belakang translusen `rgba(255, 255, 255, 0.04)`, batas whisper border 1px, teks `#EDEDED`.
+   - *Danger Button:* Latar belakang `#DC2626`, teks putih, dengan konfirmasi tegas pada modal penghapusan.
 2. **Form Control Primitives:**
-   - Permukaan input gelap matte `rgba(15, 23, 42, 0.75)`, batas 1px `rgba(255, 255, 255, 0.12)`, radius 8px.
-   - Efek fokus aktif: cincin pendar sian terasah (`0 0 0 2px #0284C7`).
-   - Pesan validasi kesalahan: teks berukuran 11px dengan batas input berubah menjadi merah lembut (`#EF4444`).
+   - Permukaan input gelap recessed `#0D0F12`, batas 1px `rgba(255, 255, 255, 0.08)`, radius 4px.
+   - Efek fokus aktif: cincin fokus tajam kobalt (`0 0 0 1px #2563EB`).
+   - Pesan validasi kesalahan: teks berukuran 11px dengan batas input berubah menjadi merah lembut (`#DC2626`).
 3. **Status Badges & Pills:**
-   - Format pil memanjang (rounded-full) dengan titik pendar 6px (pulsing beacon dot):
-     - *Kondisi Baik:* `rgba(16, 185, 129, 0.12)` + teks `#10B981` + batas `rgba(16, 185, 129, 0.3)`.
-     - *Perlu Servis:* `rgba(245, 158, 11, 0.12)` + teks `#F59E0B` + batas `rgba(245, 158, 11, 0.3)`.
-     - *Rusak Berat:* `rgba(239, 68, 68, 0.12)` + teks `#EF4444` + batas `rgba(239, 68, 68, 0.3)`.
+   - Format pil memanjang dengan titik pendar 6px:
+     - *Kondisi Baik:* `rgba(5, 150, 105, 0.12)` + teks `#059669` + batas `rgba(5, 150, 105, 0.3)`.
+     - *Perlu Servis:* `rgba(217, 119, 6, 0.12)` + teks `#D97706` + batas `rgba(217, 119, 6, 0.3)`.
+     - *Rusak Berat:* `rgba(220, 38, 38, 0.12)` + teks `#DC2626` + batas `rgba(220, 38, 38, 0.3)`.
 4. **Modal Konfirmasi Interaktif:**
    - Lapisan latar belakang pelindung penuh dengan efek buram ekstra (`backdrop-filter: blur(28px)`).
    - Penegasan identitas aset yang akan diproses, formulir catatan alasan penghapusan, dan klausul persetujuan berita acara BMN.
@@ -393,59 +438,59 @@ stateDiagram-v2
 ### 9.2 Identitas Proyek Google Stitch
 - **Google Stitch Project ID:** `3279874328774814817` (`projects/3279874328774814817`)
 - **Judul Proyek:** *SARPRAS - Sistem Manajemen Sarana dan Prasarana*
-- **Design System Uploaded:** `Obsidian Glass SARPRAS Design System (DESIGN.md)`
+- **Design System Uploaded:** `Titanium Monolith & Smoked Glass (DESIGN.md)`
 
 ---
 
 ### 9.3 Dokumentasi Tangkapan Layar (Screenshots) Hasil Rancangan Stitch
 
 #### Layar 1: Gerbang Autentikasi Admin (`index.html`)
-*Menampilkan kartu kaca buram 480px melayang di atas pendaran aurora sian & violet, formulir kredensial NIP & password, tombol SSO Kemendikbudristek, dan verifikasi sesi 30 hari.*
+*Menampilkan kartu smoked optical glass 460px melayang pada kanvas carbon void #08090A, formulir kredensial NIP & password, tombol login solid white kontras tinggi, dan opsi SSO Kemendikbudristek.*
 
 ![SARPRAS Login Portal](../assets/img/stitch_login.png)
 
 - **Tautan Gambar Resolusi Tinggi (Google Cloud Storage CDN):**  
-  [Lihat Tangkapan Layar Login High-Res](https://lh3.googleusercontent.com/aida/AEtjO1XV5wUJx4cjfrG7Xw70wL-Zr_lyjbF5k6tmzFayPB7QJdmFCPfExsVhjzoEUUDoqRveygdkeLuIO0uZgFDtmATi9imDnOfQFBmDZcZvJKsTPfqvk7QzQ4ApYXWtFLJaOaPStJguPM4hfRVBW4n4sdYq6s5oERnMwo38fCAYr2iksPZ9R7TBjGRdu2_HHa4mrWCAwhTD-gHb1JGhmk6E4AeGKdSbFsdU_i6bwUfrL_FlSOAI6pBkWXPCfA)
+  [Lihat Tangkapan Layar Login High-Res](https://lh3.googleusercontent.com/aida/AEtjO1UTSf0LEMhUP7Z-SDUBEaMz99lE1xvToApud3qPl6aHxjmt3r_ogDWFcsxLLwTSdNlc5oXnj6hZ67bbXOGl0AzpGaoHWXzx7ZvArSS1HJauuF4JX6xlz-umYDcPEC0mW_lY3aNrIsC-4SOyss5BjognUZ7iyiyjxveSFcH9VsgNytHQwAgX5oADMdmyrcxnczzTkGQfTsVEuo-UAbB3K4krQI1MNQU9PkCS00AuyXDCSb2jdrFLnda8SfM)
 
 ---
 
-#### Layar 2: Executive Dashboard (`pages/dashboard.html`)
-*Menampilkan 4 kartu ringkasan KPI, grafik distribusi kategori sarpras, pemantauan utilisasi gedung, dan tabel jadwal pemeliharaan berkala.*
+#### Layar 2: Executive Command Dashboard (`pages/dashboard.html`)
+*Menampilkan Asymmetric Command Bento Grid dengan valuasi BMN Rp 4.85 Miliar, integritas 86.4%, tiket servis 142 unit, alokasi kluster fasilitas, dan data grid kalibrasi instrumen lab terdekat.*
 
 ![SARPRAS Executive Dashboard](../assets/img/stitch_dashboard.png)
 
 - **Tautan Gambar Resolusi Tinggi (Google Cloud Storage CDN):**  
-  [Lihat Tangkapan Layar Dashboard High-Res](https://lh3.googleusercontent.com/aida/AEtjO1URMBRA1jSiiT5X5gCZYwx1lDnH8l03GIvFiTk9u-I9uRpiVOHvZBvsbL-Vq7l-61PD9yMnR7PwrSQtfyc2GW6yM0NEg7iP0el2E4Tf5t8c6vfyLgjsVxWQEmKg5JUi4RudYYe-RbgAgsBFZUHTuYOyokQIN0taMoIRJk_0Th4j4LQ3L13_J3uTFwBuTniL7sIRQSsg_iH3BO8NBj-Savm8CUGOIoFFgq-1bX48fM1e6Fa_N_K2IJx2oA)
+  [Lihat Tangkapan Layar Dashboard High-Res](https://lh3.googleusercontent.com/aida/AEtjO1Upmvm2ci8x-BXeAXI7P56ruluhWN3bBgp6Ka3YJeYZlQMAFGhXBMPiIG_v4hQS1nmKLPVPk36NdyXbYshJ8-quNefToOJ5xoKygIoKTe0ZFmp6Yg8qluRzD3e7Mdu_uJdXWWQkLsn3HQQ7spzrVwMwwYaUBKYrPr-lkgHo-PrVGAv65UylUN_oa-PbsZlUCU9j4dKI4HPqOcBdn6fRFUfjIJG9lwB90M5m1SMD8pzsabOAwOzq4z-5XfM)
 
 ---
 
 #### Layar 3: Master Data Sarana dan Prasarana (`pages/data-master.html`)
-*Menampilkan toolbar filter pencarian multi-kriteria, tabel inventaris komprehensif dengan status kondisi aset berkode warna, seleksi baris batch, tombol aksi (Detail, Edit, Hapus), paginasi data, serta komponen Modal Konfirmasi Penghapusan Aset BMN.*
+*Menampilkan toolbar filter pencarian multi-kriteria, tabel inventaris berdensitas tinggi dengan kode monospace JetBrains Mono, tombol aksi, paginasi data, serta komponen Modal Konfirmasi Penghapusan Aset BMN.*
 
 ![SARPRAS Master Data Inventaris](../assets/img/stitch_datamaster.png)
 
 - **Tautan Gambar Resolusi Tinggi (Google Cloud Storage CDN):**  
-  [Lihat Tangkapan Layar Data Master High-Res](https://lh3.googleusercontent.com/aida/AEtjO1Xlq2LwZmvtF1z7WnpKhewoauPHIxNKu_f00VY2JPueflkH7B4tf-Sx8v1rh0cW00hYGrbJueWB-bjyS2AVKqS8XeMTrGbMPbFBr0w7T_gUf6OUN7XRWHiQYDkXYrg5HsZwXOaETNKxg5Pe_v6ryzue3Y9nU1zLTwTqqPwU325ycTkDJG8wwB64DnhI2u4aILOU8XlcITchuzK6Y-lnSd9-D5lG0oDp7GQhxoeHRz-EdqnZijJ7giQb7Ls)
+  [Lihat Tangkapan Layar Data Master High-Res](https://lh3.googleusercontent.com/aida/AEtjO1WrQ4NRP1mTVCwin8ixnDgopfFfr2II4jeBrrZrncRMs69kj2ZmyAg-kzWSm60LxRDvU9gFn2T9Td-btd7zTqthBhpHMcpIOWqAftJWVUBbxRK1CESbC0b9qTrg1cip_iO7gqnzRLeQtl3MvUPgKm8HlNxUkUOWp8Q7Abc4zz1ktHZ7ek94Tyo_b6uXOVsPny3vIDXF1EbHmUfPm_P5ggxy4cjCbCo0NYZr6OGmkO7IRtuIp9E7dpEXuQ)
 
 ---
 
 #### Layar 4: Form Registrasi Aset Baru (`pages/form.html`)
-*Menampilkan grid 2-kolom kaca buram untuk spesifikasi alat & lokasi penempatan di sisi kiri, serta valuasi perolehan rupiah, dropzone berkas BAST, dan Live QR/Barcode Tag Stiker Fisik di sisi kanan.*
+*Menampilkan tata letak teknis 2-kolom: identitas instrumen & penempatan gedung/ruangan di kiri; nilai perolehan fiskal rupiah, dropzone berkas BAST, dan Live Thermal Barcode/QR Tag Stiker 75x50mm di kanan.*
 
 ![SARPRAS Form Registrasi Aset](../assets/img/stitch_form.png)
 
 - **Tautan Gambar Resolusi Tinggi (Google Cloud Storage CDN):**  
-  [Lihat Tangkapan Layar Form High-Res](https://lh3.googleusercontent.com/aida/AEtjO1WhKdrzjkfPN-e-FnDlUoSh_aCX_j10AfWvfS0BlA3aXBjh2QfqaGazls2urfpczQfM1J79HyUxWKvuIiZ2d7htNfeZdtVLiYqotWbk6mLEA4pO04UXyHKRLD4d-1MnexLQt_p9pWJlzhhmqSQ5sSuwU1-a7k-_pi08vER78DScM5R_hOmYTPJrtmWt6n6vdPBYx8TdjG_qIJigW3XMi6Uim7CMRMAI9yleEFwCpVTa4S6Kss1uG4V5kEQ)
+  [Lihat Tangkapan Layar Form High-Res](https://lh3.googleusercontent.com/aida/AEtjO1V0klYHF75-C_MoBCpNHKPyjXSjiSZ6FP824UYygZdgGxuaxMYdDZlQCPDvdtH9V6xSS--X2sxdl5BcUx__qtzBjggfl2eyVoOWjg4CVYiRRXZvqM8sjGBXz4AGeHBoOveNW0YOcYhCxlFH4-8mQ2QLKS2eMB6sJXCn_kHyhwGjzGV3xe5P6rSaUoagaBz7-dXhpNB-fM_s9616pjkbi2u1ChZbAOe6yLpLjPHABEEEQnH421akRyzb3A)
 
 ---
 
 #### Layar 5: Pusat Laporan & Kartu Inventaris Ruangan / KIR (`pages/laporan.html`)
-*Menampilkan ringkasan audit ruangan laboratorium terpadu, lembar cetak Kartu Inventaris Ruangan (KIR) standar audit kementerian, blok tanda tangan digital ganda terotentikasi QR segel SHA-256, dan opsi ekspor multi-format.*
+*Menampilkan 3 kartu ringkasan telemetri, dokumen resmi Kartu Inventaris Ruangan (KIR) standar audit kementerian, tabel inventaris lab, dan blok pengesahan tanda tangan digital ganda terotentikasi QR segel SHA-256.*
 
 ![SARPRAS Laporan & KIR](../assets/img/stitch_laporan.png)
 
 - **Tautan Gambar Resolusi Tinggi (Google Cloud Storage CDN):**  
-  [Lihat Tangkapan Layar Laporan High-Res](https://lh3.googleusercontent.com/aida/AEtjO1VNpI9QT4U7ebaOSK39QhiNSFS_PUSk-SCipP97dEH3GHTrSjaENrd455o8ev7GR2MoUKk68wO0Eq3hl5r9yZpcmylRc8gNhUD6wNr1doWkGGBNeWbwN9ixpa24QJSaqZzgfEFLz-0pmGgjtrn9O4tFuPIS0hFKTKdq6YyLPZBIBYKxrnzPSVoGFNozcyV2NFBTPwhkwmMC-kExn3Yif8KhtNci3pxvHVJQosk-PKpq8eXmBOzrlyxT_aA)
+  [Lihat Tangkapan Layar Laporan High-Res](https://lh3.googleusercontent.com/aida/AEtjO1UHZ1EUoAQg00hR0h3S7q_2DgwTkXmS-FYIvXLYOwf8qs2aWWH_aG41mQy-5cp93yfbZIY6s5mi2INRiNrk-bWe-0KQ5gWa9S48V48h8IJg7WSTC84-ow7FER2ahVDfP4icIwZLjf_kpfrQ0LYy9Km_Ef2CRU4fr_EqjM7_mu1JAhNX7fKoAgTNPyrAdeMvUR7QmXjTDfiYGoOIVrO1eMcP_OhjfaQib1vPA3xIfdowvuHLd-Ynt-ugw_0)
 
 ---
 
@@ -523,20 +568,20 @@ Tugas Pemweb II/
 ├── docs/
 │   └── perancangan.md          <-- Dokumen Resmi Perancangan Milestone 1
 ├── assets/
-│   ├── css/                    <-- Disiapkan untuk Glassmorphism Engine (Milestone 2)
+│   ├── css/                    <-- Disiapkan untuk Titanium Glass Engine (Milestone 2)
 │   ├── js/                     <-- Disiapkan untuk State & DOM Interactivity (Milestone 3)
-│   └── img/                    <-- Aset Visual & Tangkapan Layar Resolusi Tinggi
+│   └── img/                    <-- Tangkapan Layar Wireframing Resolusi Tinggi
 │       ├── stitch_login.png
 │       ├── stitch_dashboard.png
 │       ├── stitch_datamaster.png
 │       ├── stitch_form.png
 │       └── stitch_laporan.png
-├── pages/                      <-- Halaman Spesifik Admin Panel (Milestone 3)
+├── pages/                      <-- Disiapkan untuk Halaman Spesifik (Milestone 3)
 │   ├── dashboard.html
 │   ├── data-master.html
 │   ├── form.html
 │   └── laporan.html
-├── layout.html                 <-- Master/Template Dasar Layouting (Milestone 2)
+├── layout.html                 <-- Master Template Dasar (Milestone 2)
 ├── index.html                  <-- Halaman Utama / Login Admin Gatekeeper
 ├── PERANCANGAN.md              <-- Salinan Dokumen Root untuk Kemudahan Dosen
 └── README.md                   <-- Dokumentasi Proyek Repositori
