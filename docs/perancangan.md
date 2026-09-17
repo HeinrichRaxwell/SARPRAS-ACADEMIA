@@ -295,7 +295,7 @@ Setiap halaman telah dirancang dengan presisi visual beresolusi tinggi di Google
 
 Halaman gerbang masuk sistem yang mengamankan hak akses administratif. Menggunakan kartu kaca buram melayang di tengah kanvas gelap, dengan bidang input kredensial NIP, proteksi passkey, tombol masuk solid white, serta integrasi identitas tunggal SSO Kemendikbudristek.
 
-![Gerbang Autentikasi Admin](https://lh3.googleusercontent.com/aida/AEtjO1UTSf0LEMhUP7Z-SDUBEaMz99lE1xvToApud3qPl6aHxjmt3r_ogDWFcsxLLwTSdNlc5oXnj6hZ67bbXOGl0AzpGaoHWXzx7ZvArSS1HJauuF4JX6xlz-umYDcPEC0mW_lY3aNrIsC-4SOyss5BjognUZ7iyiyjxveSFcH9VsgNytHQwAgX5oADMdmyrcxnczzTkGQfTsVEuo-UAbB3K4krQI1MNQU9PkCS00AuyXDCSb2jdrFLnda8SfM)
+![Gerbang Autentikasi Admin](../assets/img/stitch_login.png)
 
 * **Komponen Utama:** Kartu Frosted Glass (Lebar 460px, Radius 8px), Form Input NIP Monospace, Field Password dengan Toggle Sandi, Tombol Masuk Solid White `#FFFFFF`, dan Tombol Masuk Alternatif Akun Belajar.id.
 * **Interaktivitas:** Validasi format NIP di sisi klien, animasi feedback penekanan tombol (`scale 0.98`), dan peringatan keamanan TLS 1.3 terenkripsi.
@@ -306,7 +306,7 @@ Halaman gerbang masuk sistem yang mengamankan hak akses administratif. Menggunak
 
 Halaman pusat komando eksekutif pimpinan universitas dan pengelola sarpras. Menyajikan telemetri valuasi total aset, status kesehatan operasional, antrean pemeliharaan terjadwal, dan distribusi aset lintas gedung.
 
-![Executive Command Dashboard](https://lh3.googleusercontent.com/aida/AEtjO1Upmvm2ci8x-BXeAXI7P56ruluhWN3bBgp6Ka3YJeYZlQMAFGhXBMPiIG_v4hQS1nmKLPVPk36NdyXbYshJ8-quNefToOJ5xoKygIoKTe0ZFmp6Yg8qluRzD3e7Mdu_uJdXWWQkLsn3HQQ7spzrVwMwwYaUBKYrPr-lkgHo-PrVGAv65UylUN_oa-PbsZlUCU9j4dKI4HPqOcBdn6fRFUfjIJG9lwB90M5m1SMD8pzsabOAwOzq4z-5XfM)
+![Executive Command Dashboard](../assets/img/stitch_dashboard.png)
 
 * **Komponen Utama:** Asymmetric Bento Grid (Sel Valuasi Fiskal Rp 4.85 Miliar & Gauge Kesehatan 86.4%, Sel Disposisi Servis 142 Tiket, Sel Alokasi Kluster 4 Bar), dan Tabel Data Jadwal Kalibrasi 5 Baris Lengkap.
 * **Interaktivitas:** Filter tab kategori instrumen, tombol ekspor cepat data XLSX, dan indikator denyut status sistem (System Nominal Beacon).
@@ -317,7 +317,7 @@ Halaman pusat komando eksekutif pimpinan universitas dan pengelola sarpras. Meny
 
 Halaman katalog dan inventarisasi utama seluruh sarana dan prasarana institusi. Dilengkapi fitur pencarian multi-kriteria, filter kategori dan gedung, serta komponen modal konfirmasi penghapusan aset BMN.
 
-![Master Data Sarana dan Prasarana](https://lh3.googleusercontent.com/aida/AEtjO1WrQ4NRP1mTVCwin8ixnDgopfFfr2II4jeBrrZrncRMs69kj2ZmyAg-kzWSm60LxRDvU9gFn2T9Td-btd7zTqthBhpHMcpIOWqAftJWVUBbxRK1CESbC0b9qTrg1cip_iO7gqnzRLeQtl3MvUPgKm8HlNxUkUOWp8Q7Abc4zz1ktHZ7ek94Tyo_b6uXOVsPny3vIDXF1EbHmUfPm_P5ggxy4cjCbCo0NYZr6OGmkO7IRtuIp9E7dpEXuQ)
+![Master Data Sarana dan Prasarana](../assets/img/stitch_datamaster.png)
 
 * **Komponen Utama:** 4 Kartu Metrik Ringkas, Toolbar Pencarian Global (`Ctrl + K`), Filter Dropdown Kategori dan Lokasi Gedung, Tabel Inventaris Densitas Tinggi (Kolom: Kode Aset, Nama Spesifikasi, Kategori, Lokasi, Nilai Buku, Kondisi, Aksi), Paginasi Terstruktur, dan Modal Konfirmasi Decommissioning BMN.
 * **Interaktivitas:** Filter data tabel instan di sisi klien tanpa reload halaman, pemunculan modal konfirmasi dengan latar belakang blur 28px, dan aksi penghapusan baris data.
@@ -328,7 +328,7 @@ Halaman katalog dan inventarisasi utama seluruh sarana dan prasarana institusi. 
 
 Formulir pencatatan dan kapitalisasi sarana baru hasil pengadaan atau hibah institusi. Menghubungkan input data teknis dengan kalkulasi fiskal dan generator label stiker termal otomatis.
 
-![Form Registrasi Aset Baru](https://lh3.googleusercontent.com/aida/AEtjO1V0klYHF75-C_MoBCpNHKPyjXSjiSZ6FP824UYygZdgGxuaxMYdDZlQCPDvdtH9V6xSS--X2sxdl5BcUx__qtzBjggfl2eyVoOWjg4CVYiRRXZvqM8sjGBXz4AGeHBoOveNW0YOcYhCxlFH4-8mQ2QLKS2eMB6sJXCn_kHyhwGjzGV3xe5P6rSaUoagaBz7-dXhpNB-fM_s9616pjkbi2u1ChZbAOe6yLpLjPHABEEEQnH421akRyzb3A)
+![Form Registrasi Aset Baru](../assets/img/stitch_form.png)
 
 * **Komponen Utama:** Tata Letak 2-Kolom (Kolom Kiri: Kode NUP Otomatis, Nama Aset, Dropdown Kategori BMN, Penempatan Gedung/Ruang, dan 3 Kartu Radio Pilihan Kondisi Fisik. Kolom Kanan: Nilai Perolehan Rupiah Terformat, Dropzone Bukti Berkas BAST, serta Kotak Pratinjau Stiker Termal Barcode/QR 75x50mm Siap Cetak).
 * **Interaktivitas:** Validasi real-time kolom wajib isi (required), pemformatan otomatis mata uang Rupiah, dan tombol cetak label termal langsung.
@@ -339,7 +339,7 @@ Formulir pencatatan dan kapitalisasi sarana baru hasil pengadaan atau hibah inst
 
 Pusat penerbitan dan validasi dokumen fisik resmi inventarisasi ruangan berstandar regulasi kementerian. Menghasilkan format dokumen KIR yang siap ditandatangani dan dicetak untuk ditempel pada pintu laboratorium atau ruang kantor.
 
-![Pusat Laporan dan KIR](https://lh3.googleusercontent.com/aida/AEtjO1UHZ1EUoAQg00hR0h3S7q_2DgwTkXmS-FYIvXLYOwf8qs2aWWH_aG41mQy-5cp93yfbZIY6s5mi2INRiNrk-bWe-0KQ5gWa9S48V48h8IJg7WSTC84-ow7FER2ahVDfP4icIwZLjf_kpfrQ0LYy9Km_Ef2CRU4fr_EqjM7_mu1JAhNX7fKoAgTNPyrAdeMvUR7QmXjTDfiYGoOIVrO1eMcP_OhjfaQib1vPA3xIfdowvuHLd-Ynt-ugw_0)
+![Pusat Laporan dan KIR](../assets/img/stitch_laporan.png)
 
 * **Komponen Utama:** 3 Kartu Telemetri Audit, Format Lembar Dokumen Resmi KIR (Kop Kementerian, Nomor Register KIR, Metadata Gedung/Ruangan, Tabel Rincian 6 Aset Laboratorium Utama), serta Blok Tanda Tangan Digital Ganda Terotentikasi Stempel QR SHA-256.
 * **Interaktivitas:** Tombol Cetak Mode KIR (CSS print-media stylesheet) dan tombol ekspor dokumen PDF resmi.
@@ -350,7 +350,7 @@ Pusat penerbitan dan validasi dokumen fisik resmi inventarisasi ruangan berstand
 
 Modul sirkulasi operasional sarana bergerak dan izin pemakaian ruang bersama. Mencegah kehilangan aset dan memastikan kepatuhan jadwal pengembalian.
 
-![Pusat Peminjaman dan Mutasi](https://lh3.googleusercontent.com/aida/AEtjO1X4lhXLKz0mEKMt_uW9dJC2KwJjm41P00ZdEtT39zWgWe6N249mAk_6Bp_uha3N-LL1BCBOlroY7KErJBBASkxE3GGimu1C3tlMBcoQS8pcwoYN-Ket_yo4rGIeLQniB7HaaefMQGstEBf4Tzodvko6PbCKHD61jHuBYXIfWnrlfBpITFoDkVFHiTD5DXcEZX_TFUJgRGFVDCYu0kMpUZ7FHM217E8ukMrx9_l6EDjajAVnFw0eiJVenA)
+![Pusat Peminjaman dan Mutasi](../assets/img/stitch_peminjaman.png)
 
 * **Komponen Utama:** 3 Kartu Metrik Sirkulasi (Sesi Pinjam Aktif, Status Terlambat/Overdue, Mutasi Ruangan Disetujui), Tombol White CTA `+ Ajukan Peminjaman`, dan Tabel Data Sirkulasi Peminjaman Lengkap.
 * **Interaktivitas:** Filter status peminjaman (Aktif, Menunggu, Terlambat, Selesai) dan aksi verifikasi pengembalian sarana.
@@ -361,7 +361,7 @@ Modul sirkulasi operasional sarana bergerak dan izin pemakaian ruang bersama. Me
 
 Pusat kendali perintah kerja (Work Orders) perbaikan fasilitas dan pengawasan akreditasi kalibrasi instrumen presisi tinggi.
 
-![Pemeliharaan dan Kalibrasi](https://lh3.googleusercontent.com/aida/AEtjO1VnAZj6NLMwsMh04K2e7A7tZbnBQVux4fwzOlW85GAHWHaYyHk9chkF4p432qY28f2HynRH3S0SpBQ0on_F3gm3XkWlfdrM-g_tz7adKDSAZ9WMbmCizfUVWJPu1Ve39ZLbNxdb9VjHsG3sIjZXMzecaUbij65XdsaguqivkqdTeuE4B-MeodF_OIm50Y5V07kGGsQjoZfo949c3B1wgdP_nJUYiubu_YTTUqo1rcGUGwoM9vaqFRh6iA)
+![Pemeliharaan dan Kalibrasi](../assets/img/stitch_maintenance.png)
 
 * **Komponen Utama:** 3 Kartu Ringkasan Tiket (Total Tiket Terjadwal, Kritis / Overdue Toleransi Uji, dan Realisasi Anggaran Servis DIPA), Tombol `+ Terbitkan Work Order`, serta Tabel Status Pengerjaan Rekanan Vendor BMN.
 * **Interaktivitas:** Pelacakan hitung mundur batas SLA pengerjaan dan pembukaan dokumen Berita Acara Servis.
@@ -372,7 +372,7 @@ Pusat kendali perintah kerja (Work Orders) perbaikan fasilitas dan pengawasan ak
 
 Katalog spasial seluruh fasilitas fisik kampus yang memetakan persebaran laboratorium terakreditasi, ruang kuliah, dan gedung rektorat.
 
-![Direktori Gedung dan Ruangan](https://lh3.googleusercontent.com/aida/AEtjO1XwEb-uc_Chq-J8ZZ-6_9eLzBmMsI0kzw67Aw-F0w01FBkemcwc7lhbO06hJDFsaqoO1Ayu6cSIDoQ7MsQxiKxofFQc3fHQtaK235C099C3-7st7oRaDssbDUCYEorM5jwduUiGaO7ShpRaXfTXGmPtCbzfORxKv9m8TS4vFGatJrTOpwiLQzRUJNRaX-ZPdfw_NkSrH_VFclbd3QSbUCflMct9vWIcC5OJBiWW8meJQOCgps3-u29zzw)
+![Direktori Gedung dan Ruangan](../assets/img/stitch_ruangan.png)
 
 * **Komponen Utama:** 3 Kartu Metrik Infrastruktur (Jumlah Gedung, Total Ruangan Terdata, Total Aset Terdistribusi), serta Grid 6 Kartu Ruangan Modular (Lab Kimia R.302, Data Center Rektorat, Smart Class 401, Lab Biomedik R.105, Workshop FT, Auditorium Graha Nusantara).
 * **Interaktivitas:** Kartu interaktif dengan hover elevation dan tombol langsung untuk membuka Lembar Dokumen KIR per ruangan.

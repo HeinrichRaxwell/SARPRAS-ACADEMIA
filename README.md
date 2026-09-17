@@ -120,28 +120,28 @@ Seluruh 8 modul operasional telah dirancang lengkap dalam format High-Fidelity d
 <div align="center">
 
 #### 1. Gerbang Autentikasi Admin (`index.html`)
-<img src="https://lh3.googleusercontent.com/aida/AEtjO1UTSf0LEMhUP7Z-SDUBEaMz99lE1xvToApud3qPl6aHxjmt3r_ogDWFcsxLLwTSdNlc5oXnj6hZ67bbXOGl0AzpGaoHWXzx7ZvArSS1HJauuF4JX6xlz-umYDcPEC0mW_lY3aNrIsC-4SOyss5BjognUZ7iyiyjxveSFcH9VsgNytHQwAgX5oADMdmyrcxnczzTkGQfTsVEuo-UAbB3K4krQI1MNQU9PkCS00AuyXDCSb2jdrFLnda8SfM" width="85%" alt="Login Portal"/>
+<img src="assets/img/stitch_login.png" width="85%" alt="Login Portal"/>
 
 #### 2. Executive Command Dashboard (`pages/dashboard.html`)
-<img src="https://lh3.googleusercontent.com/aida/AEtjO1Upmvm2ci8x-BXeAXI7P56ruluhWN3bBgp6Ka3YJeYZlQMAFGhXBMPiIG_v4hQS1nmKLPVPk36NdyXbYshJ8-quNefToOJ5xoKygIoKTe0ZFmp6Yg8qluRzD3e7Mdu_uJdXWWQkLsn3HQQ7spzrVwMwwYaUBKYrPr-lkgHo-PrVGAv65UylUN_oa-PbsZlUCU9j4dKI4HPqOcBdn6fRFUfjIJG9lwB90M5m1SMD8pzsabOAwOzq4z-5XfM" width="85%" alt="Dashboard"/>
+<img src="assets/img/stitch_dashboard.png" width="85%" alt="Dashboard"/>
 
 #### 3. Master Data Sarana dan Prasarana (`pages/data-master.html`)
-<img src="https://lh3.googleusercontent.com/aida/AEtjO1WrQ4NRP1mTVCwin8ixnDgopfFfr2II4jeBrrZrncRMs69kj2ZmyAg-kzWSm60LxRDvU9gFn2T9Td-btd7zTqthBhpHMcpIOWqAftJWVUBbxRK1CESbC0b9qTrg1cip_iO7gqnzRLeQtl3MvUPgKm8HlNxUkUOWp8Q7Abc4zz1ktHZ7ek94Tyo_b6uXOVsPny3vIDXF1EbHmUfPm_P5ggxy4cjCbCo0NYZr6OGmkO7IRtuIp9E7dpEXuQ" width="85%" alt="Master Data"/>
+<img src="assets/img/stitch_datamaster.png" width="85%" alt="Master Data"/>
 
 #### 4. Form Registrasi Aset Baru (`pages/form.html`)
-<img src="https://lh3.googleusercontent.com/aida/AEtjO1V0klYHF75-C_MoBCpNHKPyjXSjiSZ6FP824UYygZdgGxuaxMYdDZlQCPDvdtH9V6xSS--X2sxdl5BcUx__qtzBjggfl2eyVoOWjg4CVYiRRXZvqM8sjGBXz4AGeHBoOveNW0YOcYhCxlFH4-8mQ2QLKS2eMB6sJXCn_kHyhwGjzGV3xe5P6rSaUoagaBz7-dXhpNB-fM_s9616pjkbi2u1ChZbAOe6yLpLjPHABEEEQnH421akRyzb3A" width="85%" alt="Form Registrasi"/>
+<img src="assets/img/stitch_form.png" width="85%" alt="Form Registrasi"/>
 
 #### 5. Pusat Laporan & Kartu Inventaris Ruangan / KIR (`pages/laporan.html`)
-<img src="https://lh3.googleusercontent.com/aida/AEtjO1UHZ1EUoAQg00hR0h3S7q_2DgwTkXmS-FYIvXLYOwf8qs2aWWH_aG41mQy-5cp93yfbZIY6s5mi2INRiNrk-bWe-0KQ5gWa9S48V48h8IJg7WSTC84-ow7FER2ahVDfP4icIwZLjf_kpfrQ0LYy9Km_Ef2CRU4fr_EqjM7_mu1JAhNX7fKoAgTNPyrAdeMvUR7QmXjTDfiYGoOIVrO1eMcP_OhjfaQib1vPA3xIfdowvuHLd-Ynt-ugw_0" width="85%" alt="Pusat Laporan KIR"/>
+<img src="assets/img/stitch_laporan.png" width="85%" alt="Pusat Laporan KIR"/>
 
 #### 6. Pusat Peminjaman & Mutasi Fasilitas (`pages/peminjaman.html`)
-<img src="https://lh3.googleusercontent.com/aida/AEtjO1X4lhXLKz0mEKMt_uW9dJC2KwJjm41P00ZdEtT39zWgWe6N249mAk_6Bp_uha3N-LL1BCBOlroY7KErJBBASkxE3GGimu1C3tlMBcoQS8pcwoYN-Ket_yo4rGIeLQniB7HaaefMQGstEBf4Tzodvko6PbCKHD61jHuBYXIfWnrlfBpITFoDkVFHiTD5DXcEZX_TFUJgRGFVDCYu0kMpUZ7FHM217E8ukMrx9_l6EDjajAVnFw0eiJVenA" width="85%" alt="Peminjaman Fasilitas"/>
+<img src="assets/img/stitch_peminjaman.png" width="85%" alt="Peminjaman Fasilitas"/>
 
 #### 7. Manajemen Servis & Kalibrasi Alat (`pages/maintenance.html`)
-<img src="https://lh3.googleusercontent.com/aida/AEtjO1VnAZj6NLMwsMh04K2e7A7tZbnBQVux4fwzOlW85GAHWHaYyHk9chkF4p432qY28f2HynRH3S0SpBQ0on_F3gm3XkWlfdrM-g_tz7adKDSAZ9WMbmCizfUVWJPu1Ve39ZLbNxdb9VjHsG3sIjZXMzecaUbij65XdsaguqivkqdTeuE4B-MeodF_OIm50Y5V07kGGsQjoZfo949c3B1wgdP_nJUYiubu_YTTUqo1rcGUGwoM9vaqFRh6iA" width="85%" alt="Servis dan Kalibrasi"/>
+<img src="assets/img/stitch_maintenance.png" width="85%" alt="Servis dan Kalibrasi"/>
 
 #### 8. Direktori Fasilitas Gedung & Ruangan (`pages/ruangan.html`)
-<img src="https://lh3.googleusercontent.com/aida/AEtjO1XwEb-uc_Chq-J8ZZ-6_9eLzBmMsI0kzw67Aw-F0w01FBkemcwc7lhbO06hJDFsaqoO1Ayu6cSIDoQ7MsQxiKxofFQc3fHQtaK235C099C3-7st7oRaDssbDUCYEorM5jwduUiGaO7ShpRaXfTXGmPtCbzfORxKv9m8TS4vFGatJrTOpwiLQzRUJNRaX-ZPdfw_NkSrH_VFclbd3QSbUCflMct9vWIcC5OJBiWW8meJQOCgps3-u29zzw" width="85%" alt="Direktori Ruangan"/>
+<img src="assets/img/stitch_ruangan.png" width="85%" alt="Direktori Ruangan"/>
 
 </div>
 
