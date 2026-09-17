@@ -403,5 +403,5 @@ Pilih salah satu metode berikut:
   <b>Universitas Pamulang (UNPAM)</b><br/>
   Program Studi Teknik Informatika, Fakultas Ilmu Komputer<br/>
   Mata Kuliah Pemrograman Web 2 (Client-Side Programming)<br/>
-  Tahun Akademik 2025/2026
+  Tahun Akademik 2026/2027
 </div>
