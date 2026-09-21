@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SARPRAS ACADEMIA - Master Layout Admin Panel</title>
+  <title>SARPRAS ACADEMIA - Sistem Manajemen Sarana dan Prasarana</title>
   
   <!-- Typography: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,65 +12,120 @@
 
   <style>
     /* ==========================================================================
-       1. DESIGN SYSTEM TOKENS (FIGMA FRAME 00 KANONIKAL)
+       1. DESIGN SYSTEM TOKENS - LIGHT THEME (DEFAULT) & DARK THEME
        ========================================================================== */
-    :root {
-      /* Base Canvas & Surfaces */
-      --color-canvas: #08090A;
-      --color-surface: #0D0F12;
-      --color-surface-elevated: #15181E;
-      --color-surface-glass: rgba(13, 15, 18, 0.72);
-      --color-surface-glass-modal: rgba(13, 15, 18, 0.88);
+    :root, [data-theme="light"] {
+      /* Base Canvas & Glass Surfaces */
+      --color-canvas: #F8FAFC;
+      --color-surface: #FFFFFF;
+      --color-surface-glass: rgba(255, 255, 255, 0.88);
+      --color-surface-glass-modal: rgba(255, 255, 255, 0.95);
+      --color-surface-elevated: #F1F5F9;
+      --color-surface-subtle: #F8FAFC;
       
-      /* Borders & Optical Highlights */
-      --color-border-whisper: rgba(255, 255, 255, 0.08);
-      --color-border-specular: rgba(255, 255, 255, 0.16);
-      --color-border-strong: rgba(255, 255, 255, 0.22);
+      /* Borders & Bevel Highlights */
+      --color-border-whisper: #E2E8F0;
+      --color-border-specular: #CBD5E1;
+      --color-border-strong: #94A3B8;
       
-      /* Typography Colors (WCAG AAA) */
-      --color-text-primary: #EDEDED;
-      --color-text-secondary: #71717A;
-      --color-text-muted: #52525B;
+      /* Typography Colors */
+      --color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-muted: #64748B;
       
-      /* Contrast CTA Button */
-      --color-primary-cta: #FFFFFF;
-      --color-primary-cta-text: #08090A;
-      --color-secondary-cta-bg: rgba(255, 255, 255, 0.04);
+      /* Buttons & Actions */
+      --color-primary-cta: #0F172A;
+      --color-primary-cta-text: #FFFFFF;
+      --color-secondary-cta-bg: #FFFFFF;
+      --color-secondary-cta-border: #E2E8F0;
       
-      /* Semantic Signals (Subdued Industrial) */
+      /* Semantic Signals */
+      --color-accent-cobalt: #2563EB;
+      --color-accent-cobalt-bg: #EFF6FF;
+      --color-accent-cobalt-border: #BFDBFE;
+      
       --color-signal-normal: #059669;
-      --color-signal-normal-bg: rgba(5, 150, 105, 0.12);
-      --color-signal-normal-border: rgba(5, 150, 105, 0.30);
+      --color-signal-normal-bg: #ECFDF5;
+      --color-signal-normal-border: #A7F3D0;
       
       --color-signal-warning: #D97706;
-      --color-signal-warning-bg: rgba(217, 119, 6, 0.12);
-      --color-signal-warning-border: rgba(217, 119, 6, 0.30);
+      --color-signal-warning-bg: #FFFBEB;
+      --color-signal-warning-border: #FDE68A;
       
       --color-signal-critical: #DC2626;
-      --color-signal-critical-bg: rgba(220, 38, 38, 0.12);
-      --color-signal-critical-border: rgba(220, 38, 38, 0.30);
+      --color-signal-critical-bg: #FEF2F2;
+      --color-signal-critical-border: #FECACA;
       
-      --color-accent-cobalt: #2563EB;
-      --color-accent-cobalt-bg: rgba(37, 99, 235, 0.12);
-      --color-accent-cobalt-border: rgba(37, 99, 235, 0.30);
+      /* Elevation & Shadows */
+      --card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+      --card-shadow-hover: 0 10px 25px -4px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+      --popover-shadow: 0 16px 40px -4px rgba(15, 23, 42, 0.12), 0 6px 16px -2px rgba(15, 23, 42, 0.06);
       
-      /* Geometry & Layout */
+      /* Geometry & Navigation */
       --sidebar-width: 260px;
       --sidebar-collapsed-width: 74px;
       --header-height: 64px;
       --footer-height: 48px;
-      --radius-sm: 4px;
-      --radius-md: 6px;
-      --radius-lg: 10px;
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
       
-      /* Micro-Physics Transitions (Emil Kowalski Standard) */
+      /* Animation Physics */
       --ease-physics: cubic-bezier(0.23, 1, 0.32, 1);
-      --speed-fast: 140ms;
+      --speed-fast: 150ms;
       --speed-normal: 220ms;
     }
 
+    [data-theme="dark"] {
+      /* Base Canvas & Glass Surfaces */
+      --color-canvas: #090B0E;
+      --color-surface: #0E1217;
+      --color-surface-glass: rgba(14, 18, 23, 0.85);
+      --color-surface-glass-modal: rgba(14, 18, 23, 0.95);
+      --color-surface-elevated: #161B22;
+      --color-surface-subtle: #13171D;
+      
+      /* Borders & Bevel Highlights */
+      --color-border-whisper: rgba(255, 255, 255, 0.08);
+      --color-border-specular: rgba(255, 255, 255, 0.16);
+      --color-border-strong: rgba(255, 255, 255, 0.24);
+      
+      /* Typography Colors */
+      --color-text-primary: #F1F5F9;
+      --color-text-secondary: #94A3B8;
+      --color-text-muted: #64748B;
+      
+      /* Buttons & Actions */
+      --color-primary-cta: #FFFFFF;
+      --color-primary-cta-text: #090B0E;
+      --color-secondary-cta-bg: rgba(255, 255, 255, 0.04);
+      --color-secondary-cta-border: rgba(255, 255, 255, 0.10);
+      
+      /* Semantic Signals */
+      --color-accent-cobalt: #3B82F6;
+      --color-accent-cobalt-bg: rgba(59, 130, 246, 0.14);
+      --color-accent-cobalt-border: rgba(59, 130, 246, 0.30);
+      
+      --color-signal-normal: #10B981;
+      --color-signal-normal-bg: rgba(16, 185, 129, 0.12);
+      --color-signal-normal-border: rgba(16, 185, 129, 0.28);
+      
+      --color-signal-warning: #F59E0B;
+      --color-signal-warning-bg: rgba(245, 158, 11, 0.12);
+      --color-signal-warning-border: rgba(245, 158, 11, 0.28);
+      
+      --color-signal-critical: #EF4444;
+      --color-signal-critical-bg: rgba(239, 68, 68, 0.12);
+      --color-signal-critical-border: rgba(239, 68, 68, 0.28);
+      
+      /* Shadows */
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --card-shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.5);
+      --popover-shadow: 0 20px 45px rgba(0, 0, 0, 0.65);
+    }
+
     /* ==========================================================================
-       2. CSS RESET & GLOBAL BASE
+       2. RESET & BASE
        ========================================================================== */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -87,66 +142,59 @@
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
+      transition: background-color var(--speed-normal) ease, color var(--speed-normal) ease;
     }
 
-    /* Font Monospace untuk Angka & Kode BMN */
     .font-mono {
       font-family: 'JetBrains Mono', Consolas, monospace;
       font-variant-numeric: tabular-nums;
     }
 
-    /* Custom Scrollbar */
+    /* Scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: var(--color-canvas);
+      background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-      background: var(--color-surface-elevated);
+      background: var(--color-border-specular);
       border-radius: 3px;
-      border: 1px solid var(--color-border-whisper);
     }
     ::-webkit-scrollbar-thumb:hover {
       background: var(--color-text-muted);
     }
 
-    /* ==========================================================================
-       3. AMBIENT BACKGROUND GLOW (OPTICAL GLASS LAYER 0)
-       ========================================================================== */
-    .ambient-glow-mesh {
+    /* Ambient Background Layer */
+    .ambient-bg {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      inset: 0;
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
     }
-    .ambient-glow-1 {
+    .ambient-shape-1 {
       position: absolute;
-      top: -10%;
-      left: 15%;
-      width: 650px;
+      top: -100px;
+      left: 10%;
+      width: 600px;
       height: 450px;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.055) 0%, rgba(37, 99, 235, 0) 70%);
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.04) 0%, rgba(37, 99, 235, 0) 70%);
       filter: blur(80px);
     }
-    .ambient-glow-2 {
+    .ambient-shape-2 {
       position: absolute;
-      top: 40%;
+      bottom: -100px;
       right: 5%;
-      width: 550px;
+      width: 500px;
       height: 400px;
-      background: radial-gradient(circle, rgba(5, 150, 105, 0.04) 0%, rgba(5, 150, 105, 0) 70%);
-      filter: blur(90px);
+      background: radial-gradient(circle, rgba(5, 150, 105, 0.035) 0%, rgba(5, 150, 105, 0) 70%);
+      filter: blur(80px);
     }
 
     /* ==========================================================================
-       4. MASTER APP LAYOUT (GRID & FLEXBOX ARCHITECTURE)
+       3. MASTER APPLICATION LAYOUT
        ========================================================================== */
     .app-layout {
       display: flex;
@@ -156,7 +204,7 @@
     }
 
     /* ==========================================================================
-       5. SIDEBAR RAIL (NAVIGASI VERTIKAL GLASS)
+       4. SIDEBAR (PROFESSIONAL INSTITUTIONAL RAIL)
        ========================================================================== */
     .sidebar-rail {
       width: var(--sidebar-width);
@@ -169,7 +217,7 @@
       position: sticky;
       top: 0;
       height: 100vh;
-      transition: width var(--speed-normal) var(--ease-physics);
+      transition: width var(--speed-normal) var(--ease-physics), background-color var(--speed-normal) ease;
       z-index: 50;
       overflow: hidden;
     }
@@ -178,7 +226,7 @@
       width: var(--sidebar-collapsed-width);
     }
 
-    /* Sidebar Header / Brand */
+    /* Sidebar Brand Section */
     .sidebar-brand {
       height: var(--header-height);
       padding: 0 18px;
@@ -189,20 +237,20 @@
       flex-shrink: 0;
     }
 
-    .brand-logo-badge {
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-sm);
-      background: var(--color-surface-elevated);
-      border: 1px solid var(--color-border-specular);
+    .brand-logo-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      background: var(--color-accent-cobalt-bg);
+      border: 1px solid var(--color-accent-cobalt-border);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      color: var(--color-accent-cobalt);
     }
 
-    .brand-text {
+    .brand-text-group {
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -210,38 +258,38 @@
       transition: opacity var(--speed-fast) ease;
     }
 
-    .sidebar-rail.collapsed .brand-text {
+    .sidebar-rail.collapsed .brand-text-group {
       opacity: 0;
       pointer-events: none;
     }
 
-    .brand-title {
-      font-size: 13px;
+    .brand-main-title {
+      font-size: 14px;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      letter-spacing: -0.01em;
       color: var(--color-text-primary);
     }
 
-    .brand-subtitle {
-      font-size: 9px;
+    .brand-sub-title {
+      font-size: 10px;
       font-weight: 600;
-      color: var(--color-accent-cobalt);
-      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      letter-spacing: 0.04em;
     }
 
-    /* Sidebar Fast CTA Action */
-    .sidebar-cta-wrap {
-      padding: 14px 14px 8px 14px;
+    /* Sidebar CTA Quick Action */
+    .sidebar-quick-action {
+      padding: 14px 14px 6px 14px;
       flex-shrink: 0;
     }
 
-    .btn-sidebar-cta {
+    .btn-quick-register {
       width: 100%;
-      height: 36px;
+      height: 38px;
       border-radius: var(--radius-sm);
       background: var(--color-primary-cta);
       color: var(--color-primary-cta-text);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       border: none;
       cursor: pointer;
@@ -249,49 +297,52 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: transform var(--speed-fast) var(--ease-physics), background var(--speed-fast) ease;
+      transition: transform var(--speed-fast) var(--ease-physics), opacity var(--speed-fast) ease;
       white-space: nowrap;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
-    .btn-sidebar-cta:active {
+    .btn-quick-register:hover {
+      opacity: 0.92;
+    }
+
+    .btn-quick-register:active {
       transform: scale(0.97);
     }
 
-    .sidebar-rail.collapsed .btn-sidebar-cta span.label-text {
+    .sidebar-rail.collapsed .btn-quick-register span.btn-text {
       display: none;
     }
 
-    /* Navigation Menu Groups */
+    /* Navigation Container & Groups */
     .sidebar-nav-container {
       flex: 1;
       padding: 10px 10px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
-    .nav-section-label {
-      font-size: 9px;
+    .nav-group-title {
+      font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       color: var(--color-text-muted);
-      padding: 12px 8px 4px 8px;
+      padding: 12px 10px 4px 10px;
       white-space: nowrap;
       transition: opacity var(--speed-fast) ease;
     }
 
-    .sidebar-rail.collapsed .nav-section-label {
+    .sidebar-rail.collapsed .nav-group-title {
       opacity: 0;
       height: 0;
       padding: 0;
       overflow: hidden;
     }
 
-    .nav-item {
+    .nav-item-link {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -303,40 +354,29 @@
       font-weight: 500;
       cursor: pointer;
       border: 1px solid transparent;
-      transition: background var(--speed-fast) ease, color var(--speed-fast) ease, border-color var(--speed-fast) ease, transform var(--speed-fast) var(--ease-physics);
+      transition: all var(--speed-fast) ease;
       white-space: nowrap;
       user-select: none;
       position: relative;
     }
 
-    .nav-item:hover {
-      background: rgba(255, 255, 255, 0.035);
+    .nav-item-link:hover {
+      background: var(--color-surface-elevated);
       color: var(--color-text-primary);
     }
 
-    .nav-item:active {
+    .nav-item-link:active {
       transform: scale(0.98);
     }
 
-    .nav-item.active {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: var(--color-border-specular);
-      color: var(--color-text-primary);
+    .nav-item-link.active {
+      background: var(--color-accent-cobalt-bg);
+      color: var(--color-accent-cobalt);
       font-weight: 600;
+      border-color: var(--color-accent-cobalt-border);
     }
 
-    .nav-item.active::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 6px;
-      bottom: 6px;
-      width: 3px;
-      background: var(--color-accent-cobalt);
-      border-radius: 0 2px 2px 0;
-    }
-
-    .nav-icon {
+    .nav-item-icon {
       width: 18px;
       height: 18px;
       display: flex;
@@ -345,112 +385,64 @@
       flex-shrink: 0;
       stroke: currentColor;
       fill: none;
-      stroke-width: 1.75;
+      stroke-width: 1.8;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
-    .nav-label {
+    .nav-item-label {
       flex: 1;
       overflow: hidden;
       text-overflow: ellipsis;
       transition: opacity var(--speed-fast) ease;
     }
 
-    .sidebar-rail.collapsed .nav-label {
+    .sidebar-rail.collapsed .nav-item-label {
       opacity: 0;
       pointer-events: none;
     }
 
-    .nav-badge {
-      font-size: 9px;
+    .nav-badge-counter {
+      font-size: 10px;
       font-weight: 600;
       padding: 2px 6px;
-      border-radius: 3px;
+      border-radius: 4px;
       flex-shrink: 0;
-      transition: opacity var(--speed-fast) ease;
     }
 
-    .sidebar-rail.collapsed .nav-badge {
-      opacity: 0;
+    .sidebar-rail.collapsed .nav-badge-counter {
       display: none;
     }
 
-    .badge-gray {
+    .badge-subtle {
       background: var(--color-surface-elevated);
       color: var(--color-text-secondary);
       border: 1px solid var(--color-border-whisper);
     }
 
-    .badge-amber {
+    .badge-warning {
       background: var(--color-signal-warning-bg);
       color: var(--color-signal-warning);
       border: 1px solid var(--color-signal-warning-border);
     }
 
-    .badge-crimson {
+    .badge-critical {
       background: var(--color-signal-critical-bg);
       color: var(--color-signal-critical);
       border: 1px solid var(--color-signal-critical-border);
     }
 
-    /* Sidebar Footer / System Telemetry */
-    .sidebar-footer {
+    /* Sidebar Footer Toggle */
+    .sidebar-footer-controls {
       padding: 12px;
       border-top: 1px solid var(--color-border-whisper);
       flex-shrink: 0;
       background: var(--color-surface);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
     }
 
-    .telemetry-card {
-      background: var(--color-canvas);
-      border: 1px solid var(--color-border-whisper);
-      border-radius: var(--radius-sm);
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      transition: opacity var(--speed-fast) ease;
-    }
-
-    .sidebar-rail.collapsed .telemetry-card {
-      display: none;
-    }
-
-    .telemetry-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--color-signal-normal);
-    }
-
-    .beacon-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--color-signal-normal);
-      box-shadow: 0 0 8px var(--color-signal-normal);
-      animation: beaconPulse 2.4s infinite ease-in-out;
-    }
-
-    @keyframes beaconPulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-    }
-
-    .telemetry-sub {
-      font-size: 9px;
-      color: var(--color-text-muted);
-    }
-
-    .btn-collapse-rail {
+    .btn-toggle-rail {
       width: 100%;
-      height: 30px;
+      height: 32px;
       border-radius: var(--radius-sm);
       background: var(--color-surface-elevated);
       border: 1px solid var(--color-border-whisper);
@@ -465,32 +457,26 @@
       transition: all var(--speed-fast) ease;
     }
 
-    .btn-collapse-rail:hover {
+    .btn-toggle-rail:hover {
       color: var(--color-text-primary);
       border-color: var(--color-border-specular);
     }
 
-    .btn-collapse-rail:active {
-      transform: scale(0.98);
-    }
-
     /* ==========================================================================
-       6. MAIN CONTENT WRAPPER & HEADER BAR
+       5. TOP COMMAND HEADER BAR
        ========================================================================== */
-    .app-main-wrapper {
+    .app-content-wrapper {
       flex: 1;
       display: flex;
       flex-direction: column;
       min-width: 0;
-      position: relative;
     }
 
-    /* Top Command Header Bar */
-    .top-command-bar {
+    .top-command-header {
       height: var(--header-height);
       background-color: var(--color-surface-glass);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--color-border-whisper);
       position: sticky;
       top: 0;
@@ -500,19 +486,20 @@
       justify-content: space-between;
       padding: 0 24px;
       gap: 16px;
+      transition: background-color var(--speed-normal) ease;
     }
 
-    .header-left {
+    .header-left-cluster {
       display: flex;
       align-items: center;
       gap: 14px;
       min-width: 0;
     }
 
-    .btn-mobile-toggle {
+    .btn-mobile-nav-toggle {
       display: none;
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: var(--radius-sm);
       background: var(--color-surface-elevated);
       border: 1px solid var(--color-border-whisper);
@@ -522,41 +509,36 @@
       justify-content: center;
     }
 
-    .breadcrumbs-trail {
+    .breadcrumbs-bar {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 11px;
       font-weight: 600;
       color: var(--color-text-muted);
-      letter-spacing: 0.04em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .breadcrumbs-item.active {
+    .breadcrumb-active-tag {
       color: var(--color-text-primary);
     }
 
-    .breadcrumbs-sep {
-      color: var(--color-border-specular);
-    }
-
-    /* Command Search Bar (Center) */
-    .header-center {
+    /* Command Search Field (Center) */
+    .header-center-search {
       flex: 1;
-      max-width: 440px;
+      max-width: 420px;
     }
 
-    .search-command-input-wrap {
+    .search-box-input-wrap {
       position: relative;
       width: 100%;
       display: flex;
       align-items: center;
     }
 
-    .search-icon-fixed {
+    .search-input-icon {
       position: absolute;
       left: 12px;
       width: 15px;
@@ -567,70 +549,56 @@
       pointer-events: none;
     }
 
-    .search-command-input {
+    .search-box-input {
       width: 100%;
-      height: 36px;
-      background: var(--color-canvas);
+      height: 38px;
+      background: var(--color-surface-elevated);
       border: 1px solid var(--color-border-whisper);
       border-radius: var(--radius-sm);
-      padding: 0 44px 0 34px;
+      padding: 0 44px 0 36px;
       color: var(--color-text-primary);
       font-family: inherit;
-      font-size: 11px;
+      font-size: 12px;
       outline: none;
       transition: all var(--speed-fast) ease;
     }
 
-    .search-command-input::placeholder {
+    .search-box-input::placeholder {
       color: var(--color-text-muted);
     }
 
-    .search-command-input:focus {
+    .search-box-input:focus {
+      background: var(--color-surface);
       border-color: var(--color-accent-cobalt);
-      box-shadow: 0 0 0 1px var(--color-accent-cobalt), 0 4px 16px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 0 2px var(--color-accent-cobalt-border);
     }
 
-    .search-shortcut-tag {
+    .search-shortcut-badge {
       position: absolute;
-      right: 8px;
-      padding: 2px 5px;
-      border-radius: 3px;
-      background: var(--color-surface-elevated);
+      right: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--color-surface);
       border: 1px solid var(--color-border-whisper);
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--color-text-muted);
       pointer-events: none;
     }
 
     /* Header Actions (Right) */
-    .header-right {
+    .header-right-cluster {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex-shrink: 0;
     }
 
-    .system-status-pill {
-      height: 30px;
-      padding: 0 10px;
+    .btn-header-control {
+      width: 38px;
+      height: 38px;
       border-radius: var(--radius-sm);
-      background: var(--color-signal-normal-bg);
-      border: 1px solid var(--color-signal-normal-border);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--color-signal-normal);
-      letter-spacing: 0.04em;
-    }
-
-    .btn-header-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-sm);
-      background: var(--color-secondary-cta-bg);
+      background: var(--color-surface-elevated);
       border: 1px solid var(--color-border-whisper);
       color: var(--color-text-secondary);
       display: flex;
@@ -641,30 +609,29 @@
       transition: all var(--speed-fast) ease;
     }
 
-    .btn-header-icon:hover {
+    .btn-header-control:hover {
       color: var(--color-text-primary);
       border-color: var(--color-border-specular);
-      background: rgba(255, 255, 255, 0.08);
+      background: var(--color-surface);
     }
 
-    .btn-header-icon:active {
-      transform: scale(0.97);
+    .btn-header-control:active {
+      transform: scale(0.96);
     }
 
-    .icon-counter-dot {
+    .notification-ping {
       position: absolute;
-      top: 6px;
-      right: 6px;
+      top: 8px;
+      right: 8px;
       width: 6px;
       height: 6px;
       background: var(--color-signal-critical);
       border-radius: 50%;
-      box-shadow: 0 0 6px var(--color-signal-critical);
     }
 
     /* User Profile Pill */
-    .user-profile-pill {
-      height: 36px;
+    .profile-pill-trigger {
+      height: 38px;
       padding: 0 12px 0 6px;
       border-radius: var(--radius-sm);
       background: var(--color-surface-elevated);
@@ -673,66 +640,138 @@
       align-items: center;
       gap: 10px;
       cursor: pointer;
-      transition: all var(--speed-fast) ease;
       user-select: none;
       position: relative;
+      transition: all var(--speed-fast) ease;
     }
 
-    .user-profile-pill:hover {
+    .profile-pill-trigger:hover {
       border-color: var(--color-border-specular);
-      background: rgba(255, 255, 255, 0.08);
+      background: var(--color-surface);
     }
 
-    .user-profile-pill:active {
-      transform: scale(0.98);
-    }
-
-    .user-avatar-badge {
-      width: 24px;
-      height: 24px;
-      border-radius: 3px;
+    .profile-avatar-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
       background: var(--color-accent-cobalt);
       color: #FFFFFF;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .user-info-text {
+    .profile-text-wrap {
       display: flex;
       flex-direction: column;
       line-height: 1.2;
     }
 
-    .user-name-tag {
+    .profile-user-name {
       font-size: 11px;
       font-weight: 600;
       color: var(--color-text-primary);
     }
 
-    .user-role-tag {
-      font-size: 9px;
+    .profile-user-role {
+      font-size: 10px;
       color: var(--color-text-muted);
     }
 
+    /* Popover Menus (Notifications & Profile) */
+    .header-popover-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 300px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-md);
+      box-shadow: var(--popover-shadow);
+      display: none;
+      flex-direction: column;
+      z-index: 60;
+      overflow: hidden;
+      animation: popoverFadeIn 140ms var(--ease-physics);
+    }
+
+    .header-popover-dropdown.show {
+      display: flex;
+    }
+
+    @keyframes popoverFadeIn {
+      from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .popover-header-row {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border-whisper);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-surface-subtle);
+    }
+
+    .popover-list-item {
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      border-bottom: 1px solid var(--color-border-whisper);
+      transition: background var(--speed-fast) ease;
+    }
+
+    .popover-list-item:last-child {
+      border-bottom: none;
+    }
+
+    .popover-list-item:hover {
+      background: var(--color-surface-elevated);
+      color: var(--color-text-primary);
+    }
+
     /* ==========================================================================
-       7. MAIN CONTENT AREA (SLOT STRUKTURAL KONTEN)
+       6. MAIN CONTENT AREA & TAB PANES SYSTEM
        ========================================================================== */
-    .main-content-area {
+    .main-viewport {
       flex: 1;
-      padding: 24px;
+      padding: 28px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 24px;
       max-width: 1600px;
       width: 100%;
       margin: 0 auto;
     }
 
-    /* Page Header & Action Bar */
-    .page-action-header {
+    /* Tab Panes */
+    .tab-content-view {
+      display: none;
+      flex-direction: column;
+      gap: 24px;
+      animation: fadeInView 180ms var(--ease-physics);
+    }
+
+    .tab-content-view.active {
+      display: flex;
+    }
+
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Header Action Row per Tab */
+    .view-action-header {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
@@ -740,231 +779,202 @@
       flex-wrap: wrap;
     }
 
-    .page-title-group h1 {
-      font-size: 20px;
+    .view-title-group h1 {
+      font-size: 22px;
       font-weight: 700;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
       color: var(--color-text-primary);
     }
 
-    .page-title-group p {
-      font-size: 12px;
+    .view-title-group p {
+      font-size: 13px;
       color: var(--color-text-secondary);
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
-    .page-action-buttons {
+    .view-header-buttons {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
     }
 
-    .btn-solid-white {
-      height: 36px;
+    /* Buttons */
+    .btn-action-primary {
+      height: 38px;
       padding: 0 16px;
       border-radius: var(--radius-sm);
       background: var(--color-primary-cta);
       color: var(--color-primary-cta-text);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
-      border: none;
+      border: 1px solid var(--color-primary-cta);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: transform var(--speed-fast) var(--ease-physics), background var(--speed-fast) ease;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      transition: all var(--speed-fast) ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      white-space: nowrap;
     }
 
-    .btn-solid-white:active {
+    .btn-action-primary:hover {
+      opacity: 0.92;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-action-primary:active {
       transform: scale(0.97);
     }
 
-    .btn-smoked-glass {
-      height: 36px;
+    .btn-action-secondary {
+      height: 38px;
       padding: 0 14px;
       border-radius: var(--radius-sm);
       background: var(--color-secondary-cta-bg);
-      border: 1px solid var(--color-border-whisper);
+      border: 1px solid var(--color-secondary-cta-border);
       color: var(--color-text-primary);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 500;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       transition: all var(--speed-fast) ease;
+      white-space: nowrap;
     }
 
-    .btn-smoked-glass:hover {
-      background: rgba(255, 255, 255, 0.08);
+    .btn-action-secondary:hover {
+      background: var(--color-surface-elevated);
       border-color: var(--color-border-specular);
     }
 
-    .btn-smoked-glass:active {
+    .btn-action-secondary:active {
       transform: scale(0.97);
     }
 
-    /* Master Bento Grid Overview */
-    .bento-overview-grid {
+    /* Bento Cards & Containers */
+    .bento-cards-row {
       display: grid;
-      grid-template-columns: 5fr 3fr 4fr;
+      grid-template-columns: 5fr 3.5fr 3.5fr;
+      gap: 18px;
+    }
+
+    .four-cards-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px;
     }
 
-    .bento-card {
+    .glass-panel-card {
       background: var(--color-surface);
       border: 1px solid var(--color-border-whisper);
       border-radius: var(--radius-md);
-      padding: 20px;
+      box-shadow: var(--card-shadow);
+      padding: 22px;
       display: flex;
       flex-direction: column;
       position: relative;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-      transition: border-color var(--speed-fast) ease;
+      transition: box-shadow var(--speed-normal) ease, border-color var(--speed-normal) ease;
     }
 
-    .bento-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 10%;
-      right: 10%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--color-border-specular), transparent);
-    }
-
-    .bento-card:hover {
+    .glass-panel-card:hover {
+      box-shadow: var(--card-shadow-hover);
       border-color: var(--color-border-specular);
     }
 
-    .bento-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-
-    .bento-tag {
-      font-size: 10px;
-      font-weight: 700;
+    .card-top-tag {
+      font-size: 11px;
+      font-weight: 600;
       color: var(--color-text-muted);
-      letter-spacing: 0.06em;
       text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
     }
 
-    .bento-metric-large {
+    .card-metric-value {
       font-size: 26px;
       font-weight: 700;
-      letter-spacing: -0.02em;
       color: var(--color-text-primary);
-      margin-bottom: 4px;
+      letter-spacing: -0.02em;
     }
 
-    .bento-subtext {
-      font-size: 11px;
+    .card-metric-subtext {
+      font-size: 12px;
       color: var(--color-text-secondary);
-      margin-bottom: 14px;
+      margin-top: 4px;
     }
 
-    /* Progress Health Bar */
-    .health-bar-track {
-      height: 6px;
-      border-radius: 3px;
-      background: rgba(255, 255, 255, 0.06);
+    /* Progress Health Bars */
+    .health-bar-container {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .health-bar-rail {
+      height: 8px;
+      border-radius: 4px;
+      background: var(--color-surface-elevated);
       overflow: hidden;
-      margin-bottom: 12px;
     }
 
     .health-bar-fill {
       height: 100%;
       background: var(--color-signal-normal);
-      border-radius: 3px;
-      transition: width 1s var(--ease-physics);
+      border-radius: 4px;
+      transition: width 0.8s var(--ease-physics);
     }
 
-    .health-stats-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 10px;
-      color: var(--color-text-muted);
-    }
-
-    /* Urgent Service Alert Box */
-    .urgent-alert-pill {
+    /* Status Badges */
+    .status-badge-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: var(--radius-sm);
-      background: var(--color-signal-critical-bg);
-      border: 1px solid var(--color-signal-critical-border);
-      color: var(--color-signal-critical);
-      font-size: 10px;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .urgent-service-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      list-style: none;
-    }
-
-    .urgent-service-item {
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 4px;
       font-size: 11px;
-      color: var(--color-text-primary);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 6px 8px;
-      border-radius: var(--radius-sm);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--color-border-whisper);
+      font-weight: 600;
+      white-space: nowrap;
     }
 
-    /* Allocation Mini Bars */
-    .allocation-row-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-bottom: 8px;
+    .status-badge-pill.normal {
+      background: var(--color-signal-normal-bg);
+      color: var(--color-signal-normal);
+      border: 1px solid var(--color-signal-normal-border);
     }
 
-    .allocation-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 10px;
+    .status-badge-pill.warning {
+      background: var(--color-signal-warning-bg);
+      color: var(--color-signal-warning);
+      border: 1px solid var(--color-signal-warning-border);
     }
 
-    .allocation-track {
-      height: 4px;
-      border-radius: 2px;
-      background: rgba(255, 255, 255, 0.06);
-      overflow: hidden;
+    .status-badge-pill.critical {
+      background: var(--color-signal-critical-bg);
+      color: var(--color-signal-critical);
+      border: 1px solid var(--color-signal-critical-border);
     }
 
-    .allocation-fill {
-      height: 100%;
-      background: var(--color-accent-cobalt);
+    .status-badge-pill.cobalt {
+      background: var(--color-accent-cobalt-bg);
+      color: var(--color-accent-cobalt);
+      border: 1px solid var(--color-accent-cobalt-border);
     }
 
-    /* Master Data Table Showcase Card */
-    .glass-table-card {
+    /* Table Component */
+    .glass-table-wrapper {
       background: var(--color-surface);
       border: 1px solid var(--color-border-whisper);
       border-radius: var(--radius-md);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      box-shadow: var(--card-shadow);
       overflow: hidden;
       display: flex;
       flex-direction: column;
     }
 
-    .table-toolbar-header {
+    .table-controls-bar {
       padding: 16px 20px;
       border-bottom: 1px solid var(--color-border-whisper);
       display: flex;
@@ -972,236 +982,362 @@
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
+      background: var(--color-surface-subtle);
     }
 
-    .table-title-group h2 {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--color-text-primary);
-    }
-
-    .table-toolbar-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .filter-select {
-      height: 32px;
-      background: var(--color-canvas);
+    .table-select-filter {
+      height: 36px;
+      background: var(--color-surface);
       border: 1px solid var(--color-border-whisper);
       border-radius: var(--radius-sm);
-      padding: 0 10px;
+      padding: 0 12px;
       color: var(--color-text-primary);
-      font-size: 11px;
+      font-size: 12px;
       outline: none;
       cursor: pointer;
     }
 
-    .table-responsive-container {
+    .table-responsive-box {
       width: 100%;
       overflow-x: auto;
     }
 
-    .glass-table {
+    .data-table-main {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 11px;
+      font-size: 12px;
     }
 
-    .glass-table th {
-      background: var(--color-canvas);
-      padding: 10px 16px;
-      font-size: 10px;
+    .data-table-main th {
+      background: var(--color-surface-elevated);
+      padding: 12px 18px;
+      font-size: 11px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
       color: var(--color-text-muted);
       border-bottom: 1px solid var(--color-border-whisper);
       white-space: nowrap;
+      letter-spacing: 0.03em;
     }
 
-    .glass-table td {
-      padding: 12px 16px;
+    .data-table-main td {
+      padding: 14px 18px;
       border-bottom: 1px solid var(--color-border-whisper);
       color: var(--color-text-primary);
       vertical-align: middle;
       white-space: nowrap;
     }
 
-    .glass-table tbody tr {
-      transition: background var(--speed-fast) ease;
+    .data-table-main tbody tr:hover {
+      background: var(--color-surface-elevated);
     }
 
-    .glass-table tbody tr:hover {
-      background: rgba(255, 255, 255, 0.025);
-    }
-
-    .cell-code {
-      color: var(--color-accent-cobalt);
-      font-weight: 600;
-    }
-
-    .cell-name {
-      font-weight: 500;
-    }
-
-    .cell-room {
-      color: var(--color-text-secondary);
-    }
-
-    /* Status Badges */
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 3px 8px;
-      border-radius: 3px;
-      font-size: 10px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .status-badge.normal {
-      background: var(--color-signal-normal-bg);
-      color: var(--color-signal-normal);
-      border: 1px solid var(--color-signal-normal-border);
-    }
-
-    .status-badge.warning {
-      background: var(--color-signal-warning-bg);
-      color: var(--color-signal-warning);
-      border: 1px solid var(--color-signal-warning-border);
-    }
-
-    .status-badge.critical {
-      background: var(--color-signal-critical-bg);
-      color: var(--color-signal-critical);
-      border: 1px solid var(--color-signal-critical-border);
-    }
-
-    /* Row Action Link */
-    .btn-row-action {
+    .table-action-link {
       background: none;
       border: none;
       color: var(--color-accent-cobalt);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      padding: 4px 6px;
-      border-radius: 3px;
+      padding: 4px 8px;
+      border-radius: 4px;
       transition: background var(--speed-fast) ease;
     }
 
-    .btn-row-action:hover {
-      background: rgba(37, 99, 235, 0.15);
+    .table-action-link:hover {
+      background: var(--color-accent-cobalt-bg);
     }
 
-    .btn-row-action.danger {
+    .table-action-link.danger {
       color: var(--color-signal-critical);
     }
 
-    .btn-row-action.danger:hover {
-      background: rgba(220, 38, 38, 0.15);
+    .table-action-link.danger:hover {
+      background: var(--color-signal-critical-bg);
     }
 
-    /* Table Pagination Bar */
-    .table-pagination-footer {
-      padding: 12px 20px;
-      background: var(--color-canvas);
+    .table-bottom-bar {
+      padding: 14px 20px;
       border-top: 1px solid var(--color-border-whisper);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--color-text-secondary);
+      background: var(--color-surface-subtle);
     }
 
-    .pagination-controls {
+    .pagination-pills {
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .btn-page {
-      min-width: 28px;
-      height: 28px;
+    .btn-page-number {
+      min-width: 30px;
+      height: 30px;
       padding: 0 8px;
-      border-radius: 3px;
-      background: var(--color-surface-elevated);
+      border-radius: 4px;
+      background: var(--color-surface);
       border: 1px solid var(--color-border-whisper);
       color: var(--color-text-primary);
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all var(--speed-fast) ease;
     }
 
-    .btn-page:hover {
-      border-color: var(--color-border-specular);
-    }
-
-    .btn-page.active {
+    .btn-page-number.active {
       background: var(--color-primary-cta);
       color: var(--color-primary-cta-text);
-      font-weight: 700;
       border-color: var(--color-primary-cta);
     }
 
     /* ==========================================================================
-       8. INSTITUTIONAL FOOTER (AKREDITASI & COPYRIGHT)
+       7. FORM VIEW STYLING (REGISTRASI ASET)
        ========================================================================== */
-    .institutional-footer {
-      min-height: var(--footer-height);
-      background-color: var(--color-surface);
-      border-top: 1px solid var(--color-border-whisper);
+    .form-two-column-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 24px;
+    }
+
+    .form-group-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .form-label-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .form-input-field, .form-select-field, .form-textarea-field {
+      width: 100%;
+      height: 40px;
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 0 14px;
+      color: var(--color-text-primary);
+      font-family: inherit;
+      font-size: 12px;
+      outline: none;
+      transition: all var(--speed-fast) ease;
+    }
+
+    .form-textarea-field {
+      height: 90px;
+      padding: 10px 14px;
+      resize: vertical;
+    }
+
+    .form-input-field:focus, .form-select-field:focus, .form-textarea-field:focus {
+      background: var(--color-surface);
+      border-color: var(--color-accent-cobalt);
+      box-shadow: 0 0 0 2px var(--color-accent-cobalt-border);
+    }
+
+    /* Radio Condition Cards */
+    .radio-cards-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .radio-card-label {
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border-whisper);
+      background: var(--color-surface-elevated);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      text-align: center;
+      transition: all var(--speed-fast) ease;
+    }
+
+    .radio-card-label:hover {
+      border-color: var(--color-border-specular);
+    }
+
+    .radio-card-label.selected {
+      border-color: var(--color-accent-cobalt);
+      background: var(--color-accent-cobalt-bg);
+      color: var(--color-accent-cobalt);
+    }
+
+    /* Dropzone Upload */
+    .dropzone-upload-box {
+      border: 2px dashed var(--color-border-specular);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      text-align: center;
+      background: var(--color-surface-subtle);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--speed-fast) ease;
+    }
+
+    .dropzone-upload-box:hover {
+      border-color: var(--color-accent-cobalt);
+      background: var(--color-accent-cobalt-bg);
+    }
+
+    /* Thermal Barcode Sticker Preview (75x50mm Proportion) */
+    .thermal-sticker-card {
+      background: #FFFFFF;
+      color: #0F172A;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      padding: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .thermal-header-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 24px;
-      gap: 16px;
-      flex-wrap: wrap;
-      font-size: 11px;
-      color: var(--color-text-muted);
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 6px;
     }
 
-    .footer-left {
+    .thermal-body-grid {
       display: flex;
-      align-items: center;
       gap: 12px;
+      align-items: center;
     }
 
-    .footer-center {
-      font-weight: 500;
-      color: var(--color-text-secondary);
-    }
-
-    .footer-right {
+    .thermal-qr-mock {
+      width: 68px;
+      height: 68px;
+      background: #0F172A;
+      border-radius: 4px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
+      justify-content: center;
+      color: #FFFFFF;
+      flex-shrink: 0;
     }
 
     /* ==========================================================================
-       9. MODAL DIALOG (DECOMMISSIONING BMN TEST COMPONENT)
+       8. LAPORAN & KIR DOKUMEN CETAK VIEW
        ========================================================================== */
-    .modal-backdrop {
+    .kir-official-document {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-md);
+      padding: 36px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .kir-doc-header {
+      text-align: center;
+      border-bottom: 2px solid var(--color-text-primary);
+      padding-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .kir-doc-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .kir-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 12px;
+      padding: 12px 16px;
+      background: var(--color-surface-subtle);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border-whisper);
+    }
+
+    .signatures-dual-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 32px;
+      padding-top: 16px;
+    }
+
+    .sig-person-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sig-line-space {
+      height: 60px;
+    }
+
+    /* ==========================================================================
+       9. RUANGAN 6-CARDS GRID
+       ========================================================================== */
+    .rooms-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .room-modular-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all var(--speed-normal) ease;
+    }
+
+    .room-modular-card:hover {
+      box-shadow: var(--card-shadow-hover);
+      border-color: var(--color-accent-cobalt);
+      transform: translateY(-2px);
+    }
+
+    .room-specs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: 6px;
+    }
+
+    /* ==========================================================================
+       10. MODAL DIALOGS
+       ========================================================================== */
+    .modal-overlay-bg {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 100;
       display: none;
       align-items: center;
@@ -1211,362 +1347,328 @@
       transition: opacity var(--speed-normal) ease;
     }
 
-    .modal-backdrop.open {
+    .modal-overlay-bg.open {
       display: flex;
       opacity: 1;
     }
 
-    .modal-card {
+    .modal-window-card {
       width: 100%;
-      max-width: 540px;
+      max-width: 520px;
       background: var(--color-surface);
-      border: 1px solid var(--color-signal-critical-border);
-      border-radius: var(--radius-md);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--popover-shadow);
       overflow: hidden;
-      transform: scale(0.95);
+      transform: scale(0.96);
       transition: transform var(--speed-normal) var(--ease-physics);
     }
 
-    .modal-backdrop.open .modal-card {
+    .modal-overlay-bg.open .modal-window-card {
       transform: scale(1);
     }
 
-    .modal-header {
-      padding: 18px 24px;
-      background: rgba(220, 38, 38, 0.08);
-      border-bottom: 1px solid var(--color-signal-critical-border);
+    .modal-head {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--color-border-whisper);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background: var(--color-surface-subtle);
     }
 
-    .modal-header h3 {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--color-signal-critical);
-      letter-spacing: 0.02em;
-    }
-
-    .modal-body {
+    .modal-content-body {
       padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      font-size: 12px;
+      gap: 16px;
+      font-size: 13px;
       color: var(--color-text-secondary);
-      line-height: 1.6;
     }
 
-    .modal-target-box {
-      background: var(--color-canvas);
-      border: 1px solid var(--color-border-whisper);
-      border-radius: var(--radius-sm);
-      padding: 12px;
-    }
-
-    .modal-footer {
-      padding: 16px 24px;
-      background: var(--color-canvas);
+    .modal-foot-actions {
+      padding: 16px 20px;
       border-top: 1px solid var(--color-border-whisper);
       display: flex;
       align-items: center;
       justify-content: flex-end;
       gap: 10px;
+      background: var(--color-surface-subtle);
     }
 
-    .btn-danger-confirm {
-      height: 36px;
+    .btn-danger-action {
+      height: 38px;
       padding: 0 16px;
       border-radius: var(--radius-sm);
       background: var(--color-signal-critical);
       color: #FFFFFF;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       border: none;
       cursor: pointer;
-      transition: transform var(--speed-fast) var(--ease-physics);
+      transition: opacity var(--speed-fast) ease;
     }
 
-    .btn-danger-confirm:active {
-      transform: scale(0.97);
+    .btn-danger-action:hover {
+      opacity: 0.9;
     }
 
-    /* ==========================================================================
-       10. ORIGIN-AWARE DROPDOWNS & NOTIFICATIONS
-       ========================================================================== */
-    .popover-menu {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      width: 280px;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border-specular);
-      border-radius: var(--radius-md);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(20px);
-      display: none;
-      flex-direction: column;
-      z-index: 60;
-      overflow: hidden;
-      animation: popoverFadeIn 160ms var(--ease-physics);
-    }
-
-    .popover-menu.show {
-      display: flex;
-    }
-
-    @keyframes popoverFadeIn {
-      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .popover-header {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--color-border-whisper);
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--color-text-primary);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .popover-item {
-      padding: 10px 16px;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 11px;
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      border-bottom: 1px solid var(--color-border-whisper);
-      transition: background var(--speed-fast) ease;
-    }
-
-    .popover-item:last-child {
-      border-bottom: none;
-    }
-
-    .popover-item:hover {
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--color-text-primary);
-    }
-
-    /* Toast Message */
-    .toast-container {
+    /* Toast */
+    .toast-stack {
       position: fixed;
       bottom: 24px;
       right: 24px;
-      z-index: 110;
+      z-index: 120;
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
 
-    .toast-pill {
-      padding: 10px 16px;
+    .toast-card {
+      padding: 12px 18px;
       border-radius: var(--radius-sm);
-      background: var(--color-surface-elevated);
+      background: var(--color-surface);
       border: 1px solid var(--color-border-specular);
       color: var(--color-text-primary);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 500;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: var(--popover-shadow);
       display: flex;
       align-items: center;
       gap: 10px;
-      animation: toastSlideUp 200ms var(--ease-physics);
+      animation: toastIn 180ms var(--ease-physics);
     }
 
-    @keyframes toastSlideUp {
-      from { transform: translateY(20px); opacity: 0; }
+    @keyframes toastIn {
+      from { transform: translateY(12px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
 
     /* ==========================================================================
-       11. RESPONSIVE BREAKPOINTS (MOBILE & TABLET ADAPTATION)
+       11. INSTITUTIONAL FOOTER
        ========================================================================== */
-    @media (max-width: 1024px) {
-      .bento-overview-grid {
+    .site-footer {
+      min-height: var(--footer-height);
+      background-color: var(--color-surface);
+      border-top: 1px solid var(--color-border-whisper);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 28px;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    /* ==========================================================================
+       12. PRINT MEDIA STYLESHEET (CETAK KIR BERSTANDAR RESMI)
+       ========================================================================== */
+    @media print {
+      .sidebar-rail, .top-command-header, .site-footer, .view-action-header, .toast-stack, .modal-overlay-bg {
+        display: none !important;
+      }
+      body, .app-layout, .app-content-wrapper, .main-viewport {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .tab-content-view {
+        display: none !important;
+      }
+      #view-laporan {
+        display: block !important;
+      }
+      .kir-official-document {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+    }
+
+    /* ==========================================================================
+       13. RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 1100px) {
+      .bento-cards-row {
         grid-template-columns: 1fr;
       }
+      .four-cards-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .form-two-column-grid {
+        grid-template-columns: 1fr;
+      }
+      .rooms-card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
       .sidebar-rail {
         position: fixed;
         left: -100%;
         top: 0;
         bottom: 0;
         z-index: 90;
-        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.7);
-        transition: left var(--speed-normal) var(--ease-physics);
+        box-shadow: var(--popover-shadow);
       }
       .sidebar-rail.mobile-open {
         left: 0;
         width: var(--sidebar-width);
       }
-      .btn-mobile-toggle {
+      .btn-mobile-nav-toggle {
         display: flex;
       }
-      .top-command-bar {
-        padding: 0 16px;
-      }
-      .header-center {
-        max-width: 260px;
-      }
-      .system-status-pill {
-        display: none;
+      .rooms-card-grid {
+        grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 640px) {
-      .header-center {
+    @media (max-width: 600px) {
+      .header-center-search {
         display: none;
       }
-      .main-content-area {
+      .main-viewport {
         padding: 16px;
       }
-      .user-info-text {
+      .profile-text-wrap {
         display: none;
       }
-      .page-action-header {
-        flex-direction: column;
-        align-items: stretch;
+      .four-cards-row {
+        grid-template-columns: 1fr;
       }
-      .page-action-buttons {
-        width: 100%;
-        justify-content: flex-start;
-      }
-      .btn-solid-white, .btn-smoked-glass {
-        flex: 1;
-        justify-content: center;
-      }
-      .institutional-footer {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
+      .radio-cards-row {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Ambient Chromatic Glow Emitters (Glass Layer 0) -->
-  <div class="ambient-glow-mesh" aria-hidden="true">
-    <div class="ambient-glow-1"></div>
-    <div class="ambient-glow-2"></div>
+  <!-- Ambient Backdrop -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-shape-1"></div>
+    <div class="ambient-shape-2"></div>
   </div>
 
-  <!-- Master Application Layout -->
   <div class="app-layout">
 
     <!-- ======================================================================
-         1. SIDEBAR RAIL (NAVIGASI VERTIKAL GLASS)
+         1. SIDEBAR RAIL
          ====================================================================== -->
-    <aside class="sidebar-rail" id="sidebarRail" aria-label="Navigasi Utama">
+    <aside class="sidebar-rail" id="sidebarRail" aria-label="Navigasi Menu">
       
-      <!-- Brand Section -->
+      <!-- Brand Logo Header -->
       <div class="sidebar-brand">
-        <div class="brand-logo-badge" aria-hidden="true">
-          <!-- Institutional Shield Icon SVG -->
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EDEDED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="m9 12 2 2 4-4"/>
+        <div class="brand-logo-wrap" title="SARPRAS ACADEMIA">
+          <!-- Institutional Pillar & Shield Emblem SVG -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21h18"/>
+            <path d="M5 21V7l7-4 7 4v14"/>
+            <path d="M9 10h.01"/>
+            <path d="M9 14h.01"/>
+            <path d="M9 18h.01"/>
+            <path d="M15 10h.01"/>
+            <path d="M15 14h.01"/>
+            <path d="M15 18h.01"/>
           </svg>
         </div>
-        <div class="brand-text">
-          <span class="brand-title">SARPRAS ACADEMIA</span>
-          <span class="brand-subtitle font-mono">UNPAM // TA 2025/2026</span>
+        <div class="brand-text-group">
+          <span class="brand-main-title">SARPRAS ACADEMIA</span>
+          <span class="brand-sub-title">DIREKTORAT FASILITAS KAMPUS</span>
         </div>
       </div>
 
-      <!-- Quick Fast Action CTA -->
-      <div class="sidebar-cta-wrap">
-        <button class="btn-sidebar-cta" id="btnSidebarAdd" title="Registrasi Aset Baru">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Quick Fast Action Button -->
+      <div class="sidebar-quick-action">
+        <button class="btn-quick-register" id="btnSidebarRegister" title="Daftarkan Aset Baru">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
           </svg>
-          <span class="label-text">Registrasi Aset</span>
+          <span class="btn-text">Registrasi Aset Baru</span>
         </button>
       </div>
 
-      <!-- Navigation Menu Groups -->
+      <!-- Menu Items List -->
       <nav class="sidebar-nav-container">
-        <div class="nav-section-label">Navigasi Utama</div>
+        
+        <div class="nav-group-title">Manajemen Utama</div>
 
         <!-- 01. Dashboard -->
-        <a class="nav-item active" data-nav="dashboard" title="Executive Dashboard">
-          <svg class="nav-icon" viewBox="0 0 24 24">
+        <a class="nav-item-link active" data-target="view-dashboard" title="Executive Dashboard">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
             <rect width="7" height="9" x="3" y="3" rx="1"/>
             <rect width="7" height="5" x="14" y="3" rx="1"/>
             <rect width="7" height="9" x="14" y="12" rx="1"/>
             <rect width="7" height="5" x="3" y="16" rx="1"/>
           </svg>
-          <span class="nav-label">Executive Dashboard</span>
-          <span class="nav-badge badge-gray font-mono">Live</span>
+          <span class="nav-item-label">Executive Dashboard</span>
+          <span class="nav-badge-counter badge-subtle font-mono">Utama</span>
         </a>
 
-        <!-- 02. Master Data Sarpras -->
-        <a class="nav-item" data-nav="data-master" title="Master Data Sarpras">
-          <svg class="nav-icon" viewBox="0 0 24 24">
+        <!-- 02. Master Data -->
+        <a class="nav-item-link" data-target="view-data-master" title="Master Data Sarpras">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
             <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
             <path d="m3.3 7 8.7 5 8.7-5"/>
             <path d="M12 22V12"/>
           </svg>
-          <span class="nav-label">Master Data Sarpras</span>
-          <span class="nav-badge badge-gray font-mono">1.482</span>
+          <span class="nav-item-label">Master Data Sarpras</span>
+          <span class="nav-badge-counter badge-subtle font-mono" id="sidebarAssetCount">1.482</span>
         </a>
 
         <!-- 03. Form Registrasi -->
-        <a class="nav-item" data-nav="form-aset" title="Form Registrasi Aset">
-          <svg class="nav-icon" viewBox="0 0 24 24">
+        <a class="nav-item-link" data-target="view-form-aset" title="Form Registrasi Aset">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14 2 14 8 20 8"/>
             <line x1="12" y1="18" x2="12" y2="12"/>
             <line x1="9" y1="15" x2="15" y2="15"/>
           </svg>
-          <span class="nav-label">Form Registrasi Aset</span>
+          <span class="nav-item-label">Form Registrasi Aset</span>
         </a>
 
         <!-- 04. Pusat Laporan KIR -->
-        <a class="nav-item" data-nav="laporan" title="Pusat Laporan & KIR">
-          <svg class="nav-icon" viewBox="0 0 24 24">
+        <a class="nav-item-link" data-target="view-laporan" title="Pusat Laporan KIR">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
             <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
             <polyline points="14 2 14 8 20 8"/>
             <line x1="16" y1="13" x2="8" y2="13"/>
             <line x1="16" y1="17" x2="8" y2="17"/>
             <line x1="10" y1="9" x2="8" y2="9"/>
           </svg>
-          <span class="nav-label">Pusat Laporan & KIR</span>
-          <span class="nav-badge badge-gray font-mono">PDF</span>
+          <span class="nav-item-label">Pusat Laporan & KIR</span>
         </a>
 
-        <div class="nav-section-label">Sirkulasi & Fasilitas</div>
+        <div class="nav-group-title">Sirkulasi & Fasilitas</div>
 
         <!-- 05. Peminjaman & Mutasi -->
-        <a class="nav-item" data-nav="peminjaman" title="Peminjaman & Mutasi">
-          <svg class="nav-icon" viewBox="0 0 24 24">
+        <a class="nav-item-link" data-target="view-peminjaman" title="Peminjaman & Mutasi">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
             <path d="m16 3 4 4-4 4"/>
             <path d="M20 7H4"/>
             <path d="m8 21-4-4 4-4"/>
             <path d="M4 17h16"/>
           </svg>
-          <span class="nav-label">Peminjaman & Mutasi</span>
-          <span class="nav-badge badge-crimson font-mono">3 Overdue</span>
+          <span class="nav-item-label">Peminjaman & Mutasi</span>
+          <span class="nav-badge-counter badge-critical font-mono">3 Terlambat</span>
         </a>
 
         <!-- 06. Servis & Kalibrasi -->
-        <a class="nav-item" data-nav="maintenance" title="Servis & Kalibrasi">
-          <svg class="nav-icon" viewBox="0 0 24 24">
+        <a class="nav-item-link" data-target="view-maintenance" title="Servis & Kalibrasi">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
           </svg>
-          <span class="nav-label">Servis & Kalibrasi</span>
-          <span class="nav-badge badge-amber font-mono">23 Kritis</span>
+          <span class="nav-item-label">Servis & Kalibrasi</span>
+          <span class="nav-badge-counter badge-warning font-mono">23 Kritis</span>
         </a>
 
         <!-- 07. Ruangan & Gedung -->
-        <a class="nav-item" data-nav="ruangan" title="Direktori Ruangan">
-          <svg class="nav-icon" viewBox="0 0 24 24">
+        <a class="nav-item-link" data-target="view-ruangan" title="Direktori Ruangan">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
             <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
             <path d="M9 22v-4h6v4"/>
             <path d="M8 6h.01"/>
@@ -1576,42 +1678,34 @@
             <path d="M8 14h.01"/>
             <path d="M16 14h.01"/>
           </svg>
-          <span class="nav-label">Direktori Ruangan</span>
+          <span class="nav-item-label">Direktori Ruangan</span>
         </a>
+
       </nav>
 
-      <!-- Sidebar Footer / System Telemetry -->
-      <div class="sidebar-footer">
-        <div class="telemetry-card">
-          <div class="telemetry-row">
-            <span class="beacon-dot"></span>
-            <span>SYSTEM ONLINE // TLS 1.3</span>
-          </div>
-          <span class="telemetry-sub font-mono">SIMAK-BMN SYNCED • ISO 55001</span>
-        </div>
-
-        <button class="btn-collapse-rail" id="btnCollapseSidebar" title="Ciutkan / Rentangkan Sidebar">
+      <!-- Sidebar Footer / Collapse Toggle -->
+      <div class="sidebar-footer-controls">
+        <button class="btn-toggle-rail" id="btnToggleSidebarRail" title="Ciutkan / Rentangkan Menu">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="11 17 6 12 11 7"></polyline>
             <polyline points="18 17 13 12 18 7"></polyline>
           </svg>
-          <span class="label-text">Perkecil Menu</span>
+          <span class="toggle-text">Perkecil Menu</span>
         </button>
       </div>
 
     </aside>
 
     <!-- ======================================================================
-         2. APP MAIN WRAPPER (HEADER, CONTENT AREA & FOOTER)
+         2. TOP COMMAND HEADER BAR
          ====================================================================== -->
-    <div class="app-main-wrapper">
+    <div class="app-content-wrapper">
 
-      <!-- Top Command Header Bar -->
-      <header class="top-command-bar" id="topCommandBar">
+      <header class="top-command-header">
         
-        <!-- Left: Hamburger Toggle & Breadcrumbs -->
-        <div class="header-left">
-          <button class="btn-mobile-toggle" id="btnMobileToggle" aria-label="Buka Menu Navigasi">
+        <!-- Left: Hamburger & Breadcrumbs -->
+        <div class="header-left-cluster">
+          <button class="btn-mobile-nav-toggle" id="btnMobileNavToggle" aria-label="Buka Menu">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -1619,107 +1713,115 @@
             </svg>
           </button>
 
-          <nav class="breadcrumbs-trail" aria-label="Breadcrumb">
-            <span class="breadcrumbs-item font-mono">SARPRAS ACADEMIA</span>
-            <span class="breadcrumbs-sep">/</span>
-            <span class="breadcrumbs-item font-mono">ADMIN PANEL</span>
-            <span class="breadcrumbs-sep">/</span>
-            <span class="breadcrumbs-item active font-mono" id="currentBreadcrumb">EXECUTIVE DASHBOARD</span>
-          </nav>
+          <div class="breadcrumbs-bar">
+            <span>SARPRAS ACADEMIA</span>
+            <span style="opacity: 0.4;">/</span>
+            <span class="breadcrumb-active-tag" id="headerBreadcrumbTitle">EXECUTIVE DASHBOARD</span>
+          </div>
         </div>
 
         <!-- Center: Search Command Bar -->
-        <div class="header-center">
-          <div class="search-command-input-wrap">
-            <svg class="search-icon-fixed" viewBox="0 0 24 24">
+        <div class="header-center-search">
+          <div class="search-box-input-wrap">
+            <svg class="search-input-icon" viewBox="0 0 24 24">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="text" class="search-command-input" id="globalSearchInput" placeholder="Cari NUP BMN, nama instrumen, ruangan... (Ctrl + K)">
-            <span class="search-shortcut-tag font-mono">Ctrl K</span>
+            <input type="text" class="search-box-input" id="mainGlobalSearch" placeholder="Cari kode BMN, alat riset, ruangan... (Ctrl + K)">
+            <span class="search-shortcut-badge font-mono">Ctrl K</span>
           </div>
         </div>
 
-        <!-- Right: Status Pill, Notifications & User Profile -->
-        <div class="header-right">
+        <!-- Right: Theme Toggle, Notifications & Profile -->
+        <div class="header-right-cluster">
           
-          <!-- System Status Pill -->
-          <div class="system-status-pill">
-            <span class="beacon-dot"></span>
-            <span class="font-mono" id="liveClockDisplay">WIB --:--:--</span>
-          </div>
+          <!-- Theme Switcher (Light / Dark Mode) -->
+          <button class="btn-header-control" id="btnThemeToggle" title="Ganti Mode Tampilan (Terang / Gelap)" aria-label="Ganti Tema">
+            <!-- Sun Icon (shown in Dark) -->
+            <svg id="themeIconSun" style="display: none;" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <!-- Moon Icon (shown in Light) -->
+            <svg id="themeIconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
 
-          <!-- Notification Bell Button -->
+          <!-- Notifications Bell -->
           <div style="position: relative;">
-            <button class="btn-header-icon" id="btnNotifications" title="Notifikasi Sistem" aria-label="Notifikasi">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <button class="btn-header-control" id="btnHeaderNotif" title="Pemberitahuan Sistem">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                 <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
               </svg>
-              <span class="icon-counter-dot" aria-hidden="true"></span>
+              <span class="notification-ping"></span>
             </button>
 
             <!-- Notifications Popover -->
-            <div class="popover-menu" id="notifPopover">
-              <div class="popover-header">
-                <span>PEMBERITAHUAN AUDIT & SERVIS</span>
-                <span class="nav-badge badge-amber font-mono">3 BARU</span>
+            <div class="header-popover-dropdown" id="dropdownNotifications">
+              <div class="popover-header-row">
+                <span>PEMBERITAHUAN ASET</span>
+                <span class="status-badge-pill warning font-mono">3 Perhatian</span>
               </div>
-              <div class="popover-item" onclick="triggerToast('Membuka detail servis Spektrofotometer UV-Vis')">
-                <span class="beacon-dot" style="background: var(--color-signal-critical); margin-top: 4px;"></span>
+              <div class="popover-list-item" onclick="navigateToTab('view-maintenance'); triggerToast('Membuka detail kalibrasi Spektrofotometer UV-Vis');">
                 <div>
-                  <strong style="color: var(--color-text-primary);">SLA Kalibrasi Terlampaui</strong>
-                  <p style="font-size: 10px; color: var(--color-text-muted);">Spektrofotometer Lab Kimia R.302 jatuh tempo kalibrasi 2 hari lalu.</p>
+                  <strong style="color: var(--color-text-primary);">Jatuh Tempo Kalibrasi</strong>
+                  <p style="font-size: 11px; color: var(--color-text-muted); margin-top: 2px;">Spektrofotometer Lab Kimia R.302 perlu uji ulang ISO/IEC 17025.</p>
                 </div>
               </div>
-              <div class="popover-item" onclick="triggerToast('Membuka permohonan pinjam Drone LiDAR')">
-                <span class="beacon-dot" style="background: var(--color-signal-warning); margin-top: 4px;"></span>
+              <div class="popover-list-item" onclick="navigateToTab('view-peminjaman'); triggerToast('Membuka permohonan pinjam Drone LiDAR');">
                 <div>
                   <strong style="color: var(--color-text-primary);">Permohonan Pinjam Sarana</strong>
-                  <p style="font-size: 10px; color: var(--color-text-muted);">Lab Pemetaan Geodesi mengajukan peminjaman Drone LiDAR RTK.</p>
+                  <p style="font-size: 11px; color: var(--color-text-muted); margin-top: 2px;">Lab Pemetaan Geodesi mengajukan peminjaman Drone LiDAR RTK.</p>
                 </div>
               </div>
-              <div class="popover-item" onclick="triggerToast('Status sinkronisasi BMN nominal')">
-                <span class="beacon-dot" style="background: var(--color-signal-normal); margin-top: 4px;"></span>
+              <div class="popover-list-item" onclick="triggerToast('Sinkronisasi data inventaris selesai');">
                 <div>
-                  <strong style="color: var(--color-text-primary);">Sinkronisasi SIMAK-BMN Selesai</strong>
-                  <p style="font-size: 10px; color: var(--color-text-muted);">1.482 record aset berhasil terekonsiliasi tanpa selisih saldo.</p>
+                  <strong style="color: var(--color-text-primary);">Pembaruan Selesai</strong>
+                  <p style="font-size: 11px; color: var(--color-text-muted); margin-top: 2px;">1.482 total sarana terverifikasi tanpa anomali pencatatan.</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- User Profile Pill -->
+          <!-- User Profile Trigger -->
           <div style="position: relative;">
-            <div class="user-profile-pill" id="btnUserProfile" role="button" aria-haspopup="true" aria-expanded="false">
-              <div class="user-avatar-badge">HW</div>
-              <div class="user-info-text">
-                <span class="user-name-tag">Dr. Ir. Hendra W.</span>
-                <span class="user-role-tag font-mono">Super Admin / Biro</span>
+            <div class="profile-pill-trigger" id="btnHeaderProfile">
+              <div class="profile-avatar-circle">AD</div>
+              <div class="profile-text-wrap">
+                <span class="profile-user-name">Admin Sarpras</span>
+                <span class="profile-user-role font-mono">Kepala Biro Fasilitas</span>
               </div>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
 
-            <!-- Profile Popover Dropdown -->
-            <div class="popover-menu" id="userPopover">
-              <div class="popover-header">
-                <span>IDENTITAS PENGGUNA TEROTORISASI</span>
+            <!-- Profile Dropdown -->
+            <div class="header-popover-dropdown" id="dropdownProfile">
+              <div class="popover-header-row">
+                <span>PENGATURAN OPERATOR</span>
               </div>
               <div style="padding: 12px 16px; border-bottom: 1px solid var(--color-border-whisper);">
-                <div style="font-weight: 600; color: var(--color-text-primary);">Dr. Ir. Hendra Wicaksono, M.T.</div>
-                <div class="font-mono" style="font-size: 10px; color: var(--color-accent-cobalt);">NIP. 19760312 200112 1 002</div>
-                <div style="font-size: 10px; color: var(--color-text-muted); margin-top: 2px;">Biro Sarana & Prasarana Universitas Pamulang</div>
+                <div style="font-weight: 600; color: var(--color-text-primary);">Biro Sarana dan Prasarana</div>
+                <div class="font-mono" style="font-size: 11px; color: var(--color-accent-cobalt);">ID Petugas: SPR-2026-001</div>
               </div>
-              <div class="popover-item" onclick="triggerToast('Profil Pengguna Terverifikasi')">
-                <span>Pengaturan Akun & Akses</span>
+              <div class="popover-list-item" onclick="triggerToast('Profil sistem berhasil diperbarui')">
+                <span>Pengaturan Profil & Sandi</span>
               </div>
-              <div class="popover-item" onclick="triggerToast('Log audit keamanan TLS 1.3 dimuat')">
-                <span>Log Aktivitas & Riwayat Audit</span>
+              <div class="popover-list-item" onclick="toggleTheme(); triggerToast('Mode tampilan berhasil diubah');">
+                <span>Ganti Tema (Terang / Gelap)</span>
               </div>
-              <div class="popover-item" style="color: var(--color-signal-critical);" onclick="triggerToast('Sesi autentikasi ditutup.')">
-                <span>Keluar dari Workstation</span>
+              <div class="popover-list-item" style="color: var(--color-signal-critical);" onclick="triggerToast('Sesi kerja berhasil disimpan.')">
+                <span>Keluar dari Sistem</span>
               </div>
             </div>
           </div>
@@ -1729,293 +1831,887 @@
       </header>
 
       <!-- ======================================================================
-         3. MAIN CONTENT AREA (SLOT STRUKTURAL & KOMPONEN SHOWCASE)
+         3. MAIN CONTENT VIEWPORT (TAB PANES 1:1 REAL DESIGNS)
          ====================================================================== -->
-      <main class="main-content-area" id="mainContent">
+      <main class="main-viewport">
 
-        <!-- Page Header & Action Buttons -->
-        <section class="page-action-header">
-          <div class="page-title-group">
-            <h1 id="viewHeadingTitle">Executive Command Dashboard</h1>
-            <p id="viewHeadingSubtitle">Telemetri tata kelola sarana prasarana akademik terstandarisasi SIMAK-BMN & ISO 55001</p>
-          </div>
-
-          <div class="page-action-buttons">
-            <button class="btn-smoked-glass" id="btnExportSummary" title="Ekspor Rekap Laporan">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              <span>Unduh Rekap XLSX</span>
-            </button>
-
-            <button class="btn-smoked-glass" id="btnFilterPeriod" title="Filter Periode Audit">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-              </svg>
-              <span>Periode TA 2026</span>
-            </button>
-
-            <button class="btn-solid-white" id="btnPrimaryAction" title="Tambah Aset Baru">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              <span>+ Registrasi Aset Baru</span>
-            </button>
-          </div>
-        </section>
-
-        <!-- Bento Grid Overview (Asymmetric 12-Column Ratio) -->
-        <section class="bento-overview-grid" aria-label="Ringkasan Statistik Aset">
+        <!-- ==================================================================
+             TAB 1: EXECUTIVE DASHBOARD
+             ================================================================== -->
+        <section class="tab-content-view active" id="view-dashboard">
           
-          <!-- Cell 1: Valuasi Fiskal & Integritas Aset (5 Kolom) -->
-          <article class="bento-card">
-            <div class="bento-card-header">
-              <span class="bento-tag">01. VALUASI FISKAL & INTEGRITAS ASET</span>
-              <span class="status-badge normal font-mono">Audit Sah</span>
+          <div class="view-action-header">
+            <div class="view-title-group">
+              <h1>Executive Command Dashboard</h1>
+              <p>Ringkasan telemetri tata kelola sarana prasarana akademik dan fasilitas kampus</p>
             </div>
-            <div class="bento-metric-large font-mono">Rp 4.850.210.000</div>
-            <div class="bento-subtext">+38 unit perolehan baru Q3 • 1.482 total unit BMN terdaftar</div>
-            
-            <div style="margin-top: auto;">
-              <div class="health-stats-row font-mono" style="margin-bottom: 6px;">
-                <span style="color: var(--color-text-primary); font-weight: 600;">Kesehatan Aset : 86.4% Prima</span>
-                <span>Target BPK : &gt;85%</span>
-              </div>
-              <div class="health-bar-track">
-                <div class="health-bar-fill" style="width: 86.4%;"></div>
-              </div>
-              <div class="health-stats-row font-mono">
-                <span>1.280 Prima</span>
-                <span>142 Pemeliharaan</span>
-                <span>60 Karantina</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Cell 2: Disposisi Pemeliharaan & Tiket Kritis (3 Kolom) -->
-          <article class="bento-card">
-            <div class="bento-card-header">
-              <span class="bento-tag">02. DISPOSISI SERVIS & TIKET</span>
-              <span class="status-badge warning font-mono">142 Aktif</span>
-            </div>
-            <div class="urgent-alert-pill font-mono">
-              <span class="beacon-dot" style="background: var(--color-signal-critical);"></span>
-              <span>23 Kritis / Overdue Batas Toleransi</span>
-            </div>
-            <ul class="urgent-service-list">
-              <li class="urgent-service-item">
-                <span>Spektrofotometer UV-Vis R.302</span>
-                <span class="status-badge critical font-mono">Overdue</span>
-              </li>
-              <li class="urgent-service-item">
-                <span>Dell PowerEdge Blade NOC</span>
-                <span class="status-badge warning font-mono">H-2 Servis</span>
-              </li>
-              <li class="urgent-service-item">
-                <span>Chiller Daikin 40TR Rektorat</span>
-                <span class="status-badge warning font-mono">H-5 Servis</span>
-              </li>
-            </ul>
-          </article>
-
-          <!-- Cell 3: Alokasi Berdasarkan Kluster (4 Kolom) -->
-          <article class="bento-card">
-            <div class="bento-card-header">
-              <span class="bento-tag">03. DISTRIBUSI KLUSTER FASILITAS</span>
-              <span class="font-mono" style="font-size: 10px; color: var(--color-text-muted);">4 Kategori</span>
-            </div>
-            
-            <div class="allocation-row-item">
-              <div class="allocation-meta font-mono">
-                <span style="color: var(--color-text-primary);">Peralatan Lab & Riset</span>
-                <span style="color: var(--color-text-secondary);">38% (Rp 1.84 M)</span>
-              </div>
-              <div class="allocation-track">
-                <div class="allocation-fill" style="width: 38%;"></div>
-              </div>
-            </div>
-
-            <div class="allocation-row-item">
-              <div class="allocation-meta font-mono">
-                <span style="color: var(--color-text-primary);">Server & Infrastruktur IT</span>
-                <span style="color: var(--color-text-secondary);">27% (Rp 1.31 M)</span>
-              </div>
-              <div class="allocation-track">
-                <div class="allocation-fill" style="width: 27%;"></div>
-              </div>
-            </div>
-
-            <div class="allocation-row-item">
-              <div class="allocation-meta font-mono">
-                <span style="color: var(--color-text-primary);">Sarana Ruang Kuliah & Smart Class</span>
-                <span style="color: var(--color-text-secondary);">21% (Rp 1.02 M)</span>
-              </div>
-              <div class="allocation-track">
-                <div class="allocation-fill" style="width: 21%;"></div>
-              </div>
-            </div>
-
-            <div class="allocation-row-item">
-              <div class="allocation-meta font-mono">
-                <span style="color: var(--color-text-primary);">Kendaraan Dinas & Utilitas</span>
-                <span style="color: var(--color-text-secondary);">14% (Rp 680 Jt)</span>
-              </div>
-              <div class="allocation-track">
-                <div class="allocation-fill" style="width: 14%;"></div>
-              </div>
-            </div>
-          </article>
-
-        </section>
-
-        <!-- Master Data Table Card Showcase -->
-        <section class="glass-table-card" aria-label="Tabel Jadwal Inspeksi dan Master Aset">
-          
-          <!-- Table Toolbar -->
-          <div class="table-toolbar-header">
-            <div class="table-title-group">
-              <h2>Jadwal Pemeliharaan & Kalibrasi Instrumen Akademik</h2>
-              <p style="font-size: 11px; color: var(--color-text-muted);">Daftar inventaris sarana terverifikasi yang memerlukan uji akurasi ISO/IEC 17025</p>
-            </div>
-
-            <div class="table-toolbar-actions">
-              <select class="filter-select font-mono" id="filterKategori">
-                <option value="all">Semua Kategori Sarpras</option>
-                <option value="lab">Laboratorium & Riset</option>
-                <option value="it">Infrastruktur IT & Server</option>
-                <option value="kelas">Sarana Ruang Kuliah</option>
-              </select>
-
-              <select class="filter-select font-mono" id="filterKondisi">
-                <option value="all">Semua Status Kondisi</option>
-                <option value="baik">Kondisi Baik (Prima)</option>
-                <option value="perawatan">Dalam Pemeliharaan</option>
-                <option value="rusak">Rusak Berat (Usul Afkir)</option>
-              </select>
-
-              <button class="btn-smoked-glass" style="height: 32px;" onclick="triggerToast('Menyinkronkan data dengan server SIMAK-BMN...')">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="23 4 23 10 17 10"></polyline>
-                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+            <div class="view-header-buttons">
+              <button class="btn-action-secondary" onclick="triggerToast('Mengunduh rekapitulasi data format XLSX...')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                <span>Refresh Data</span>
+                <span>Unduh Rekap XLSX</span>
+              </button>
+              <button class="btn-action-primary" onclick="navigateToTab('view-form-aset')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>+ Registrasi Aset Baru</span>
               </button>
             </div>
           </div>
 
-          <!-- Table Responsive Viewport -->
-          <div class="table-responsive-container">
-            <table class="glass-table">
-              <thead>
-                <tr>
-                  <th style="width: 40px; text-align: center;">
-                    <input type="checkbox" id="selectAllCheckbox" style="cursor: pointer;">
-                  </th>
-                  <th>KODE INVENTARIS (BMN)</th>
-                  <th>NAMA PERALATAN & SPESIFIKASI</th>
-                  <th>PENEMPATAN RUANGAN</th>
-                  <th>NILAI PEROLEHAN</th>
-                  <th>JADWAL KALIBRASI</th>
-                  <th>STATUS KONDISI</th>
-                  <th style="text-align: right;">AKSI OPERASIONAL</th>
-                </tr>
-              </thead>
-              <tbody id="inventoryTableBody">
-                
-                <!-- Row 1 -->
-                <tr>
-                  <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
-                  <td class="cell-code font-mono">AST-LAB-2026-089</td>
-                  <td class="cell-name">Spektrofotometer UV-Vis Double Beam Precision</td>
-                  <td class="cell-room">Gedung Riset Terpadu R.302</td>
-                  <td class="font-mono">Rp 285.000.000</td>
-                  <td class="font-mono">18 Mar 2026</td>
-                  <td><span class="status-badge warning font-mono">Perawatan</span></td>
-                  <td style="text-align: right;">
-                    <button class="btn-row-action" onclick="triggerToast('Membuka rincian aset AST-LAB-2026-089')">Detail</button>
-                    <button class="btn-row-action danger" onclick="openDecommissionModal('AST-LAB-2026-089', 'Spektrofotometer UV-Vis Double Beam')">Afkir</button>
-                  </td>
-                </tr>
+          <!-- Bento Grid Row -->
+          <div class="bento-cards-row">
+            
+            <!-- Card 1: Valuasi & Integritas -->
+            <div class="glass-panel-card">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="card-top-tag">01. VALUASI FISKAL & INTEGRITAS ASET</span>
+                <span class="status-badge-pill normal font-mono">Tervalidasi</span>
+              </div>
+              <div class="card-metric-value font-mono" style="margin-top: 6px;">Rp 4.850.210.000</div>
+              <div class="card-metric-subtext">+38 pengadaan sarana baru kuartal ini • 1.482 unit terdaftar</div>
+              
+              <div class="health-bar-container">
+                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 600;">
+                  <span>Tingkat Kesiapan Operasional : 86.4% Prima</span>
+                  <span class="font-mono" style="color: var(--color-signal-normal);">1.280 / 1.482 Unit</span>
+                </div>
+                <div class="health-bar-rail">
+                  <div class="health-bar-fill" style="width: 86.4%;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--color-text-muted); margin-top: 2px;">
+                  <span>1.280 Prima</span>
+                  <span>142 Pemeliharaan</span>
+                  <span>60 Karantina / Afkir</span>
+                </div>
+              </div>
+            </div>
 
-                <!-- Row 2 -->
-                <tr>
-                  <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
-                  <td class="cell-code font-mono">AST-TIK-2025-014</td>
-                  <td class="cell-name">Dell PowerEdge R750 Compute Server Node</td>
-                  <td class="cell-room">Data Center Rektorat Lt. 1</td>
-                  <td class="font-mono">Rp 180.000.000</td>
-                  <td class="font-mono">20 Mar 2026</td>
-                  <td><span class="status-badge normal font-mono">Baik (Prima)</span></td>
-                  <td style="text-align: right;">
-                    <button class="btn-row-action" onclick="triggerToast('Membuka rincian aset AST-TIK-2025-014')">Detail</button>
-                    <button class="btn-row-action danger" onclick="openDecommissionModal('AST-TIK-2025-014', 'Dell PowerEdge R750 Server')">Afkir</button>
-                  </td>
-                </tr>
+            <!-- Card 2: Disposisi Pemeliharaan -->
+            <div class="glass-panel-card">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span class="card-top-tag">02. PEMELIHARAAN ALAT</span>
+                <span class="status-badge-pill warning font-mono">142 Aktif</span>
+              </div>
+              <div style="margin-top: 6px; margin-bottom: 12px;">
+                <span class="status-badge-pill critical font-mono">23 Alat Perlu Kalibrasi Segera</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px;">
+                <div style="display: flex; justify-content: space-between; padding: 6px 10px; background: var(--color-surface-elevated); border-radius: 4px;">
+                  <span>Spektrofotometer UV-Vis R.302</span>
+                  <span class="status-badge-pill critical font-mono">Overdue</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 6px 10px; background: var(--color-surface-elevated); border-radius: 4px;">
+                  <span>Server Node Data Center</span>
+                  <span class="status-badge-pill warning font-mono">H-2 Servis</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 6px 10px; background: var(--color-surface-elevated); border-radius: 4px;">
+                  <span>Chiller HVAC Rektorat 40TR</span>
+                  <span class="status-badge-pill warning font-mono">H-5 Servis</span>
+                </div>
+              </div>
+            </div>
 
-                <!-- Row 3 -->
-                <tr>
-                  <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
-                  <td class="cell-code font-mono">AST-MED-2024-118</td>
-                  <td class="cell-name">Mikroskop Fluoresensi Leica DM2500 Plan-Apo</td>
-                  <td class="cell-room">Lab Riset Biomedik R.105</td>
-                  <td class="font-mono">Rp 310.000.000</td>
-                  <td class="font-mono">22 Mar 2026</td>
-                  <td><span class="status-badge warning font-mono">Perawatan</span></td>
-                  <td style="text-align: right;">
-                    <button class="btn-row-action" onclick="triggerToast('Membuka rincian aset AST-MED-2024-118')">Detail</button>
-                    <button class="btn-row-action danger" onclick="openDecommissionModal('AST-MED-2024-118', 'Mikroskop Leica DM2500')">Afkir</button>
-                  </td>
-                </tr>
+            <!-- Card 3: Distribusi Kluster Fasilitas -->
+            <div class="glass-panel-card">
+              <span class="card-top-tag">03. DISTRIBUSI KLUSTER FASILITAS</span>
+              <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 3px;">
+                    <span>Peralatan Lab & Riset</span>
+                    <span class="font-mono">38% (Rp 1.84 M)</span>
+                  </div>
+                  <div class="health-bar-rail" style="height: 5px;">
+                    <div style="height: 100%; width: 38%; background: var(--color-accent-cobalt); border-radius: 3px;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 3px;">
+                    <span>Infrastruktur IT & Jaringan</span>
+                    <span class="font-mono">27% (Rp 1.31 M)</span>
+                  </div>
+                  <div class="health-bar-rail" style="height: 5px;">
+                    <div style="height: 100%; width: 27%; background: var(--color-accent-cobalt); border-radius: 3px;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 3px;">
+                    <span>Sarana Ruang Kuliah</span>
+                    <span class="font-mono">21% (Rp 1.02 M)</span>
+                  </div>
+                  <div class="health-bar-rail" style="height: 5px;">
+                    <div style="height: 100%; width: 21%; background: var(--color-accent-cobalt); border-radius: 3px;"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 3px;">
+                    <span>Kendaraan Operasional</span>
+                    <span class="font-mono">14% (Rp 680 Jt)</span>
+                  </div>
+                  <div class="health-bar-rail" style="height: 5px;">
+                    <div style="height: 100%; width: 14%; background: var(--color-accent-cobalt); border-radius: 3px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                <!-- Row 4 -->
-                <tr>
-                  <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
-                  <td class="cell-code font-mono">AST-TEK-2025-055</td>
-                  <td class="cell-name">Universal Testing Machine Shimadzu 100kN</td>
-                  <td class="cell-room">Workshop Mesin FT Lt. 1</td>
-                  <td class="font-mono">Rp 520.000.000</td>
-                  <td class="font-mono">24 Mar 2026</td>
-                  <td><span class="status-badge critical font-mono">Rusak Berat</span></td>
-                  <td style="text-align: right;">
-                    <button class="btn-row-action" onclick="triggerToast('Membuka rincian aset AST-TEK-2025-055')">Detail</button>
-                    <button class="btn-row-action danger" onclick="openDecommissionModal('AST-TEK-2025-055', 'Universal Testing Machine Shimadzu 100kN')">Afkir</button>
-                  </td>
-                </tr>
-
-                <!-- Row 5 -->
-                <tr>
-                  <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
-                  <td class="cell-code font-mono">AST-FAC-2023-008</td>
-                  <td class="cell-name">Chiller HVAC Central Daikin 40 TR Modular</td>
-                  <td class="cell-room">Rooftop Gedung Rektorat</td>
-                  <td class="font-mono">Rp 425.000.000</td>
-                  <td class="font-mono">28 Mar 2026</td>
-                  <td><span class="status-badge warning font-mono">Perawatan</span></td>
-                  <td style="text-align: right;">
-                    <button class="btn-row-action" onclick="triggerToast('Membuka rincian aset AST-FAC-2023-008')">Detail</button>
-                    <button class="btn-row-action danger" onclick="openDecommissionModal('AST-FAC-2023-008', 'Chiller HVAC Central Daikin 40 TR')">Afkir</button>
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
           </div>
 
-          <!-- Table Pagination Footer -->
-          <div class="table-pagination-footer">
-            <span class="font-mono">Menampilkan 1 - 5 dari 1.482 total sarana terdaftar</span>
-            <div class="pagination-controls font-mono">
-              <button class="btn-page" onclick="triggerToast('Halaman sebelumnya')">&lt;</button>
-              <button class="btn-page active">1</button>
-              <button class="btn-page" onclick="triggerToast('Membuka halaman 2')">2</button>
-              <button class="btn-page" onclick="triggerToast('Membuka halaman 3')">3</button>
-              <span style="padding: 0 4px;">...</span>
-              <button class="btn-page" onclick="triggerToast('Membuka halaman 296')">296</button>
-              <button class="btn-page" onclick="triggerToast('Halaman berikutnya')">&gt;</button>
+          <!-- Upcoming Calibration Table in Dashboard -->
+          <div class="glass-table-wrapper">
+            <div class="table-controls-bar">
+              <div>
+                <h2 style="font-size: 14px; font-weight: 600; color: var(--color-text-primary);">Jadwal Kalibrasi & Servis Instrumen Terdekat</h2>
+                <p style="font-size: 12px; color: var(--color-text-muted);">Peralatan riset dan sarana pendukung akademik yang memerlukan verifikasi kelayakan teknis</p>
+              </div>
+              <button class="btn-action-secondary" onclick="navigateToTab('view-maintenance')">Lihat Semua Perintah Kerja &gt;</button>
             </div>
+            <div class="table-responsive-box">
+              <table class="data-table-main">
+                <thead>
+                  <tr>
+                    <th>KODE SARPRAS</th>
+                    <th>NAMA PERALATAN</th>
+                    <th>LOKASI RUANGAN</th>
+                    <th>JADWAL KALIBRASI</th>
+                    <th>STATUS KONDISI</th>
+                    <th style="text-align: right;">AKSI</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">AST-LAB-2026-089</td>
+                    <td style="font-weight: 500;">Spektrofotometer UV-Vis Double Beam Precision</td>
+                    <td>Gedung Riset Terpadu R.302</td>
+                    <td class="font-mono">18 Mar 2026</td>
+                    <td><span class="status-badge-pill warning font-mono">Perawatan</span></td>
+                    <td style="text-align: right;">
+                      <button class="table-action-link" onclick="navigateToTab('view-maintenance'); triggerToast('Membuka tiket kalibrasi');">Buka Tiket</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">AST-TIK-2025-014</td>
+                    <td style="font-weight: 500;">Dell PowerEdge R750 Compute Server Node</td>
+                    <td>Data Center Rektorat Lt. 1</td>
+                    <td class="font-mono">20 Mar 2026</td>
+                    <td><span class="status-badge-pill normal font-mono">Baik (Prima)</span></td>
+                    <td style="text-align: right;">
+                      <button class="table-action-link" onclick="navigateToTab('view-maintenance'); triggerToast('Membuka jadwal servis server');">Buka Tiket</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">AST-MED-2024-118</td>
+                    <td style="font-weight: 500;">Mikroskop Fluoresensi Leica DM2500 Plan-Apo</td>
+                    <td>Lab Riset Biomedik R.105</td>
+                    <td class="font-mono">22 Mar 2026</td>
+                    <td><span class="status-badge-pill warning font-mono">Perawatan</span></td>
+                    <td style="text-align: right;">
+                      <button class="table-action-link" onclick="navigateToTab('view-maintenance'); triggerToast('Membuka tiket mikroskop');">Buka Tiket</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             TAB 2: MASTER DATA SARPRAS (DENGAN LIVE FILTER & PENCARIAN)
+             ================================================================== -->
+        <section class="tab-content-view" id="view-data-master">
+          
+          <div class="view-action-header">
+            <div class="view-title-group">
+              <h1>Master Data Sarana dan Prasarana</h1>
+              <p>Katalog lengkap inventarisasi barang milik institusi, spesifikasi teknis, dan nilai buku</p>
+            </div>
+            <div class="view-header-buttons">
+              <button class="btn-action-secondary" onclick="exportTableToCSV()">Ekspor CSV</button>
+              <button class="btn-action-primary" onclick="navigateToTab('view-form-aset')">+ Registrasi Aset</button>
+            </div>
+          </div>
+
+          <!-- 4 Summary Metrics -->
+          <div class="four-cards-row">
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">TOTAL UNIT SARPRAS</span>
+              <div class="card-metric-value font-mono" id="summaryTotalAset">1.482</div>
+              <div class="card-metric-subtext">Terdata & Terverifikasi Fisik</div>
+            </div>
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">VALUASI BUKU FISKAL</span>
+              <div class="card-metric-value font-mono">Rp 4.85 M</div>
+              <div class="card-metric-subtext">Nilai Kapitalisasi Berjalan</div>
+            </div>
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">KONDISI PRIMA (BAIK)</span>
+              <div class="card-metric-value font-mono" style="color: var(--color-signal-normal);">1.280</div>
+              <div class="card-metric-subtext">86.4% Siap Operasional Penuh</div>
+            </div>
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">PERAWATAN / AFKIR</span>
+              <div class="card-metric-value font-mono" style="color: var(--color-signal-warning);">202</div>
+              <div class="card-metric-subtext">Perlu Perbaikan / Rekomendasi</div>
+            </div>
+          </div>
+
+          <!-- Main Inventory Data Table -->
+          <div class="glass-table-wrapper">
+            <div class="table-controls-bar">
+              <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <input type="text" class="search-box-input" id="tableFilterInput" placeholder="Cari nama barang atau kode BMN..." style="width: 240px; height: 36px;">
+                
+                <select class="table-select-filter" id="selectKategoriFilter">
+                  <option value="all">Semua Kategori</option>
+                  <option value="Laboratorium">Laboratorium & Riset</option>
+                  <option value="IT">Infrastruktur IT</option>
+                  <option value="Ruang Kuliah">Ruang Kuliah</option>
+                  <option value="Fasilitas">Fasilitas Umum</option>
+                </select>
+
+                <select class="table-select-filter" id="selectKondisiFilter">
+                  <option value="all">Semua Kondisi</option>
+                  <option value="Baik">Kondisi Baik</option>
+                  <option value="Perawatan">Perlu Perawatan</option>
+                  <option value="Rusak Berat">Rusak Berat</option>
+                </select>
+              </div>
+
+              <div style="font-size: 12px; color: var(--color-text-muted);" id="tableFilterStats">
+                Menampilkan 6 dari 1.482 total data
+              </div>
+            </div>
+
+            <div class="table-responsive-box">
+              <table class="data-table-main" id="mainInventoryTable">
+                <thead>
+                  <tr>
+                    <th style="width: 40px; text-align: center;">
+                      <input type="checkbox" id="masterCheckbox" title="Pilih Semua">
+                    </th>
+                    <th>KODE ASET (BMN)</th>
+                    <th>NAMA PERALATAN & SPESIFIKASI</th>
+                    <th>KATEGORI</th>
+                    <th>PENEMPATAN RUANGAN</th>
+                    <th>NILAI PEROLEHAN</th>
+                    <th>KONDISI</th>
+                    <th style="text-align: right;">AKSI</th>
+                  </tr>
+                </thead>
+                <tbody id="inventoryListTbody">
+                  <!-- Dynamic rows rendered via JS -->
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-bottom-bar">
+              <span id="showingRecordsText">Menampilkan record inventaris tervalidasi</span>
+              <div class="pagination-pills">
+                <button class="btn-page-number" onclick="triggerToast('Halaman sebelumnya')">&lt;</button>
+                <button class="btn-page-number active">1</button>
+                <button class="btn-page-number" onclick="triggerToast('Buka halaman 2')">2</button>
+                <button class="btn-page-number" onclick="triggerToast('Buka halaman 3')">3</button>
+                <span style="padding: 0 4px;">...</span>
+                <button class="btn-page-number" onclick="triggerToast('Halaman berikutnya')">&gt;</button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             TAB 3: FORM REGISTRASI ASET BARU (2-COLUMN + LIVE STICKER TAG)
+             ================================================================== -->
+        <section class="tab-content-view" id="view-form-aset">
+          
+          <div class="view-action-header">
+            <div class="view-title-group">
+              <h1>Form Registrasi Sarana & Prasarana Baru</h1>
+              <p>Pencatatan pengadaan inventaris akademik baru dan pembuatan label barcode fisik</p>
+            </div>
+            <div class="view-header-buttons">
+              <button class="btn-action-secondary" onclick="navigateToTab('view-data-master')">Batal & Kembali</button>
+            </div>
+          </div>
+
+          <form id="newAssetForm" onsubmit="handleFormSubmit(event)">
+            <div class="form-two-column-grid">
+              
+              <!-- Column 1: Technical & Placement Fields -->
+              <div class="glass-panel-card">
+                <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--color-text-primary); border-bottom: 1px solid var(--color-border-whisper); padding-bottom: 10px;">
+                  1. IDENTITAS PERALATAN & PENEMPATAN
+                </h3>
+
+                <div class="form-group-item">
+                  <label class="form-label-text">Kode Inventaris / Register BMN *</label>
+                  <input type="text" class="form-input-field font-mono" id="formInputCode" value="AST-LAB-2026-090" required>
+                  <span style="font-size: 11px; color: var(--color-text-muted);">Format standar institusi: AST-[KAT]-[TAHUN]-[URUT]</span>
+                </div>
+
+                <div class="form-group-item">
+                  <label class="form-label-text">Nama Sarana / Instrumen Riset *</label>
+                  <input type="text" class="form-input-field" id="formInputName" placeholder="Contoh: Spektrofotometer UV-Vis Shimadzu" required>
+                </div>
+
+                <div class="form-group-item">
+                  <label class="form-label-text">Kategori Sarpras *</label>
+                  <select class="form-select-field" id="formInputCategory" required>
+                    <option value="Laboratorium">Peralatan Laboratorium & Riset</option>
+                    <option value="IT">Infrastruktur IT, Komputer & Server</option>
+                    <option value="Ruang Kuliah">Sarana Ruang Kuliah & Smart Class</option>
+                    <option value="Fasilitas">Fasilitas Umum & Ruang Terbuka</option>
+                  </select>
+                </div>
+
+                <div class="form-group-item">
+                  <label class="form-label-text">Merk / Model & Tipe Pabrikan</label>
+                  <input type="text" class="form-input-field" id="formInputModel" placeholder="Contoh: Shimadzu UV-2600i Precision Series">
+                </div>
+
+                <div class="form-group-item">
+                  <label class="form-label-text">Nomor Seri Pabrik (Serial Number)</label>
+                  <input type="text" class="form-input-field font-mono" id="formInputSerial" placeholder="Contoh: SN: 893-KM-2026-X901">
+                </div>
+
+                <div class="form-group-item">
+                  <label class="form-label-text">Penempatan Gedung & Ruangan *</label>
+                  <select class="form-select-field" id="formInputRoom" required>
+                    <option value="Lab Kimia Terpadu R.302">Gedung Riset Terpadu Lt. 3 - Lab Kimia R.302</option>
+                    <option value="Data Center Rektorat Lt. 1">Gedung Rektorat Lt. 1 - Data Center & NOC</option>
+                    <option value="Smart Classroom 401">Gedung Kuliah Bersama Lt. 4 - Smart Class 401</option>
+                    <option value="Lab Riset Biomedik R.105">Gedung Riset Terpadu Lt. 1 - Lab Biomedik R.105</option>
+                    <option value="Workshop Mesin FT Lt. 1">Gedung Teknik Mesin Lt. 1 - Workshop Uji FT</option>
+                    <option value="Auditorium Graha Nusantara">Gedung Rektorat Lt. 2 - Auditorium Utama</option>
+                  </select>
+                </div>
+
+                <!-- Condition Cards -->
+                <div class="form-group-item">
+                  <label class="form-label-text">Kondisi Fisik Saat Penerimaan *</label>
+                  <div class="radio-cards-row">
+                    <div class="radio-card-label selected" id="condCardBaik" onclick="setConditionSelect('Baik')">
+                      <strong style="color: var(--color-signal-normal);">Baik (Prima)</strong>
+                      <span style="font-size: 10px; color: var(--color-text-muted);">Siap Pakai 100%</span>
+                    </div>
+                    <div class="radio-card-label" id="condCardPerawatan" onclick="setConditionSelect('Perawatan')">
+                      <strong style="color: var(--color-signal-warning);">Perlu Kalibrasi</strong>
+                      <span style="font-size: 10px; color: var(--color-text-muted);">Servis Awal</span>
+                    </div>
+                    <div class="radio-card-label" id="condCardRusak" onclick="setConditionSelect('Rusak Berat')">
+                      <strong style="color: var(--color-signal-critical);">Rusak Fisik</strong>
+                      <span style="font-size: 10px; color: var(--color-text-muted);">Klaim Vendor</span>
+                    </div>
+                  </div>
+                  <input type="hidden" id="formInputCondition" value="Baik">
+                </div>
+
+              </div>
+
+              <!-- Column 2: Fiscal, Upload & Live Barcode Tag Preview -->
+              <div style="display: flex; flex-direction: column; gap: 20px;">
+                
+                <div class="glass-panel-card">
+                  <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--color-text-primary); border-bottom: 1px solid var(--color-border-whisper); padding-bottom: 10px;">
+                    2. VALUASI & BERKAS PENGADAAN
+                  </h3>
+
+                  <div class="form-group-item">
+                    <label class="form-label-text">Harga Perolehan / Nilai Buku (Rupiah) *</label>
+                    <input type="number" class="form-input-field font-mono" id="formInputPrice" placeholder="285000000" value="285000000" required>
+                    <span style="font-size: 11px; color: var(--color-accent-cobalt); font-weight: 600;" id="formPricePreviewFormatted">Rp 285.000.000,00</span>
+                  </div>
+
+                  <div class="form-group-item">
+                    <label class="form-label-text">Unggah Berita Acara Serah Terima (BAST) / Foto</label>
+                    <div class="dropzone-upload-box" onclick="triggerToast('Jendela pemilihan berkas dibuka...')">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                      </svg>
+                      <strong style="font-size: 12px; color: var(--color-text-primary);">Pilih Berkas atau Tarik ke Sini</strong>
+                      <span style="font-size: 11px; color: var(--color-text-muted);">Mendukung PDF, PNG, JPG resmi (Maks. 20MB)</span>
+                    </div>
+                  </div>
+
+                  <!-- Live Sticker Preview -->
+                  <div class="form-group-item" style="margin-top: 8px;">
+                    <label class="form-label-text">Pratinjau Stiker Fisik Barcode (75x50mm)</label>
+                    
+                    <div class="thermal-sticker-card" id="thermalStickerPreview">
+                      <div class="thermal-header-top">
+                        <span style="font-size: 10px; font-weight: 700; color: #0F172A;">SARPRAS ACADEMIA</span>
+                        <span style="font-size: 9px; font-weight: 600; color: #64748B;" class="font-mono">BMN 2026</span>
+                      </div>
+                      
+                      <div class="thermal-body-grid">
+                        <div class="thermal-qr-mock font-mono" style="font-size: 10px; font-weight: 700;">
+                          [QR]
+                        </div>
+                        <div style="flex: 1; min-width: 0; line-height: 1.3;">
+                          <div class="font-mono" style="font-size: 13px; font-weight: 700; color: #0F172A;" id="stickerCodeDisplay">AST-LAB-2026-090</div>
+                          <div style="font-size: 11px; font-weight: 600; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="stickerNameDisplay">Spektrofotometer UV-Vis</div>
+                          <div style="font-size: 10px; color: #64748B; margin-top: 2px;" id="stickerRoomDisplay">Lab Kimia Terpadu R.302</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 14px; display: flex; gap: 10px;">
+                    <button type="button" class="btn-action-secondary" style="flex: 1; justify-content: center;" onclick="window.print()">Cetak Label</button>
+                    <button type="submit" class="btn-action-primary" style="flex: 1.5; justify-content: center;">Simpan & Daftarkan Aset</button>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+          </form>
+
+        </section>
+
+        <!-- ==================================================================
+             TAB 4: PUSAT LAPORAN & KARTU INVENTARIS RUANGAN (KIR)
+             ================================================================== -->
+        <section class="tab-content-view" id="view-laporan">
+          
+          <div class="view-action-header">
+            <div class="view-title-group">
+              <h1>Pusat Laporan & Kartu Inventaris Ruangan (KIR)</h1>
+              <p>Penerbitan dokumen fisik resmi inventarisasi ruangan berstandar audit institusi</p>
+            </div>
+            <div class="view-header-buttons">
+              <select class="table-select-filter" id="kirRoomSelector" onchange="updateKirRoomView(this.value)" style="height: 38px;">
+                <option value="Lab Kimia Terpadu R.302">Lab Kimia Terpadu R.302</option>
+                <option value="Data Center Rektorat Lt. 1">Data Center Rektorat Lt. 1</option>
+                <option value="Smart Classroom 401">Smart Classroom 401</option>
+              </select>
+              <button class="btn-action-primary" onclick="window.print()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect width="12" height="8" x="6" y="14"></rect>
+                </svg>
+                <span>Cetak Lembar KIR Resmi</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Official Document Frame -->
+          <div class="kir-official-document">
+            
+            <div class="kir-doc-header">
+              <h2 style="font-size: 14px; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase;">DIREKTORAT PENGELOLAAN SARANA DAN PRASARANA KAMPUS</h2>
+              <div class="kir-doc-title">KARTU INVENTARIS RUANGAN (KIR)</div>
+              <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">REGISTRASI: KIR/SARPRAS/GRT-R302/2026 • TAHUN ANGGARAN 2026</div>
+            </div>
+
+            <div class="kir-meta-grid font-mono">
+              <div><strong>Gedung / Unit:</strong> Gedung Riset Terpadu Lt. 3</div>
+              <div><strong>Luas Efektif Ruangan:</strong> 128 m² (Kapasitas 40 Peneliti)</div>
+              <div><strong>Nama Ruangan:</strong> <span id="kirCurrentRoomName">Lab Kimia Terpadu R.302</span></div>
+              <div><strong>Penanggung Jawab (PJ):</strong> Dr. Retno Lestari, M.Si</div>
+            </div>
+
+            <div class="table-responsive-box">
+              <table class="data-table-main" style="border: 1px solid var(--color-border-whisper);">
+                <thead>
+                  <tr>
+                    <th style="width: 40px;">NO</th>
+                    <th>KODE BMN (NUP)</th>
+                    <th>NAMA BARANG / PERALATAN</th>
+                    <th>MERK / MODEL</th>
+                    <th>NOMOR SERI PABRIK</th>
+                    <th>JUMLAH</th>
+                    <th>KONDISI</th>
+                  </tr>
+                </thead>
+                <tbody id="kirTableListBody">
+                  <tr>
+                    <td class="font-mono">1</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">3.05.01.04.002.1</td>
+                    <td style="font-weight: 600;">Spektrofotometer UV-Vis Double Beam</td>
+                    <td>Shimadzu UV-2600i</td>
+                    <td class="font-mono">893-KM-2026-X901</td>
+                    <td class="font-mono">1 Unit</td>
+                    <td><span class="status-badge-pill normal">Baik</span></td>
+                  </tr>
+                  <tr>
+                    <td class="font-mono">2</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">3.05.01.04.003.1</td>
+                    <td style="font-weight: 600;">High Performance Liquid Chromatography (HPLC)</td>
+                    <td>Waters Alliance e2695</td>
+                    <td class="font-mono">WTR-HPLC-99210</td>
+                    <td class="font-mono">1 Unit</td>
+                    <td><span class="status-badge-pill normal">Baik</span></td>
+                  </tr>
+                  <tr>
+                    <td class="font-mono">3</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">3.05.01.04.008.2</td>
+                    <td style="font-weight: 600;">Analytical Precision Balance 0.0001g</td>
+                    <td>Mettler Toledo ME204T</td>
+                    <td class="font-mono">MT-BAL-2023-44</td>
+                    <td class="font-mono">2 Unit</td>
+                    <td><span class="status-badge-pill normal">Baik</span></td>
+                  </tr>
+                  <tr>
+                    <td class="font-mono">4</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">3.05.01.04.015.2</td>
+                    <td style="font-weight: 600;">Fume Hood Laminar Airflow Biosafety Cabinet</td>
+                    <td>Esco Airstream AC2</td>
+                    <td class="font-mono">ES-BSC-5510-SG</td>
+                    <td class="font-mono">1 Unit</td>
+                    <td><span class="status-badge-pill normal">Baik</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Signatures -->
+            <div class="signatures-dual-block">
+              <div class="sig-person-box">
+                <span style="font-size: 11px; color: var(--color-text-muted);">Mengetahui & Menyetujui,</span>
+                <strong style="font-size: 12px; color: var(--color-text-primary);">Direktur Sarana dan Prasarana</strong>
+                <div class="sig-line-space"></div>
+                <strong style="color: var(--color-text-primary);">Dr. Ir. Hendra Wicaksono, M.T.</strong>
+                <span class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19760312 200112 1 002</span>
+              </div>
+
+              <div class="sig-person-box" style="text-align: right;">
+                <span style="font-size: 11px; color: var(--color-text-muted);">Tangerang Selatan, 10 Maret 2026</span>
+                <strong style="font-size: 12px; color: var(--color-text-primary);">Penanggung Jawab Ruangan</strong>
+                <div class="sig-line-space"></div>
+                <strong style="color: var(--color-text-primary);">Dr. Retno Lestari, M.Si</strong>
+                <span class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19820514 200812 2 001</span>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             TAB 5: PEMINJAMAN & MUTASI FASILITAS
+             ================================================================== -->
+        <section class="tab-content-view" id="view-peminjaman">
+          
+          <div class="view-action-header">
+            <div class="view-title-group">
+              <h1>Pusat Peminjaman & Mutasi Fasilitas</h1>
+              <p>Pengawasan sirkulasi sarana bergerak, izin ruang seminar, serta tanggal batas pengembalian</p>
+            </div>
+            <div class="view-header-buttons">
+              <button class="btn-action-primary" onclick="openBorrowModal()">+ Ajukan Peminjaman Sarpras</button>
+            </div>
+          </div>
+
+          <div class="four-cards-row">
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">PEMINJAMAN AKTIF</span>
+              <div class="card-metric-value font-mono">48</div>
+              <div class="card-metric-subtext">Peralatan Riset & Multimedia</div>
+            </div>
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">TERLAMBAT (OVERDUE)</span>
+              <div class="card-metric-value font-mono" style="color: var(--color-signal-critical);">3</div>
+              <div class="card-metric-subtext">Peringatan Pengembalian Dikirim</div>
+            </div>
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">SELESAI BULAN INI</span>
+              <div class="card-metric-value font-mono" style="color: var(--color-signal-normal);">112</div>
+              <div class="card-metric-subtext">Pengembalian Kondisi Utuh</div>
+            </div>
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">MUTASI RUANGAN</span>
+              <div class="card-metric-value font-mono">18</div>
+              <div class="card-metric-subtext">Perpindahan Fisik Tervalidasi</div>
+            </div>
+          </div>
+
+          <div class="glass-table-wrapper">
+            <div class="table-controls-bar">
+              <h2 style="font-size: 14px; font-weight: 600; color: var(--color-text-primary);">Daftar Sirkulasi Peminjaman Berjalan</h2>
+            </div>
+            <div class="table-responsive-box">
+              <table class="data-table-main" id="borrowingTable">
+                <thead>
+                  <tr>
+                    <th>NO. TIKET</th>
+                    <th>NAMA SARANA</th>
+                    <th>PEMINJAM / UNIT KERJA</th>
+                    <th>TANGGAL PINJAM</th>
+                    <th>BATAS KEMBALI</th>
+                    <th>STATUS</th>
+                    <th style="text-align: right;">AKSI</th>
+                  </tr>
+                </thead>
+                <tbody id="borrowingListBody">
+                  <tr>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">PINJ-2026-041</td>
+                    <td style="font-weight: 500;">Proyektor Laser Epson 4K 6000 Lumens</td>
+                    <td>Himpunan Mahasiswa Elektro</td>
+                    <td class="font-mono">14 Mar 2026</td>
+                    <td class="font-mono">16 Mar 2026</td>
+                    <td><span class="status-badge-pill critical font-mono">Terlambat</span></td>
+                    <td style="text-align: right;">
+                      <button class="table-action-link" onclick="markReturnItem(this)">Proses Kembali</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">PINJ-2026-042</td>
+                    <td style="font-weight: 500;">Drone LiDAR DJI Matrice 350 RTK</td>
+                    <td>Lab Pemetaan Geodesi</td>
+                    <td class="font-mono">15 Mar 2026</td>
+                    <td class="font-mono">22 Mar 2026</td>
+                    <td><span class="status-badge-pill warning font-mono">Dipinjam</span></td>
+                    <td style="text-align: right;">
+                      <button class="table-action-link" onclick="markReturnItem(this)">Proses Kembali</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">PINJ-2026-043</td>
+                    <td style="font-weight: 500;">Auditorium Graha Nusantara Lt. 2</td>
+                    <td>Biro Kemahasiswaan</td>
+                    <td class="font-mono">18 Mar 2026</td>
+                    <td class="font-mono">18 Mar 2026</td>
+                    <td><span class="status-badge-pill cobalt font-mono">Disetujui</span></td>
+                    <td style="text-align: right;">
+                      <button class="table-action-link" onclick="triggerToast('Detail izin ruangan ditampilkan')">Detail</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             TAB 6: SERVIS & KALIBRASI ALAT
+             ================================================================== -->
+        <section class="tab-content-view" id="view-maintenance">
+          
+          <div class="view-action-header">
+            <div class="view-title-group">
+              <h1>Manajemen Servis & Kalibrasi Alat</h1>
+              <p>Pengawasan perintah kerja perbaikan (Work Orders), sertifikasi ISO/IEC 17025, dan rekanan teknisi</p>
+            </div>
+            <div class="view-header-buttons">
+              <button class="btn-action-primary" onclick="openWorkOrderModal()">+ Buat Work Order Baru</button>
+            </div>
+          </div>
+
+          <div class="four-cards-row">
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">WORK ORDER AKTIF</span>
+              <div class="card-metric-value font-mono">142</div>
+              <div class="card-metric-subtext">Tiket Perbaikan & Servis</div>
+            </div>
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">KALIBRASI MENDESAK</span>
+              <div class="card-metric-value font-mono" style="color: var(--color-signal-critical);">23</div>
+              <div class="card-metric-subtext">Batas Toleransi Habis</div>
+            </div>
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">SERVIS SELESAI Q3</span>
+              <div class="card-metric-value font-mono" style="color: var(--color-signal-normal);">89</div>
+              <div class="card-metric-subtext">Sertifikat Laik Uji Terbit</div>
+            </div>
+            <div class="glass-panel-card" style="padding: 16px 20px;">
+              <span class="card-top-tag">TOTAL ANGGARAN SERVIS</span>
+              <div class="card-metric-value font-mono">Rp 184.5 Jt</div>
+              <div class="card-metric-subtext">Penyerapan Anggaran Pemeliharaan</div>
+            </div>
+          </div>
+
+          <div class="glass-table-wrapper">
+            <div class="table-controls-bar">
+              <h2 style="font-size: 14px; font-weight: 600; color: var(--color-text-primary);">Tiket Perintah Kerja Pemeliharaan Terjadwal</h2>
+            </div>
+            <div class="table-responsive-box">
+              <table class="data-table-main" id="woTable">
+                <thead>
+                  <tr>
+                    <th>NO. WORK ORDER</th>
+                    <th>NAMA INSTRUMEN / RUANGAN</th>
+                    <th>REKANAN / TEKNISI</th>
+                    <th>ESTIMASI BIAYA</th>
+                    <th>TENGGAT PENGERJAAN</th>
+                    <th>STATUS</th>
+                    <th style="text-align: right;">AKSI</th>
+                  </tr>
+                </thead>
+                <tbody id="woListBody">
+                  <tr>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">WO-2026-089</td>
+                    <td style="font-weight: 500;">Spektrofotometer UV-Vis Shimadzu (R.302)</td>
+                    <td>PT Dynatech Instrument</td>
+                    <td class="font-mono">Rp 4.500.000</td>
+                    <td class="font-mono">18 Mar 2026</td>
+                    <td><span class="status-badge-pill critical font-mono">Overdue</span></td>
+                    <td style="text-align: right;">
+                      <button class="table-action-link" onclick="triggerToast('Detail Berita Acara Servis dimuat')">Detail WO</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">WO-2026-090</td>
+                    <td style="font-weight: 500;">Dell PowerEdge R750 Compute Blade (NOC)</td>
+                    <td>Tim Infrastruktur IT Internal</td>
+                    <td class="font-mono">Rp 2.800.000</td>
+                    <td class="font-mono">20 Mar 2026</td>
+                    <td><span class="status-badge-pill warning font-mono">Pengerjaan</span></td>
+                    <td style="text-align: right;">
+                      <button class="table-action-link" onclick="triggerToast('Detail Berita Acara Servis dimuat')">Detail WO</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">WO-2026-091</td>
+                    <td style="font-weight: 500;">Mikroskop Fluoresensi Leica DM2500 (R.105)</td>
+                    <td>Leica Microsystems Indonesia</td>
+                    <td class="font-mono">Rp 6.200.000</td>
+                    <td class="font-mono">22 Mar 2026</td>
+                    <td><span class="status-badge-pill warning font-mono">Pengerjaan</span></td>
+                    <td style="text-align: right;">
+                      <button class="table-action-link" onclick="triggerToast('Detail Berita Acara Servis dimuat')">Detail WO</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================================
+             TAB 7: DIREKTORI GEDUNG & RUANGAN (6 CARDS REAL GRID)
+             ================================================================== -->
+        <section class="tab-content-view" id="view-ruangan">
+          
+          <div class="view-action-header">
+            <div class="view-title-group">
+              <h1>Direktori Fasilitas Gedung & Ruangan</h1>
+              <p>Pemetaan spasial zona fasilitas, kapasitas ruangan, luas lantai, serta status kelayakan dokumen KIR</p>
+            </div>
+          </div>
+
+          <div class="rooms-card-grid">
+            
+            <!-- Room 1 -->
+            <div class="room-modular-card">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <strong style="font-size: 15px; color: var(--color-text-primary);">Lab Kimia Terpadu R.302</strong>
+                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Riset Terpadu Lt. 3</div>
+                </div>
+                <span class="status-badge-pill normal font-mono">KIR Valid</span>
+              </div>
+              <div class="room-specs-list">
+                <div>&bull; Luas Ruangan: <strong>128 m²</strong></div>
+                <div>&bull; Kapasitas Maksimal: <strong>40 Peneliti / Mahasiswa</strong></div>
+                <div>&bull; Total Inventaris: <strong>48 Unit Sarana (Rp 1.42 M)</strong></div>
+                <div>&bull; PJ Ruangan: <strong>Dr. Retno Lestari, M.Si</strong></div>
+              </div>
+              <button class="btn-action-secondary" style="margin-top: 6px; justify-content: center;" onclick="openRoomKir('Lab Kimia Terpadu R.302')">Buka Lembar KIR &gt;</button>
+            </div>
+
+            <!-- Room 2 -->
+            <div class="room-modular-card">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <strong style="font-size: 15px; color: var(--color-text-primary);">Data Center & NOC Utama</strong>
+                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Rektorat Lt. 1</div>
+                </div>
+                <span class="status-badge-pill normal font-mono">KIR Valid</span>
+              </div>
+              <div class="room-specs-list">
+                <div>&bull; Luas Ruangan: <strong>85 m² (Tier-3 Standard)</strong></div>
+                <div>&bull; Suhu Ruang Terkendali: <strong>18°C</strong></div>
+                <div>&bull; Total Inventaris: <strong>64 Unit Server (Rp 2.10 M)</strong></div>
+                <div>&bull; PJ Ruangan: <strong>Ir. Faisal Akbar, M.Kom</strong></div>
+              </div>
+              <button class="btn-action-secondary" style="margin-top: 6px; justify-content: center;" onclick="openRoomKir('Data Center Rektorat Lt. 1')">Buka Lembar KIR &gt;</button>
+            </div>
+
+            <!-- Room 3 -->
+            <div class="room-modular-card">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <strong style="font-size: 15px; color: var(--color-text-primary);">Smart Classroom 401</strong>
+                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Kuliah Bersama Lt. 4</div>
+                </div>
+                <span class="status-badge-pill normal font-mono">KIR Valid</span>
+              </div>
+              <div class="room-specs-list">
+                <div>&bull; Luas Ruangan: <strong>90 m²</strong></div>
+                <div>&bull; Kapasitas Mahasiswa: <strong>60 Kursi Kuliah</strong></div>
+                <div>&bull; Total Inventaris: <strong>32 Unit Multimedia (Rp 450 Jt)</strong></div>
+                <div>&bull; PJ Ruangan: <strong>Dr. Budi Santoso, M.Pd</strong></div>
+              </div>
+              <button class="btn-action-secondary" style="margin-top: 6px; justify-content: center;" onclick="openRoomKir('Smart Classroom 401')">Buka Lembar KIR &gt;</button>
+            </div>
+
+            <!-- Room 4 -->
+            <div class="room-modular-card">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <strong style="font-size: 15px; color: var(--color-text-primary);">Lab Riset Biomedik R.105</strong>
+                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Riset Terpadu Lt. 1</div>
+                </div>
+                <span class="status-badge-pill warning font-mono">Servis Alat</span>
+              </div>
+              <div class="room-specs-list">
+                <div>&bull; Luas Ruangan: <strong>110 m² (Cleanroom)</strong></div>
+                <div>&bull; Kapasitas Riset: <strong>25 Peneliti</strong></div>
+                <div>&bull; Total Inventaris: <strong>41 Unit Sarana (Rp 980 Jt)</strong></div>
+                <div>&bull; PJ Ruangan: <strong>Dr. Nurul Hidayah, Sp.PK</strong></div>
+              </div>
+              <button class="btn-action-secondary" style="margin-top: 6px; justify-content: center;" onclick="triggerToast('Menampilkan data inventaris Lab Biomedik')">Detail Ruangan &gt;</button>
+            </div>
+
+            <!-- Room 5 -->
+            <div class="room-modular-card">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <strong style="font-size: 15px; color: var(--color-text-primary);">Workshop Mesin FT Lt. 1</strong>
+                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Teknik Mesin Lt. 1</div>
+                </div>
+                <span class="status-badge-pill warning font-mono">Kalibrasi</span>
+              </div>
+              <div class="room-specs-list">
+                <div>&bull; Luas Ruangan: <strong>240 m²</strong></div>
+                <div>&bull; Kapasitas Workshop: <strong>50 Mahasiswa Praktik</strong></div>
+                <div>&bull; Total Inventaris: <strong>28 Mesin Berat (Rp 1.85 M)</strong></div>
+                <div>&bull; PJ Ruangan: <strong>Ir. Taufik Hidayat, M.T.</strong></div>
+              </div>
+              <button class="btn-action-secondary" style="margin-top: 6px; justify-content: center;" onclick="triggerToast('Menampilkan data inventaris Workshop Mesin')">Detail Ruangan &gt;</button>
+            </div>
+
+            <!-- Room 6 -->
+            <div class="room-modular-card">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <strong style="font-size: 15px; color: var(--color-text-primary);">Auditorium Graha Nusantara</strong>
+                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Rektorat Lt. 2</div>
+                </div>
+                <span class="status-badge-pill normal font-mono">KIR Valid</span>
+              </div>
+              <div class="room-specs-list">
+                <div>&bull; Luas Ruangan: <strong>850 m²</strong></div>
+                <div>&bull; Kapasitas Acara: <strong>1.200 Kursi</strong></div>
+                <div>&bull; Total Inventaris: <strong>115 Unit Fasilitas (Rp 890 Jt)</strong></div>
+                <div>&bull; PJ Ruangan: <strong>Biro Umum & Rumah Tangga</strong></div>
+              </div>
+              <button class="btn-action-secondary" style="margin-top: 6px; justify-content: center;" onclick="triggerToast('Menampilkan data inventaris Auditorium')">Detail Ruangan &gt;</button>
+            </div>
+
           </div>
 
         </section>
@@ -2023,23 +2719,14 @@
       </main>
 
       <!-- ======================================================================
-         4. INSTITUTIONAL FOOTER (AKREDITASI & LEGALITAS)
+         4. INSTITUTIONAL FOOTER
          ====================================================================== -->
-      <footer class="institutional-footer" id="institutionalFooter">
-        <div class="footer-left">
-          <span>&copy; 2026 <strong>Universitas Pamulang</strong> - Teknik Informatika</span>
-          <span style="color: var(--color-border-specular);">|</span>
-          <span>Pemrograman Web 2 (Client-Side Programming)</span>
+      <footer class="site-footer">
+        <div>
+          <span>&copy; 2026 <strong>SARPRAS ACADEMIA</strong> - Sistem Informasi Manajemen Sarana dan Prasarana Kampus</span>
         </div>
-
-        <div class="footer-center">
-          Dosen Pengampu: <strong>FAJAR AGUNG NUGROHO S.Kom, M.Kom</strong>
-        </div>
-
-        <div class="footer-right">
-          <span>STANDAR BMN RI</span>
-          <span style="color: var(--color-border-specular);">&bull;</span>
-          <span>ISO/IEC 17025 ACCREDITED</span>
+        <div>
+          <span>Standar Tata Kelola Fasilitas Terakreditasi &bull; ISO 55001</span>
         </div>
       </footer>
 
@@ -2048,290 +2735,645 @@
   </div>
 
   <!-- ==========================================================================
-       5. MODAL DIALOG PENGHAPUSAN / DECOMMISSIONING ASET BMN
+       5. MODAL DIALOGS (PENGHAPUSAN, PEMINJAMAN, WORK ORDER)
        ========================================================================== -->
-  <div class="modal-backdrop" id="decommissionModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 id="modalTitle">KONFIRMASI PENGHAPUSAN / DECOMMISSIONING BMN</h3>
-        <button class="btn-header-icon" style="width: 28px; height: 28px;" onclick="closeDecommissionModal()">
+  
+  <!-- Modal 1: Decommissioning / Afkir Aset -->
+  <div class="modal-overlay-bg" id="modalDecommission" role="dialog" aria-modal="true">
+    <div class="modal-window-card">
+      <div class="modal-head">
+        <strong style="color: var(--color-signal-critical); font-size: 13px;">KONFIRMASI PENGHAPUSAN / DECOMMISSIONING ASET</strong>
+        <button class="btn-header-control" style="width: 28px; height: 28px;" onclick="closeModal('modalDecommission')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
       </div>
-      <div class="modal-body">
-        <p>Anda akan mengajukan proses afkir/penghapusan aset berikut dari daftar inventaris aktif institusi:</p>
-        
-        <div class="modal-target-box">
-          <div class="font-mono" style="font-size: 13px; font-weight: 700; color: var(--color-text-primary);" id="modalTargetCode">AST-TEK-2025-055</div>
-          <div style="font-size: 11px; color: var(--color-text-secondary); margin-top: 2px;" id="modalTargetName">Universal Testing Machine Shimadzu 100kN</div>
+      <div class="modal-content-body">
+        <p>Anda akan memproses usulan penghapusan dari daftar inventaris aktif untuk sarana berikut:</p>
+        <div style="background: var(--color-surface-elevated); padding: 12px; border-radius: 6px; border: 1px solid var(--color-border-whisper);">
+          <div class="font-mono" style="font-weight: 700; color: var(--color-text-primary);" id="modalAfkirCode">AST-TEK-2025-055</div>
+          <div style="font-size: 12px; color: var(--color-text-secondary);" id="modalAfkirName">Universal Testing Machine Shimadzu 100kN</div>
         </div>
-
         <p style="font-size: 11px; color: var(--color-text-muted);">
-          Berdasarkan Peraturan Menteri Keuangan (PMK) No. 181/PMK.06/2016, penghapusan sarana membutuhkan Berita Acara Pemeriksaan Fisik dan rekomendasi tim audit teknis. Data akan dipindahkan ke arsip sejarah inventaris.
+          Data aset yang diafkirkan akan dipindahkan ke arsip sejarah inventaris institusi dan diterbitkan Berita Acara Penghapusan Sarpras resmi.
         </p>
       </div>
-      <div class="modal-footer">
-        <button class="btn-smoked-glass" onclick="closeDecommissionModal()">Batal</button>
-        <button class="btn-danger-confirm" onclick="confirmDecommission()">Konfirmasi Penghapusan</button>
+      <div class="modal-foot-actions">
+        <button class="btn-action-secondary" onclick="closeModal('modalDecommission')">Batal</button>
+        <button class="btn-danger-action" onclick="executeDecommission()">Konfirmasi Penghapusan</button>
       </div>
     </div>
   </div>
 
-  <!-- Toast Notification Container -->
-  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+  <!-- Modal 2: Ajukan Peminjaman -->
+  <div class="modal-overlay-bg" id="modalBorrow" role="dialog" aria-modal="true">
+    <div class="modal-window-card">
+      <div class="modal-head">
+        <strong style="color: var(--color-text-primary); font-size: 13px;">PERMOHONAN PEMINJAMAN SARANA FASILITAS</strong>
+        <button class="btn-header-control" style="width: 28px; height: 28px;" onclick="closeModal('modalBorrow')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-content-body">
+        <div class="form-group-item">
+          <label class="form-label-text">Pilih Sarana yang Dipinjam</label>
+          <select class="form-select-field" id="borrowModalSelectAsset">
+            <option value="Proyektor Laser Epson 4K">Proyektor Laser Epson 4K 6000 Lumens</option>
+            <option value="Drone LiDAR DJI Matrice 350">Drone LiDAR DJI Matrice 350 RTK</option>
+            <option value="Sound System Portable Yamaha">Sound System Array & Mixer Digital</option>
+            <option value="Mobil Operasional HiAce">Mobil Operasional HiAce Kampus</option>
+          </select>
+        </div>
+        <div class="form-group-item">
+          <label class="form-label-text">Nama Peminjam / Unit Kerja</label>
+          <input type="text" class="form-input-field" id="borrowModalBorrower" placeholder="Contoh: Panitia Seminar Riset Teknik" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group-item">
+            <label class="form-label-text">Tanggal Pinjam</label>
+            <input type="date" class="form-input-field font-mono" id="borrowModalStartDate" value="2026-03-16">
+          </div>
+          <div class="form-group-item">
+            <label class="form-label-text">Tenggat Kembali</label>
+            <input type="date" class="form-input-field font-mono" id="borrowModalEndDate" value="2026-03-19">
+          </div>
+        </div>
+      </div>
+      <div class="modal-foot-actions">
+        <button class="btn-action-secondary" onclick="closeModal('modalBorrow')">Batal</button>
+        <button class="btn-action-primary" onclick="submitBorrowLoan()">Setujui & Terbitkan Izin</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Buat Work Order Servis -->
+  <div class="modal-overlay-bg" id="modalWorkOrder" role="dialog" aria-modal="true">
+    <div class="modal-window-card">
+      <div class="modal-head">
+        <strong style="color: var(--color-text-primary); font-size: 13px;">TERBITKAN PERINTAH KERJA PEMELIHARAAN (WO)</strong>
+        <button class="btn-header-control" style="width: 28px; height: 28px;" onclick="closeModal('modalWorkOrder')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-content-body">
+        <div class="form-group-item">
+          <label class="form-label-text">Peralatan yang Memerlukan Perbaikan</label>
+          <input type="text" class="form-input-field" id="woInputItem" placeholder="Nama alat dan ruangan...">
+        </div>
+        <div class="form-group-item">
+          <label class="form-label-text">Vendor / Tim Teknisi Penanggung Jawab</label>
+          <input type="text" class="form-input-field" id="woInputVendor" placeholder="Contoh: PT Dynatech Instrument / Tim Internal">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group-item">
+            <label class="form-label-text">Estimasi Biaya (Rp)</label>
+            <input type="number" class="form-input-field font-mono" id="woInputCost" placeholder="4500000">
+          </div>
+          <div class="form-group-item">
+            <label class="form-label-text">Tenggat Target</label>
+            <input type="date" class="form-input-field font-mono" id="woInputDate" value="2026-03-25">
+          </div>
+        </div>
+      </div>
+      <div class="modal-foot-actions">
+        <button class="btn-action-secondary" onclick="closeModal('modalWorkOrder')">Batal</button>
+        <button class="btn-action-primary" onclick="submitNewWorkOrder()">Terbitkan Tiket WO</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Stack -->
+  <div class="toast-stack" id="toastContainer" aria-live="polite"></div>
 
   <!-- ==========================================================================
-       6. JAVASCRIPT LOGIKA INTERAKTIVITAS CLIENT-SIDE (ZERO DEPENDENCY)
+       6. JAVASCRIPT CLIENT-SIDE APPLICATION ENGINE
        ========================================================================== -->
   <script>
+    // State Store (In-Memory Mock Database)
+    let inventoryData = [
+      { code: "AST-LAB-2026-089", name: "Spektrofotometer UV-Vis Shimadzu UV-2600i", category: "Laboratorium", room: "Lab Kimia Terpadu R.302", price: 285000000, condition: "Perawatan" },
+      { code: "AST-TIK-2025-014", name: "Dell PowerEdge R750 Compute Server Node", category: "IT", room: "Data Center Rektorat Lt. 1", price: 180000000, condition: "Baik" },
+      { code: "AST-MED-2024-118", name: "Mikroskop Fluoresensi Leica DM2500 Plan-Apo", category: "Laboratorium", room: "Lab Riset Biomedik R.105", price: 310000000, condition: "Perawatan" },
+      { code: "AST-TEK-2025-055", name: "Universal Testing Machine Shimadzu 100kN", category: "Laboratorium", room: "Workshop Mesin FT Lt. 1", price: 520000000, condition: "Rusak Berat" },
+      { code: "AST-FAC-2023-008", name: "Chiller HVAC Central Daikin 40 TR Modular", category: "Fasilitas", room: "Gedung Rektorat", price: 425000000, condition: "Perawatan" },
+      { code: "AST-KLS-2025-032", name: "Interactive Smart Board Touch 85 Inch 4K", category: "Ruang Kuliah", room: "Smart Classroom 401", price: 85000000, condition: "Baik" }
+    ];
+
+    let currentSelectedAfkirIndex = null;
+
     document.addEventListener('DOMContentLoaded', () => {
+      // 1. Initial Theme Check (Light Mode Default)
+      const savedTheme = localStorage.getItem('sarpras_theme') || 'light';
+      setTheme(savedTheme);
 
-      // Elements Selection
-      const sidebarRail = document.getElementById('sidebarRail');
-      const btnCollapseSidebar = document.getElementById('btnCollapseSidebar');
-      const btnMobileToggle = document.getElementById('btnMobileToggle');
-      const globalSearchInput = document.getElementById('globalSearchInput');
-      const liveClockDisplay = document.getElementById('liveClockDisplay');
-      const btnNotifications = document.getElementById('btnNotifications');
-      const notifPopover = document.getElementById('notifPopover');
-      const btnUserProfile = document.getElementById('btnUserProfile');
-      const userPopover = document.getElementById('userPopover');
-      const decommissionModal = document.getElementById('decommissionModal');
-      const toastContainer = document.getElementById('toastContainer');
-      const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-      const rowCheckboxes = document.querySelectorAll('.row-checkbox');
-      const navItems = document.querySelectorAll('.nav-item');
-      const currentBreadcrumb = document.getElementById('currentBreadcrumb');
-      const viewHeadingTitle = document.getElementById('viewHeadingTitle');
-      const viewHeadingSubtitle = document.getElementById('viewHeadingSubtitle');
+      // 2. Render Initial Master Data Table
+      renderInventoryTable();
 
-      // 1. Live Clock Display (WIB)
-      function updateClock() {
-        const now = new Date();
-        const hrs = String(now.getHours()).padStart(2, '0');
-        const mins = String(now.getMinutes()).padStart(2, '0');
-        const secs = String(now.getSeconds()).padStart(2, '0');
-        if (liveClockDisplay) {
-          liveClockDisplay.textContent = `WIB ${hrs}:${mins}:${secs}`;
-        }
-      }
-      setInterval(updateClock, 1000);
-      updateClock();
+      // 3. Setup Navigation Tab Listeners
+      const navLinks = document.querySelectorAll('.nav-item-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetViewId = link.getAttribute('data-target');
+          navigateToTab(targetViewId);
+        });
+      });
 
-      // 2. Sidebar Desktop Collapse & Expand
-      if (btnCollapseSidebar) {
-        btnCollapseSidebar.addEventListener('click', () => {
-          sidebarRail.classList.toggle('collapsed');
-          const isCollapsed = sidebarRail.classList.contains('collapsed');
-          btnCollapseSidebar.querySelector('.label-text').textContent = isCollapsed ? '' : 'Perkecil Menu';
-          triggerToast(isCollapsed ? 'Sidebar diminimalkan (Mode Ikon)' : 'Sidebar direntangkan penuh');
+      // Quick CTA in sidebar
+      const btnSidebarRegister = document.getElementById('btnSidebarRegister');
+      if (btnSidebarRegister) {
+        btnSidebarRegister.addEventListener('click', () => {
+          navigateToTab('view-form-aset');
         });
       }
 
-      // 3. Mobile Drawer Toggle
-      if (btnMobileToggle) {
-        btnMobileToggle.addEventListener('click', (e) => {
+      // 4. Setup Theme Toggle Button
+      const btnThemeToggle = document.getElementById('btnThemeToggle');
+      if (btnThemeToggle) {
+        btnThemeToggle.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme') || 'light';
+          const next = current === 'light' ? 'dark' : 'light';
+          setTheme(next);
+          triggerToast(`Beralih ke tampilan Mode ${next === 'light' ? 'Terang' : 'Gelap'}`);
+        });
+      }
+
+      // 5. Sidebar Collapse Toggle
+      const btnToggleSidebarRail = document.getElementById('btnToggleSidebarRail');
+      const sidebarRail = document.getElementById('sidebarRail');
+      if (btnToggleSidebarRail && sidebarRail) {
+        btnToggleSidebarRail.addEventListener('click', () => {
+          sidebarRail.classList.toggle('collapsed');
+          const isCollapsed = sidebarRail.classList.contains('collapsed');
+          const toggleText = btnToggleSidebarRail.querySelector('.toggle-text');
+          if (toggleText) toggleText.textContent = isCollapsed ? '' : 'Perkecil Menu';
+        });
+      }
+
+      // 6. Mobile Drawer Toggle
+      const btnMobileNavToggle = document.getElementById('btnMobileNavToggle');
+      if (btnMobileNavToggle && sidebarRail) {
+        btnMobileNavToggle.addEventListener('click', (e) => {
           e.stopPropagation();
           sidebarRail.classList.toggle('mobile-open');
         });
       }
 
-      // Close mobile drawer when clicking outside
       document.addEventListener('click', (e) => {
-        if (sidebarRail.classList.contains('mobile-open') && !sidebarRail.contains(e.target) && e.target !== btnMobileToggle) {
+        if (sidebarRail && sidebarRail.classList.contains('mobile-open') && !sidebarRail.contains(e.target)) {
           sidebarRail.classList.remove('mobile-open');
         }
       });
 
-      // 4. Popover Menu Toggles (Origin-Aware)
-      if (btnNotifications) {
-        btnNotifications.addEventListener('click', (e) => {
+      // 7. Popovers Toggle (Notifications & Profile)
+      const btnHeaderNotif = document.getElementById('btnHeaderNotif');
+      const dropdownNotifications = document.getElementById('dropdownNotifications');
+      const btnHeaderProfile = document.getElementById('btnHeaderProfile');
+      const dropdownProfile = document.getElementById('dropdownProfile');
+
+      if (btnHeaderNotif && dropdownNotifications) {
+        btnHeaderNotif.addEventListener('click', (e) => {
           e.stopPropagation();
-          userPopover.classList.remove('show');
-          notifPopover.classList.toggle('show');
+          if (dropdownProfile) dropdownProfile.classList.remove('show');
+          dropdownNotifications.classList.toggle('show');
         });
       }
 
-      if (btnUserProfile) {
-        btnUserProfile.addEventListener('click', (e) => {
+      if (btnHeaderProfile && dropdownProfile) {
+        btnHeaderProfile.addEventListener('click', (e) => {
           e.stopPropagation();
-          notifPopover.classList.remove('show');
-          userPopover.classList.toggle('show');
+          if (dropdownNotifications) dropdownNotifications.classList.remove('show');
+          dropdownProfile.classList.toggle('show');
         });
       }
 
-      // Dismiss popovers on outside click
-      document.addEventListener('click', (e) => {
-        if (notifPopover && !notifPopover.contains(e.target)) {
-          notifPopover.classList.remove('show');
-        }
-        if (userPopover && !userPopover.contains(e.target)) {
-          userPopover.classList.remove('show');
-        }
+      document.addEventListener('click', () => {
+        if (dropdownNotifications) dropdownNotifications.classList.remove('show');
+        if (dropdownProfile) dropdownProfile.classList.remove('show');
       });
 
-      // 5. Global Keyboard Shortcuts (Ctrl + K / / / Esc)
+      // 8. Global Keyboard Shortcut (Ctrl+K to Search, Esc to close modals)
       document.addEventListener('keydown', (e) => {
-        // Ctrl + K or Cmd + K or slash to search
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
           e.preventDefault();
-          if (globalSearchInput) {
-            globalSearchInput.focus();
-            globalSearchInput.select();
-            triggerToast('Bilah pencarian cepat aktif (Ctrl + K)');
+          const searchInput = document.getElementById('mainGlobalSearch');
+          if (searchInput) {
+            searchInput.focus();
+            searchInput.select();
+            triggerToast('Bilah pencarian cepat aktif');
           }
         }
-        // Esc to dismiss modals & popovers
         if (e.key === 'Escape') {
-          closeDecommissionModal();
-          if (notifPopover) notifPopover.classList.remove('show');
-          if (userPopover) userPopover.classList.remove('show');
-          if (globalSearchInput && document.activeElement === globalSearchInput) {
-            globalSearchInput.blur();
-          }
+          closeModal('modalDecommission');
+          closeModal('modalBorrow');
+          closeModal('modalWorkOrder');
+          if (dropdownNotifications) dropdownNotifications.classList.remove('show');
+          if (dropdownProfile) dropdownProfile.classList.remove('show');
         }
       });
 
-      // Search input enter event
-      if (globalSearchInput) {
-        globalSearchInput.addEventListener('keydown', (e) => {
+      // Search bar filter on Enter
+      const mainGlobalSearch = document.getElementById('mainGlobalSearch');
+      if (mainGlobalSearch) {
+        mainGlobalSearch.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
-            const query = globalSearchInput.value.trim();
-            if (query) {
-              triggerToast(`Menyaring inventaris dengan kata kunci: "${query}"`);
+            const val = mainGlobalSearch.value.trim();
+            navigateToTab('view-data-master');
+            const tableFilterInput = document.getElementById('tableFilterInput');
+            if (tableFilterInput) {
+              tableFilterInput.value = val;
+              renderInventoryTable();
+              triggerToast(`Menyaring data dengan kata kunci: "${val}"`);
             }
           }
         });
       }
 
-      // 6. Navigation Switching Interactivity
-      const navMetaMap = {
-        'dashboard': {
-          breadcrumb: 'EXECUTIVE DASHBOARD',
-          title: 'Executive Command Dashboard',
-          subtitle: 'Telemetri tata kelola sarana prasarana akademik terstandarisasi SIMAK-BMN & ISO 55001'
-        },
-        'data-master': {
-          breadcrumb: 'MASTER DATA SARPRAS',
-          title: 'Master Data Sarana dan Prasarana',
-          subtitle: 'Katalog terpusat seluruh inventaris barang milik negara, kode NUP, dan nilai buku'
-        },
-        'form-aset': {
-          breadcrumb: 'FORM REGISTRASI ASET',
-          title: 'Registrasi Sarana & Prasarana Baru',
-          subtitle: 'Pencatatan spesifikasi pengadaan sarana dan generator stiker termal 75x50mm'
-        },
-        'laporan': {
-          breadcrumb: 'PUSAT LAPORAN & KIR',
-          title: 'Pusat Laporan & Kartu Inventaris Ruangan',
-          subtitle: 'Penerbitan dokumen fisik resmi inventarisasi ruangan berstandar audit kementerian'
-        },
-        'peminjaman': {
-          breadcrumb: 'PEMINJAMAN & MUTASI',
-          title: 'Pusat Peminjaman & Mutasi Fasilitas',
-          subtitle: 'Sirkulasi sarana bergerak, izin aula bersama, dan pengawasan batas pengembalian'
-        },
-        'maintenance': {
-          breadcrumb: 'SERVIS & KALIBRASI',
-          title: 'Manajemen Servis & Kalibrasi Alat',
-          subtitle: 'Perintah kerja perbaikan, kepatuhan kalibrasi ISO/IEC 17025, dan anggaran DIPA'
-        },
-        'ruangan': {
-          breadcrumb: 'DIREKTORI RUANGAN',
-          title: 'Direktori Fasilitas Gedung & Ruangan',
-          subtitle: 'Pemetaan zonasi spasial kampus, kapasitas mahasiswa, dan akses dokumen KIR'
-        }
-      };
+      // 9. Table Filter Inputs Live Event Listeners
+      const tableFilterInput = document.getElementById('tableFilterInput');
+      const selectKategoriFilter = document.getElementById('selectKategoriFilter');
+      const selectKondisiFilter = document.getElementById('selectKondisiFilter');
 
-      navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-          e.preventDefault();
-          navItems.forEach(n => n.classList.remove('active'));
-          item.classList.add('active');
+      if (tableFilterInput) tableFilterInput.addEventListener('input', renderInventoryTable);
+      if (selectKategoriFilter) selectKategoriFilter.addEventListener('change', renderInventoryTable);
+      if (selectKondisiFilter) selectKondisiFilter.addEventListener('change', renderInventoryTable);
 
-          const navKey = item.getAttribute('data-nav');
-          const meta = navMetaMap[navKey] || navMetaMap['dashboard'];
-
-          if (currentBreadcrumb) currentBreadcrumb.textContent = meta.breadcrumb;
-          if (viewHeadingTitle) viewHeadingTitle.textContent = meta.title;
-          if (viewHeadingSubtitle) viewHeadingSubtitle.textContent = meta.subtitle;
-
-          triggerToast(`Beralih ke tampilan modul: ${meta.title}`);
-        });
-      });
-
-      // 7. Select All Checkbox Logic
-      if (selectAllCheckbox) {
-        selectAllCheckbox.addEventListener('change', () => {
-          rowCheckboxes.forEach(cb => {
-            cb.checked = selectAllCheckbox.checked;
-          });
-          const count = selectAllCheckbox.checked ? rowCheckboxes.length : 0;
-          if (count > 0) {
-            triggerToast(`${count} aset terpilih untuk aksi massal`);
+      // Master Checkbox
+      const masterCheckbox = document.getElementById('masterCheckbox');
+      if (masterCheckbox) {
+        masterCheckbox.addEventListener('change', () => {
+          const rowBoxes = document.querySelectorAll('.table-row-cb');
+          rowBoxes.forEach(cb => cb.checked = masterCheckbox.checked);
+          if (masterCheckbox.checked) {
+            triggerToast(`${rowBoxes.length} sarana dipilih sekaligus`);
           }
         });
       }
 
-      // 8. Primary CTA Action button
-      const btnPrimaryAction = document.getElementById('btnPrimaryAction');
-      const btnSidebarAdd = document.getElementById('btnSidebarAdd');
-      const openRegistrationToast = () => {
-        triggerToast('Membuka formulir registrasi aset BMN baru...');
-      };
-      if (btnPrimaryAction) btnPrimaryAction.addEventListener('click', openRegistrationToast);
-      if (btnSidebarAdd) btnSidebarAdd.addEventListener('click', openRegistrationToast);
+      // 10. Live Form Field Synchronizer to Barcode Thermal Sticker
+      const formInputCode = document.getElementById('formInputCode');
+      const formInputName = document.getElementById('formInputName');
+      const formInputRoom = document.getElementById('formInputRoom');
+      const formInputPrice = document.getElementById('formInputPrice');
+      const stickerCodeDisplay = document.getElementById('stickerCodeDisplay');
+      const stickerNameDisplay = document.getElementById('stickerNameDisplay');
+      const stickerRoomDisplay = document.getElementById('stickerRoomDisplay');
+      const formPricePreviewFormatted = document.getElementById('formPricePreviewFormatted');
 
-      // Export buttons
-      const btnExportSummary = document.getElementById('btnExportSummary');
-      if (btnExportSummary) {
-        btnExportSummary.addEventListener('click', () => {
-          triggerToast('Mengekspor rekap inventaris format XLSX...');
+      if (formInputCode && stickerCodeDisplay) {
+        formInputCode.addEventListener('input', () => {
+          stickerCodeDisplay.textContent = formInputCode.value || 'AST-LAB-2026-090';
         });
       }
 
-      const btnFilterPeriod = document.getElementById('btnFilterPeriod');
-      if (btnFilterPeriod) {
-        btnFilterPeriod.addEventListener('click', () => {
-          triggerToast('Periode audit aktif: Tahun Anggaran 2026');
+      if (formInputName && stickerNameDisplay) {
+        formInputName.addEventListener('input', () => {
+          stickerNameDisplay.textContent = formInputName.value || 'Nama Peralatan Sarpras';
         });
       }
 
+      if (formInputRoom && stickerRoomDisplay) {
+        formInputRoom.addEventListener('change', () => {
+          stickerRoomDisplay.textContent = formInputRoom.value;
+        });
+      }
+
+      if (formInputPrice && formPricePreviewFormatted) {
+        formInputPrice.addEventListener('input', () => {
+          const val = Number(formInputPrice.value) || 0;
+          formPricePreviewFormatted.textContent = 'Rp ' + val.toLocaleString('id-ID') + ',00';
+        });
+      }
     });
 
-    // 9. Modal Decommissioning Handlers
-    function openDecommissionModal(code, name) {
-      const modal = document.getElementById('decommissionModal');
-      const modalTargetCode = document.getElementById('modalTargetCode');
-      const modalTargetName = document.getElementById('modalTargetName');
-      
-      if (modalTargetCode) modalTargetCode.textContent = code;
-      if (modalTargetName) modalTargetName.textContent = name;
-      if (modal) modal.classList.add('open');
+    // ==========================================================================
+    // THEME ENGINE
+    // ==========================================================================
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('sarpras_theme', theme);
+      const sun = document.getElementById('themeIconSun');
+      const moon = document.getElementById('themeIconMoon');
+      if (sun && moon) {
+        if (theme === 'dark') {
+          sun.style.display = 'block';
+          moon.style.display = 'none';
+        } else {
+          sun.style.display = 'none';
+          moon.style.display = 'block';
+        }
+      }
     }
 
-    function closeDecommissionModal() {
-      const modal = document.getElementById('decommissionModal');
-      if (modal) modal.classList.remove('open');
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      setTheme(current === 'light' ? 'dark' : 'light');
     }
 
-    function confirmDecommission() {
-      closeDecommissionModal();
-      triggerToast('Usulan penghapusan aset BMN berhasil diajukan ke Berita Acara.');
+    // ==========================================================================
+    // REAL TAB NAVIGATION SYSTEM
+    // ==========================================================================
+    const breadcrumbTitles = {
+      'view-dashboard': 'EXECUTIVE DASHBOARD',
+      'view-data-master': 'MASTER DATA SARPRAS',
+      'view-form-aset': 'REGISTRASI ASET BARU',
+      'view-laporan': 'PUSAT LAPORAN & KIR',
+      'view-peminjaman': 'PEMINJAMAN & MUTASI FASILITAS',
+      'view-maintenance': 'SERVIS & KALIBRASI ALAT',
+      'view-ruangan': 'DIREKTORI RUANGAN & GEDUNG'
+    };
+
+    function navigateToTab(tabId) {
+      // 1. Switch Active Pane
+      const allPanes = document.querySelectorAll('.tab-content-view');
+      allPanes.forEach(pane => pane.classList.remove('active'));
+
+      const targetPane = document.getElementById(tabId);
+      if (targetPane) {
+        targetPane.classList.add('active');
+      }
+
+      // 2. Update Sidebar Active Link
+      const navLinks = document.querySelectorAll('.nav-item-link');
+      navLinks.forEach(link => {
+        if (link.getAttribute('data-target') === tabId) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+
+      // 3. Update Breadcrumbs in Header
+      const headerBreadcrumbTitle = document.getElementById('headerBreadcrumbTitle');
+      if (headerBreadcrumbTitle && breadcrumbTitles[tabId]) {
+        headerBreadcrumbTitle.textContent = breadcrumbTitles[tabId];
+      }
+
+      // Scroll viewport to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 10. Toast Notification Engine (Zero Dependency)
+    // ==========================================================================
+    // MASTER DATA TABLE RENDERER & FILTER ENGINE
+    // ==========================================================================
+    function renderInventoryTable() {
+      const tbody = document.getElementById('inventoryListTbody');
+      if (!tbody) return;
+
+      const filterQuery = (document.getElementById('tableFilterInput')?.value || '').toLowerCase();
+      const filterKat = document.getElementById('selectKategoriFilter')?.value || 'all';
+      const filterKon = document.getElementById('selectKondisiFilter')?.value || 'all';
+
+      const filtered = inventoryData.filter(item => {
+        const matchesQuery = item.name.toLowerCase().includes(filterQuery) || item.code.toLowerCase().includes(filterQuery);
+        const matchesKat = filterKat === 'all' || item.category === filterKat;
+        const matchesKon = filterKon === 'all' || item.condition === filterKon;
+        return matchesQuery && matchesKat && matchesKon;
+      });
+
+      tbody.innerHTML = '';
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 32px; color: var(--color-text-muted);">
+              Tidak ada data sarana yang sesuai dengan filter pencarian.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      filtered.forEach((item, idx) => {
+        let badgeClass = 'normal';
+        if (item.condition === 'Perawatan') badgeClass = 'warning';
+        if (item.condition === 'Rusak Berat') badgeClass = 'critical';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="text-align: center;">
+            <input type="checkbox" class="table-row-cb">
+          </td>
+          <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">${item.code}</td>
+          <td style="font-weight: 500;">${item.name}</td>
+          <td>${item.category}</td>
+          <td style="color: var(--color-text-secondary);">${item.room}</td>
+          <td class="font-mono">Rp ${item.price.toLocaleString('id-ID')}</td>
+          <td><span class="status-badge-pill ${badgeClass} font-mono">${item.condition}</span></td>
+          <td style="text-align: right;">
+            <button class="table-action-link" onclick="triggerToast('Melihat rincian ${item.code}')">Detail</button>
+            <button class="table-action-link danger" onclick="openDecommissionModal('${item.code}', '${item.name}', ${idx})">Afkir</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Update counters
+      const tableFilterStats = document.getElementById('tableFilterStats');
+      if (tableFilterStats) {
+        tableFilterStats.textContent = `Menampilkan ${filtered.length} dari ${inventoryData.length} data`;
+      }
+      const summaryTotalAset = document.getElementById('summaryTotalAset');
+      if (summaryTotalAset) summaryTotalAset.textContent = inventoryData.length;
+      const sidebarAssetCount = document.getElementById('sidebarAssetCount');
+      if (sidebarAssetCount) sidebarAssetCount.textContent = inventoryData.length;
+    }
+
+    // ==========================================================================
+    // FORM REGISTRASI SUBMISSION HANDLER
+    // ==========================================================================
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const code = document.getElementById('formInputCode').value.trim();
+      const name = document.getElementById('formInputName').value.trim();
+      const category = document.getElementById('formInputCategory').value;
+      const room = document.getElementById('formInputRoom').value;
+      const price = Number(document.getElementById('formInputPrice').value) || 0;
+      const condition = document.getElementById('formInputCondition').value;
+
+      if (!code || !name) {
+        triggerToast('Harap lengkapi kode aset dan nama peralatan');
+        return;
+      }
+
+      // Add to inventory database
+      inventoryData.unshift({
+        code: code,
+        name: name,
+        category: category,
+        room: room,
+        price: price,
+        condition: condition
+      });
+
+      // Reset form
+      document.getElementById('newAssetForm').reset();
+      document.getElementById('formInputCode').value = 'AST-LAB-2026-0' + (inventoryData.length + 90);
+
+      // Re-render table and navigate to Master Data
+      renderInventoryTable();
+      navigateToTab('view-data-master');
+      triggerToast(`Berhasil mendaftarkan sarana baru: ${name}`);
+    }
+
+    function setConditionSelect(cond) {
+      document.getElementById('formInputCondition').value = cond;
+      document.querySelectorAll('.radio-card-label').forEach(c => c.classList.remove('selected'));
+      if (cond === 'Baik') document.getElementById('condCardBaik').classList.add('selected');
+      if (cond === 'Perawatan') document.getElementById('condCardPerawatan').classList.add('selected');
+      if (cond === 'Rusak Berat') document.getElementById('condCardRusak').classList.add('selected');
+    }
+
+    // ==========================================================================
+    // ROOM & KIR VIEWER
+    // ==========================================================================
+    function openRoomKir(roomName) {
+      navigateToTab('view-laporan');
+      const selector = document.getElementById('kirRoomSelector');
+      if (selector) selector.value = roomName;
+      updateKirRoomView(roomName);
+    }
+
+    function updateKirRoomView(roomName) {
+      const titleEl = document.getElementById('kirCurrentRoomName');
+      if (titleEl) titleEl.textContent = roomName;
+      triggerToast(`Memuat lembar KIR untuk: ${roomName}`);
+    }
+
+    // ==========================================================================
+    // MODALS ENGINE
+    // ==========================================================================
+    function openModal(modalId) {
+      const el = document.getElementById(modalId);
+      if (el) el.classList.add('open');
+    }
+
+    function closeModal(modalId) {
+      const el = document.getElementById(modalId);
+      if (el) el.classList.remove('open');
+    }
+
+    function openDecommissionModal(code, name, index) {
+      currentSelectedAfkirIndex = index;
+      document.getElementById('modalAfkirCode').textContent = code;
+      document.getElementById('modalAfkirName').textContent = name;
+      openModal('modalDecommission');
+    }
+
+    function executeDecommission() {
+      if (currentSelectedAfkirIndex !== null && inventoryData[currentSelectedAfkirIndex]) {
+        const removed = inventoryData.splice(currentSelectedAfkirIndex, 1);
+        renderInventoryTable();
+        closeModal('modalDecommission');
+        triggerToast(`Aset ${removed[0].code} berhasil diafkirkan dari daftar.`);
+      }
+    }
+
+    function openBorrowModal() {
+      openModal('modalBorrow');
+    }
+
+    function submitBorrowLoan() {
+      const assetName = document.getElementById('borrowModalSelectAsset').value;
+      const borrower = document.getElementById('borrowModalBorrower').value.trim() || 'Unit Kegiatan Kampus';
+      const startDate = document.getElementById('borrowModalStartDate').value;
+      const endDate = document.getElementById('borrowModalEndDate').value;
+
+      const tbody = document.getElementById('borrowingListBody');
+      if (tbody) {
+        const tr = document.createElement('tr');
+        const randId = 'PINJ-2026-0' + Math.floor(Math.random() * 80 + 50);
+        tr.innerHTML = `
+          <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">${randId}</td>
+          <td style="font-weight: 500;">${assetName}</td>
+          <td>${borrower}</td>
+          <td class="font-mono">${startDate}</td>
+          <td class="font-mono">${endDate}</td>
+          <td><span class="status-badge-pill warning font-mono">Dipinjam</span></td>
+          <td style="text-align: right;">
+            <button class="table-action-link" onclick="markReturnItem(this)">Proses Kembali</button>
+          </td>
+        `;
+        tbody.prepend(tr);
+      }
+
+      closeModal('modalBorrow');
+      triggerToast(`Permohonan pinjam ${assetName} telah disetujui`);
+    }
+
+    function markReturnItem(btn) {
+      const tr = btn.closest('tr');
+      if (tr) {
+        const statusBadge = tr.querySelector('.status-badge-pill');
+        if (statusBadge) {
+          statusBadge.className = 'status-badge-pill normal font-mono';
+          statusBadge.textContent = 'Kembali';
+        }
+        btn.remove();
+        triggerToast('Sarana telah diverifikasi kembali dalam kondisi utuh.');
+      }
+    }
+
+    function openWorkOrderModal() {
+      openModal('modalWorkOrder');
+    }
+
+    function submitNewWorkOrder() {
+      const item = document.getElementById('woInputItem').value.trim() || 'Instrumen Lab Terpadu';
+      const vendor = document.getElementById('woInputVendor').value.trim() || 'Tim Teknisi Kampus';
+      const cost = Number(document.getElementById('woInputCost').value) || 3500000;
+      const date = document.getElementById('woInputDate').value;
+
+      const tbody = document.getElementById('woListBody');
+      if (tbody) {
+        const tr = document.createElement('tr');
+        const woId = 'WO-2026-0' + Math.floor(Math.random() * 80 + 95);
+        tr.innerHTML = `
+          <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">${woId}</td>
+          <td style="font-weight: 500;">${item}</td>
+          <td>${vendor}</td>
+          <td class="font-mono">Rp ${cost.toLocaleString('id-ID')}</td>
+          <td class="font-mono">${date}</td>
+          <td><span class="status-badge-pill warning font-mono">Pengerjaan</span></td>
+          <td style="text-align: right;">
+            <button class="table-action-link" onclick="triggerToast('Detail Berita Acara Servis dimuat')">Detail WO</button>
+          </td>
+        `;
+        tbody.prepend(tr);
+      }
+
+      closeModal('modalWorkOrder');
+      triggerToast(`Perintah kerja pemeliharaan berhasil diterbitkan.`);
+    }
+
+    function exportTableToCSV() {
+      let csv = 'Kode Aset,Nama Peralatan,Kategori,Lokasi Ruangan,Nilai Perolehan,Kondisi\n';
+      inventoryData.forEach(item => {
+        csv += `"${item.code}","${item.name}","${item.category}","${item.room}",${item.price},"${item.condition}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Master_Data_Sarpras_2026.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+      triggerToast('Berkas CSV berhasil diekspor.');
+    }
+
+    // ==========================================================================
+    // ZERO-DEPENDENCY TOAST NOTIFICATION
+    // ==========================================================================
     function triggerToast(message) {
       const container = document.getElementById('toastContainer');
       if (!container) return;
 
       const toast = document.createElement('div');
-      toast.className = 'toast-pill';
+      toast.className = 'toast-card';
       toast.innerHTML = `
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-signal-normal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
         <span>${message}</span>
@@ -2341,10 +3383,10 @@
 
       setTimeout(() => {
         toast.style.opacity = '0';
-        toast.style.transform = 'translateY(10px)';
-        toast.style.transition = 'all 180ms ease';
-        setTimeout(() => toast.remove(), 180);
-      }, 3000);
+        toast.style.transform = 'translateY(8px)';
+        toast.style.transition = 'all 160ms ease';
+        setTimeout(() => toast.remove(), 160);
+      }, 2800);
     }
   </script>
 </body>
