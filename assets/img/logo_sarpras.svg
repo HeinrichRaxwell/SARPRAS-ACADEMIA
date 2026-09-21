@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <!-- Background Shield / Squircle with academic gradient -->
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer Shield Container -->
+  <rect x="2" y="2" width="44" height="44" rx="10" fill="url(#shieldGrad)"/>
+  <rect x="2" y="2" width="44" height="44" rx="10" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+
+  <!-- Academic Building & Facility Pillar Motif -->
+  <!-- Roof / Pediment Triangle -->
+  <path d="M12 17L24 9L36 17H12Z" fill="#FFFFFF" fill-opacity="0.95"/>
+  
+  <!-- Architrave beam -->
+  <rect x="13" y="18" width="22" height="2" rx="0.5" fill="url(#accentGrad)"/>
+  
+  <!-- 3 Classic Architectural Pillars (Symbolizing Sarana & Prasarana) -->
+  <rect x="15" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+  <rect x="22.5" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+  <rect x="30" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+  
+  <!-- Base Pedestal / Foundation -->
+  <path d="M11 35H37V37C37 37.5523 36.5523 38 36 38H12C11.4477 38 11 37.5523 11 37V35Z" fill="url(#accentGrad)"/>
+  
+  <!-- Central Asset Node / Diamond (Symbolizing Asset Management Inventory) -->
+  <circle cx="24" cy="27.5" r="2" fill="#F59E0B"/>
+</svg>

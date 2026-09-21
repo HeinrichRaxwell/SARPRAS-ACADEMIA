@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SARPRAS ACADEMIA - Sistem Manajemen Sarana dan Prasarana</title>
   
-  <!-- Typography: Inter & JetBrains Mono -->
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================================
@@ -16,31 +16,32 @@
        ========================================================================== */
     :root, [data-theme="light"] {
       /* Base Canvas & Glass Surfaces */
-      --color-canvas: #F8FAFC;
+      --color-canvas: #F4F6F9;
       --color-surface: #FFFFFF;
-      --color-surface-glass: rgba(255, 255, 255, 0.88);
-      --color-surface-glass-modal: rgba(255, 255, 255, 0.95);
-      --color-surface-elevated: #F1F5F9;
-      --color-surface-subtle: #F8FAFC;
+      --color-surface-glass: rgba(255, 255, 255, 0.92);
+      --color-surface-elevated: #F8FAFC;
+      --color-surface-subtle: #F1F5F9;
       
-      /* Borders & Bevel Highlights */
+      /* Borders & Outlines */
       --color-border-whisper: #E2E8F0;
       --color-border-specular: #CBD5E1;
       --color-border-strong: #94A3B8;
       
       /* Typography Colors */
-      --color-text-primary: #0F172A;
-      --color-text-secondary: #475569;
-      --color-text-muted: #64748B;
+      --color-text-primary: #111827;
+      --color-text-secondary: #4B5563;
+      --color-text-muted: #6B7280;
       
-      /* Buttons & Actions */
-      --color-primary-cta: #0F172A;
+      /* Buttons & Actions (Institutional Academic Navy) */
+      --color-primary-cta: #1E3A8A;
+      --color-primary-cta-hover: #1D4ED8;
       --color-primary-cta-text: #FFFFFF;
       --color-secondary-cta-bg: #FFFFFF;
-      --color-secondary-cta-border: #E2E8F0;
+      --color-secondary-cta-border: #D1D5DB;
+      --color-secondary-cta-hover: #F9FAFB;
       
       /* Semantic Signals */
-      --color-accent-cobalt: #2563EB;
+      --color-accent-cobalt: #1D4ED8;
       --color-accent-cobalt-bg: #EFF6FF;
       --color-accent-cobalt-border: #BFDBFE;
       
@@ -57,20 +58,20 @@
       --color-signal-critical-border: #FECACA;
       
       /* Elevation & Shadows */
-      --card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
-      --card-shadow-hover: 0 10px 25px -4px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
-      --popover-shadow: 0 16px 40px -4px rgba(15, 23, 42, 0.12), 0 6px 16px -2px rgba(15, 23, 42, 0.06);
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
+      --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --popover-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
       
-      /* Geometry & Navigation */
-      --sidebar-width: 260px;
-      --sidebar-collapsed-width: 74px;
+      /* Geometry */
+      --sidebar-width: 256px;
+      --sidebar-collapsed-width: 72px;
       --header-height: 64px;
       --footer-height: 48px;
       --radius-sm: 6px;
       --radius-md: 8px;
       --radius-lg: 12px;
       
-      /* Animation Physics */
+      /* Physics */
       --ease-physics: cubic-bezier(0.23, 1, 0.32, 1);
       --speed-fast: 150ms;
       --speed-normal: 220ms;
@@ -78,32 +79,33 @@
 
     [data-theme="dark"] {
       /* Base Canvas & Glass Surfaces */
-      --color-canvas: #090B0E;
-      --color-surface: #0E1217;
-      --color-surface-glass: rgba(14, 18, 23, 0.85);
-      --color-surface-glass-modal: rgba(14, 18, 23, 0.95);
-      --color-surface-elevated: #161B22;
-      --color-surface-subtle: #13171D;
+      --color-canvas: #0B0F19;
+      --color-surface: #111827;
+      --color-surface-glass: rgba(17, 24, 39, 0.90);
+      --color-surface-elevated: #1F2937;
+      --color-surface-subtle: #161F30;
       
-      /* Borders & Bevel Highlights */
+      /* Borders & Outlines */
       --color-border-whisper: rgba(255, 255, 255, 0.08);
       --color-border-specular: rgba(255, 255, 255, 0.16);
       --color-border-strong: rgba(255, 255, 255, 0.24);
       
       /* Typography Colors */
-      --color-text-primary: #F1F5F9;
-      --color-text-secondary: #94A3B8;
-      --color-text-muted: #64748B;
+      --color-text-primary: #F9FAFB;
+      --color-text-secondary: #9CA3AF;
+      --color-text-muted: #6B7280;
       
       /* Buttons & Actions */
-      --color-primary-cta: #FFFFFF;
-      --color-primary-cta-text: #090B0E;
+      --color-primary-cta: #2563EB;
+      --color-primary-cta-hover: #3B82F6;
+      --color-primary-cta-text: #FFFFFF;
       --color-secondary-cta-bg: rgba(255, 255, 255, 0.04);
-      --color-secondary-cta-border: rgba(255, 255, 255, 0.10);
+      --color-secondary-cta-border: rgba(255, 255, 255, 0.12);
+      --color-secondary-cta-hover: rgba(255, 255, 255, 0.08);
       
       /* Semantic Signals */
       --color-accent-cobalt: #3B82F6;
-      --color-accent-cobalt-bg: rgba(59, 130, 246, 0.14);
+      --color-accent-cobalt-bg: rgba(59, 130, 246, 0.15);
       --color-accent-cobalt-border: rgba(59, 130, 246, 0.30);
       
       --color-signal-normal: #10B981;
@@ -119,9 +121,9 @@
       --color-signal-critical-border: rgba(239, 68, 68, 0.28);
       
       /* Shadows */
-      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      --card-shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.5);
-      --popover-shadow: 0 20px 45px rgba(0, 0, 0, 0.65);
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      --card-shadow-hover: 0 8px 26px rgba(0, 0, 0, 0.45);
+      --popover-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
     }
 
     /* ==========================================================================
@@ -137,7 +139,7 @@
       height: 100%;
       background-color: var(--color-canvas);
       color: var(--color-text-primary);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       font-size: 13px;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
@@ -180,7 +182,7 @@
       left: 10%;
       width: 600px;
       height: 450px;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.04) 0%, rgba(37, 99, 235, 0) 70%);
+      background: radial-gradient(circle, rgba(30, 58, 138, 0.04) 0%, rgba(30, 58, 138, 0) 70%);
       filter: blur(80px);
     }
     .ambient-shape-2 {
@@ -189,7 +191,7 @@
       right: 5%;
       width: 500px;
       height: 400px;
-      background: radial-gradient(circle, rgba(5, 150, 105, 0.035) 0%, rgba(5, 150, 105, 0) 70%);
+      background: radial-gradient(circle, rgba(5, 150, 105, 0.03) 0%, rgba(5, 150, 105, 0) 70%);
       filter: blur(80px);
     }
 
@@ -204,7 +206,7 @@
     }
 
     /* ==========================================================================
-       4. SIDEBAR (PROFESSIONAL INSTITUTIONAL RAIL)
+       4. SIDEBAR RAIL
        ========================================================================== */
     .sidebar-rail {
       width: var(--sidebar-width);
@@ -229,7 +231,7 @@
     /* Sidebar Brand Section */
     .sidebar-brand {
       height: var(--header-height);
-      padding: 0 18px;
+      padding: 0 16px;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -238,16 +240,13 @@
     }
 
     .brand-logo-wrap {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: var(--radius-md);
-      background: var(--color-accent-cobalt-bg);
-      border: 1px solid var(--color-accent-cobalt-border);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      color: var(--color-accent-cobalt);
     }
 
     .brand-text-group {
@@ -265,7 +264,7 @@
 
     .brand-main-title {
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: -0.01em;
       color: var(--color-text-primary);
     }
@@ -274,7 +273,7 @@
       font-size: 10px;
       font-weight: 600;
       color: var(--color-text-muted);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
     }
 
     /* Sidebar CTA Quick Action */
@@ -289,6 +288,7 @@
       border-radius: var(--radius-sm);
       background: var(--color-primary-cta);
       color: var(--color-primary-cta-text);
+      font-family: inherit;
       font-size: 12px;
       font-weight: 600;
       border: none;
@@ -297,13 +297,13 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: transform var(--speed-fast) var(--ease-physics), opacity var(--speed-fast) ease;
+      transition: all var(--speed-fast) ease;
       white-space: nowrap;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 6px rgba(30, 58, 138, 0.2);
     }
 
     .btn-quick-register:hover {
-      opacity: 0.92;
+      background: var(--color-primary-cta-hover);
     }
 
     .btn-quick-register:active {
@@ -317,7 +317,7 @@
     /* Navigation Container & Groups */
     .sidebar-nav-container {
       flex: 1;
-      padding: 10px 10px;
+      padding: 8px 10px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -328,7 +328,7 @@
       font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       color: var(--color-text-muted);
       padding: 12px 10px 4px 10px;
       white-space: nowrap;
@@ -351,7 +351,7 @@
       color: var(--color-text-secondary);
       text-decoration: none;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       border: 1px solid transparent;
       transition: all var(--speed-fast) ease;
@@ -372,7 +372,7 @@
     .nav-item-link.active {
       background: var(--color-accent-cobalt-bg);
       color: var(--color-accent-cobalt);
-      font-weight: 600;
+      font-weight: 700;
       border-color: var(--color-accent-cobalt-border);
     }
 
@@ -447,8 +447,9 @@
       background: var(--color-surface-elevated);
       border: 1px solid var(--color-border-whisper);
       color: var(--color-text-secondary);
+      font-family: inherit;
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -475,8 +476,8 @@
     .top-command-header {
       height: var(--header-height);
       background-color: var(--color-surface-glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--color-border-whisper);
       position: sticky;
       top: 0;
@@ -513,7 +514,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--color-text-muted);
       white-space: nowrap;
@@ -523,6 +524,7 @@
 
     .breadcrumb-active-tag {
       color: var(--color-text-primary);
+      font-weight: 700;
     }
 
     /* Command Search Field (Center) */
@@ -559,6 +561,7 @@
       color: var(--color-text-primary);
       font-family: inherit;
       font-size: 12px;
+      font-weight: 500;
       outline: none;
       transition: all var(--speed-fast) ease;
     }
@@ -671,7 +674,7 @@
 
     .profile-user-name {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--color-text-primary);
     }
 
@@ -680,7 +683,7 @@
       color: var(--color-text-muted);
     }
 
-    /* Popover Menus (Notifications & Profile) */
+    /* Popover Menus */
     .header-popover-dropdown {
       position: absolute;
       top: calc(100% + 8px);
@@ -780,8 +783,8 @@
     }
 
     .view-title-group h1 {
-      font-size: 22px;
-      font-weight: 700;
+      font-size: 20px;
+      font-weight: 800;
       letter-spacing: -0.02em;
       color: var(--color-text-primary);
     }
@@ -806,6 +809,7 @@
       border-radius: var(--radius-sm);
       background: var(--color-primary-cta);
       color: var(--color-primary-cta-text);
+      font-family: inherit;
       font-size: 12px;
       font-weight: 600;
       border: 1px solid var(--color-primary-cta);
@@ -814,13 +818,13 @@
       align-items: center;
       gap: 8px;
       transition: all var(--speed-fast) ease;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 6px rgba(30, 58, 138, 0.15);
       white-space: nowrap;
     }
 
     .btn-action-primary:hover {
-      opacity: 0.92;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      background: var(--color-primary-cta-hover);
+      border-color: var(--color-primary-cta-hover);
     }
 
     .btn-action-primary:active {
@@ -834,8 +838,9 @@
       background: var(--color-secondary-cta-bg);
       border: 1px solid var(--color-secondary-cta-border);
       color: var(--color-text-primary);
+      font-family: inherit;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -845,7 +850,7 @@
     }
 
     .btn-action-secondary:hover {
-      background: var(--color-surface-elevated);
+      background: var(--color-secondary-cta-hover);
       border-color: var(--color-border-specular);
     }
 
@@ -885,16 +890,16 @@
 
     .card-top-tag {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--color-text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       margin-bottom: 8px;
     }
 
     .card-metric-value {
       font-size: 26px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--color-text-primary);
       letter-spacing: -0.02em;
     }
@@ -935,7 +940,7 @@
       padding: 3px 8px;
       border-radius: 4px;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       white-space: nowrap;
     }
 
@@ -992,7 +997,9 @@
       border-radius: var(--radius-sm);
       padding: 0 12px;
       color: var(--color-text-primary);
+      font-family: inherit;
       font-size: 12px;
+      font-weight: 500;
       outline: none;
       cursor: pointer;
     }
@@ -1006,18 +1013,18 @@
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .data-table-main th {
       background: var(--color-surface-elevated);
       padding: 12px 18px;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--color-text-muted);
       border-bottom: 1px solid var(--color-border-whisper);
       white-space: nowrap;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
     }
 
     .data-table-main td {
@@ -1026,6 +1033,7 @@
       color: var(--color-text-primary);
       vertical-align: middle;
       white-space: nowrap;
+      font-weight: 500;
     }
 
     .data-table-main tbody tr:hover {
@@ -1036,8 +1044,9 @@
       background: none;
       border: none;
       color: var(--color-accent-cobalt);
+      font-family: inherit;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       padding: 4px 8px;
       border-radius: 4px;
@@ -1083,8 +1092,9 @@
       background: var(--color-surface);
       border: 1px solid var(--color-border-whisper);
       color: var(--color-text-primary);
+      font-family: inherit;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -1098,7 +1108,7 @@
     }
 
     /* ==========================================================================
-       7. FORM VIEW STYLING (REGISTRASI ASET)
+       7. FORM VIEW STYLING
        ========================================================================== */
     .form-two-column-grid {
       display: grid;
@@ -1115,7 +1125,7 @@
 
     .form-label-text {
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--color-text-primary);
     }
 
@@ -1128,7 +1138,8 @@
       padding: 0 14px;
       color: var(--color-text-primary);
       font-family: inherit;
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 500;
       outline: none;
       transition: all var(--speed-fast) ease;
     }
@@ -1260,7 +1271,7 @@
 
     .kir-doc-title {
       font-size: 18px;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.02em;
     }
 
@@ -1336,8 +1347,8 @@
       position: fixed;
       inset: 0;
       background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       z-index: 100;
       display: none;
       align-items: center;
@@ -1402,8 +1413,9 @@
       border-radius: var(--radius-sm);
       background: var(--color-signal-critical);
       color: #FFFFFF;
+      font-family: inherit;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       border: none;
       cursor: pointer;
       transition: opacity var(--speed-fast) ease;
@@ -1431,7 +1443,7 @@
       border: 1px solid var(--color-border-specular);
       color: var(--color-text-primary);
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       box-shadow: var(--popover-shadow);
       display: flex;
       align-items: center;
@@ -1457,12 +1469,12 @@
       padding: 14px 28px;
       gap: 16px;
       flex-wrap: wrap;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--color-text-muted);
     }
 
     /* ==========================================================================
-       12. PRINT MEDIA STYLESHEET (CETAK KIR BERSTANDAR RESMI)
+       12. PRINT MEDIA STYLESHEET
        ========================================================================== */
     @media print {
       .sidebar-rail, .top-command-header, .site-footer, .view-action-header, .toast-stack, .modal-overlay-bg {
@@ -1563,21 +1575,32 @@
       <!-- Brand Logo Header -->
       <div class="sidebar-brand">
         <div class="brand-logo-wrap" title="SARPRAS ACADEMIA">
-          <!-- Institutional Pillar & Shield Emblem SVG -->
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 21h18"/>
-            <path d="M5 21V7l7-4 7 4v14"/>
-            <path d="M9 10h.01"/>
-            <path d="M9 14h.01"/>
-            <path d="M9 18h.01"/>
-            <path d="M15 10h.01"/>
-            <path d="M15 14h.01"/>
-            <path d="M15 18h.01"/>
+          <!-- Institutional School & Facility Emblem SVG -->
+          <svg viewBox="0 0 48 48" width="38" height="38" fill="none">
+            <defs>
+              <linearGradient id="sbShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1E3A8A"/>
+                <stop offset="100%" stop-color="#1E40AF"/>
+              </linearGradient>
+              <linearGradient id="sbAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#60A5FA"/>
+                <stop offset="100%" stop-color="#3B82F6"/>
+              </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="44" height="44" rx="10" fill="url(#sbShieldGrad)"/>
+            <rect x="2" y="2" width="44" height="44" rx="10" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+            <path d="M12 17L24 9L36 17H12Z" fill="#FFFFFF" fill-opacity="0.95"/>
+            <rect x="13" y="18" width="22" height="2" rx="0.5" fill="url(#sbAccentGrad)"/>
+            <rect x="15" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+            <rect x="22.5" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+            <rect x="30" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+            <path d="M11 35H37V37C37 37.5523 36.5523 38 36 38H12C11.4477 38 11 37.5523 11 37V35Z" fill="url(#sbAccentGrad)"/>
+            <circle cx="24" cy="27.5" r="2" fill="#F59E0B"/>
           </svg>
         </div>
         <div class="brand-text-group">
           <span class="brand-main-title">SARPRAS ACADEMIA</span>
-          <span class="brand-sub-title">DIREKTORAT FASILITAS KAMPUS</span>
+          <span class="brand-sub-title">MANAJEMEN FASILITAS KAMPUS</span>
         </div>
       </div>
 
@@ -1811,7 +1834,7 @@
                 <span>PENGATURAN OPERATOR</span>
               </div>
               <div style="padding: 12px 16px; border-bottom: 1px solid var(--color-border-whisper);">
-                <div style="font-weight: 600; color: var(--color-text-primary);">Biro Sarana dan Prasarana</div>
+                <div style="font-weight: 700; color: var(--color-text-primary);">Biro Sarana dan Prasarana</div>
                 <div class="font-mono" style="font-size: 11px; color: var(--color-accent-cobalt);">ID Petugas: SPR-2026-001</div>
               </div>
               <div class="popover-list-item" onclick="triggerToast('Profil sistem berhasil diperbarui')">
@@ -1877,7 +1900,7 @@
               <div class="card-metric-subtext">+38 pengadaan sarana baru kuartal ini • 1.482 unit terdaftar</div>
               
               <div class="health-bar-container">
-                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 600;">
+                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700;">
                   <span>Tingkat Kesiapan Operasional : 86.4% Prima</span>
                   <span class="font-mono" style="color: var(--color-signal-normal);">1.280 / 1.482 Unit</span>
                 </div>
@@ -1922,7 +1945,7 @@
               <span class="card-top-tag">03. DISTRIBUSI KLUSTER FASILITAS</span>
               <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
                 <div>
-                  <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 3px;">
+                  <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; margin-bottom: 3px;">
                     <span>Peralatan Lab & Riset</span>
                     <span class="font-mono">38% (Rp 1.84 M)</span>
                   </div>
@@ -1931,7 +1954,7 @@
                   </div>
                 </div>
                 <div>
-                  <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 3px;">
+                  <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; margin-bottom: 3px;">
                     <span>Infrastruktur IT & Jaringan</span>
                     <span class="font-mono">27% (Rp 1.31 M)</span>
                   </div>
@@ -1940,7 +1963,7 @@
                   </div>
                 </div>
                 <div>
-                  <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 3px;">
+                  <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; margin-bottom: 3px;">
                     <span>Sarana Ruang Kuliah</span>
                     <span class="font-mono">21% (Rp 1.02 M)</span>
                   </div>
@@ -1949,7 +1972,7 @@
                   </div>
                 </div>
                 <div>
-                  <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 3px;">
+                  <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; margin-bottom: 3px;">
                     <span>Kendaraan Operasional</span>
                     <span class="font-mono">14% (Rp 680 Jt)</span>
                   </div>
@@ -1966,7 +1989,7 @@
           <div class="glass-table-wrapper">
             <div class="table-controls-bar">
               <div>
-                <h2 style="font-size: 14px; font-weight: 600; color: var(--color-text-primary);">Jadwal Kalibrasi & Servis Instrumen Terdekat</h2>
+                <h2 style="font-size: 14px; font-weight: 700; color: var(--color-text-primary);">Jadwal Kalibrasi & Servis Instrumen Terdekat</h2>
                 <p style="font-size: 12px; color: var(--color-text-muted);">Peralatan riset dan sarana pendukung akademik yang memerlukan verifikasi kelayakan teknis</p>
               </div>
               <button class="btn-action-secondary" onclick="navigateToTab('view-maintenance')">Lihat Semua Perintah Kerja &gt;</button>
@@ -1985,8 +2008,8 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">AST-LAB-2026-089</td>
-                    <td style="font-weight: 500;">Spektrofotometer UV-Vis Double Beam Precision</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">AST-LAB-2026-089</td>
+                    <td style="font-weight: 600;">Spektrofotometer UV-Vis Double Beam Precision</td>
                     <td>Gedung Riset Terpadu R.302</td>
                     <td class="font-mono">18 Mar 2026</td>
                     <td><span class="status-badge-pill warning font-mono">Perawatan</span></td>
@@ -1995,8 +2018,8 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">AST-TIK-2025-014</td>
-                    <td style="font-weight: 500;">Dell PowerEdge R750 Compute Server Node</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">AST-TIK-2025-014</td>
+                    <td style="font-weight: 600;">Dell PowerEdge R750 Compute Server Node</td>
                     <td>Data Center Rektorat Lt. 1</td>
                     <td class="font-mono">20 Mar 2026</td>
                     <td><span class="status-badge-pill normal font-mono">Baik (Prima)</span></td>
@@ -2005,8 +2028,8 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">AST-MED-2024-118</td>
-                    <td style="font-weight: 500;">Mikroskop Fluoresensi Leica DM2500 Plan-Apo</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">AST-MED-2024-118</td>
+                    <td style="font-weight: 600;">Mikroskop Fluoresensi Leica DM2500 Plan-Apo</td>
                     <td>Lab Riset Biomedik R.105</td>
                     <td class="font-mono">22 Mar 2026</td>
                     <td><span class="status-badge-pill warning font-mono">Perawatan</span></td>
@@ -2022,7 +2045,7 @@
         </section>
 
         <!-- ==================================================================
-             TAB 2: MASTER DATA SARPRAS (DENGAN LIVE FILTER & PENCARIAN)
+             TAB 2: MASTER DATA SARPRAS
              ================================================================== -->
         <section class="tab-content-view" id="view-data-master">
           
@@ -2065,7 +2088,7 @@
           <div class="glass-table-wrapper">
             <div class="table-controls-bar">
               <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                <input type="text" class="search-box-input" id="tableFilterInput" placeholder="Cari nama barang atau kode BMN..." style="width: 240px; height: 36px;">
+                <input type="text" class="search-box-input" id="tableFilterInput" placeholder="Cari nama barang atau kode BMN..." style="width: 250px; height: 36px;">
                 
                 <select class="table-select-filter" id="selectKategoriFilter">
                   <option value="all">Semua Kategori</option>
@@ -2083,7 +2106,7 @@
                 </select>
               </div>
 
-              <div style="font-size: 12px; color: var(--color-text-muted);" id="tableFilterStats">
+              <div style="font-size: 12px; font-weight: 600; color: var(--color-text-muted);" id="tableFilterStats">
                 Menampilkan 6 dari 1.482 total data
               </div>
             </div>
@@ -2111,7 +2134,7 @@
             </div>
 
             <div class="table-bottom-bar">
-              <span id="showingRecordsText">Menampilkan record inventaris tervalidasi</span>
+              <span id="showingRecordsText" style="font-weight: 500;">Menampilkan record inventaris tervalidasi</span>
               <div class="pagination-pills">
                 <button class="btn-page-number" onclick="triggerToast('Halaman sebelumnya')">&lt;</button>
                 <button class="btn-page-number active">1</button>
@@ -2126,7 +2149,7 @@
         </section>
 
         <!-- ==================================================================
-             TAB 3: FORM REGISTRASI ASET BARU (2-COLUMN + LIVE STICKER TAG)
+             TAB 3: FORM REGISTRASI ASET BARU
              ================================================================== -->
         <section class="tab-content-view" id="view-form-aset">
           
@@ -2145,7 +2168,7 @@
               
               <!-- Column 1: Technical & Placement Fields -->
               <div class="glass-panel-card">
-                <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--color-text-primary); border-bottom: 1px solid var(--color-border-whisper); padding-bottom: 10px;">
+                <h3 style="font-size: 14px; font-weight: 800; margin-bottom: 16px; color: var(--color-text-primary); border-bottom: 1px solid var(--color-border-whisper); padding-bottom: 10px;">
                   1. IDENTITAS PERALATAN & PENEMPATAN
                 </h3>
 
@@ -2197,15 +2220,15 @@
                   <label class="form-label-text">Kondisi Fisik Saat Penerimaan *</label>
                   <div class="radio-cards-row">
                     <div class="radio-card-label selected" id="condCardBaik" onclick="setConditionSelect('Baik')">
-                      <strong style="color: var(--color-signal-normal);">Baik (Prima)</strong>
+                      <strong style="color: var(--color-signal-normal); font-size: 12px;">Baik (Prima)</strong>
                       <span style="font-size: 10px; color: var(--color-text-muted);">Siap Pakai 100%</span>
                     </div>
                     <div class="radio-card-label" id="condCardPerawatan" onclick="setConditionSelect('Perawatan')">
-                      <strong style="color: var(--color-signal-warning);">Perlu Kalibrasi</strong>
+                      <strong style="color: var(--color-signal-warning); font-size: 12px;">Perlu Kalibrasi</strong>
                       <span style="font-size: 10px; color: var(--color-text-muted);">Servis Awal</span>
                     </div>
                     <div class="radio-card-label" id="condCardRusak" onclick="setConditionSelect('Rusak Berat')">
-                      <strong style="color: var(--color-signal-critical);">Rusak Fisik</strong>
+                      <strong style="color: var(--color-signal-critical); font-size: 12px;">Rusak Fisik</strong>
                       <span style="font-size: 10px; color: var(--color-text-muted);">Klaim Vendor</span>
                     </div>
                   </div>
@@ -2218,14 +2241,14 @@
               <div style="display: flex; flex-direction: column; gap: 20px;">
                 
                 <div class="glass-panel-card">
-                  <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--color-text-primary); border-bottom: 1px solid var(--color-border-whisper); padding-bottom: 10px;">
+                  <h3 style="font-size: 14px; font-weight: 800; margin-bottom: 16px; color: var(--color-text-primary); border-bottom: 1px solid var(--color-border-whisper); padding-bottom: 10px;">
                     2. VALUASI & BERKAS PENGADAAN
                   </h3>
 
                   <div class="form-group-item">
                     <label class="form-label-text">Harga Perolehan / Nilai Buku (Rupiah) *</label>
                     <input type="number" class="form-input-field font-mono" id="formInputPrice" placeholder="285000000" value="285000000" required>
-                    <span style="font-size: 11px; color: var(--color-accent-cobalt); font-weight: 600;" id="formPricePreviewFormatted">Rp 285.000.000,00</span>
+                    <span style="font-size: 12px; color: var(--color-accent-cobalt); font-weight: 700; margin-top: 4px;" id="formPricePreviewFormatted">Rp 285.000.000,00</span>
                   </div>
 
                   <div class="form-group-item">
@@ -2247,8 +2270,8 @@
                     
                     <div class="thermal-sticker-card" id="thermalStickerPreview">
                       <div class="thermal-header-top">
-                        <span style="font-size: 10px; font-weight: 700; color: #0F172A;">SARPRAS ACADEMIA</span>
-                        <span style="font-size: 9px; font-weight: 600; color: #64748B;" class="font-mono">BMN 2026</span>
+                        <span style="font-size: 10px; font-weight: 800; color: #0F172A;">SARPRAS ACADEMIA</span>
+                        <span style="font-size: 9px; font-weight: 700; color: #64748B;" class="font-mono">BMN 2026</span>
                       </div>
                       
                       <div class="thermal-body-grid">
@@ -2257,7 +2280,7 @@
                         </div>
                         <div style="flex: 1; min-width: 0; line-height: 1.3;">
                           <div class="font-mono" style="font-size: 13px; font-weight: 700; color: #0F172A;" id="stickerCodeDisplay">AST-LAB-2026-090</div>
-                          <div style="font-size: 11px; font-weight: 600; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="stickerNameDisplay">Spektrofotometer UV-Vis</div>
+                          <div style="font-size: 11px; font-weight: 700; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="stickerNameDisplay">Spektrofotometer UV-Vis</div>
                           <div style="font-size: 10px; color: #64748B; margin-top: 2px;" id="stickerRoomDisplay">Lab Kimia Terpadu R.302</div>
                         </div>
                       </div>
@@ -2309,7 +2332,7 @@
           <div class="kir-official-document">
             
             <div class="kir-doc-header">
-              <h2 style="font-size: 14px; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase;">DIREKTORAT PENGELOLAAN SARANA DAN PRASARANA KAMPUS</h2>
+              <h2 style="font-size: 13px; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase;">DIREKTORAT PENGELOLAAN SARANA DAN PRASARANA KAMPUS</h2>
               <div class="kir-doc-title">KARTU INVENTARIS RUANGAN (KIR)</div>
               <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">REGISTRASI: KIR/SARPRAS/GRT-R302/2026 • TAHUN ANGGARAN 2026</div>
             </div>
@@ -2337,7 +2360,7 @@
                 <tbody id="kirTableListBody">
                   <tr>
                     <td class="font-mono">1</td>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">3.05.01.04.002.1</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">3.05.01.04.002.1</td>
                     <td style="font-weight: 600;">Spektrofotometer UV-Vis Double Beam</td>
                     <td>Shimadzu UV-2600i</td>
                     <td class="font-mono">893-KM-2026-X901</td>
@@ -2346,7 +2369,7 @@
                   </tr>
                   <tr>
                     <td class="font-mono">2</td>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">3.05.01.04.003.1</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">3.05.01.04.003.1</td>
                     <td style="font-weight: 600;">High Performance Liquid Chromatography (HPLC)</td>
                     <td>Waters Alliance e2695</td>
                     <td class="font-mono">WTR-HPLC-99210</td>
@@ -2355,7 +2378,7 @@
                   </tr>
                   <tr>
                     <td class="font-mono">3</td>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">3.05.01.04.008.2</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">3.05.01.04.008.2</td>
                     <td style="font-weight: 600;">Analytical Precision Balance 0.0001g</td>
                     <td>Mettler Toledo ME204T</td>
                     <td class="font-mono">MT-BAL-2023-44</td>
@@ -2364,7 +2387,7 @@
                   </tr>
                   <tr>
                     <td class="font-mono">4</td>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">3.05.01.04.015.2</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">3.05.01.04.015.2</td>
                     <td style="font-weight: 600;">Fume Hood Laminar Airflow Biosafety Cabinet</td>
                     <td>Esco Airstream AC2</td>
                     <td class="font-mono">ES-BSC-5510-SG</td>
@@ -2379,7 +2402,7 @@
             <div class="signatures-dual-block">
               <div class="sig-person-box">
                 <span style="font-size: 11px; color: var(--color-text-muted);">Mengetahui & Menyetujui,</span>
-                <strong style="font-size: 12px; color: var(--color-text-primary);">Direktur Sarana dan Prasarana</strong>
+                <strong style="font-size: 13px; color: var(--color-text-primary);">Direktur Sarana dan Prasarana</strong>
                 <div class="sig-line-space"></div>
                 <strong style="color: var(--color-text-primary);">Dr. Ir. Hendra Wicaksono, M.T.</strong>
                 <span class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19760312 200112 1 002</span>
@@ -2387,7 +2410,7 @@
 
               <div class="sig-person-box" style="text-align: right;">
                 <span style="font-size: 11px; color: var(--color-text-muted);">Tangerang Selatan, 10 Maret 2026</span>
-                <strong style="font-size: 12px; color: var(--color-text-primary);">Penanggung Jawab Ruangan</strong>
+                <strong style="font-size: 13px; color: var(--color-text-primary);">Penanggung Jawab Ruangan</strong>
                 <div class="sig-line-space"></div>
                 <strong style="color: var(--color-text-primary);">Dr. Retno Lestari, M.Si</strong>
                 <span class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19820514 200812 2 001</span>
@@ -2438,7 +2461,7 @@
 
           <div class="glass-table-wrapper">
             <div class="table-controls-bar">
-              <h2 style="font-size: 14px; font-weight: 600; color: var(--color-text-primary);">Daftar Sirkulasi Peminjaman Berjalan</h2>
+              <h2 style="font-size: 14px; font-weight: 700; color: var(--color-text-primary);">Daftar Sirkulasi Peminjaman Berjalan</h2>
             </div>
             <div class="table-responsive-box">
               <table class="data-table-main" id="borrowingTable">
@@ -2455,8 +2478,8 @@
                 </thead>
                 <tbody id="borrowingListBody">
                   <tr>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">PINJ-2026-041</td>
-                    <td style="font-weight: 500;">Proyektor Laser Epson 4K 6000 Lumens</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">PINJ-2026-041</td>
+                    <td style="font-weight: 600;">Proyektor Laser Epson 4K 6000 Lumens</td>
                     <td>Himpunan Mahasiswa Elektro</td>
                     <td class="font-mono">14 Mar 2026</td>
                     <td class="font-mono">16 Mar 2026</td>
@@ -2466,8 +2489,8 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">PINJ-2026-042</td>
-                    <td style="font-weight: 500;">Drone LiDAR DJI Matrice 350 RTK</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">PINJ-2026-042</td>
+                    <td style="font-weight: 600;">Drone LiDAR DJI Matrice 350 RTK</td>
                     <td>Lab Pemetaan Geodesi</td>
                     <td class="font-mono">15 Mar 2026</td>
                     <td class="font-mono">22 Mar 2026</td>
@@ -2477,8 +2500,8 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">PINJ-2026-043</td>
-                    <td style="font-weight: 500;">Auditorium Graha Nusantara Lt. 2</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">PINJ-2026-043</td>
+                    <td style="font-weight: 600;">Auditorium Graha Nusantara Lt. 2</td>
                     <td>Biro Kemahasiswaan</td>
                     <td class="font-mono">18 Mar 2026</td>
                     <td class="font-mono">18 Mar 2026</td>
@@ -2534,7 +2557,7 @@
 
           <div class="glass-table-wrapper">
             <div class="table-controls-bar">
-              <h2 style="font-size: 14px; font-weight: 600; color: var(--color-text-primary);">Tiket Perintah Kerja Pemeliharaan Terjadwal</h2>
+              <h2 style="font-size: 14px; font-weight: 700; color: var(--color-text-primary);">Tiket Perintah Kerja Pemeliharaan Terjadwal</h2>
             </div>
             <div class="table-responsive-box">
               <table class="data-table-main" id="woTable">
@@ -2551,8 +2574,8 @@
                 </thead>
                 <tbody id="woListBody">
                   <tr>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">WO-2026-089</td>
-                    <td style="font-weight: 500;">Spektrofotometer UV-Vis Shimadzu (R.302)</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">WO-2026-089</td>
+                    <td style="font-weight: 600;">Spektrofotometer UV-Vis Shimadzu (R.302)</td>
                     <td>PT Dynatech Instrument</td>
                     <td class="font-mono">Rp 4.500.000</td>
                     <td class="font-mono">18 Mar 2026</td>
@@ -2562,8 +2585,8 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">WO-2026-090</td>
-                    <td style="font-weight: 500;">Dell PowerEdge R750 Compute Blade (NOC)</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">WO-2026-090</td>
+                    <td style="font-weight: 600;">Dell PowerEdge R750 Compute Blade (NOC)</td>
                     <td>Tim Infrastruktur IT Internal</td>
                     <td class="font-mono">Rp 2.800.000</td>
                     <td class="font-mono">20 Mar 2026</td>
@@ -2573,8 +2596,8 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">WO-2026-091</td>
-                    <td style="font-weight: 500;">Mikroskop Fluoresensi Leica DM2500 (R.105)</td>
+                    <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">WO-2026-091</td>
+                    <td style="font-weight: 600;">Mikroskop Fluoresensi Leica DM2500 (R.105)</td>
                     <td>Leica Microsystems Indonesia</td>
                     <td class="font-mono">Rp 6.200.000</td>
                     <td class="font-mono">22 Mar 2026</td>
@@ -2591,7 +2614,7 @@
         </section>
 
         <!-- ==================================================================
-             TAB 7: DIREKTORI GEDUNG & RUANGAN (6 CARDS REAL GRID)
+             TAB 7: DIREKTORI GEDUNG & RUANGAN
              ================================================================== -->
         <section class="tab-content-view" id="view-ruangan">
           
@@ -2609,7 +2632,7 @@
               <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
                   <strong style="font-size: 15px; color: var(--color-text-primary);">Lab Kimia Terpadu R.302</strong>
-                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Riset Terpadu Lt. 3</div>
+                  <div style="font-size: 12px; color: var(--color-accent-cobalt); font-weight: 600; margin-top: 2px;">Gedung Riset Terpadu Lt. 3</div>
                 </div>
                 <span class="status-badge-pill normal font-mono">KIR Valid</span>
               </div>
@@ -2627,7 +2650,7 @@
               <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
                   <strong style="font-size: 15px; color: var(--color-text-primary);">Data Center & NOC Utama</strong>
-                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Rektorat Lt. 1</div>
+                  <div style="font-size: 12px; color: var(--color-accent-cobalt); font-weight: 600; margin-top: 2px;">Gedung Rektorat Lt. 1</div>
                 </div>
                 <span class="status-badge-pill normal font-mono">KIR Valid</span>
               </div>
@@ -2645,7 +2668,7 @@
               <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
                   <strong style="font-size: 15px; color: var(--color-text-primary);">Smart Classroom 401</strong>
-                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Kuliah Bersama Lt. 4</div>
+                  <div style="font-size: 12px; color: var(--color-accent-cobalt); font-weight: 600; margin-top: 2px;">Gedung Kuliah Bersama Lt. 4</div>
                 </div>
                 <span class="status-badge-pill normal font-mono">KIR Valid</span>
               </div>
@@ -2663,7 +2686,7 @@
               <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
                   <strong style="font-size: 15px; color: var(--color-text-primary);">Lab Riset Biomedik R.105</strong>
-                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Riset Terpadu Lt. 1</div>
+                  <div style="font-size: 12px; color: var(--color-accent-cobalt); font-weight: 600; margin-top: 2px;">Gedung Riset Terpadu Lt. 1</div>
                 </div>
                 <span class="status-badge-pill warning font-mono">Servis Alat</span>
               </div>
@@ -2681,7 +2704,7 @@
               <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
                   <strong style="font-size: 15px; color: var(--color-text-primary);">Workshop Mesin FT Lt. 1</strong>
-                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Teknik Mesin Lt. 1</div>
+                  <div style="font-size: 12px; color: var(--color-accent-cobalt); font-weight: 600; margin-top: 2px;">Gedung Teknik Mesin Lt. 1</div>
                 </div>
                 <span class="status-badge-pill warning font-mono">Kalibrasi</span>
               </div>
@@ -2699,7 +2722,7 @@
               <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
                   <strong style="font-size: 15px; color: var(--color-text-primary);">Auditorium Graha Nusantara</strong>
-                  <div style="font-size: 11px; color: var(--color-accent-cobalt); margin-top: 2px;">Gedung Rektorat Lt. 2</div>
+                  <div style="font-size: 12px; color: var(--color-accent-cobalt); font-weight: 600; margin-top: 2px;">Gedung Rektorat Lt. 2</div>
                 </div>
                 <span class="status-badge-pill normal font-mono">KIR Valid</span>
               </div>
@@ -2735,7 +2758,7 @@
   </div>
 
   <!-- ==========================================================================
-       5. MODAL DIALOGS (PENGHAPUSAN, PEMINJAMAN, WORK ORDER)
+       5. MODAL DIALOGS
        ========================================================================== -->
   
   <!-- Modal 1: Decommissioning / Afkir Aset -->
@@ -2754,7 +2777,7 @@
         <p>Anda akan memproses usulan penghapusan dari daftar inventaris aktif untuk sarana berikut:</p>
         <div style="background: var(--color-surface-elevated); padding: 12px; border-radius: 6px; border: 1px solid var(--color-border-whisper);">
           <div class="font-mono" style="font-weight: 700; color: var(--color-text-primary);" id="modalAfkirCode">AST-TEK-2025-055</div>
-          <div style="font-size: 12px; color: var(--color-text-secondary);" id="modalAfkirName">Universal Testing Machine Shimadzu 100kN</div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--color-text-secondary); margin-top: 2px;" id="modalAfkirName">Universal Testing Machine Shimadzu 100kN</div>
         </div>
         <p style="font-size: 11px; color: var(--color-text-muted);">
           Data aset yang diafkirkan akan dipindahkan ke arsip sejarah inventaris institusi dan diterbitkan Berita Acara Penghapusan Sarpras resmi.
@@ -2896,7 +2919,7 @@
           const current = document.documentElement.getAttribute('data-theme') || 'light';
           const next = current === 'light' ? 'dark' : 'light';
           setTheme(next);
-          triggerToast(`Beralih ke tampilan Mode ${next === 'light' ? 'Terang' : 'Gelap'}`);
+          triggerToast(`Tampilan diubah ke Mode ${next === 'light' ? 'Terang' : 'Gelap'}`);
         });
       }
 
@@ -2927,7 +2950,7 @@
         }
       });
 
-      // 7. Popovers Toggle (Notifications & Profile)
+      // 7. Popovers Toggle
       const btnHeaderNotif = document.getElementById('btnHeaderNotif');
       const dropdownNotifications = document.getElementById('dropdownNotifications');
       const btnHeaderProfile = document.getElementById('btnHeaderProfile');
@@ -2954,7 +2977,7 @@
         if (dropdownProfile) dropdownProfile.classList.remove('show');
       });
 
-      // 8. Global Keyboard Shortcut (Ctrl+K to Search, Esc to close modals)
+      // 8. Global Keyboard Shortcut
       document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
           e.preventDefault();
@@ -3156,8 +3179,8 @@
           <td style="text-align: center;">
             <input type="checkbox" class="table-row-cb">
           </td>
-          <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">${item.code}</td>
-          <td style="font-weight: 500;">${item.name}</td>
+          <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${item.code}</td>
+          <td style="font-weight: 600;">${item.name}</td>
           <td>${item.category}</td>
           <td style="color: var(--color-text-secondary);">${item.room}</td>
           <td class="font-mono">Rp ${item.price.toLocaleString('id-ID')}</td>
@@ -3286,8 +3309,8 @@
         const tr = document.createElement('tr');
         const randId = 'PINJ-2026-0' + Math.floor(Math.random() * 80 + 50);
         tr.innerHTML = `
-          <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">${randId}</td>
-          <td style="font-weight: 500;">${assetName}</td>
+          <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${randId}</td>
+          <td style="font-weight: 600;">${assetName}</td>
           <td>${borrower}</td>
           <td class="font-mono">${startDate}</td>
           <td class="font-mono">${endDate}</td>
@@ -3331,8 +3354,8 @@
         const tr = document.createElement('tr');
         const woId = 'WO-2026-0' + Math.floor(Math.random() * 80 + 95);
         tr.innerHTML = `
-          <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 600;">${woId}</td>
-          <td style="font-weight: 500;">${item}</td>
+          <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${woId}</td>
+          <td style="font-weight: 600;">${item}</td>
           <td>${vendor}</td>
           <td class="font-mono">Rp ${cost.toLocaleString('id-ID')}</td>
           <td class="font-mono">${date}</td>
