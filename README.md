@@ -21,7 +21,7 @@
 [![Figma Design](https://img.shields.io/badge/Figma-Design%20System%20%26%20High--Fi%20UI-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/design/2AFWN3pMNSClSdg1beB2za/SARPRAS---Admin-Panel-Design-System---High-Fi-UI?node-id=0-1&t=bAFoQfAKXEWJhC6k-1)
 [![Google Stitch](https://img.shields.io/badge/Google%20Stitch-UI%20Wireframing%20Project-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://stitch.withgoogle.com/projects/3279874328774814817)
 [![FigJam Diagram](https://img.shields.io/badge/FigJam-ER--D%20%26%20User%20Flow-8A2BE2?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/board/KZoXT7K9wnRKsp91X45Gpu)
-[![UI Theme](https://img.shields.io/badge/UI%20Theme-Modern%20Glassmorphism-059669?style=for-the-badge)](https://github.com/HeinrichRaxwell/Sistem-Manajemen-Sarana-dan-Prasarana-Asset-Management-)
+[![UI Theme](https://img.shields.io/badge/UI%20Theme-Modern%20Glassmorphism-059669?style=for-the-badge)](https://github.com/HeinrichRaxwell/SARPRAS-ACADEMIA)
 
 </div>
 
@@ -326,7 +326,7 @@ Seluruh token visual terstandarisasi pada **Frame 00 di Figma** dan digunakan se
 Struktur folder proyek ditata secara rapi sesuai format baku pengumpulan tugas Pemrograman Web 2:
 
 ```
-Sistem-Manajemen-Sarana-dan-Prasarana-Asset-Management-/
+SARPRAS-ACADEMIA/
 ├── docs/
 │   └── perancangan.md                  <-- Dokumen Teknis Lengkap Milestone 1
 ├── PERANCANGAN.md                      <-- Salinan Dokumen Teknis pada Root
@@ -355,8 +355,8 @@ Aplikasi ini dibangun menggunakan arsitektur web client-side murni (tanpa depend
 
 ### 1. Kloning Repositori Git
 ```bash
-git clone https://github.com/HeinrichRaxwell/Sistem-Manajemen-Sarana-dan-Prasarana-Asset-Management-.git
-cd Sistem-Manajemen-Sarana-dan-Prasarana-Asset-Management-
+git clone https://github.com/HeinrichRaxwell/SARPRAS-ACADEMIA.git
+cd SARPRAS-ACADEMIA
 ```
 
 ### 2. Menjalankan dengan Local Web Server
