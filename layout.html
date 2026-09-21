@@ -1,0 +1,2351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SARPRAS ACADEMIA - Master Layout Admin Panel</title>
+  
+  <!-- Typography: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN SYSTEM TOKENS (FIGMA FRAME 00 KANONIKAL)
+       ========================================================================== */
+    :root {
+      /* Base Canvas & Surfaces */
+      --color-canvas: #08090A;
+      --color-surface: #0D0F12;
+      --color-surface-elevated: #15181E;
+      --color-surface-glass: rgba(13, 15, 18, 0.72);
+      --color-surface-glass-modal: rgba(13, 15, 18, 0.88);
+      
+      /* Borders & Optical Highlights */
+      --color-border-whisper: rgba(255, 255, 255, 0.08);
+      --color-border-specular: rgba(255, 255, 255, 0.16);
+      --color-border-strong: rgba(255, 255, 255, 0.22);
+      
+      /* Typography Colors (WCAG AAA) */
+      --color-text-primary: #EDEDED;
+      --color-text-secondary: #71717A;
+      --color-text-muted: #52525B;
+      
+      /* Contrast CTA Button */
+      --color-primary-cta: #FFFFFF;
+      --color-primary-cta-text: #08090A;
+      --color-secondary-cta-bg: rgba(255, 255, 255, 0.04);
+      
+      /* Semantic Signals (Subdued Industrial) */
+      --color-signal-normal: #059669;
+      --color-signal-normal-bg: rgba(5, 150, 105, 0.12);
+      --color-signal-normal-border: rgba(5, 150, 105, 0.30);
+      
+      --color-signal-warning: #D97706;
+      --color-signal-warning-bg: rgba(217, 119, 6, 0.12);
+      --color-signal-warning-border: rgba(217, 119, 6, 0.30);
+      
+      --color-signal-critical: #DC2626;
+      --color-signal-critical-bg: rgba(220, 38, 38, 0.12);
+      --color-signal-critical-border: rgba(220, 38, 38, 0.30);
+      
+      --color-accent-cobalt: #2563EB;
+      --color-accent-cobalt-bg: rgba(37, 99, 235, 0.12);
+      --color-accent-cobalt-border: rgba(37, 99, 235, 0.30);
+      
+      /* Geometry & Layout */
+      --sidebar-width: 260px;
+      --sidebar-collapsed-width: 74px;
+      --header-height: 64px;
+      --footer-height: 48px;
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 10px;
+      
+      /* Micro-Physics Transitions (Emil Kowalski Standard) */
+      --ease-physics: cubic-bezier(0.23, 1, 0.32, 1);
+      --speed-fast: 140ms;
+      --speed-normal: 220ms;
+    }
+
+    /* ==========================================================================
+       2. CSS RESET & GLOBAL BASE
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      background-color: var(--color-canvas);
+      color: var(--color-text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Font Monospace untuk Angka & Kode BMN */
+    .font-mono {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--color-canvas);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-surface-elevated);
+      border-radius: 3px;
+      border: 1px solid var(--color-border-whisper);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-text-muted);
+    }
+
+    /* ==========================================================================
+       3. AMBIENT BACKGROUND GLOW (OPTICAL GLASS LAYER 0)
+       ========================================================================== */
+    .ambient-glow-mesh {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .ambient-glow-1 {
+      position: absolute;
+      top: -10%;
+      left: 15%;
+      width: 650px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.055) 0%, rgba(37, 99, 235, 0) 70%);
+      filter: blur(80px);
+    }
+    .ambient-glow-2 {
+      position: absolute;
+      top: 40%;
+      right: 5%;
+      width: 550px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(5, 150, 105, 0.04) 0%, rgba(5, 150, 105, 0) 70%);
+      filter: blur(90px);
+    }
+
+    /* ==========================================================================
+       4. MASTER APP LAYOUT (GRID & FLEXBOX ARCHITECTURE)
+       ========================================================================== */
+    .app-layout {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ==========================================================================
+       5. SIDEBAR RAIL (NAVIGASI VERTIKAL GLASS)
+       ========================================================================== */
+    .sidebar-rail {
+      width: var(--sidebar-width);
+      min-height: 100vh;
+      background-color: var(--color-surface);
+      border-right: 1px solid var(--color-border-whisper);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      transition: width var(--speed-normal) var(--ease-physics);
+      z-index: 50;
+      overflow: hidden;
+    }
+
+    .sidebar-rail.collapsed {
+      width: var(--sidebar-collapsed-width);
+    }
+
+    /* Sidebar Header / Brand */
+    .sidebar-brand {
+      height: var(--header-height);
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--color-border-whisper);
+      flex-shrink: 0;
+    }
+
+    .brand-logo-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-specular);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: opacity var(--speed-fast) ease;
+    }
+
+    .sidebar-rail.collapsed .brand-text {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .brand-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--color-text-primary);
+    }
+
+    .brand-subtitle {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--color-accent-cobalt);
+      letter-spacing: 0.08em;
+    }
+
+    /* Sidebar Fast CTA Action */
+    .sidebar-cta-wrap {
+      padding: 14px 14px 8px 14px;
+      flex-shrink: 0;
+    }
+
+    .btn-sidebar-cta {
+      width: 100%;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--color-primary-cta);
+      color: var(--color-primary-cta-text);
+      font-size: 11px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform var(--speed-fast) var(--ease-physics), background var(--speed-fast) ease;
+      white-space: nowrap;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    .btn-sidebar-cta:active {
+      transform: scale(0.97);
+    }
+
+    .sidebar-rail.collapsed .btn-sidebar-cta span.label-text {
+      display: none;
+    }
+
+    /* Navigation Menu Groups */
+    .sidebar-nav-container {
+      flex: 1;
+      padding: 10px 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-section-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      padding: 12px 8px 4px 8px;
+      white-space: nowrap;
+      transition: opacity var(--speed-fast) ease;
+    }
+
+    .sidebar-rail.collapsed .nav-section-label {
+      opacity: 0;
+      height: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background var(--speed-fast) ease, color var(--speed-fast) ease, border-color var(--speed-fast) ease, transform var(--speed-fast) var(--ease-physics);
+      white-space: nowrap;
+      user-select: none;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.035);
+      color: var(--color-text-primary);
+    }
+
+    .nav-item:active {
+      transform: scale(0.98);
+    }
+
+    .nav-item.active {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--color-border-specular);
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 3px;
+      background: var(--color-accent-cobalt);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .nav-icon {
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .nav-label {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: opacity var(--speed-fast) ease;
+    }
+
+    .sidebar-rail.collapsed .nav-label {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .nav-badge {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      transition: opacity var(--speed-fast) ease;
+    }
+
+    .sidebar-rail.collapsed .nav-badge {
+      opacity: 0;
+      display: none;
+    }
+
+    .badge-gray {
+      background: var(--color-surface-elevated);
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border-whisper);
+    }
+
+    .badge-amber {
+      background: var(--color-signal-warning-bg);
+      color: var(--color-signal-warning);
+      border: 1px solid var(--color-signal-warning-border);
+    }
+
+    .badge-crimson {
+      background: var(--color-signal-critical-bg);
+      color: var(--color-signal-critical);
+      border: 1px solid var(--color-signal-critical-border);
+    }
+
+    /* Sidebar Footer / System Telemetry */
+    .sidebar-footer {
+      padding: 12px;
+      border-top: 1px solid var(--color-border-whisper);
+      flex-shrink: 0;
+      background: var(--color-surface);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .telemetry-card {
+      background: var(--color-canvas);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: opacity var(--speed-fast) ease;
+    }
+
+    .sidebar-rail.collapsed .telemetry-card {
+      display: none;
+    }
+
+    .telemetry-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--color-signal-normal);
+    }
+
+    .beacon-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-signal-normal);
+      box-shadow: 0 0 8px var(--color-signal-normal);
+      animation: beaconPulse 2.4s infinite ease-in-out;
+    }
+
+    @keyframes beaconPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .telemetry-sub {
+      font-size: 9px;
+      color: var(--color-text-muted);
+    }
+
+    .btn-collapse-rail {
+      width: 100%;
+      height: 30px;
+      border-radius: var(--radius-sm);
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-whisper);
+      color: var(--color-text-secondary);
+      font-size: 11px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all var(--speed-fast) ease;
+    }
+
+    .btn-collapse-rail:hover {
+      color: var(--color-text-primary);
+      border-color: var(--color-border-specular);
+    }
+
+    .btn-collapse-rail:active {
+      transform: scale(0.98);
+    }
+
+    /* ==========================================================================
+       6. MAIN CONTENT WRAPPER & HEADER BAR
+       ========================================================================== */
+    .app-main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      position: relative;
+    }
+
+    /* Top Command Header Bar */
+    .top-command-bar {
+      height: var(--header-height);
+      background-color: var(--color-surface-glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--color-border-whisper);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      gap: 16px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .btn-mobile-toggle {
+      display: none;
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-whisper);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .breadcrumbs-trail {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .breadcrumbs-item.active {
+      color: var(--color-text-primary);
+    }
+
+    .breadcrumbs-sep {
+      color: var(--color-border-specular);
+    }
+
+    /* Command Search Bar (Center) */
+    .header-center {
+      flex: 1;
+      max-width: 440px;
+    }
+
+    .search-command-input-wrap {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon-fixed {
+      position: absolute;
+      left: 12px;
+      width: 15px;
+      height: 15px;
+      stroke: var(--color-text-muted);
+      fill: none;
+      stroke-width: 2;
+      pointer-events: none;
+    }
+
+    .search-command-input {
+      width: 100%;
+      height: 36px;
+      background: var(--color-canvas);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 0 44px 0 34px;
+      color: var(--color-text-primary);
+      font-family: inherit;
+      font-size: 11px;
+      outline: none;
+      transition: all var(--speed-fast) ease;
+    }
+
+    .search-command-input::placeholder {
+      color: var(--color-text-muted);
+    }
+
+    .search-command-input:focus {
+      border-color: var(--color-accent-cobalt);
+      box-shadow: 0 0 0 1px var(--color-accent-cobalt), 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .search-shortcut-tag {
+      position: absolute;
+      right: 8px;
+      padding: 2px 5px;
+      border-radius: 3px;
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-whisper);
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      pointer-events: none;
+    }
+
+    /* Header Actions (Right) */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .system-status-pill {
+      height: 30px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      background: var(--color-signal-normal-bg);
+      border: 1px solid var(--color-signal-normal-border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--color-signal-normal);
+      letter-spacing: 0.04em;
+    }
+
+    .btn-header-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--color-secondary-cta-bg);
+      border: 1px solid var(--color-border-whisper);
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: all var(--speed-fast) ease;
+    }
+
+    .btn-header-icon:hover {
+      color: var(--color-text-primary);
+      border-color: var(--color-border-specular);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-header-icon:active {
+      transform: scale(0.97);
+    }
+
+    .icon-counter-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 6px;
+      height: 6px;
+      background: var(--color-signal-critical);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--color-signal-critical);
+    }
+
+    /* User Profile Pill */
+    .user-profile-pill {
+      height: 36px;
+      padding: 0 12px 0 6px;
+      border-radius: var(--radius-sm);
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-whisper);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all var(--speed-fast) ease;
+      user-select: none;
+      position: relative;
+    }
+
+    .user-profile-pill:hover {
+      border-color: var(--color-border-specular);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .user-profile-pill:active {
+      transform: scale(0.98);
+    }
+
+    .user-avatar-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 3px;
+      background: var(--color-accent-cobalt);
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-info-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .user-name-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .user-role-tag {
+      font-size: 9px;
+      color: var(--color-text-muted);
+    }
+
+    /* ==========================================================================
+       7. MAIN CONTENT AREA (SLOT STRUKTURAL KONTEN)
+       ========================================================================== */
+    .main-content-area {
+      flex: 1;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 1600px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Page Header & Action Bar */
+    .page-action-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .page-title-group h1 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--color-text-primary);
+    }
+
+    .page-title-group p {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: 2px;
+    }
+
+    .page-action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-solid-white {
+      height: 36px;
+      padding: 0 16px;
+      border-radius: var(--radius-sm);
+      background: var(--color-primary-cta);
+      color: var(--color-primary-cta-text);
+      font-size: 11px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform var(--speed-fast) var(--ease-physics), background var(--speed-fast) ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-solid-white:active {
+      transform: scale(0.97);
+    }
+
+    .btn-smoked-glass {
+      height: 36px;
+      padding: 0 14px;
+      border-radius: var(--radius-sm);
+      background: var(--color-secondary-cta-bg);
+      border: 1px solid var(--color-border-whisper);
+      color: var(--color-text-primary);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--speed-fast) ease;
+    }
+
+    .btn-smoked-glass:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--color-border-specular);
+    }
+
+    .btn-smoked-glass:active {
+      transform: scale(0.97);
+    }
+
+    /* Master Bento Grid Overview */
+    .bento-overview-grid {
+      display: grid;
+      grid-template-columns: 5fr 3fr 4fr;
+      gap: 16px;
+    }
+
+    .bento-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      transition: border-color var(--speed-fast) ease;
+    }
+
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--color-border-specular), transparent);
+    }
+
+    .bento-card:hover {
+      border-color: var(--color-border-specular);
+    }
+
+    .bento-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .bento-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .bento-metric-large {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+
+    .bento-subtext {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-bottom: 14px;
+    }
+
+    /* Progress Health Bar */
+    .health-bar-track {
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .health-bar-fill {
+      height: 100%;
+      background: var(--color-signal-normal);
+      border-radius: 3px;
+      transition: width 1s var(--ease-physics);
+    }
+
+    .health-stats-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--color-text-muted);
+    }
+
+    /* Urgent Service Alert Box */
+    .urgent-alert-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--color-signal-critical-bg);
+      border: 1px solid var(--color-signal-critical-border);
+      color: var(--color-signal-critical);
+      font-size: 10px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .urgent-service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .urgent-service-item {
+      font-size: 11px;
+      color: var(--color-text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--color-border-whisper);
+    }
+
+    /* Allocation Mini Bars */
+    .allocation-row-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .allocation-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 10px;
+    }
+
+    .allocation-track {
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .allocation-fill {
+      height: 100%;
+      background: var(--color-accent-cobalt);
+    }
+
+    /* Master Data Table Showcase Card */
+    .glass-table-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .table-toolbar-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--color-border-whisper);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .table-title-group h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .table-toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filter-select {
+      height: 32px;
+      background: var(--color-canvas);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 0 10px;
+      color: var(--color-text-primary);
+      font-size: 11px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .table-responsive-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .glass-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 11px;
+    }
+
+    .glass-table th {
+      background: var(--color-canvas);
+      padding: 10px 16px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-text-muted);
+      border-bottom: 1px solid var(--color-border-whisper);
+      white-space: nowrap;
+    }
+
+    .glass-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border-whisper);
+      color: var(--color-text-primary);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .glass-table tbody tr {
+      transition: background var(--speed-fast) ease;
+    }
+
+    .glass-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .cell-code {
+      color: var(--color-accent-cobalt);
+      font-weight: 600;
+    }
+
+    .cell-name {
+      font-weight: 500;
+    }
+
+    .cell-room {
+      color: var(--color-text-secondary);
+    }
+
+    /* Status Badges */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .status-badge.normal {
+      background: var(--color-signal-normal-bg);
+      color: var(--color-signal-normal);
+      border: 1px solid var(--color-signal-normal-border);
+    }
+
+    .status-badge.warning {
+      background: var(--color-signal-warning-bg);
+      color: var(--color-signal-warning);
+      border: 1px solid var(--color-signal-warning-border);
+    }
+
+    .status-badge.critical {
+      background: var(--color-signal-critical-bg);
+      color: var(--color-signal-critical);
+      border: 1px solid var(--color-signal-critical-border);
+    }
+
+    /* Row Action Link */
+    .btn-row-action {
+      background: none;
+      border: none;
+      color: var(--color-accent-cobalt);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 3px;
+      transition: background var(--speed-fast) ease;
+    }
+
+    .btn-row-action:hover {
+      background: rgba(37, 99, 235, 0.15);
+    }
+
+    .btn-row-action.danger {
+      color: var(--color-signal-critical);
+    }
+
+    .btn-row-action.danger:hover {
+      background: rgba(220, 38, 38, 0.15);
+    }
+
+    /* Table Pagination Bar */
+    .table-pagination-footer {
+      padding: 12px 20px;
+      background: var(--color-canvas);
+      border-top: 1px solid var(--color-border-whisper);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 11px;
+      color: var(--color-text-secondary);
+    }
+
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-page {
+      min-width: 28px;
+      height: 28px;
+      padding: 0 8px;
+      border-radius: 3px;
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-whisper);
+      color: var(--color-text-primary);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--speed-fast) ease;
+    }
+
+    .btn-page:hover {
+      border-color: var(--color-border-specular);
+    }
+
+    .btn-page.active {
+      background: var(--color-primary-cta);
+      color: var(--color-primary-cta-text);
+      font-weight: 700;
+      border-color: var(--color-primary-cta);
+    }
+
+    /* ==========================================================================
+       8. INSTITUTIONAL FOOTER (AKREDITASI & COPYRIGHT)
+       ========================================================================== */
+    .institutional-footer {
+      min-height: var(--footer-height);
+      background-color: var(--color-surface);
+      border-top: 1px solid var(--color-border-whisper);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-center {
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+    }
+
+    /* ==========================================================================
+       9. MODAL DIALOG (DECOMMISSIONING BMN TEST COMPONENT)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity var(--speed-normal) ease;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 540px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-signal-critical-border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+      overflow: hidden;
+      transform: scale(0.95);
+      transition: transform var(--speed-normal) var(--ease-physics);
+    }
+
+    .modal-backdrop.open .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      background: rgba(220, 38, 38, 0.08);
+      border-bottom: 1px solid var(--color-signal-critical-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-signal-critical);
+      letter-spacing: 0.02em;
+    }
+
+    .modal-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    .modal-target-box {
+      background: var(--color-canvas);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      background: var(--color-canvas);
+      border-top: 1px solid var(--color-border-whisper);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn-danger-confirm {
+      height: 36px;
+      padding: 0 16px;
+      border-radius: var(--radius-sm);
+      background: var(--color-signal-critical);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: transform var(--speed-fast) var(--ease-physics);
+    }
+
+    .btn-danger-confirm:active {
+      transform: scale(0.97);
+    }
+
+    /* ==========================================================================
+       10. ORIGIN-AWARE DROPDOWNS & NOTIFICATIONS
+       ========================================================================== */
+    .popover-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 280px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-specular);
+      border-radius: var(--radius-md);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(20px);
+      display: none;
+      flex-direction: column;
+      z-index: 60;
+      overflow: hidden;
+      animation: popoverFadeIn 160ms var(--ease-physics);
+    }
+
+    .popover-menu.show {
+      display: flex;
+    }
+
+    @keyframes popoverFadeIn {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .popover-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border-whisper);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .popover-item {
+      padding: 10px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      border-bottom: 1px solid var(--color-border-whisper);
+      transition: background var(--speed-fast) ease;
+    }
+
+    .popover-item:last-child {
+      border-bottom: none;
+    }
+
+    .popover-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--color-text-primary);
+    }
+
+    /* Toast Message */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 110;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast-pill {
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-specular);
+      color: var(--color-text-primary);
+      font-size: 11px;
+      font-weight: 500;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastSlideUp 200ms var(--ease-physics);
+    }
+
+    @keyframes toastSlideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* ==========================================================================
+       11. RESPONSIVE BREAKPOINTS (MOBILE & TABLET ADAPTATION)
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .bento-overview-grid {
+        grid-template-columns: 1fr;
+      }
+      .sidebar-rail {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        bottom: 0;
+        z-index: 90;
+        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.7);
+        transition: left var(--speed-normal) var(--ease-physics);
+      }
+      .sidebar-rail.mobile-open {
+        left: 0;
+        width: var(--sidebar-width);
+      }
+      .btn-mobile-toggle {
+        display: flex;
+      }
+      .top-command-bar {
+        padding: 0 16px;
+      }
+      .header-center {
+        max-width: 260px;
+      }
+      .system-status-pill {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-center {
+        display: none;
+      }
+      .main-content-area {
+        padding: 16px;
+      }
+      .user-info-text {
+        display: none;
+      }
+      .page-action-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .page-action-buttons {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .btn-solid-white, .btn-smoked-glass {
+        flex: 1;
+        justify-content: center;
+      }
+      .institutional-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Chromatic Glow Emitters (Glass Layer 0) -->
+  <div class="ambient-glow-mesh" aria-hidden="true">
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+  </div>
+
+  <!-- Master Application Layout -->
+  <div class="app-layout">
+
+    <!-- ======================================================================
+         1. SIDEBAR RAIL (NAVIGASI VERTIKAL GLASS)
+         ====================================================================== -->
+    <aside class="sidebar-rail" id="sidebarRail" aria-label="Navigasi Utama">
+      
+      <!-- Brand Section -->
+      <div class="sidebar-brand">
+        <div class="brand-logo-badge" aria-hidden="true">
+          <!-- Institutional Shield Icon SVG -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EDEDED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">SARPRAS ACADEMIA</span>
+          <span class="brand-subtitle font-mono">UNPAM // TA 2025/2026</span>
+        </div>
+      </div>
+
+      <!-- Quick Fast Action CTA -->
+      <div class="sidebar-cta-wrap">
+        <button class="btn-sidebar-cta" id="btnSidebarAdd" title="Registrasi Aset Baru">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span class="label-text">Registrasi Aset</span>
+        </button>
+      </div>
+
+      <!-- Navigation Menu Groups -->
+      <nav class="sidebar-nav-container">
+        <div class="nav-section-label">Navigasi Utama</div>
+
+        <!-- 01. Dashboard -->
+        <a class="nav-item active" data-nav="dashboard" title="Executive Dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <rect width="7" height="9" x="3" y="3" rx="1"/>
+            <rect width="7" height="5" x="14" y="3" rx="1"/>
+            <rect width="7" height="9" x="14" y="12" rx="1"/>
+            <rect width="7" height="5" x="3" y="16" rx="1"/>
+          </svg>
+          <span class="nav-label">Executive Dashboard</span>
+          <span class="nav-badge badge-gray font-mono">Live</span>
+        </a>
+
+        <!-- 02. Master Data Sarpras -->
+        <a class="nav-item" data-nav="data-master" title="Master Data Sarpras">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+            <path d="m3.3 7 8.7 5 8.7-5"/>
+            <path d="M12 22V12"/>
+          </svg>
+          <span class="nav-label">Master Data Sarpras</span>
+          <span class="nav-badge badge-gray font-mono">1.482</span>
+        </a>
+
+        <!-- 03. Form Registrasi -->
+        <a class="nav-item" data-nav="form-aset" title="Form Registrasi Aset">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+          <span class="nav-label">Form Registrasi Aset</span>
+        </a>
+
+        <!-- 04. Pusat Laporan KIR -->
+        <a class="nav-item" data-nav="laporan" title="Pusat Laporan & KIR">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <line x1="10" y1="9" x2="8" y2="9"/>
+          </svg>
+          <span class="nav-label">Pusat Laporan & KIR</span>
+          <span class="nav-badge badge-gray font-mono">PDF</span>
+        </a>
+
+        <div class="nav-section-label">Sirkulasi & Fasilitas</div>
+
+        <!-- 05. Peminjaman & Mutasi -->
+        <a class="nav-item" data-nav="peminjaman" title="Peminjaman & Mutasi">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path d="m16 3 4 4-4 4"/>
+            <path d="M20 7H4"/>
+            <path d="m8 21-4-4 4-4"/>
+            <path d="M4 17h16"/>
+          </svg>
+          <span class="nav-label">Peminjaman & Mutasi</span>
+          <span class="nav-badge badge-crimson font-mono">3 Overdue</span>
+        </a>
+
+        <!-- 06. Servis & Kalibrasi -->
+        <a class="nav-item" data-nav="maintenance" title="Servis & Kalibrasi">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+          <span class="nav-label">Servis & Kalibrasi</span>
+          <span class="nav-badge badge-amber font-mono">23 Kritis</span>
+        </a>
+
+        <!-- 07. Ruangan & Gedung -->
+        <a class="nav-item" data-nav="ruangan" title="Direktori Ruangan">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
+            <path d="M9 22v-4h6v4"/>
+            <path d="M8 6h.01"/>
+            <path d="M16 6h.01"/>
+            <path d="M8 10h.01"/>
+            <path d="M16 10h.01"/>
+            <path d="M8 14h.01"/>
+            <path d="M16 14h.01"/>
+          </svg>
+          <span class="nav-label">Direktori Ruangan</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Footer / System Telemetry -->
+      <div class="sidebar-footer">
+        <div class="telemetry-card">
+          <div class="telemetry-row">
+            <span class="beacon-dot"></span>
+            <span>SYSTEM ONLINE // TLS 1.3</span>
+          </div>
+          <span class="telemetry-sub font-mono">SIMAK-BMN SYNCED • ISO 55001</span>
+        </div>
+
+        <button class="btn-collapse-rail" id="btnCollapseSidebar" title="Ciutkan / Rentangkan Sidebar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="11 17 6 12 11 7"></polyline>
+            <polyline points="18 17 13 12 18 7"></polyline>
+          </svg>
+          <span class="label-text">Perkecil Menu</span>
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- ======================================================================
+         2. APP MAIN WRAPPER (HEADER, CONTENT AREA & FOOTER)
+         ====================================================================== -->
+    <div class="app-main-wrapper">
+
+      <!-- Top Command Header Bar -->
+      <header class="top-command-bar" id="topCommandBar">
+        
+        <!-- Left: Hamburger Toggle & Breadcrumbs -->
+        <div class="header-left">
+          <button class="btn-mobile-toggle" id="btnMobileToggle" aria-label="Buka Menu Navigasi">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+
+          <nav class="breadcrumbs-trail" aria-label="Breadcrumb">
+            <span class="breadcrumbs-item font-mono">SARPRAS ACADEMIA</span>
+            <span class="breadcrumbs-sep">/</span>
+            <span class="breadcrumbs-item font-mono">ADMIN PANEL</span>
+            <span class="breadcrumbs-sep">/</span>
+            <span class="breadcrumbs-item active font-mono" id="currentBreadcrumb">EXECUTIVE DASHBOARD</span>
+          </nav>
+        </div>
+
+        <!-- Center: Search Command Bar -->
+        <div class="header-center">
+          <div class="search-command-input-wrap">
+            <svg class="search-icon-fixed" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" class="search-command-input" id="globalSearchInput" placeholder="Cari NUP BMN, nama instrumen, ruangan... (Ctrl + K)">
+            <span class="search-shortcut-tag font-mono">Ctrl K</span>
+          </div>
+        </div>
+
+        <!-- Right: Status Pill, Notifications & User Profile -->
+        <div class="header-right">
+          
+          <!-- System Status Pill -->
+          <div class="system-status-pill">
+            <span class="beacon-dot"></span>
+            <span class="font-mono" id="liveClockDisplay">WIB --:--:--</span>
+          </div>
+
+          <!-- Notification Bell Button -->
+          <div style="position: relative;">
+            <button class="btn-header-icon" id="btnNotifications" title="Notifikasi Sistem" aria-label="Notifikasi">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="icon-counter-dot" aria-hidden="true"></span>
+            </button>
+
+            <!-- Notifications Popover -->
+            <div class="popover-menu" id="notifPopover">
+              <div class="popover-header">
+                <span>PEMBERITAHUAN AUDIT & SERVIS</span>
+                <span class="nav-badge badge-amber font-mono">3 BARU</span>
+              </div>
+              <div class="popover-item" onclick="triggerToast('Membuka detail servis Spektrofotometer UV-Vis')">
+                <span class="beacon-dot" style="background: var(--color-signal-critical); margin-top: 4px;"></span>
+                <div>
+                  <strong style="color: var(--color-text-primary);">SLA Kalibrasi Terlampaui</strong>
+                  <p style="font-size: 10px; color: var(--color-text-muted);">Spektrofotometer Lab Kimia R.302 jatuh tempo kalibrasi 2 hari lalu.</p>
+                </div>
+              </div>
+              <div class="popover-item" onclick="triggerToast('Membuka permohonan pinjam Drone LiDAR')">
+                <span class="beacon-dot" style="background: var(--color-signal-warning); margin-top: 4px;"></span>
+                <div>
+                  <strong style="color: var(--color-text-primary);">Permohonan Pinjam Sarana</strong>
+                  <p style="font-size: 10px; color: var(--color-text-muted);">Lab Pemetaan Geodesi mengajukan peminjaman Drone LiDAR RTK.</p>
+                </div>
+              </div>
+              <div class="popover-item" onclick="triggerToast('Status sinkronisasi BMN nominal')">
+                <span class="beacon-dot" style="background: var(--color-signal-normal); margin-top: 4px;"></span>
+                <div>
+                  <strong style="color: var(--color-text-primary);">Sinkronisasi SIMAK-BMN Selesai</strong>
+                  <p style="font-size: 10px; color: var(--color-text-muted);">1.482 record aset berhasil terekonsiliasi tanpa selisih saldo.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Profile Pill -->
+          <div style="position: relative;">
+            <div class="user-profile-pill" id="btnUserProfile" role="button" aria-haspopup="true" aria-expanded="false">
+              <div class="user-avatar-badge">HW</div>
+              <div class="user-info-text">
+                <span class="user-name-tag">Dr. Ir. Hendra W.</span>
+                <span class="user-role-tag font-mono">Super Admin / Biro</span>
+              </div>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+
+            <!-- Profile Popover Dropdown -->
+            <div class="popover-menu" id="userPopover">
+              <div class="popover-header">
+                <span>IDENTITAS PENGGUNA TEROTORISASI</span>
+              </div>
+              <div style="padding: 12px 16px; border-bottom: 1px solid var(--color-border-whisper);">
+                <div style="font-weight: 600; color: var(--color-text-primary);">Dr. Ir. Hendra Wicaksono, M.T.</div>
+                <div class="font-mono" style="font-size: 10px; color: var(--color-accent-cobalt);">NIP. 19760312 200112 1 002</div>
+                <div style="font-size: 10px; color: var(--color-text-muted); margin-top: 2px;">Biro Sarana & Prasarana Universitas Pamulang</div>
+              </div>
+              <div class="popover-item" onclick="triggerToast('Profil Pengguna Terverifikasi')">
+                <span>Pengaturan Akun & Akses</span>
+              </div>
+              <div class="popover-item" onclick="triggerToast('Log audit keamanan TLS 1.3 dimuat')">
+                <span>Log Aktivitas & Riwayat Audit</span>
+              </div>
+              <div class="popover-item" style="color: var(--color-signal-critical);" onclick="triggerToast('Sesi autentikasi ditutup.')">
+                <span>Keluar dari Workstation</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </header>
+
+      <!-- ======================================================================
+         3. MAIN CONTENT AREA (SLOT STRUKTURAL & KOMPONEN SHOWCASE)
+         ====================================================================== -->
+      <main class="main-content-area" id="mainContent">
+
+        <!-- Page Header & Action Buttons -->
+        <section class="page-action-header">
+          <div class="page-title-group">
+            <h1 id="viewHeadingTitle">Executive Command Dashboard</h1>
+            <p id="viewHeadingSubtitle">Telemetri tata kelola sarana prasarana akademik terstandarisasi SIMAK-BMN & ISO 55001</p>
+          </div>
+
+          <div class="page-action-buttons">
+            <button class="btn-smoked-glass" id="btnExportSummary" title="Ekspor Rekap Laporan">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Unduh Rekap XLSX</span>
+            </button>
+
+            <button class="btn-smoked-glass" id="btnFilterPeriod" title="Filter Periode Audit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+              </svg>
+              <span>Periode TA 2026</span>
+            </button>
+
+            <button class="btn-solid-white" id="btnPrimaryAction" title="Tambah Aset Baru">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>+ Registrasi Aset Baru</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Bento Grid Overview (Asymmetric 12-Column Ratio) -->
+        <section class="bento-overview-grid" aria-label="Ringkasan Statistik Aset">
+          
+          <!-- Cell 1: Valuasi Fiskal & Integritas Aset (5 Kolom) -->
+          <article class="bento-card">
+            <div class="bento-card-header">
+              <span class="bento-tag">01. VALUASI FISKAL & INTEGRITAS ASET</span>
+              <span class="status-badge normal font-mono">Audit Sah</span>
+            </div>
+            <div class="bento-metric-large font-mono">Rp 4.850.210.000</div>
+            <div class="bento-subtext">+38 unit perolehan baru Q3 • 1.482 total unit BMN terdaftar</div>
+            
+            <div style="margin-top: auto;">
+              <div class="health-stats-row font-mono" style="margin-bottom: 6px;">
+                <span style="color: var(--color-text-primary); font-weight: 600;">Kesehatan Aset : 86.4% Prima</span>
+                <span>Target BPK : &gt;85%</span>
+              </div>
+              <div class="health-bar-track">
+                <div class="health-bar-fill" style="width: 86.4%;"></div>
+              </div>
+              <div class="health-stats-row font-mono">
+                <span>1.280 Prima</span>
+                <span>142 Pemeliharaan</span>
+                <span>60 Karantina</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cell 2: Disposisi Pemeliharaan & Tiket Kritis (3 Kolom) -->
+          <article class="bento-card">
+            <div class="bento-card-header">
+              <span class="bento-tag">02. DISPOSISI SERVIS & TIKET</span>
+              <span class="status-badge warning font-mono">142 Aktif</span>
+            </div>
+            <div class="urgent-alert-pill font-mono">
+              <span class="beacon-dot" style="background: var(--color-signal-critical);"></span>
+              <span>23 Kritis / Overdue Batas Toleransi</span>
+            </div>
+            <ul class="urgent-service-list">
+              <li class="urgent-service-item">
+                <span>Spektrofotometer UV-Vis R.302</span>
+                <span class="status-badge critical font-mono">Overdue</span>
+              </li>
+              <li class="urgent-service-item">
+                <span>Dell PowerEdge Blade NOC</span>
+                <span class="status-badge warning font-mono">H-2 Servis</span>
+              </li>
+              <li class="urgent-service-item">
+                <span>Chiller Daikin 40TR Rektorat</span>
+                <span class="status-badge warning font-mono">H-5 Servis</span>
+              </li>
+            </ul>
+          </article>
+
+          <!-- Cell 3: Alokasi Berdasarkan Kluster (4 Kolom) -->
+          <article class="bento-card">
+            <div class="bento-card-header">
+              <span class="bento-tag">03. DISTRIBUSI KLUSTER FASILITAS</span>
+              <span class="font-mono" style="font-size: 10px; color: var(--color-text-muted);">4 Kategori</span>
+            </div>
+            
+            <div class="allocation-row-item">
+              <div class="allocation-meta font-mono">
+                <span style="color: var(--color-text-primary);">Peralatan Lab & Riset</span>
+                <span style="color: var(--color-text-secondary);">38% (Rp 1.84 M)</span>
+              </div>
+              <div class="allocation-track">
+                <div class="allocation-fill" style="width: 38%;"></div>
+              </div>
+            </div>
+
+            <div class="allocation-row-item">
+              <div class="allocation-meta font-mono">
+                <span style="color: var(--color-text-primary);">Server & Infrastruktur IT</span>
+                <span style="color: var(--color-text-secondary);">27% (Rp 1.31 M)</span>
+              </div>
+              <div class="allocation-track">
+                <div class="allocation-fill" style="width: 27%;"></div>
+              </div>
+            </div>
+
+            <div class="allocation-row-item">
+              <div class="allocation-meta font-mono">
+                <span style="color: var(--color-text-primary);">Sarana Ruang Kuliah & Smart Class</span>
+                <span style="color: var(--color-text-secondary);">21% (Rp 1.02 M)</span>
+              </div>
+              <div class="allocation-track">
+                <div class="allocation-fill" style="width: 21%;"></div>
+              </div>
+            </div>
+
+            <div class="allocation-row-item">
+              <div class="allocation-meta font-mono">
+                <span style="color: var(--color-text-primary);">Kendaraan Dinas & Utilitas</span>
+                <span style="color: var(--color-text-secondary);">14% (Rp 680 Jt)</span>
+              </div>
+              <div class="allocation-track">
+                <div class="allocation-fill" style="width: 14%;"></div>
+              </div>
+            </div>
+          </article>
+
+        </section>
+
+        <!-- Master Data Table Card Showcase -->
+        <section class="glass-table-card" aria-label="Tabel Jadwal Inspeksi dan Master Aset">
+          
+          <!-- Table Toolbar -->
+          <div class="table-toolbar-header">
+            <div class="table-title-group">
+              <h2>Jadwal Pemeliharaan & Kalibrasi Instrumen Akademik</h2>
+              <p style="font-size: 11px; color: var(--color-text-muted);">Daftar inventaris sarana terverifikasi yang memerlukan uji akurasi ISO/IEC 17025</p>
+            </div>
+
+            <div class="table-toolbar-actions">
+              <select class="filter-select font-mono" id="filterKategori">
+                <option value="all">Semua Kategori Sarpras</option>
+                <option value="lab">Laboratorium & Riset</option>
+                <option value="it">Infrastruktur IT & Server</option>
+                <option value="kelas">Sarana Ruang Kuliah</option>
+              </select>
+
+              <select class="filter-select font-mono" id="filterKondisi">
+                <option value="all">Semua Status Kondisi</option>
+                <option value="baik">Kondisi Baik (Prima)</option>
+                <option value="perawatan">Dalam Pemeliharaan</option>
+                <option value="rusak">Rusak Berat (Usul Afkir)</option>
+              </select>
+
+              <button class="btn-smoked-glass" style="height: 32px;" onclick="triggerToast('Menyinkronkan data dengan server SIMAK-BMN...')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+                <span>Refresh Data</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Table Responsive Viewport -->
+          <div class="table-responsive-container">
+            <table class="glass-table">
+              <thead>
+                <tr>
+                  <th style="width: 40px; text-align: center;">
+                    <input type="checkbox" id="selectAllCheckbox" style="cursor: pointer;">
+                  </th>
+                  <th>KODE INVENTARIS (BMN)</th>
+                  <th>NAMA PERALATAN & SPESIFIKASI</th>
+                  <th>PENEMPATAN RUANGAN</th>
+                  <th>NILAI PEROLEHAN</th>
+                  <th>JADWAL KALIBRASI</th>
+                  <th>STATUS KONDISI</th>
+                  <th style="text-align: right;">AKSI OPERASIONAL</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryTableBody">
+                
+                <!-- Row 1 -->
+                <tr>
+                  <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
+                  <td class="cell-code font-mono">AST-LAB-2026-089</td>
+                  <td class="cell-name">Spektrofotometer UV-Vis Double Beam Precision</td>
+                  <td class="cell-room">Gedung Riset Terpadu R.302</td>
+                  <td class="font-mono">Rp 285.000.000</td>
+                  <td class="font-mono">18 Mar 2026</td>
+                  <td><span class="status-badge warning font-mono">Perawatan</span></td>
+                  <td style="text-align: right;">
+                    <button class="btn-row-action" onclick="triggerToast('Membuka rincian aset AST-LAB-2026-089')">Detail</button>
+                    <button class="btn-row-action danger" onclick="openDecommissionModal('AST-LAB-2026-089', 'Spektrofotometer UV-Vis Double Beam')">Afkir</button>
+                  </td>
+                </tr>
+
+                <!-- Row 2 -->
+                <tr>
+                  <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
+                  <td class="cell-code font-mono">AST-TIK-2025-014</td>
+                  <td class="cell-name">Dell PowerEdge R750 Compute Server Node</td>
+                  <td class="cell-room">Data Center Rektorat Lt. 1</td>
+                  <td class="font-mono">Rp 180.000.000</td>
+                  <td class="font-mono">20 Mar 2026</td>
+                  <td><span class="status-badge normal font-mono">Baik (Prima)</span></td>
+                  <td style="text-align: right;">
+                    <button class="btn-row-action" onclick="triggerToast('Membuka rincian aset AST-TIK-2025-014')">Detail</button>
+                    <button class="btn-row-action danger" onclick="openDecommissionModal('AST-TIK-2025-014', 'Dell PowerEdge R750 Server')">Afkir</button>
+                  </td>
+                </tr>
+
+                <!-- Row 3 -->
+                <tr>
+                  <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
+                  <td class="cell-code font-mono">AST-MED-2024-118</td>
+                  <td class="cell-name">Mikroskop Fluoresensi Leica DM2500 Plan-Apo</td>
+                  <td class="cell-room">Lab Riset Biomedik R.105</td>
+                  <td class="font-mono">Rp 310.000.000</td>
+                  <td class="font-mono">22 Mar 2026</td>
+                  <td><span class="status-badge warning font-mono">Perawatan</span></td>
+                  <td style="text-align: right;">
+                    <button class="btn-row-action" onclick="triggerToast('Membuka rincian aset AST-MED-2024-118')">Detail</button>
+                    <button class="btn-row-action danger" onclick="openDecommissionModal('AST-MED-2024-118', 'Mikroskop Leica DM2500')">Afkir</button>
+                  </td>
+                </tr>
+
+                <!-- Row 4 -->
+                <tr>
+                  <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
+                  <td class="cell-code font-mono">AST-TEK-2025-055</td>
+                  <td class="cell-name">Universal Testing Machine Shimadzu 100kN</td>
+                  <td class="cell-room">Workshop Mesin FT Lt. 1</td>
+                  <td class="font-mono">Rp 520.000.000</td>
+                  <td class="font-mono">24 Mar 2026</td>
+                  <td><span class="status-badge critical font-mono">Rusak Berat</span></td>
+                  <td style="text-align: right;">
+                    <button class="btn-row-action" onclick="triggerToast('Membuka rincian aset AST-TEK-2025-055')">Detail</button>
+                    <button class="btn-row-action danger" onclick="openDecommissionModal('AST-TEK-2025-055', 'Universal Testing Machine Shimadzu 100kN')">Afkir</button>
+                  </td>
+                </tr>
+
+                <!-- Row 5 -->
+                <tr>
+                  <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
+                  <td class="cell-code font-mono">AST-FAC-2023-008</td>
+                  <td class="cell-name">Chiller HVAC Central Daikin 40 TR Modular</td>
+                  <td class="cell-room">Rooftop Gedung Rektorat</td>
+                  <td class="font-mono">Rp 425.000.000</td>
+                  <td class="font-mono">28 Mar 2026</td>
+                  <td><span class="status-badge warning font-mono">Perawatan</span></td>
+                  <td style="text-align: right;">
+                    <button class="btn-row-action" onclick="triggerToast('Membuka rincian aset AST-FAC-2023-008')">Detail</button>
+                    <button class="btn-row-action danger" onclick="openDecommissionModal('AST-FAC-2023-008', 'Chiller HVAC Central Daikin 40 TR')">Afkir</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Pagination Footer -->
+          <div class="table-pagination-footer">
+            <span class="font-mono">Menampilkan 1 - 5 dari 1.482 total sarana terdaftar</span>
+            <div class="pagination-controls font-mono">
+              <button class="btn-page" onclick="triggerToast('Halaman sebelumnya')">&lt;</button>
+              <button class="btn-page active">1</button>
+              <button class="btn-page" onclick="triggerToast('Membuka halaman 2')">2</button>
+              <button class="btn-page" onclick="triggerToast('Membuka halaman 3')">3</button>
+              <span style="padding: 0 4px;">...</span>
+              <button class="btn-page" onclick="triggerToast('Membuka halaman 296')">296</button>
+              <button class="btn-page" onclick="triggerToast('Halaman berikutnya')">&gt;</button>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+
+      <!-- ======================================================================
+         4. INSTITUTIONAL FOOTER (AKREDITASI & LEGALITAS)
+         ====================================================================== -->
+      <footer class="institutional-footer" id="institutionalFooter">
+        <div class="footer-left">
+          <span>&copy; 2026 <strong>Universitas Pamulang</strong> - Teknik Informatika</span>
+          <span style="color: var(--color-border-specular);">|</span>
+          <span>Pemrograman Web 2 (Client-Side Programming)</span>
+        </div>
+
+        <div class="footer-center">
+          Dosen Pengampu: <strong>FAJAR AGUNG NUGROHO S.Kom, M.Kom</strong>
+        </div>
+
+        <div class="footer-right">
+          <span>STANDAR BMN RI</span>
+          <span style="color: var(--color-border-specular);">&bull;</span>
+          <span>ISO/IEC 17025 ACCREDITED</span>
+        </div>
+      </footer>
+
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       5. MODAL DIALOG PENGHAPUSAN / DECOMMISSIONING ASET BMN
+       ========================================================================== -->
+  <div class="modal-backdrop" id="decommissionModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">KONFIRMASI PENGHAPUSAN / DECOMMISSIONING BMN</h3>
+        <button class="btn-header-icon" style="width: 28px; height: 28px;" onclick="closeDecommissionModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Anda akan mengajukan proses afkir/penghapusan aset berikut dari daftar inventaris aktif institusi:</p>
+        
+        <div class="modal-target-box">
+          <div class="font-mono" style="font-size: 13px; font-weight: 700; color: var(--color-text-primary);" id="modalTargetCode">AST-TEK-2025-055</div>
+          <div style="font-size: 11px; color: var(--color-text-secondary); margin-top: 2px;" id="modalTargetName">Universal Testing Machine Shimadzu 100kN</div>
+        </div>
+
+        <p style="font-size: 11px; color: var(--color-text-muted);">
+          Berdasarkan Peraturan Menteri Keuangan (PMK) No. 181/PMK.06/2016, penghapusan sarana membutuhkan Berita Acara Pemeriksaan Fisik dan rekomendasi tim audit teknis. Data akan dipindahkan ke arsip sejarah inventaris.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-smoked-glass" onclick="closeDecommissionModal()">Batal</button>
+        <button class="btn-danger-confirm" onclick="confirmDecommission()">Konfirmasi Penghapusan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- ==========================================================================
+       6. JAVASCRIPT LOGIKA INTERAKTIVITAS CLIENT-SIDE (ZERO DEPENDENCY)
+       ========================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Elements Selection
+      const sidebarRail = document.getElementById('sidebarRail');
+      const btnCollapseSidebar = document.getElementById('btnCollapseSidebar');
+      const btnMobileToggle = document.getElementById('btnMobileToggle');
+      const globalSearchInput = document.getElementById('globalSearchInput');
+      const liveClockDisplay = document.getElementById('liveClockDisplay');
+      const btnNotifications = document.getElementById('btnNotifications');
+      const notifPopover = document.getElementById('notifPopover');
+      const btnUserProfile = document.getElementById('btnUserProfile');
+      const userPopover = document.getElementById('userPopover');
+      const decommissionModal = document.getElementById('decommissionModal');
+      const toastContainer = document.getElementById('toastContainer');
+      const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+      const rowCheckboxes = document.querySelectorAll('.row-checkbox');
+      const navItems = document.querySelectorAll('.nav-item');
+      const currentBreadcrumb = document.getElementById('currentBreadcrumb');
+      const viewHeadingTitle = document.getElementById('viewHeadingTitle');
+      const viewHeadingSubtitle = document.getElementById('viewHeadingSubtitle');
+
+      // 1. Live Clock Display (WIB)
+      function updateClock() {
+        const now = new Date();
+        const hrs = String(now.getHours()).padStart(2, '0');
+        const mins = String(now.getMinutes()).padStart(2, '0');
+        const secs = String(now.getSeconds()).padStart(2, '0');
+        if (liveClockDisplay) {
+          liveClockDisplay.textContent = `WIB ${hrs}:${mins}:${secs}`;
+        }
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      // 2. Sidebar Desktop Collapse & Expand
+      if (btnCollapseSidebar) {
+        btnCollapseSidebar.addEventListener('click', () => {
+          sidebarRail.classList.toggle('collapsed');
+          const isCollapsed = sidebarRail.classList.contains('collapsed');
+          btnCollapseSidebar.querySelector('.label-text').textContent = isCollapsed ? '' : 'Perkecil Menu';
+          triggerToast(isCollapsed ? 'Sidebar diminimalkan (Mode Ikon)' : 'Sidebar direntangkan penuh');
+        });
+      }
+
+      // 3. Mobile Drawer Toggle
+      if (btnMobileToggle) {
+        btnMobileToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          sidebarRail.classList.toggle('mobile-open');
+        });
+      }
+
+      // Close mobile drawer when clicking outside
+      document.addEventListener('click', (e) => {
+        if (sidebarRail.classList.contains('mobile-open') && !sidebarRail.contains(e.target) && e.target !== btnMobileToggle) {
+          sidebarRail.classList.remove('mobile-open');
+        }
+      });
+
+      // 4. Popover Menu Toggles (Origin-Aware)
+      if (btnNotifications) {
+        btnNotifications.addEventListener('click', (e) => {
+          e.stopPropagation();
+          userPopover.classList.remove('show');
+          notifPopover.classList.toggle('show');
+        });
+      }
+
+      if (btnUserProfile) {
+        btnUserProfile.addEventListener('click', (e) => {
+          e.stopPropagation();
+          notifPopover.classList.remove('show');
+          userPopover.classList.toggle('show');
+        });
+      }
+
+      // Dismiss popovers on outside click
+      document.addEventListener('click', (e) => {
+        if (notifPopover && !notifPopover.contains(e.target)) {
+          notifPopover.classList.remove('show');
+        }
+        if (userPopover && !userPopover.contains(e.target)) {
+          userPopover.classList.remove('show');
+        }
+      });
+
+      // 5. Global Keyboard Shortcuts (Ctrl + K / / / Esc)
+      document.addEventListener('keydown', (e) => {
+        // Ctrl + K or Cmd + K or slash to search
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          if (globalSearchInput) {
+            globalSearchInput.focus();
+            globalSearchInput.select();
+            triggerToast('Bilah pencarian cepat aktif (Ctrl + K)');
+          }
+        }
+        // Esc to dismiss modals & popovers
+        if (e.key === 'Escape') {
+          closeDecommissionModal();
+          if (notifPopover) notifPopover.classList.remove('show');
+          if (userPopover) userPopover.classList.remove('show');
+          if (globalSearchInput && document.activeElement === globalSearchInput) {
+            globalSearchInput.blur();
+          }
+        }
+      });
+
+      // Search input enter event
+      if (globalSearchInput) {
+        globalSearchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            const query = globalSearchInput.value.trim();
+            if (query) {
+              triggerToast(`Menyaring inventaris dengan kata kunci: "${query}"`);
+            }
+          }
+        });
+      }
+
+      // 6. Navigation Switching Interactivity
+      const navMetaMap = {
+        'dashboard': {
+          breadcrumb: 'EXECUTIVE DASHBOARD',
+          title: 'Executive Command Dashboard',
+          subtitle: 'Telemetri tata kelola sarana prasarana akademik terstandarisasi SIMAK-BMN & ISO 55001'
+        },
+        'data-master': {
+          breadcrumb: 'MASTER DATA SARPRAS',
+          title: 'Master Data Sarana dan Prasarana',
+          subtitle: 'Katalog terpusat seluruh inventaris barang milik negara, kode NUP, dan nilai buku'
+        },
+        'form-aset': {
+          breadcrumb: 'FORM REGISTRASI ASET',
+          title: 'Registrasi Sarana & Prasarana Baru',
+          subtitle: 'Pencatatan spesifikasi pengadaan sarana dan generator stiker termal 75x50mm'
+        },
+        'laporan': {
+          breadcrumb: 'PUSAT LAPORAN & KIR',
+          title: 'Pusat Laporan & Kartu Inventaris Ruangan',
+          subtitle: 'Penerbitan dokumen fisik resmi inventarisasi ruangan berstandar audit kementerian'
+        },
+        'peminjaman': {
+          breadcrumb: 'PEMINJAMAN & MUTASI',
+          title: 'Pusat Peminjaman & Mutasi Fasilitas',
+          subtitle: 'Sirkulasi sarana bergerak, izin aula bersama, dan pengawasan batas pengembalian'
+        },
+        'maintenance': {
+          breadcrumb: 'SERVIS & KALIBRASI',
+          title: 'Manajemen Servis & Kalibrasi Alat',
+          subtitle: 'Perintah kerja perbaikan, kepatuhan kalibrasi ISO/IEC 17025, dan anggaran DIPA'
+        },
+        'ruangan': {
+          breadcrumb: 'DIREKTORI RUANGAN',
+          title: 'Direktori Fasilitas Gedung & Ruangan',
+          subtitle: 'Pemetaan zonasi spasial kampus, kapasitas mahasiswa, dan akses dokumen KIR'
+        }
+      };
+
+      navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          navItems.forEach(n => n.classList.remove('active'));
+          item.classList.add('active');
+
+          const navKey = item.getAttribute('data-nav');
+          const meta = navMetaMap[navKey] || navMetaMap['dashboard'];
+
+          if (currentBreadcrumb) currentBreadcrumb.textContent = meta.breadcrumb;
+          if (viewHeadingTitle) viewHeadingTitle.textContent = meta.title;
+          if (viewHeadingSubtitle) viewHeadingSubtitle.textContent = meta.subtitle;
+
+          triggerToast(`Beralih ke tampilan modul: ${meta.title}`);
+        });
+      });
+
+      // 7. Select All Checkbox Logic
+      if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', () => {
+          rowCheckboxes.forEach(cb => {
+            cb.checked = selectAllCheckbox.checked;
+          });
+          const count = selectAllCheckbox.checked ? rowCheckboxes.length : 0;
+          if (count > 0) {
+            triggerToast(`${count} aset terpilih untuk aksi massal`);
+          }
+        });
+      }
+
+      // 8. Primary CTA Action button
+      const btnPrimaryAction = document.getElementById('btnPrimaryAction');
+      const btnSidebarAdd = document.getElementById('btnSidebarAdd');
+      const openRegistrationToast = () => {
+        triggerToast('Membuka formulir registrasi aset BMN baru...');
+      };
+      if (btnPrimaryAction) btnPrimaryAction.addEventListener('click', openRegistrationToast);
+      if (btnSidebarAdd) btnSidebarAdd.addEventListener('click', openRegistrationToast);
+
+      // Export buttons
+      const btnExportSummary = document.getElementById('btnExportSummary');
+      if (btnExportSummary) {
+        btnExportSummary.addEventListener('click', () => {
+          triggerToast('Mengekspor rekap inventaris format XLSX...');
+        });
+      }
+
+      const btnFilterPeriod = document.getElementById('btnFilterPeriod');
+      if (btnFilterPeriod) {
+        btnFilterPeriod.addEventListener('click', () => {
+          triggerToast('Periode audit aktif: Tahun Anggaran 2026');
+        });
+      }
+
+    });
+
+    // 9. Modal Decommissioning Handlers
+    function openDecommissionModal(code, name) {
+      const modal = document.getElementById('decommissionModal');
+      const modalTargetCode = document.getElementById('modalTargetCode');
+      const modalTargetName = document.getElementById('modalTargetName');
+      
+      if (modalTargetCode) modalTargetCode.textContent = code;
+      if (modalTargetName) modalTargetName.textContent = name;
+      if (modal) modal.classList.add('open');
+    }
+
+    function closeDecommissionModal() {
+      const modal = document.getElementById('decommissionModal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function confirmDecommission() {
+      closeDecommissionModal();
+      triggerToast('Usulan penghapusan aset BMN berhasil diajukan ke Berita Acara.');
+    }
+
+    // 10. Toast Notification Engine (Zero Dependency)
+    function triggerToast(message) {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = 'toast-pill';
+      toast.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 180ms ease';
+        setTimeout(() => toast.remove(), 180);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
