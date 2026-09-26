@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masuk - SARPRAS ACADEMIA</title>
+  
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared Sliced Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-shape-1"></div>
+    <div class="ambient-shape-2"></div>
+  </div>
+
+  <div class="login-page-wrapper">
+    
+    <!-- Top Right Controls: Theme Switcher -->
+    <div class="login-top-bar">
+      <button class="btn-header-control" id="btnThemeToggle" title="Ganti Mode Tampilan (Terang / Gelap)" aria-label="Ganti Tema">
+        <!-- Sun Icon (shown in Dark) -->
+        <svg id="themeIconSun" style="display: none;" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <!-- Moon Icon (shown in Light) -->
+        <svg id="themeIconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Central Glassmorphism Login Card -->
+    <div class="login-glass-card">
+      
+      <!-- Brand Header -->
+      <div class="login-brand-header">
+        <div class="login-logo-box">
+          <img src="assets/img/logo_sarpras.svg" alt="Logo SARPRAS ACADEMIA" width="52" height="52">
+        </div>
+        <h1 class="login-title-main">SARPRAS ACADEMIA</h1>
+        <p class="login-subtitle-desc">
+          Sistem Informasi Manajemen Sarana dan Prasarana Kampus.<br>
+          Silakan autentikasi untuk mengakses panel administrasi.
+        </p>
+      </div>
+
+      <!-- Login Form -->
+      <form class="login-form-container" id="loginForm" onsubmit="handleLoginSubmit(event)">
+        
+        <div class="form-group-item" style="margin-bottom: 0;">
+          <label class="form-label-text" for="loginNip">Nomor Induk Pegawai (NIP) / Akun *</label>
+          <input type="text" class="form-input-field font-mono" id="loginNip" placeholder="Contoh: 197603122001121002" value="197603122001121002" required autocomplete="username">
+        </div>
+
+        <div class="form-group-item" style="margin-bottom: 0;">
+          <label class="form-label-text" for="loginPassword">Kata Sandi Akses *</label>
+          <div class="password-input-wrapper">
+            <input type="password" class="form-input-field" id="loginPassword" placeholder="Masukkan kata sandi..." value="admin12345" required autocomplete="current-password">
+            <button type="button" class="btn-toggle-password" id="btnTogglePassword" aria-label="Tampilkan / Sembunyikan Kata Sandi">
+              <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="login-options-row">
+          <label class="checkbox-label-group">
+            <input type="checkbox" id="rememberMe" checked style="cursor: pointer;">
+            <span>Ingat sesi masuk</span>
+          </label>
+          <a href="#" style="color: var(--color-accent-cobalt); text-decoration: none; font-weight: 600;" onclick="triggerToast('Silakan hubungi Biro Sarpras jika lupa sandi.')">Lupa sandi?</a>
+        </div>
+
+        <button type="submit" class="btn-action-primary" style="width: 100%; height: 42px; justify-content: center; font-size: 13px;">
+          <span>Masuk ke Sistem</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+
+        <div class="login-divider-line">
+          <span>ATAU MASUK DENGAN IDENTITAS TUNGGAL</span>
+        </div>
+
+        <button type="button" class="btn-action-secondary" style="width: 100%; height: 40px; justify-content: center;" onclick="triggerToast('Menghubungkan ke layanan SSO Kemendikbudristek...'); setTimeout(() => { window.location.href = 'layout.html'; }, 800);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Masuk dengan Akun Belajar.id</span>
+        </button>
+
+      </form>
+
+      <!-- Footer Info -->
+      <div class="login-footer-legal">
+        <span>&copy; 2026 <strong>SARPRAS ACADEMIA</strong></span><br>
+        <span>Standar Tata Kelola Sarana dan Prasarana Kampus</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Toast Stack -->
+  <div class="toast-stack" id="toastContainer" aria-live="polite"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Initial Theme
+      const savedTheme = localStorage.getItem('sarpras_theme') || 'light';
+      setTheme(savedTheme);
+
+      // 2. Theme Toggle
+      const btnThemeToggle = document.getElementById('btnThemeToggle');
+      if (btnThemeToggle) {
+        btnThemeToggle.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme') || 'light';
+          const next = current === 'light' ? 'dark' : 'light';
+          setTheme(next);
+        });
+      }
+
+      // 3. Password Show / Hide Toggle
+      const btnTogglePassword = document.getElementById('btnTogglePassword');
+      const loginPassword = document.getElementById('loginPassword');
+      if (btnTogglePassword && loginPassword) {
+        btnTogglePassword.addEventListener('click', () => {
+          const isPass = loginPassword.type === 'password';
+          loginPassword.type = isPass ? 'text' : 'password';
+          btnTogglePassword.innerHTML = isPass ? `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+              <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+              <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+              <line x1="2" y1="2" x2="22" y2="22"></line>
+            </svg>
+          ` : `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          `;
+        });
+      }
+    });
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('sarpras_theme', theme);
+      const sun = document.getElementById('themeIconSun');
+      const moon = document.getElementById('themeIconMoon');
+      if (sun && moon) {
+        if (theme === 'dark') {
+          sun.style.display = 'block';
+          moon.style.display = 'none';
+        } else {
+          sun.style.display = 'none';
+          moon.style.display = 'block';
+        }
+      }
+    }
+
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const nip = document.getElementById('loginNip').value.trim();
+      const pass = document.getElementById('loginPassword').value.trim();
+
+      if (!nip || !pass) {
+        triggerToast('Harap isi NIP dan kata sandi akses.');
+        return;
+      }
+
+      triggerToast('Autentikasi berhasil! Mengalihkan ke panel...');
+      setTimeout(() => {
+        window.location.href = 'layout.html';
+      }, 600);
+    }
+
+    function triggerToast(message) {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = 'toast-card';
+      toast.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-signal-normal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(8px)';
+        toast.style.transition = 'all 160ms ease';
+        setTimeout(() => toast.remove(), 160);
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
