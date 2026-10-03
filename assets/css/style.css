@@ -263,6 +263,32 @@
       letter-spacing: 0.02em;
     }
 
+    .btn-rail-collapse-chevron {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-whisper);
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: auto;
+      transition: all var(--speed-fast) ease;
+      flex-shrink: 0;
+    }
+
+    .btn-rail-collapse-chevron:hover {
+      background: var(--color-surface);
+      color: var(--color-text-primary);
+      border-color: var(--color-border-specular);
+    }
+
+    .sidebar-rail.collapsed .btn-rail-collapse-chevron {
+      display: none;
+    }
+
     /* Sidebar CTA Quick Action */
     .sidebar-quick-action {
       padding: 14px 14px 6px 14px;
@@ -609,14 +635,72 @@
       transform: scale(0.96);
     }
 
-    .notification-ping {
+    .notification-badge-counter {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 6px;
-      height: 6px;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: 9px;
       background: var(--color-signal-critical);
+      color: #FFFFFF;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--color-surface);
+      box-shadow: 0 2px 5px rgba(220, 38, 38, 0.4);
+    }
+
+    .notif-item-card {
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border-bottom: 1px solid var(--color-border-whisper);
+      transition: background var(--speed-fast) ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .notif-item-card.unread {
+      background: var(--color-surface-elevated);
+    }
+
+    .notif-item-card:hover {
+      background: var(--color-accent-cobalt-bg);
+    }
+
+    .notif-item-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
+      background: var(--color-accent-cobalt);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .notif-item-card.read .notif-item-dot {
+      background: transparent;
+      border: 1px solid var(--color-border-strong);
+    }
+
+    .btn-dismiss-notif {
+      background: none;
+      border: none;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      padding: 2px;
+      margin-left: auto;
+    }
+
+    .btn-dismiss-notif:hover {
+      color: var(--color-signal-critical);
     }
 
     /* User Profile Pill */

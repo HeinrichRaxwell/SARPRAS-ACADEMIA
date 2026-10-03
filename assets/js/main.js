@@ -58,12 +58,20 @@ const roomMetadata = {
   }
 };
 
+// Interactive Notifications State
+let notificationsData = [
+  { id: 1, title: "Jatuh Tempo Kalibrasi", desc: "Spektrofotometer Lab Kimia R.302 perlu uji ulang ISO/IEC 17025.", time: "10m lalu", unread: true, targetTab: "view-maintenance" },
+  { id: 2, title: "Permohonan Pinjam Sarana", desc: "Lab Pemetaan Geodesi mengajukan peminjaman Drone LiDAR RTK.", time: "1j lalu", unread: true, targetTab: "view-peminjaman" },
+  { id: 3, title: "Verifikasi Dokumen KIR", desc: "Jadwal pemeriksaan inventaris fisik Smart Classroom 401.", time: "3j lalu", unread: true, targetTab: "view-laporan" }
+];
+
 // Pagination & Sorting State
 let currentPage = 1;
 const pageSize = 5;
 let currentSortColumn = 'code';
 let currentSortOrder = 'asc'; // 'asc' or 'desc'
 let currentSelectedAfkirIndex = null;
+let currentInspectedAssetCode = null;
 
 // Chart Instances
 let growthChartInstance = null;
@@ -83,10 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. Render Master Data Table & Pagination
   renderInventoryTable();
 
-  // 4. Initialize KIR Table for Default Room
+  // 4. Initialize Interactive Notifications
+  renderNotifications();
+
+  // 5. Initialize KIR Table for Default Room
   updateKirRoomView("Lab Kimia Terpadu R.302");
 
-  // 5. Navigation Tab Listeners
+  // 6. Navigation Tab Listeners
   const navLinks = document.querySelectorAll('.nav-item-link');
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
@@ -104,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Theme Toggle Button
+  // 7. Theme Toggle Button
   const btnThemeToggle = document.getElementById('btnThemeToggle');
   if (btnThemeToggle) {
     btnThemeToggle.addEventListener('click', () => {
@@ -115,19 +126,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 7. Sidebar Collapse & Expand
-  const btnToggleSidebarRail = document.getElementById('btnToggleSidebarRail');
+  // 8. Sidebar Collapse & Expand (Panah < > di Atas)
   const sidebarRail = document.getElementById('sidebarRail');
-  if (btnToggleSidebarRail && sidebarRail) {
-    btnToggleSidebarRail.addEventListener('click', () => {
-      sidebarRail.classList.toggle('collapsed');
-      const isCollapsed = sidebarRail.classList.contains('collapsed');
-      const toggleText = btnToggleSidebarRail.querySelector('.toggle-text');
-      if (toggleText) toggleText.textContent = isCollapsed ? '' : 'Perkecil Menu';
-    });
+  const btnSidebarCollapseTop = document.getElementById('btnSidebarCollapseTop');
+  const btnDesktopRailToggle = document.getElementById('btnDesktopRailToggle');
+  const btnToggleSidebarRail = document.getElementById('btnToggleSidebarRail');
+
+  function toggleSidebar() {
+    if (!sidebarRail) return;
+    sidebarRail.classList.toggle('collapsed');
+    const isCollapsed = sidebarRail.classList.contains('collapsed');
+
+    // Update bottom label if exists
+    const toggleText = btnToggleSidebarRail?.querySelector('.toggle-text');
+    if (toggleText) toggleText.textContent = isCollapsed ? '' : 'Perkecil Menu';
+
+    // Update chevrons (< >) on both top buttons!
+    const svgSidebar = document.getElementById('chevronSidebarSvg');
+    const svgHeader = document.getElementById('chevronHeaderSvg');
+    const newPoints = isCollapsed ? "9 18 15 12 9 6" : "15 18 9 12 15 6"; // > when collapsed, < when open
+    
+    if (svgSidebar) {
+      const poly = svgSidebar.querySelector('polyline');
+      if (poly) poly.setAttribute('points', newPoints);
+    }
+    if (svgHeader) {
+      const poly = svgHeader.querySelector('polyline');
+      if (poly) poly.setAttribute('points', newPoints);
+    }
+
+    // Trigger chart resize
+    setTimeout(() => {
+      if (growthChartInstance) growthChartInstance.resize();
+      if (categoryChartInstance) categoryChartInstance.resize();
+    }, 240);
+
+    triggerToast(isCollapsed ? 'Sidebar diperkecil (Mode Ikon)' : 'Sidebar direntangkan penuh');
   }
 
-  // 8. Mobile Drawer Navigation
+  if (btnSidebarCollapseTop) btnSidebarCollapseTop.addEventListener('click', toggleSidebar);
+  if (btnDesktopRailToggle) btnDesktopRailToggle.addEventListener('click', toggleSidebar);
+  if (btnToggleSidebarRail) btnToggleSidebarRail.addEventListener('click', toggleSidebar);
+
+  // 9. Mobile Drawer Navigation
   const btnMobileNavToggle = document.getElementById('btnMobileNavToggle');
   if (btnMobileNavToggle && sidebarRail) {
     btnMobileNavToggle.addEventListener('click', (e) => {
@@ -142,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 9. Popovers Toggle (Notifications & Profile)
+  // 10. Popovers Toggle (Notifications & Profile)
   const btnHeaderNotif = document.getElementById('btnHeaderNotif');
   const dropdownNotifications = document.getElementById('dropdownNotifications');
   const btnHeaderProfile = document.getElementById('btnHeaderProfile');
@@ -169,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dropdownProfile) dropdownProfile.classList.remove('show');
   });
 
-  // 10. Global Keyboard Shortcuts (Ctrl + K to Search, Esc to Dismiss)
+  // 11. Global Keyboard Shortcuts (Ctrl + K to Search, Esc to Dismiss)
   document.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
@@ -184,6 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
       closeModal('modalDecommission');
       closeModal('modalBorrow');
       closeModal('modalWorkOrder');
+      closeModal('modalAssetDetail');
+      closeModal('modalAssetEdit');
       if (dropdownNotifications) dropdownNotifications.classList.remove('show');
       if (dropdownProfile) dropdownProfile.classList.remove('show');
     }
@@ -207,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 11. Table Filter Event Listeners
+  // 12. Table Filter Event Listeners
   const tableFilterInput = document.getElementById('tableFilterInput');
   const selectKategoriFilter = document.getElementById('selectKategoriFilter');
   const selectKondisiFilter = document.getElementById('selectKondisiFilter');
@@ -243,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 12. Form Live Synchronizer to Thermal Sticker Barcode Tag
+  // 13. Form Live Synchronizer to Thermal Sticker Barcode Tag
   const formInputCode = document.getElementById('formInputCode');
   const formInputName = document.getElementById('formInputName');
   const formInputRoom = document.getElementById('formInputRoom');
@@ -306,6 +349,84 @@ function setTheme(theme) {
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme') || 'light';
   setTheme(current === 'light' ? 'dark' : 'light');
+}
+
+// ==========================================================================
+// INTERACTIVE NOTIFICATIONS ENGINE
+// ==========================================================================
+function renderNotifications() {
+  const container = document.getElementById('notifItemsContainer');
+  const badgeCount = document.getElementById('notifBadgeCount');
+  const headerPill = document.getElementById('notifHeaderPill');
+  if (!container) return;
+
+  const unreadCount = notificationsData.filter(n => n.unread).length;
+
+  if (badgeCount) {
+    if (unreadCount > 0) {
+      badgeCount.style.display = 'flex';
+      badgeCount.textContent = unreadCount;
+    } else {
+      badgeCount.style.display = 'none';
+    }
+  }
+
+  if (headerPill) {
+    headerPill.textContent = unreadCount > 0 ? `${unreadCount} Baru` : '0 Baru';
+    headerPill.className = unreadCount > 0 ? 'status-badge-pill warning font-mono' : 'status-badge-pill normal font-mono';
+  }
+
+  container.innerHTML = '';
+
+  if (notificationsData.length === 0) {
+    container.innerHTML = `
+      <div style="padding: 24px 16px; text-align: center; color: var(--color-text-muted); font-size: 12px;">
+        Semua pemberitahuan telah dibersihkan.
+      </div>
+    `;
+    return;
+  }
+
+  notificationsData.forEach(item => {
+    const card = document.createElement('div');
+    card.className = `notif-item-card ${item.unread ? 'unread' : 'read'}`;
+    card.innerHTML = `
+      <span class="notif-item-dot" title="${item.unread ? 'Belum dibaca' : 'Sudah dibaca'}"></span>
+      <div style="flex: 1; min-width: 0;" onclick="handleNotifClick(${item.id})">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong style="color: var(--color-text-primary); font-size: 12px;">${item.title}</strong>
+          <span class="font-mono" style="font-size: 10px; color: var(--color-text-muted);">${item.time}</span>
+        </div>
+        <p style="font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.4;">${item.desc}</p>
+      </div>
+      <button class="btn-dismiss-notif" onclick="event.stopPropagation(); dismissNotification(${item.id})" title="Hapus notifikasi">&times;</button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function handleNotifClick(id) {
+  const item = notificationsData.find(n => n.id === id);
+  if (item) {
+    item.unread = false;
+    renderNotifications();
+    const pop = document.getElementById('dropdownNotifications');
+    if (pop) pop.classList.remove('show');
+    if (item.targetTab) navigateToTab(item.targetTab);
+    triggerToast(`Membuka: ${item.title}`);
+  }
+}
+
+function markAllNotificationsRead() {
+  notificationsData.forEach(n => n.unread = false);
+  renderNotifications();
+  triggerToast('Semua pemberitahuan telah ditandai sebagai dibaca');
+}
+
+function dismissNotification(id) {
+  notificationsData = notificationsData.filter(n => n.id !== id);
+  renderNotifications();
+  triggerToast('Pemberitahuan dihapus');
 }
 
 // ==========================================================================
@@ -597,8 +718,9 @@ function renderInventoryTable() {
         <td style="color: var(--color-text-secondary);">${item.room}</td>
         <td class="font-mono">Rp ${item.price.toLocaleString('id-ID')}</td>
         <td><span class="status-badge-pill ${badgeClass} font-mono">${item.condition}</span></td>
-        <td style="text-align: right;">
+        <td style="text-align: right; white-space: nowrap;">
           <button class="table-action-link" onclick="openAssetDetailModal('${item.code}')">Detail</button>
+          <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openAssetEditModal('${item.code}')">Edit</button>
           <button class="table-action-link danger" onclick="openDecommissionModal('${item.code}', '${item.name}', ${globalIndex})">Afkir</button>
         </td>
       `;
@@ -670,10 +792,101 @@ function renderPaginationControls(totalPages) {
   container.appendChild(btnNext);
 }
 
+// ==========================================================================
+// ASSET DETAIL & EDIT MODALS
+// ==========================================================================
 function openAssetDetailModal(code) {
   const item = inventoryData.find(x => x.code === code);
   if (!item) return;
-  triggerToast(`Detail ${item.code}: ${item.name} (${item.room})`);
+  currentInspectedAssetCode = code;
+
+  const content = document.getElementById('modalAssetDetailContent');
+  if (content) {
+    content.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px solid var(--color-border-whisper);">
+        <div>
+          <span class="status-badge-pill ${item.condition === 'Baik' ? 'normal' : (item.condition === 'Perawatan' ? 'warning' : 'critical')} font-mono" style="margin-bottom: 6px;">Kondisi: ${item.condition}</span>
+          <h2 style="font-size: 16px; font-weight: 800; color: var(--color-text-primary);">${item.name}</h2>
+          <span class="font-mono" style="font-size: 12px; font-weight: 700; color: var(--color-accent-cobalt);">${item.code}</span>
+        </div>
+        <div style="text-align: right;">
+          <span style="font-size: 11px; color: var(--color-text-muted);">Nilai Perolehan</span>
+          <div class="font-mono" style="font-size: 16px; font-weight: 800; color: var(--color-text-primary);">Rp ${item.price.toLocaleString('id-ID')}</div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; font-size: 12px;">
+        <div style="background: var(--color-surface-elevated); padding: 10px 14px; border-radius: 6px; border: 1px solid var(--color-border-whisper);">
+          <span style="font-size: 11px; color: var(--color-text-muted); font-weight: 600;">KATEGORI SARPRAS</span>
+          <div style="font-weight: 700; color: var(--color-text-primary); margin-top: 2px;">${item.category}</div>
+        </div>
+        <div style="background: var(--color-surface-elevated); padding: 10px 14px; border-radius: 6px; border: 1px solid var(--color-border-whisper);">
+          <span style="font-size: 11px; color: var(--color-text-muted); font-weight: 600;">PENEMPATAN RUANGAN</span>
+          <div style="font-weight: 700; color: var(--color-text-primary); margin-top: 2px;">${item.room}</div>
+        </div>
+        <div style="background: var(--color-surface-elevated); padding: 10px 14px; border-radius: 6px; border: 1px solid var(--color-border-whisper);">
+          <span style="font-size: 11px; color: var(--color-text-muted); font-weight: 600;">MERK / MODEL PABRIKAN</span>
+          <div style="font-weight: 700; color: var(--color-text-primary); margin-top: 2px;">${item.model || '-'}</div>
+        </div>
+        <div style="background: var(--color-surface-elevated); padding: 10px 14px; border-radius: 6px; border: 1px solid var(--color-border-whisper);">
+          <span style="font-size: 11px; color: var(--color-text-muted); font-weight: 600;">NOMOR SERI PABRIK</span>
+          <div class="font-mono" style="font-weight: 700; color: var(--color-text-primary); margin-top: 2px;">${item.serial || '-'}</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 14px; padding: 12px 14px; background: var(--color-surface-subtle); border-radius: 6px; border: 1px dashed var(--color-border-specular); font-size: 11px; color: var(--color-text-secondary); line-height: 1.5;">
+        Aset telah terverifikasi secara fisik pada siklus inventarisasi akademik berjalan. Tercatat pada buku inventaris kampus dan berstatus operasional aktif.
+      </div>
+    `;
+  }
+  openModal('modalAssetDetail');
+}
+
+function openEditFromDetail() {
+  closeModal('modalAssetDetail');
+  if (currentInspectedAssetCode) {
+    openAssetEditModal(currentInspectedAssetCode);
+  }
+}
+
+function openAssetEditModal(code) {
+  const item = inventoryData.find(x => x.code === code);
+  if (!item) return;
+
+  const hiddenCode = document.getElementById('editAssetCodeHidden');
+  const codeField = document.getElementById('editAssetCode');
+  const nameField = document.getElementById('editAssetName');
+  const catField = document.getElementById('editAssetCategory');
+  const condField = document.getElementById('editAssetCondition');
+  const roomField = document.getElementById('editAssetRoom');
+  const priceField = document.getElementById('editAssetPrice');
+
+  if (hiddenCode) hiddenCode.value = item.code;
+  if (codeField) codeField.value = item.code;
+  if (nameField) nameField.value = item.name;
+  if (catField) catField.value = item.category;
+  if (condField) condField.value = item.condition;
+  if (roomField) roomField.value = item.room;
+  if (priceField) priceField.value = item.price;
+
+  openModal('modalAssetEdit');
+}
+
+function handleEditFormSubmit(e) {
+  e.preventDefault();
+  const code = document.getElementById('editAssetCodeHidden').value;
+  const item = inventoryData.find(x => x.code === code);
+  if (!item) return;
+
+  item.name = document.getElementById('editAssetName').value.trim();
+  item.category = document.getElementById('editAssetCategory').value;
+  item.condition = document.getElementById('editAssetCondition').value;
+  item.room = document.getElementById('editAssetRoom').value;
+  item.price = Number(document.getElementById('editAssetPrice').value) || item.price;
+
+  closeModal('modalAssetEdit');
+  renderInventoryTable();
+  triggerToast(`Data sarana ${item.code} berhasil diperbarui.`);
 }
 
 // ==========================================================================
@@ -709,9 +922,10 @@ function handleFormSubmit(e) {
 
   // Reset Form
   document.getElementById('newAssetForm').reset();
-  document.getElementById('formInputCode').value = 'AST-LAB-2026-0' + (inventoryData.length + 90);
-  document.getElementById('stickerCodeDisplay').textContent = document.getElementById('formInputCode').value;
-  document.getElementById('stickerBarcodeText').textContent = document.getElementById('formInputCode').value;
+  const nextCode = 'AST-LAB-2026-0' + (inventoryData.length + 90);
+  document.getElementById('formInputCode').value = nextCode;
+  document.getElementById('stickerCodeDisplay').textContent = nextCode;
+  document.getElementById('stickerBarcodeText').textContent = nextCode;
 
   // Navigate to Master Data
   currentPage = 1;
