@@ -1559,15 +1559,16 @@
         margin: 0 !important;
       }
       .tab-content-view {
-        display: none !important;
-      }
-      #view-laporan {
         display: block !important;
       }
       .kir-official-document {
-        border: none !important;
+        border: 1px solid #CBD5E1 !important;
         box-shadow: none !important;
-        padding: 0 !important;
+        padding: 20px !important;
+      }
+      .thermal-sticker-card {
+        border: 1px solid #000000 !important;
+        box-shadow: none !important;
       }
     }
 

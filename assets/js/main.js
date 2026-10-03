@@ -94,7 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Initialize Interactive Notifications
   renderNotifications();
 
-  // 5. Initialize KIR Table for Default or URL-selected Room
+  // 5. Connect and synchronize with Backend REST API if running on server
+  syncWithBackend();
+
+  // 6. Initialize KIR Table for Default or URL-selected Room
   const urlParams = new URLSearchParams(window.location.search);
   const roomParam = urlParams.get('room');
   if (roomParam && roomMetadata[roomParam]) {
@@ -333,6 +336,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ==========================================================================
+// REST API BACKEND SYNCHRONIZATION ENGINE
+// ==========================================================================
+async function syncWithBackend() {
+  if (typeof window !== 'undefined' && window.location.protocol.startsWith('http')) {
+    try {
+      const res = await fetch('/api/assets');
+      if (res.ok) {
+        const liveAssets = await res.json();
+        if (Array.isArray(liveAssets) && liveAssets.length > 0) {
+          inventoryData = liveAssets.map(item => ({
+            code: item.code,
+            name: item.name,
+            category: item.category,
+            room: item.room,
+            price: Number(item.price),
+            condition: item.condition,
+            serial: item.serial_number || item.serial || '-',
+            model: item.model || '-'
+          }));
+          renderInventoryTable();
+          const activeRoom = document.getElementById('kirCurrentRoomName')?.textContent || "Lab Kimia Terpadu R.302";
+          updateKirRoomView(activeRoom);
+        }
+      }
+    } catch (e) {
+      console.info('Operating in client-side mock fallback mode:', e.message);
+    }
+  }
+}
 
 // ==========================================================================
 // THEME SWITCHER
@@ -895,6 +929,20 @@ function handleEditFormSubmit(e) {
   item.room = document.getElementById('editAssetRoom').value;
   item.price = Number(document.getElementById('editAssetPrice').value) || item.price;
 
+  if (typeof window !== 'undefined' && window.location.protocol.startsWith('http')) {
+    fetch(`/api/assets/${encodeURIComponent(item.code)}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: item.name,
+        category: item.category,
+        room: item.room,
+        price: item.price,
+        condition: item.condition
+      })
+    }).catch(err => console.warn('Could not sync update to backend:', err));
+  }
+
   closeModal('modalAssetEdit');
   renderInventoryTable();
   triggerToast(`Data sarana ${item.code} berhasil diperbarui.`);
@@ -930,6 +978,14 @@ function handleFormSubmit(e) {
     serial: serial,
     model: model
   });
+
+  if (typeof window !== 'undefined' && window.location.protocol.startsWith('http')) {
+    fetch('/api/assets', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, name, category, room, price, condition, serial_number: serial, model })
+    }).catch(err => console.warn('Could not sync create to backend:', err));
+  }
 
   // Reset Form
   document.getElementById('newAssetForm').reset();
@@ -1054,6 +1110,11 @@ function openDecommissionModal(code, name, index) {
 function executeDecommission() {
   if (currentSelectedAfkirIndex !== null && inventoryData[currentSelectedAfkirIndex]) {
     const removed = inventoryData.splice(currentSelectedAfkirIndex, 1);
+    if (typeof window !== 'undefined' && window.location.protocol.startsWith('http') && removed[0]?.code) {
+      fetch(`/api/assets/${encodeURIComponent(removed[0].code)}`, {
+        method: 'DELETE'
+      }).catch(err => console.warn('Could not sync delete to backend:', err));
+    }
     renderInventoryTable();
     closeModal('modalDecommission');
     triggerToast(`Aset ${removed[0].code} berhasil diafkirkan dari inventaris.`);
@@ -1070,10 +1131,25 @@ function submitBorrowLoan() {
   const startDate = document.getElementById('borrowModalStartDate').value;
   const endDate = document.getElementById('borrowModalEndDate').value;
 
+  const randId = 'PINJ-2026-0' + Math.floor(Math.random() * 80 + 50);
+
+  if (typeof window !== 'undefined' && window.location.protocol.startsWith('http')) {
+    fetch('/api/loans', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        loan_code: randId,
+        asset_name: assetName,
+        borrower: borrower,
+        start_date: startDate,
+        end_date: endDate
+      })
+    }).catch(err => console.warn('Could not sync loan to backend:', err));
+  }
+
   const tbody = document.getElementById('borrowingListBody');
   if (tbody) {
     const tr = document.createElement('tr');
-    const randId = 'PINJ-2026-0' + Math.floor(Math.random() * 80 + 50);
     tr.innerHTML = `
       <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${randId}</td>
       <td style="font-weight: 600;">${assetName}</td>
@@ -1114,11 +1190,25 @@ function submitNewWorkOrder() {
   const vendor = document.getElementById('woInputVendor').value.trim() || 'Tim Teknisi Kampus';
   const cost = Number(document.getElementById('woInputCost').value) || 3500000;
   const date = document.getElementById('woInputDate').value;
+  const woId = 'WO-2026-0' + Math.floor(Math.random() * 80 + 95);
+
+  if (typeof window !== 'undefined' && window.location.protocol.startsWith('http')) {
+    fetch('/api/work-orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        wo_code: woId,
+        item_name: item,
+        vendor: vendor,
+        estimated_cost: cost,
+        target_date: date
+      })
+    }).catch(err => console.warn('Could not sync work order to backend:', err));
+  }
 
   const tbody = document.getElementById('woListBody');
   if (tbody) {
     const tr = document.createElement('tr');
-    const woId = 'WO-2026-0' + Math.floor(Math.random() * 80 + 95);
     tr.innerHTML = `
       <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${woId}</td>
       <td style="font-weight: 600;">${item}</td>
@@ -1190,6 +1280,14 @@ function submitCreateAssetModal(e) {
     serial: serial,
     model: model
   });
+
+  if (typeof window !== 'undefined' && window.location.protocol.startsWith('http')) {
+    fetch('/api/assets', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, name, category, room, price, condition, serial_number: serial, model })
+    }).catch(err => console.warn('Could not sync create to backend:', err));
+  }
 
   closeModal('modalCreateAsset');
   currentPage = 1;
