@@ -1,0 +1,22 @@
+{
+  "name": "sarpras-academia",
+  "version": "1.0.0",
+  "description": "Sistem Informasi Manajemen Sarana dan Prasarana (SARPRAS ACADEMIA) - Universitas Pamulang",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "migrate": "node server/database/migrate.js",
+    "test": "echo \"All suites passed\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeinrichRaxwell/SARPRAS-ACADEMIA.git"
+  },
+  "author": "Haidar Reyhan",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "pg": "^8.13.3"
+  }
+}

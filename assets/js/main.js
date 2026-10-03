@@ -94,17 +94,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Initialize Interactive Notifications
   renderNotifications();
 
-  // 5. Initialize KIR Table for Default Room
-  updateKirRoomView("Lab Kimia Terpadu R.302");
+  // 5. Initialize KIR Table for Default or URL-selected Room
+  const urlParams = new URLSearchParams(window.location.search);
+  const roomParam = urlParams.get('room');
+  if (roomParam && roomMetadata[roomParam]) {
+    const selector = document.getElementById('kirRoomSelector');
+    if (selector) selector.value = roomParam;
+    updateKirRoomView(roomParam);
+  } else {
+    updateKirRoomView("Lab Kimia Terpadu R.302");
+  }
 
-  // 6. Navigation Tab Listeners
+  // 6. Navigation Tab Listeners (Only when data-target is defined, else normal multi-page link)
   const navLinks = document.querySelectorAll('.nav-item-link');
   navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const targetViewId = link.getAttribute('data-target');
-      navigateToTab(targetViewId);
-    });
+    const targetViewId = link.getAttribute('data-target');
+    if (targetViewId) {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateToTab(targetViewId);
+      });
+    }
   });
 
   // Quick CTA in sidebar - opens fast registration modal
@@ -931,8 +941,15 @@ function handleFormSubmit(e) {
   // Navigate to Master Data
   currentPage = 1;
   renderInventoryTable();
-  navigateToTab('view-data-master');
-  triggerToast(`Sarana ${name} berhasil didaftarkan ke inventaris.`);
+  if (document.getElementById('view-data-master')) {
+    navigateToTab('view-data-master');
+    triggerToast(`Sarana ${name} berhasil didaftarkan ke inventaris.`);
+  } else {
+    triggerToast(`Sarana ${name} berhasil didaftarkan. Mengalihkan...`);
+    setTimeout(() => {
+      window.location.href = 'data-master.html';
+    }, 600);
+  }
 }
 
 function setConditionSelect(cond) {
@@ -947,10 +964,14 @@ function setConditionSelect(cond) {
 // ROOM DIRECTORY & DYNAMIC KIR SYNCHRONIZATION
 // ==========================================================================
 function openRoomKir(roomName) {
-  navigateToTab('view-laporan');
-  const selector = document.getElementById('kirRoomSelector');
-  if (selector) selector.value = roomName;
-  updateKirRoomView(roomName);
+  if (document.getElementById('view-laporan')) {
+    navigateToTab('view-laporan');
+    const selector = document.getElementById('kirRoomSelector');
+    if (selector) selector.value = roomName;
+    updateKirRoomView(roomName);
+  } else {
+    window.location.href = `laporan.html?room=${encodeURIComponent(roomName)}`;
+  }
 }
 
 function updateKirRoomView(roomName) {

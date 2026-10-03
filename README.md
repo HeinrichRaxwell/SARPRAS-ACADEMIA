@@ -323,7 +323,7 @@ Seluruh token visual terstandarisasi pada **Frame 00 di Figma** dan digunakan se
 
 ## 10. STRUKTUR DIREKTORI PROYEK
 
-Struktur folder proyek ditata secara rapi sesuai format baku pengumpulan tugas Pemrograman Web 2:
+Struktur folder proyek ditata secara rapi sesuai kaidah Clean Architecture dan standar LMS Mentari UNPAM:
 
 ```
 SARPRAS-ACADEMIA/
@@ -331,27 +331,40 @@ SARPRAS-ACADEMIA/
 │   └── perancangan.md                  <-- Dokumen Teknis Lengkap Milestone 1
 ├── PERANCANGAN.md                      <-- Salinan Dokumen Teknis pada Root
 ├── README.md                           <-- Laporan Resmi Proyek & Panduan Repositori
+├── index.html                          <-- Gerbang Masuk & Login Admin (Auth Portal)
+├── layout.html                         <-- Master Template Acuan Slicing (Milestone 2)
 ├── assets/
-│   ├── css/                            <-- Lembar Gaya CSS (Slicing Milestone 2)
-│   ├── js/                             <-- Logika Interaktivitas & Mock Data (Milestone 3)
-│   └── img/                            <-- Aset Visual, Logo UNPAM, & 8 Screenshot Stitch
-│       ├── logo_unpam.png
-│       ├── stitch_login.png
-│       ├── stitch_dashboard.png
-│       ├── stitch_datamaster.png
-│       ├── stitch_form.png
-│       ├── stitch_laporan.png
-│       ├── stitch_peminjaman.png
-│       ├── stitch_maintenance.png
-│       └── stitch_ruangan.png
-└── pages/                              <-- Halaman Spesifik Sistem (Milestone 2 & 3)
+│   ├── css/
+│   │   └── style.css                   <-- Master Design System Glassmorphism
+│   ├── js/
+│   │   ├── main.js                     <-- Engine Interaktivitas Client-Side
+│   │   └── chart.min.js                <-- Library Chart.js Mandiri Offline
+│   └── img/
+│       ├── logo_sarpras.svg            <-- Vektor Resmi Lambang Institusi Sarpras
+│       ├── logo_unpam.png              <-- Logo Resmi Universitas Pamulang
+│       └── stitch_*.png                <-- 8 File Screenshot High-Res Mockup
+├── pages/                              <-- Berkas Halaman Spesifik Mandiri
+│   ├── dashboard.html                  <-- Halaman 01: Executive Facility Dashboard
+│   ├── data-master.html                <-- Halaman 02: Master Data Sarana dan Prasarana
+│   ├── form.html                       <-- Halaman 03: Form Registrasi Aset & Stiker Barcode
+│   ├── laporan.html                    <-- Halaman 04: Pusat Laporan & Kartu Inventaris Ruangan (KIR)
+│   ├── peminjaman.html                 <-- Halaman 05: Sirkulasi Peminjaman & Mutasi
+│   ├── maintenance.html                <-- Halaman 06: Servis & Kalibrasi Work Order
+│   └── ruangan.html                    <-- Halaman 07: Direktori Ruangan & Gedung Kampus
+├── server/                             <-- Backend REST API & Database Integration
+│   ├── database/
+│   │   ├── db.js                       <-- PostgreSQL Connection Pool
+│   │   ├── schema.sql                  <-- Skema 6 Tabel & Seeding Awal
+│   │   └── migrate.js                  <-- Runner Otomasi Migrasi Database
+│   └── server.js                       <-- Express Server (REST API & Static Web)
+└── package.json                        <-- Manifest Dependensi & Skrip Aplikasi
 ```
 
 ---
 
 ## 11. PANDUAN MENJALANKAN APLIKASI SECARA LOKAL
 
-Aplikasi ini dibangun menggunakan arsitektur web client-side murni (tanpa dependensi build tool berat atau server database), sehingga dapat dijalankan dengan sangat mudah di komputer lokal:
+Aplikasi ini mendukung dua mode operasional: **Mode Client-Side Standalone** (bisa dibuka langsung di browser) dan **Mode Full-Stack Database** (didukung PostgreSQL 16 pada Docker Desktop):
 
 ### 1. Kloning Repositori Git
 ```bash
@@ -359,22 +372,41 @@ git clone https://github.com/HeinrichRaxwell/SARPRAS-ACADEMIA.git
 cd SARPRAS-ACADEMIA
 ```
 
-### 2. Menjalankan dengan Local Web Server
-Pilih salah satu metode berikut:
+### 2. Opsi A : Menjalankan Mode Full-Stack (Dengan Database PostgreSQL & Docker)
+1. **Jalankan Kontainer Database PostgreSQL di Docker Desktop:**
+   ```bash
+   docker run -d \
+     --name sarpras-db \
+     --restart unless-stopped \
+     -e POSTGRES_USER=sarpras_admin \
+     -e POSTGRES_PASSWORD=sarpras_password_2026 \
+     -e POSTGRES_DB="Sarpras Academia - pemweb2" \
+     -p 5433:5432 \
+     postgres:16-alpine
+   ```
 
-* **Menggunakan Python (Bawaan Windows/Mac/Linux):**
+2. **Pasang Dependensi Node.js & Jalankan Migrasi:**
+   ```bash
+   npm install
+   npm run migrate
+   ```
+
+3. **Mulai Server Aplikasi:**
+   ```bash
+   npm start
+   ```
+   Aplikasi siap diakses pada `http://localhost:3000` dengan endpoint REST API aktif pada `/api/assets`, `/api/dashboard/stats`, `/api/loans`, dll.
+
+---
+
+### 3. Opsi B : Menjalankan Mode Client-Side Langsung (Tanpa Docker/Database)
+Jika dijalankan di lingkungan pengujian tanpa Docker:
+* Cukup buka langsung berkas `index.html` pada peramban web (Chrome, Edge, Firefox).
+* Atau gunakan web server lokal ringan:
   ```bash
   python -m http.server 3000
   ```
-  Lalu buka peramban di `http://localhost:3000`
-
-* **Menggunakan Node.js (npx serve):**
-  ```bash
-  npx serve .
-  ```
-
-* **Menggunakan VS Code Live Server:**
-  Cukup klik kanan pada berkas `index.html` lalu pilih **Open with Live Server**.
+  Lalu buka `http://localhost:3000`.
 
 ---
 
@@ -386,16 +418,17 @@ Pilih salah satu metode berikut:
   * UI Wireframing 8 modul lengkap di Google Stitch
   * Pembuatan Design System dan High-Fidelity UI di Figma (9 Frames)
   * Publikasi repositori GitHub dan verifikasi tautan publik
-* [ ] **Milestone 2 (Pekan Ke-5) : Slicing dan Layouting Dasar (HTML5 & CSS3)**
+* [x] **Milestone 2 (Pekan Ke-5) : Slicing dan Layouting Dasar (HTML5 & CSS3)**
   * Penerjemahan token visual Figma ke variabel CSS Glassmorphism
   * Pembuatan struktur dasar Master Template `layout.html` (Sidebar, Header, Content, Footer)
+  * Implementasi sistem tema adaptif (Default Light Mode dengan Dark Mode switcher)
   * Pengujian responsivitas layout desktop, tablet, dan mobile
-* [ ] **Milestone 3 (Pekan Ke-7) : Implementasi Komponen dan Interaktivitas UI (JavaScript)**
-  * Pembuatan 4 halaman inti spesifik (Dashboard, Data Master, Form, Laporan)
-  * Integrasi grafik visual Chart.js pada Dashboard
-  * Validasi input form interaktif dan generator barcode label
-  * Manipulasi data mock (CRUD) pada media `localStorage`
-  * Demonstrasi langsung dan hosting publik di Vercel / GitHub Pages
+* [x] **Milestone 3 (Pekan Ke-7) : Implementasi Halaman Mandiri, Interaktivitas & Backend**
+  * Pemisahan berkas halaman fisik ke direktori `pages/` (7 Halaman mandiri lengkap)
+  * Integrasi 2 grafik analitik interaktif Chart.js pada Dashboard
+  * Sistem modal popup komprehensif (Tambah Aset, Detail Spesifikasi, Edit Data, Afkir BMN, Peminjaman, Work Order, Ekspor Dokumen)
+  * Integrasi basis data relasional PostgreSQL 16 pada Docker (`sarpras-db` database "Sarpras Academia - pemweb2")
+  * Backend REST API Express (`server/server.js`) dengan penanganan CRUD lengkap
 
 ---
 

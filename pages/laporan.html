@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pusat Laporan & KIR - SARPRAS ACADEMIA</title>
+  
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-shape-1"></div>
+    <div class="ambient-shape-2"></div>
+  </div>
+
+  <div class="app-layout">
+
+    <!-- ======================================================================
+         1. SIDEBAR RAIL
+         ====================================================================== -->
+    <aside class="sidebar-rail" id="sidebarRail" aria-label="Navigasi Menu">
+      
+      <!-- Brand Logo Header -->
+      <div class="sidebar-brand">
+        <div class="brand-logo-wrap" title="SARPRAS ACADEMIA">
+          <svg viewBox="0 0 48 48" width="38" height="38" fill="none">
+            <defs>
+              <linearGradient id="sbShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1E3A8A"/>
+                <stop offset="100%" stop-color="#1E40AF"/>
+              </linearGradient>
+              <linearGradient id="sbAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#60A5FA"/>
+                <stop offset="100%" stop-color="#3B82F6"/>
+              </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="44" height="44" rx="10" fill="url(#sbShieldGrad)"/>
+            <rect x="2" y="2" width="44" height="44" rx="10" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+            <path d="M12 17L24 9L36 17H12Z" fill="#FFFFFF" fill-opacity="0.95"/>
+            <rect x="13" y="18" width="22" height="2" rx="0.5" fill="url(#sbAccentGrad)"/>
+            <rect x="15" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+            <rect x="22.5" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+            <rect x="30" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+            <path d="M11 35H37V37C37 37.5523 36.5523 38 36 38H12C11.4477 38 11 37.5523 11 37V35Z" fill="url(#sbAccentGrad)"/>
+            <circle cx="24" cy="27.5" r="2" fill="#F59E0B"/>
+          </svg>
+        </div>
+        <div class="brand-text-group">
+          <span class="brand-main-title">SARPRAS ACADEMIA</span>
+          <span class="brand-sub-title">MANAJEMEN FASILITAS KAMPUS</span>
+        </div>
+      </div>
+
+      <!-- Quick Fast Action Button -->
+      <div class="sidebar-quick-action">
+        <button class="btn-quick-register" id="btnSidebarRegister" title="Daftarkan Aset Baru">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span class="btn-text">Registrasi Aset Baru</span>
+        </button>
+      </div>
+
+      <!-- Menu Items List -->
+      <nav class="sidebar-nav-container">
+        
+        <div class="nav-group-title">Manajemen Utama</div>
+
+        <!-- 01. Dashboard -->
+        <a href="dashboard.html" class="nav-item-link" title="Executive Dashboard">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <rect width="7" height="9" x="3" y="3" rx="1"/>
+            <rect width="7" height="5" x="14" y="3" rx="1"/>
+            <rect width="7" height="9" x="14" y="12" rx="1"/>
+            <rect width="7" height="5" x="3" y="16" rx="1"/>
+          </svg>
+          <span class="nav-item-label">Executive Dashboard</span>
+        </a>
+
+        <!-- 02. Master Data -->
+        <a href="data-master.html" class="nav-item-link" title="Master Data Sarpras">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+            <path d="m3.3 7 8.7 5 8.7-5"/>
+            <path d="M12 22V12"/>
+          </svg>
+          <span class="nav-item-label">Master Data Sarpras</span>
+          <span class="nav-badge-counter badge-subtle font-mono" id="sidebarAssetCount">12</span>
+        </a>
+
+        <!-- 03. Form Registrasi -->
+        <a href="form.html" class="nav-item-link" title="Form Registrasi Aset">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+          <span class="nav-item-label">Form Registrasi Aset</span>
+        </a>
+
+        <!-- 04. Pusat Laporan KIR -->
+        <a href="laporan.html" class="nav-item-link active" title="Pusat Laporan KIR">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <line x1="10" y1="9" x2="8" y2="9"/>
+          </svg>
+          <span class="nav-item-label">Pusat Laporan & KIR</span>
+        </a>
+
+        <div class="nav-group-title">Sirkulasi & Fasilitas</div>
+
+        <!-- 05. Peminjaman & Mutasi -->
+        <a href="peminjaman.html" class="nav-item-link" title="Peminjaman & Mutasi">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <path d="m16 3 4 4-4 4"/>
+            <path d="M20 7H4"/>
+            <path d="m8 21-4-4 4-4"/>
+            <path d="M4 17h16"/>
+          </svg>
+          <span class="nav-item-label">Peminjaman & Mutasi</span>
+          <span class="nav-badge-counter badge-critical font-mono" title="3 Transaksi Terlambat">3</span>
+        </a>
+
+        <!-- 06. Servis & Kalibrasi -->
+        <a href="maintenance.html" class="nav-item-link" title="Servis & Kalibrasi">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+          <span class="nav-item-label">Servis & Kalibrasi</span>
+          <span class="nav-badge-counter badge-warning font-mono" title="23 Tiket Kalibrasi Kritis">23</span>
+        </a>
+
+        <!-- 07. Ruangan & Gedung -->
+        <a href="ruangan.html" class="nav-item-link" title="Direktori Ruangan">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
+            <path d="M9 22v-4h6v4"/>
+            <path d="M8 6h.01"/>
+            <path d="M16 6h.01"/>
+            <path d="M8 10h.01"/>
+            <path d="M16 10h.01"/>
+            <path d="M8 14h.01"/>
+            <path d="M16 14h.01"/>
+          </svg>
+          <span class="nav-item-label">Direktori Ruangan</span>
+        </a>
+
+      </nav>
+
+    </aside>
+
+    <!-- ======================================================================
+         2. TOP COMMAND HEADER BAR
+         ====================================================================== -->
+    <div class="app-content-wrapper">
+      
+      <header class="top-command-header">
+        
+        <!-- Left: Hamburger (Mobile), Desktop Rail Toggle (< >) & Breadcrumbs -->
+        <div class="header-left-cluster">
+          <button class="btn-mobile-nav-toggle" id="btnMobileNavToggle" aria-label="Buka Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+
+          <button class="btn-header-control" id="btnDesktopRailToggle" title="Ciutkan Menu Sidebar (<)" aria-label="Ciutkan Menu">
+            <svg id="chevronHeaderSvg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+
+          <div class="breadcrumbs-bar">
+            <span>SARPRAS ACADEMIA</span>
+            <span style="opacity: 0.4;">/</span>
+            <span class="breadcrumb-active-tag" id="headerBreadcrumbTitle">PUSAT LAPORAN & KIR</span>
+          </div>
+        </div>
+
+        <!-- Center: Search Command Bar -->
+        <div class="header-center-search">
+          <div class="search-box-input-wrap">
+            <svg class="search-input-icon" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" class="search-box-input" id="mainGlobalSearch" placeholder="Cari kode BMN, alat riset, ruangan... (Ctrl + K)">
+            <span class="search-shortcut-badge font-mono">Ctrl K</span>
+          </div>
+        </div>
+
+        <!-- Right: Theme Toggle, Notifications & Profile -->
+        <div class="header-right-cluster">
+          
+          <button class="btn-header-control" id="btnThemeToggle" title="Ganti Mode Tampilan (Terang / Gelap)" aria-label="Ganti Tema">
+            <svg id="themeIconSun" style="display: none;" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg id="themeIconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+
+          <div style="position: relative;">
+            <button class="btn-header-control" id="btnHeaderNotif" title="Pemberitahuan Sistem">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="notification-badge-counter font-mono" id="notifBadgeCount">3</span>
+            </button>
+
+            <div class="notifications-dropdown-card" id="dropdownNotifications">
+              <div class="notif-dropdown-head">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <strong style="color: var(--color-text-primary); font-size: 13px;">PEMBERITAHUAN</strong>
+                  <span class="status-badge-pill warning font-mono" id="notifHeaderPill">3 Baru</span>
+                </div>
+                <button class="notif-mark-read-btn" onclick="markAllNotificationsRead()">Tandai Dibaca</button>
+              </div>
+              <div class="notif-list-container" id="notifItemsContainer"></div>
+              <div class="notif-dropdown-foot">
+                <a href="maintenance.html" style="color: var(--color-accent-cobalt); text-decoration: none; font-size: 11px; font-weight: 700;">Lihat Seluruh Log Perawatan & Kalibrasi &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-profile-wrapper">
+            <button class="user-profile-button" id="btnHeaderProfile">
+              <div class="user-avatar-badge font-mono">HR</div>
+              <div class="user-meta-text">
+                <span class="user-meta-name">Haidar Reyhan</span>
+                <span class="user-meta-role">Biro Sarpras (Admin)</span>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+
+            <div class="user-menu-popover" id="dropdownProfile">
+              <div style="padding: 10px 14px; border-bottom: 1px solid var(--color-border-whisper);">
+                <div style="font-weight: 700; color: var(--color-text-primary); font-size: 12px;">Haidar Reyhan</div>
+                <div style="font-size: 11px; color: var(--color-text-muted); font-family: monospace;">NIP. 19820514 200812 1 001</div>
+              </div>
+              <a href="dashboard.html" class="user-menu-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                <span>Executive Dashboard</span>
+              </a>
+              <div style="border-top: 1px solid var(--color-border-whisper); margin: 4px 0;"></div>
+              <a href="../index.html" class="user-menu-item" style="color: var(--color-signal-critical);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                <span>Keluar / Logout</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </header>
+
+      <!-- ======================================================================
+           3. MAIN VIEWPORT: PUSAT LAPORAN & KIR
+           ====================================================================== -->
+      <main class="main-viewport">
+        
+        <div class="view-action-header">
+          <div class="view-title-group">
+            <h1>Pusat Laporan & Kartu Inventaris Ruangan (KIR)</h1>
+            <p>Penerbitan dokumen fisik resmi inventarisasi ruangan berstandar audit institusi</p>
+          </div>
+          <div class="view-header-buttons">
+            <select class="form-select-filter" id="kirRoomSelector" onchange="updateKirRoomView(this.value)" style="height: 38px;">
+              <option value="Lab Kimia Terpadu R.302">Lab Kimia Terpadu R.302</option>
+              <option value="Data Center Rektorat Lt. 1">Data Center Rektorat Lt. 1</option>
+              <option value="Smart Classroom 401">Smart Classroom 401</option>
+              <option value="Lab Riset Biomedik R.105">Lab Riset Biomedik R.105</option>
+              <option value="Workshop Mesin FT Lt. 1">Workshop Mesin FT Lt. 1</option>
+              <option value="Auditorium Graha Nusantara">Auditorium Graha Nusantara</option>
+            </select>
+            <button class="btn-action-primary" onclick="window.print()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect width="12" height="8" x="6" y="14"></rect>
+              </svg>
+              <span>Cetak Lembar KIR Resmi</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Official Document Frame -->
+        <div class="kir-official-document">
+          
+          <div class="kir-doc-header">
+            <h2 style="font-size: 13px; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase;">DIREKTORAT PENGELOLAAN SARANA DAN PRASARANA KAMPUS</h2>
+            <div class="kir-doc-title">KARTU INVENTARIS RUANGAN (KIR)</div>
+            <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">REGISTRASI: KIR/SARPRAS/GRT-R302/2026 &bull; TAHUN ANGGARAN 2026</div>
+          </div>
+
+          <div class="kir-meta-grid font-mono">
+            <div><strong>Gedung / Unit:</strong> <span id="kirBuildingName">Gedung Riset Terpadu Lt. 3</span></div>
+            <div><strong>Luas Efektif:</strong> <span id="kirAreaSpecs">128 m² (Kapasitas 40 Peneliti)</span></div>
+            <div><strong>Nama Ruangan:</strong> <span id="kirCurrentRoomName">Lab Kimia Terpadu R.302</span></div>
+            <div><strong>Penanggung Jawab:</strong> <span id="kirPjName">Dr. Retno Lestari, M.Si</span></div>
+          </div>
+
+          <div class="table-responsive-box">
+            <table class="data-table-main" style="border: 1px solid var(--color-border-whisper);">
+              <thead>
+                <tr>
+                  <th style="width: 40px;">NO</th>
+                  <th>KODE BMN (NUP)</th>
+                  <th>NAMA BARANG / PERALATAN</th>
+                  <th>MERK / MODEL</th>
+                  <th>NOMOR SERI PABRIK</th>
+                  <th>JUMLAH</th>
+                  <th>KONDISI</th>
+                </tr>
+              </thead>
+              <tbody id="kirTableListBody">
+                <!-- Dynamically updated by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Signatures -->
+          <div class="signatures-dual-block">
+            <div class="sig-person-box">
+              <span style="font-size: 11px; color: var(--color-text-muted);">Mengetahui & Menyetujui,</span>
+              <strong style="font-size: 13px; color: var(--color-text-primary);">Direktur Sarana dan Prasarana</strong>
+              <div class="sig-line-space"></div>
+              <strong style="color: var(--color-text-primary);">Dr. Ir. Hendra Wicaksono, M.T.</strong>
+              <span class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19760312 200112 1 002</span>
+            </div>
+
+            <div class="sig-person-box" style="text-align: right;">
+              <span style="font-size: 11px; color: var(--color-text-muted);">Tangerang Selatan, 10 Maret 2026</span>
+              <strong style="font-size: 13px; color: var(--color-text-primary);">Penanggung Jawab Ruangan</strong>
+              <div class="sig-line-space"></div>
+              <strong style="color: var(--color-text-primary);" id="kirSigPjName">Dr. Retno Lestari, M.Si</strong>
+              <span class="font-mono" style="font-size: 11px; color: var(--color-text-muted);" id="kirSigPjNip">NIP. 19820514 200812 2 001</span>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+
+      <!-- Institutional Footer -->
+      <footer class="site-footer">
+        <div>
+          <span>&copy; 2026 <strong>SARPRAS ACADEMIA</strong> - Sistem Informasi Manajemen Sarana dan Prasarana Kampus</span>
+        </div>
+        <div>
+          <span>Standar Tata Kelola Fasilitas Terakreditasi &bull; ISO 55001</span>
+        </div>
+      </footer>
+
+    </div>
+
+  </div>
+
+  <!-- Toast Stack -->
+  <div class="toast-stack" id="toastContainer" aria-live="polite"></div>
+
+  <!-- JavaScript Client-Side Engine -->
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
