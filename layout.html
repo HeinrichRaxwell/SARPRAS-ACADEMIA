@@ -606,12 +606,24 @@
                     <th style="width: 40px; text-align: center;">
                       <input type="checkbox" id="masterCheckbox" title="Pilih Semua">
                     </th>
-                    <th>KODE ASET (BMN)</th>
-                    <th>NAMA PERALATAN & SPESIFIKASI</th>
-                    <th>KATEGORI</th>
-                    <th>PENEMPATAN RUANGAN</th>
-                    <th>NILAI PEROLEHAN</th>
-                    <th>KONDISI</th>
+                    <th onclick="toggleSort('code')" style="cursor: pointer;" title="Klik untuk mengurutkan">
+                      KODE ASET (BMN) <span id="sortIndicator-code" style="color: var(--color-accent-cobalt);">▲</span>
+                    </th>
+                    <th onclick="toggleSort('name')" style="cursor: pointer;" title="Klik untuk mengurutkan">
+                      NAMA PERALATAN & SPESIFIKASI <span id="sortIndicator-name">↕</span>
+                    </th>
+                    <th onclick="toggleSort('category')" style="cursor: pointer;" title="Klik untuk mengurutkan">
+                      KATEGORI <span id="sortIndicator-category">↕</span>
+                    </th>
+                    <th onclick="toggleSort('room')" style="cursor: pointer;" title="Klik untuk mengurutkan">
+                      PENEMPATAN RUANGAN <span id="sortIndicator-room">↕</span>
+                    </th>
+                    <th onclick="toggleSort('price')" style="cursor: pointer;" title="Klik untuk mengurutkan">
+                      NILAI PEROLEHAN <span id="sortIndicator-price">↕</span>
+                    </th>
+                    <th onclick="toggleSort('condition')" style="cursor: pointer;" title="Klik untuk mengurutkan">
+                      KONDISI <span id="sortIndicator-condition">↕</span>
+                    </th>
                     <th style="text-align: right;">AKSI</th>
                   </tr>
                 </thead>
@@ -623,13 +635,8 @@
 
             <div class="table-bottom-bar">
               <span id="showingRecordsText" style="font-weight: 500;">Menampilkan record inventaris tervalidasi</span>
-              <div class="pagination-pills">
-                <button class="btn-page-number" onclick="triggerToast('Halaman sebelumnya')">&lt;</button>
-                <button class="btn-page-number active">1</button>
-                <button class="btn-page-number" onclick="triggerToast('Buka halaman 2')">2</button>
-                <button class="btn-page-number" onclick="triggerToast('Buka halaman 3')">3</button>
-                <span style="padding: 0 4px;">...</span>
-                <button class="btn-page-number" onclick="triggerToast('Halaman berikutnya')">&gt;</button>
+              <div class="pagination-pills" id="inventoryPaginationControls">
+                <!-- Dynamic pagination buttons rendered via JS -->
               </div>
             </div>
           </div>
@@ -763,14 +770,91 @@
                       </div>
                       
                       <div class="thermal-body-grid">
-                        <div class="thermal-qr-mock font-mono" style="font-size: 10px; font-weight: 700;">
-                          [QR]
+                        <div class="thermal-qr-mock">
+                          <svg viewBox="0 0 33 33" width="56" height="56" fill="#0F172A">
+                            <rect width="33" height="33" fill="#FFFFFF"/>
+                            <rect x="2" y="2" width="7" height="7" fill="#0F172A"/>
+                            <rect x="3" y="3" width="5" height="5" fill="#FFFFFF"/>
+                            <rect x="4" y="4" width="3" height="3" fill="#0F172A"/>
+                            <rect x="24" y="2" width="7" height="7" fill="#0F172A"/>
+                            <rect x="25" y="3" width="5" height="5" fill="#FFFFFF"/>
+                            <rect x="26" y="4" width="3" height="3" fill="#0F172A"/>
+                            <rect x="2" y="24" width="7" height="7" fill="#0F172A"/>
+                            <rect x="3" y="25" width="5" height="5" fill="#FFFFFF"/>
+                            <rect x="4" y="26" width="3" height="3" fill="#0F172A"/>
+                            <rect x="11" y="4" width="2" height="2" fill="#0F172A"/>
+                            <rect x="15" y="4" width="2" height="2" fill="#0F172A"/>
+                            <rect x="19" y="4" width="2" height="2" fill="#0F172A"/>
+                            <rect x="11" y="8" width="2" height="2" fill="#0F172A"/>
+                            <rect x="17" y="8" width="2" height="2" fill="#0F172A"/>
+                            <rect x="4" y="11" width="2" height="2" fill="#0F172A"/>
+                            <rect x="8" y="11" width="2" height="2" fill="#0F172A"/>
+                            <rect x="13" y="12" width="3" height="3" fill="#0F172A"/>
+                            <rect x="20" y="13" width="2" height="2" fill="#0F172A"/>
+                            <rect x="27" y="11" width="2" height="2" fill="#0F172A"/>
+                            <rect x="4" y="15" width="2" height="2" fill="#0F172A"/>
+                            <rect x="10" y="17" width="2" height="2" fill="#0F172A"/>
+                            <rect x="14" y="18" width="2" height="2" fill="#0F172A"/>
+                            <rect x="18" y="17" width="2" height="2" fill="#0F172A"/>
+                            <rect x="24" y="16" width="2" height="2" fill="#0F172A"/>
+                            <rect x="28" y="18" width="2" height="2" fill="#0F172A"/>
+                            <rect x="11" y="22" width="2" height="2" fill="#0F172A"/>
+                            <rect x="16" y="24" width="2" height="2" fill="#0F172A"/>
+                            <rect x="22" y="23" width="2" height="2" fill="#0F172A"/>
+                            <rect x="26" y="25" width="2" height="2" fill="#0F172A"/>
+                          </svg>
                         </div>
-                        <div style="flex: 1; min-width: 0; line-height: 1.3;">
-                          <div class="font-mono" style="font-size: 13px; font-weight: 700; color: #0F172A;" id="stickerCodeDisplay">AST-LAB-2026-090</div>
-                          <div style="font-size: 11px; font-weight: 700; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="stickerNameDisplay">Spektrofotometer UV-Vis</div>
+                        <div style="flex: 1; min-width: 0; line-height: 1.35;">
+                          <div class="font-mono" style="font-size: 13px; font-weight: 800; color: #0F172A;" id="stickerCodeDisplay">AST-LAB-2026-090</div>
+                          <div style="font-size: 11px; font-weight: 700; color: #1E293B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="stickerNameDisplay">Spektrofotometer UV-Vis</div>
                           <div style="font-size: 10px; color: #64748B; margin-top: 2px;" id="stickerRoomDisplay">Lab Kimia Terpadu R.302</div>
                         </div>
+                      </div>
+
+                      <!-- 1D Linear Barcode Strip -->
+                      <div style="margin-top: 6px; padding-top: 6px; border-top: 1px dashed #E2E8F0; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                        <svg viewBox="0 0 160 24" width="100%" height="22" fill="#0F172A">
+                          <rect x="0" y="0" width="2" height="24"/>
+                          <rect x="3" y="0" width="1" height="24"/>
+                          <rect x="6" y="0" width="3" height="24"/>
+                          <rect x="11" y="0" width="2" height="24"/>
+                          <rect x="15" y="0" width="1" height="24"/>
+                          <rect x="18" y="0" width="3" height="24"/>
+                          <rect x="23" y="0" width="2" height="24"/>
+                          <rect x="27" y="0" width="1" height="24"/>
+                          <rect x="30" y="0" width="4" height="24"/>
+                          <rect x="36" y="0" width="2" height="24"/>
+                          <rect x="40" y="0" width="1" height="24"/>
+                          <rect x="43" y="0" width="3" height="24"/>
+                          <rect x="48" y="0" width="2" height="24"/>
+                          <rect x="52" y="0" width="2" height="24"/>
+                          <rect x="56" y="0" width="1" height="24"/>
+                          <rect x="59" y="0" width="4" height="24"/>
+                          <rect x="65" y="0" width="2" height="24"/>
+                          <rect x="69" y="0" width="1" height="24"/>
+                          <rect x="72" y="0" width="3" height="24"/>
+                          <rect x="77" y="0" width="2" height="24"/>
+                          <rect x="81" y="0" width="1" height="24"/>
+                          <rect x="84" y="0" width="4" height="24"/>
+                          <rect x="90" y="0" width="2" height="24"/>
+                          <rect x="94" y="0" width="2" height="24"/>
+                          <rect x="98" y="0" width="1" height="24"/>
+                          <rect x="101" y="0" width="3" height="24"/>
+                          <rect x="106" y="0" width="2" height="24"/>
+                          <rect x="110" y="0" width="1" height="24"/>
+                          <rect x="113" y="0" width="4" height="24"/>
+                          <rect x="119" y="0" width="2" height="24"/>
+                          <rect x="123" y="0" width="1" height="24"/>
+                          <rect x="126" y="0" width="3" height="24"/>
+                          <rect x="131" y="0" width="2" height="24"/>
+                          <rect x="135" y="0" width="2" height="24"/>
+                          <rect x="139" y="0" width="1" height="24"/>
+                          <rect x="142" y="0" width="4" height="24"/>
+                          <rect x="148" y="0" width="2" height="24"/>
+                          <rect x="152" y="0" width="1" height="24"/>
+                          <rect x="155" y="0" width="3" height="24"/>
+                        </svg>
+                        <span class="font-mono" style="font-size: 9px; font-weight: 700; color: #475569; letter-spacing: 0.08em;" id="stickerBarcodeText">AST-LAB-2026-090</span>
                       </div>
                     </div>
                   </div>
@@ -804,6 +888,9 @@
                 <option value="Lab Kimia Terpadu R.302">Lab Kimia Terpadu R.302</option>
                 <option value="Data Center Rektorat Lt. 1">Data Center Rektorat Lt. 1</option>
                 <option value="Smart Classroom 401">Smart Classroom 401</option>
+                <option value="Lab Riset Biomedik R.105">Lab Riset Biomedik R.105</option>
+                <option value="Workshop Mesin FT Lt. 1">Workshop Mesin FT Lt. 1</option>
+                <option value="Auditorium Graha Nusantara">Auditorium Graha Nusantara</option>
               </select>
               <button class="btn-action-primary" onclick="window.print()">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -826,10 +913,10 @@
             </div>
 
             <div class="kir-meta-grid font-mono">
-              <div><strong>Gedung / Unit:</strong> Gedung Riset Terpadu Lt. 3</div>
-              <div><strong>Luas Efektif Ruangan:</strong> 128 m² (Kapasitas 40 Peneliti)</div>
+              <div><strong>Gedung / Unit:</strong> <span id="kirBuildingName">Gedung Riset Terpadu Lt. 3</span></div>
+              <div><strong>Luas Efektif:</strong> <span id="kirAreaSpecs">128 m² (Kapasitas 40 Peneliti)</span></div>
               <div><strong>Nama Ruangan:</strong> <span id="kirCurrentRoomName">Lab Kimia Terpadu R.302</span></div>
-              <div><strong>Penanggung Jawab (PJ):</strong> Dr. Retno Lestari, M.Si</div>
+              <div><strong>Penanggung Jawab:</strong> <span id="kirPjName">Dr. Retno Lestari, M.Si</span></div>
             </div>
 
             <div class="table-responsive-box">
@@ -900,8 +987,8 @@
                 <span style="font-size: 11px; color: var(--color-text-muted);">Tangerang Selatan, 10 Maret 2026</span>
                 <strong style="font-size: 13px; color: var(--color-text-primary);">Penanggung Jawab Ruangan</strong>
                 <div class="sig-line-space"></div>
-                <strong style="color: var(--color-text-primary);">Dr. Retno Lestari, M.Si</strong>
-                <span class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19820514 200812 2 001</span>
+                <strong style="color: var(--color-text-primary);" id="kirSigPjName">Dr. Retno Lestari, M.Si</strong>
+                <span class="font-mono" style="font-size: 11px; color: var(--color-text-muted);" id="kirSigPjNip">NIP. 19820514 200812 2 001</span>
               </div>
             </div>
 

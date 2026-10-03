@@ -1,712 +1,943 @@
-// State Store (In-Memory Mock Database)
-    let inventoryData = [
-      { code: "AST-LAB-2026-089", name: "Spektrofotometer UV-Vis Shimadzu UV-2600i", category: "Laboratorium", room: "Lab Kimia Terpadu R.302", price: 285000000, condition: "Perawatan" },
-      { code: "AST-TIK-2025-014", name: "Dell PowerEdge R750 Compute Server Node", category: "IT", room: "Data Center Rektorat Lt. 1", price: 180000000, condition: "Baik" },
-      { code: "AST-MED-2024-118", name: "Mikroskop Fluoresensi Leica DM2500 Plan-Apo", category: "Laboratorium", room: "Lab Riset Biomedik R.105", price: 310000000, condition: "Perawatan" },
-      { code: "AST-TEK-2025-055", name: "Universal Testing Machine Shimadzu 100kN", category: "Laboratorium", room: "Workshop Mesin FT Lt. 1", price: 520000000, condition: "Rusak Berat" },
-      { code: "AST-FAC-2023-008", name: "Chiller HVAC Central Daikin 40 TR Modular", category: "Fasilitas", room: "Gedung Rektorat", price: 425000000, condition: "Perawatan" },
-      { code: "AST-KLS-2025-032", name: "Interactive Smart Board Touch 85 Inch 4K", category: "Ruang Kuliah", room: "Smart Classroom 401", price: 85000000, condition: "Baik" }
-    ];
+// ==========================================================================
+// SARPRAS ACADEMIA - CLIENT-SIDE JAVASCRIPT APPLICATION ENGINE
+// ==========================================================================
 
-    let currentSelectedAfkirIndex = null;
-    let growthChartInstance = null;
-    let categoryChartInstance = null;
+// Mock State Database (Preloaded with Realistic Academic Assets)
+let inventoryData = [
+  { code: "AST-LAB-2026-089", name: "Spektrofotometer UV-Vis Shimadzu UV-2600i", category: "Laboratorium", room: "Lab Kimia Terpadu R.302", price: 285000000, condition: "Perawatan", serial: "893-KM-2026-X901", model: "Shimadzu UV-2600i" },
+  { code: "AST-TIK-2025-014", name: "Dell PowerEdge R750 Compute Server Node", category: "IT", room: "Data Center Rektorat Lt. 1", price: 180000000, condition: "Baik", serial: "DELL-R750-SRV-091", model: "Dell EMC PowerEdge R750" },
+  { code: "AST-MED-2024-118", name: "Mikroskop Fluoresensi Leica DM2500 Plan-Apo", category: "Laboratorium", room: "Lab Riset Biomedik R.105", price: 310000000, condition: "Perawatan", serial: "LCA-DM25-9921", model: "Leica DM2500 Plan" },
+  { code: "AST-TEK-2025-055", name: "Universal Testing Machine Shimadzu 100kN", category: "Laboratorium", room: "Workshop Mesin FT Lt. 1", price: 520000000, condition: "Rusak Berat", serial: "SHM-UTM-100K-08", model: "Shimadzu AGX-V 100kN" },
+  { code: "AST-FAC-2023-008", name: "Chiller HVAC Central Daikin 40 TR Modular", category: "Fasilitas", room: "Auditorium Graha Nusantara", price: 425000000, condition: "Perawatan", serial: "DKN-40TR-CENT-02", model: "Daikin Modular Water Chiller" },
+  { code: "AST-KLS-2025-032", name: "Interactive Smart Board Touch 85 Inch 4K", category: "Ruang Kuliah", room: "Smart Classroom 401", price: 85000000, condition: "Baik", serial: "SMR-85IN-4K-2025", model: "Newline Interactive 85\" 4K" },
+  { code: "AST-LAB-2024-042", name: "High Performance Liquid Chromatography (HPLC)", category: "Laboratorium", room: "Lab Kimia Terpadu R.302", price: 480000000, condition: "Baik", serial: "WTR-HPLC-99210", model: "Waters Alliance e2695" },
+  { code: "AST-TIK-2026-002", name: "Cisco Catalyst 9300 Core Switch 48-Port PoE+", category: "IT", room: "Data Center Rektorat Lt. 1", price: 95000000, condition: "Baik", serial: "CSC-C9300-48P-ID", model: "Cisco Catalyst 9300" },
+  { code: "AST-KLS-2024-077", name: "Sistem Proyektor Laser Epson 4K 6000 ANSI", category: "Ruang Kuliah", room: "Smart Classroom 401", price: 42000000, condition: "Baik", serial: "EPS-L6000-4K-077", model: "Epson EB-L630U Laser" },
+  { code: "AST-MED-2025-029", name: "Refrigerated Centrifuge 15.000 RPM Sorvall", category: "Laboratorium", room: "Lab Riset Biomedik R.105", price: 165000000, condition: "Baik", serial: "TF-SRV-15K-029", model: "Thermo Scientific Sorvall Legend" },
+  { code: "AST-TEK-2023-019", name: "Mesin Bubut CNC Mini Precision Lathe Trainer", category: "Laboratorium", room: "Workshop Mesin FT Lt. 1", price: 215000000, condition: "Baik", serial: "CNC-LTH-FT-2023", model: "Optimum CNC L28HS" },
+  { code: "AST-FAC-2025-104", name: "Sound System Array & Audio Mixer 32-Channel", category: "Fasilitas", room: "Auditorium Graha Nusantara", price: 125000000, condition: "Baik", serial: "YMH-TF5-MIX-32", model: "Yamaha TF5 Digital Console" }
+];
 
-    document.addEventListener('DOMContentLoaded', () => {
-      // 1. Initial Theme Check (Light Mode Default)
-      const savedTheme = localStorage.getItem('sarpras_theme') || 'light';
-      setTheme(savedTheme);
+// Room metadata for KIR and directory synchronization
+const roomMetadata = {
+  "Lab Kimia Terpadu R.302": {
+    building: "Gedung Riset Terpadu Lt. 3",
+    area: "128 m² (Kapasitas 40 Peneliti / Mahasiswa)",
+    pj: "Dr. Retno Lestari, M.Si",
+    nip: "19820514 200812 2 001"
+  },
+  "Data Center Rektorat Lt. 1": {
+    building: "Gedung Rektorat Lt. 1",
+    area: "85 m² (Tier-3 Standard, Suhu Terkendali 18°C)",
+    pj: "Ir. Faisal Akbar, M.Kom",
+    nip: "19790820 200501 1 003"
+  },
+  "Smart Classroom 401": {
+    building: "Gedung Kuliah Bersama Lt. 4",
+    area: "90 m² (Kapasitas 60 Mahasiswa)",
+    pj: "Dr. Budi Santoso, M.Pd",
+    nip: "19810217 200701 1 002"
+  },
+  "Lab Riset Biomedik R.105": {
+    building: "Gedung Riset Terpadu Lt. 1",
+    area: "110 m² (Cleanroom Class 10.000)",
+    pj: "Dr. Nurul Hidayah, Sp.PK",
+    nip: "19850412 201101 2 004"
+  },
+  "Workshop Mesin FT Lt. 1": {
+    building: "Gedung Teknik Mesin Lt. 1",
+    area: "240 m² (Kapasitas 50 Mahasiswa Praktik)",
+    pj: "Ir. Taufik Hidayat, M.T.",
+    nip: "19751108 200003 1 001"
+  },
+  "Auditorium Graha Nusantara": {
+    building: "Gedung Rektorat Lt. 2",
+    area: "850 m² (Kapasitas 1.200 Kursi Acara)",
+    pj: "Biro Umum & Rumah Tangga",
+    nip: "19760312 200112 1 002"
+  }
+};
 
-      // 1b. Initialize Interactive Chart.js Visualizations
-      initCharts();
+// Pagination & Sorting State
+let currentPage = 1;
+const pageSize = 5;
+let currentSortColumn = 'code';
+let currentSortOrder = 'asc'; // 'asc' or 'desc'
+let currentSelectedAfkirIndex = null;
 
-      // 2. Render Initial Master Data Table
-      renderInventoryTable();
+// Chart Instances
+let growthChartInstance = null;
+let categoryChartInstance = null;
 
-      // 3. Setup Navigation Tab Listeners
-      const navLinks = document.querySelectorAll('.nav-item-link');
-      navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetViewId = link.getAttribute('data-target');
-          navigateToTab(targetViewId);
-        });
-      });
+// ==========================================================================
+// DOM INITIALIZATION
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Theme Initialization (Default Light)
+  const savedTheme = localStorage.getItem('sarpras_theme') || 'light';
+  setTheme(savedTheme);
 
-      // Quick CTA in sidebar
-      const btnSidebarRegister = document.getElementById('btnSidebarRegister');
-      if (btnSidebarRegister) {
-        btnSidebarRegister.addEventListener('click', () => {
-          navigateToTab('view-form-aset');
-        });
+  // 2. Initialize Visual Charts (Chart.js)
+  initCharts();
+
+  // 3. Render Master Data Table & Pagination
+  renderInventoryTable();
+
+  // 4. Initialize KIR Table for Default Room
+  updateKirRoomView("Lab Kimia Terpadu R.302");
+
+  // 5. Navigation Tab Listeners
+  const navLinks = document.querySelectorAll('.nav-item-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetViewId = link.getAttribute('data-target');
+      navigateToTab(targetViewId);
+    });
+  });
+
+  // Quick CTA in sidebar
+  const btnSidebarRegister = document.getElementById('btnSidebarRegister');
+  if (btnSidebarRegister) {
+    btnSidebarRegister.addEventListener('click', () => {
+      navigateToTab('view-form-aset');
+    });
+  }
+
+  // 6. Theme Toggle Button
+  const btnThemeToggle = document.getElementById('btnThemeToggle');
+  if (btnThemeToggle) {
+    btnThemeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      const next = current === 'light' ? 'dark' : 'light';
+      setTheme(next);
+      triggerToast(`Tampilan diubah ke Mode ${next === 'light' ? 'Terang' : 'Gelap'}`);
+    });
+  }
+
+  // 7. Sidebar Collapse & Expand
+  const btnToggleSidebarRail = document.getElementById('btnToggleSidebarRail');
+  const sidebarRail = document.getElementById('sidebarRail');
+  if (btnToggleSidebarRail && sidebarRail) {
+    btnToggleSidebarRail.addEventListener('click', () => {
+      sidebarRail.classList.toggle('collapsed');
+      const isCollapsed = sidebarRail.classList.contains('collapsed');
+      const toggleText = btnToggleSidebarRail.querySelector('.toggle-text');
+      if (toggleText) toggleText.textContent = isCollapsed ? '' : 'Perkecil Menu';
+    });
+  }
+
+  // 8. Mobile Drawer Navigation
+  const btnMobileNavToggle = document.getElementById('btnMobileNavToggle');
+  if (btnMobileNavToggle && sidebarRail) {
+    btnMobileNavToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebarRail.classList.toggle('mobile-open');
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (sidebarRail && sidebarRail.classList.contains('mobile-open') && !sidebarRail.contains(e.target)) {
+      sidebarRail.classList.remove('mobile-open');
+    }
+  });
+
+  // 9. Popovers Toggle (Notifications & Profile)
+  const btnHeaderNotif = document.getElementById('btnHeaderNotif');
+  const dropdownNotifications = document.getElementById('dropdownNotifications');
+  const btnHeaderProfile = document.getElementById('btnHeaderProfile');
+  const dropdownProfile = document.getElementById('dropdownProfile');
+
+  if (btnHeaderNotif && dropdownNotifications) {
+    btnHeaderNotif.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (dropdownProfile) dropdownProfile.classList.remove('show');
+      dropdownNotifications.classList.toggle('show');
+    });
+  }
+
+  if (btnHeaderProfile && dropdownProfile) {
+    btnHeaderProfile.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (dropdownNotifications) dropdownNotifications.classList.remove('show');
+      dropdownProfile.classList.toggle('show');
+    });
+  }
+
+  document.addEventListener('click', () => {
+    if (dropdownNotifications) dropdownNotifications.classList.remove('show');
+    if (dropdownProfile) dropdownProfile.classList.remove('show');
+  });
+
+  // 10. Global Keyboard Shortcuts (Ctrl + K to Search, Esc to Dismiss)
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      const searchInput = document.getElementById('mainGlobalSearch');
+      if (searchInput) {
+        searchInput.focus();
+        searchInput.select();
+        triggerToast('Bilah pencarian cepat aktif');
       }
+    }
+    if (e.key === 'Escape') {
+      closeModal('modalDecommission');
+      closeModal('modalBorrow');
+      closeModal('modalWorkOrder');
+      if (dropdownNotifications) dropdownNotifications.classList.remove('show');
+      if (dropdownProfile) dropdownProfile.classList.remove('show');
+    }
+  });
 
-      // 4. Setup Theme Toggle Button
-      const btnThemeToggle = document.getElementById('btnThemeToggle');
-      if (btnThemeToggle) {
-        btnThemeToggle.addEventListener('click', () => {
-          const current = document.documentElement.getAttribute('data-theme') || 'light';
-          const next = current === 'light' ? 'dark' : 'light';
-          setTheme(next);
-          triggerToast(`Tampilan diubah ke Mode ${next === 'light' ? 'Terang' : 'Gelap'}`);
-        });
-      }
-
-      // 5. Sidebar Collapse Toggle
-      const btnToggleSidebarRail = document.getElementById('btnToggleSidebarRail');
-      const sidebarRail = document.getElementById('sidebarRail');
-      if (btnToggleSidebarRail && sidebarRail) {
-        btnToggleSidebarRail.addEventListener('click', () => {
-          sidebarRail.classList.toggle('collapsed');
-          const isCollapsed = sidebarRail.classList.contains('collapsed');
-          const toggleText = btnToggleSidebarRail.querySelector('.toggle-text');
-          if (toggleText) toggleText.textContent = isCollapsed ? '' : 'Perkecil Menu';
-        });
-      }
-
-      // 6. Mobile Drawer Toggle
-      const btnMobileNavToggle = document.getElementById('btnMobileNavToggle');
-      if (btnMobileNavToggle && sidebarRail) {
-        btnMobileNavToggle.addEventListener('click', (e) => {
-          e.stopPropagation();
-          sidebarRail.classList.toggle('mobile-open');
-        });
-      }
-
-      document.addEventListener('click', (e) => {
-        if (sidebarRail && sidebarRail.classList.contains('mobile-open') && !sidebarRail.contains(e.target)) {
-          sidebarRail.classList.remove('mobile-open');
+  // Header Search Input (Press Enter -> Filters Master Data)
+  const mainGlobalSearch = document.getElementById('mainGlobalSearch');
+  if (mainGlobalSearch) {
+    mainGlobalSearch.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = mainGlobalSearch.value.trim();
+        navigateToTab('view-data-master');
+        const tableFilterInput = document.getElementById('tableFilterInput');
+        if (tableFilterInput) {
+          tableFilterInput.value = val;
+          currentPage = 1;
+          renderInventoryTable();
+          triggerToast(`Menyaring data dengan kata kunci: "${val}"`);
         }
-      });
-
-      // 7. Popovers Toggle
-      const btnHeaderNotif = document.getElementById('btnHeaderNotif');
-      const dropdownNotifications = document.getElementById('dropdownNotifications');
-      const btnHeaderProfile = document.getElementById('btnHeaderProfile');
-      const dropdownProfile = document.getElementById('dropdownProfile');
-
-      if (btnHeaderNotif && dropdownNotifications) {
-        btnHeaderNotif.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (dropdownProfile) dropdownProfile.classList.remove('show');
-          dropdownNotifications.classList.toggle('show');
-        });
-      }
-
-      if (btnHeaderProfile && dropdownProfile) {
-        btnHeaderProfile.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (dropdownNotifications) dropdownNotifications.classList.remove('show');
-          dropdownProfile.classList.toggle('show');
-        });
-      }
-
-      document.addEventListener('click', () => {
-        if (dropdownNotifications) dropdownNotifications.classList.remove('show');
-        if (dropdownProfile) dropdownProfile.classList.remove('show');
-      });
-
-      // 8. Global Keyboard Shortcut
-      document.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-          e.preventDefault();
-          const searchInput = document.getElementById('mainGlobalSearch');
-          if (searchInput) {
-            searchInput.focus();
-            searchInput.select();
-            triggerToast('Bilah pencarian cepat aktif');
-          }
-        }
-        if (e.key === 'Escape') {
-          closeModal('modalDecommission');
-          closeModal('modalBorrow');
-          closeModal('modalWorkOrder');
-          if (dropdownNotifications) dropdownNotifications.classList.remove('show');
-          if (dropdownProfile) dropdownProfile.classList.remove('show');
-        }
-      });
-
-      // Search bar filter on Enter
-      const mainGlobalSearch = document.getElementById('mainGlobalSearch');
-      if (mainGlobalSearch) {
-        mainGlobalSearch.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            const val = mainGlobalSearch.value.trim();
-            navigateToTab('view-data-master');
-            const tableFilterInput = document.getElementById('tableFilterInput');
-            if (tableFilterInput) {
-              tableFilterInput.value = val;
-              renderInventoryTable();
-              triggerToast(`Menyaring data dengan kata kunci: "${val}"`);
-            }
-          }
-        });
-      }
-
-      // 9. Table Filter Inputs Live Event Listeners
-      const tableFilterInput = document.getElementById('tableFilterInput');
-      const selectKategoriFilter = document.getElementById('selectKategoriFilter');
-      const selectKondisiFilter = document.getElementById('selectKondisiFilter');
-
-      if (tableFilterInput) tableFilterInput.addEventListener('input', renderInventoryTable);
-      if (selectKategoriFilter) selectKategoriFilter.addEventListener('change', renderInventoryTable);
-      if (selectKondisiFilter) selectKondisiFilter.addEventListener('change', renderInventoryTable);
-
-      // Master Checkbox
-      const masterCheckbox = document.getElementById('masterCheckbox');
-      if (masterCheckbox) {
-        masterCheckbox.addEventListener('change', () => {
-          const rowBoxes = document.querySelectorAll('.table-row-cb');
-          rowBoxes.forEach(cb => cb.checked = masterCheckbox.checked);
-          if (masterCheckbox.checked) {
-            triggerToast(`${rowBoxes.length} sarana dipilih sekaligus`);
-          }
-        });
-      }
-
-      // 10. Live Form Field Synchronizer to Barcode Thermal Sticker
-      const formInputCode = document.getElementById('formInputCode');
-      const formInputName = document.getElementById('formInputName');
-      const formInputRoom = document.getElementById('formInputRoom');
-      const formInputPrice = document.getElementById('formInputPrice');
-      const stickerCodeDisplay = document.getElementById('stickerCodeDisplay');
-      const stickerNameDisplay = document.getElementById('stickerNameDisplay');
-      const stickerRoomDisplay = document.getElementById('stickerRoomDisplay');
-      const formPricePreviewFormatted = document.getElementById('formPricePreviewFormatted');
-
-      if (formInputCode && stickerCodeDisplay) {
-        formInputCode.addEventListener('input', () => {
-          stickerCodeDisplay.textContent = formInputCode.value || 'AST-LAB-2026-090';
-        });
-      }
-
-      if (formInputName && stickerNameDisplay) {
-        formInputName.addEventListener('input', () => {
-          stickerNameDisplay.textContent = formInputName.value || 'Nama Peralatan Sarpras';
-        });
-      }
-
-      if (formInputRoom && stickerRoomDisplay) {
-        formInputRoom.addEventListener('change', () => {
-          stickerRoomDisplay.textContent = formInputRoom.value;
-        });
-      }
-
-      if (formInputPrice && formPricePreviewFormatted) {
-        formInputPrice.addEventListener('input', () => {
-          const val = Number(formInputPrice.value) || 0;
-          formPricePreviewFormatted.textContent = 'Rp ' + val.toLocaleString('id-ID') + ',00';
-        });
       }
     });
+  }
 
-    // ==========================================================================
-    // THEME ENGINE
-    // ==========================================================================
-    function setTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('sarpras_theme', theme);
-      const sun = document.getElementById('themeIconSun');
-      const moon = document.getElementById('themeIconMoon');
-      if (sun && moon) {
-        if (theme === 'dark') {
-          sun.style.display = 'block';
-          moon.style.display = 'none';
-        } else {
-          sun.style.display = 'none';
-          moon.style.display = 'block';
+  // 11. Table Filter Event Listeners
+  const tableFilterInput = document.getElementById('tableFilterInput');
+  const selectKategoriFilter = document.getElementById('selectKategoriFilter');
+  const selectKondisiFilter = document.getElementById('selectKondisiFilter');
+
+  if (tableFilterInput) {
+    tableFilterInput.addEventListener('input', () => {
+      currentPage = 1;
+      renderInventoryTable();
+    });
+  }
+  if (selectKategoriFilter) {
+    selectKategoriFilter.addEventListener('change', () => {
+      currentPage = 1;
+      renderInventoryTable();
+    });
+  }
+  if (selectKondisiFilter) {
+    selectKondisiFilter.addEventListener('change', () => {
+      currentPage = 1;
+      renderInventoryTable();
+    });
+  }
+
+  // Master Checkbox Logic
+  const masterCheckbox = document.getElementById('masterCheckbox');
+  if (masterCheckbox) {
+    masterCheckbox.addEventListener('change', () => {
+      const rowBoxes = document.querySelectorAll('.table-row-cb');
+      rowBoxes.forEach(cb => cb.checked = masterCheckbox.checked);
+      if (masterCheckbox.checked) {
+        triggerToast(`${rowBoxes.length} sarana pada halaman ini dipilih`);
+      }
+    });
+  }
+
+  // 12. Form Live Synchronizer to Thermal Sticker Barcode Tag
+  const formInputCode = document.getElementById('formInputCode');
+  const formInputName = document.getElementById('formInputName');
+  const formInputRoom = document.getElementById('formInputRoom');
+  const formInputPrice = document.getElementById('formInputPrice');
+  const stickerCodeDisplay = document.getElementById('stickerCodeDisplay');
+  const stickerNameDisplay = document.getElementById('stickerNameDisplay');
+  const stickerRoomDisplay = document.getElementById('stickerRoomDisplay');
+  const stickerBarcodeText = document.getElementById('stickerBarcodeText');
+  const formPricePreviewFormatted = document.getElementById('formPricePreviewFormatted');
+
+  if (formInputCode) {
+    formInputCode.addEventListener('input', () => {
+      const val = formInputCode.value || 'AST-LAB-2026-090';
+      if (stickerCodeDisplay) stickerCodeDisplay.textContent = val;
+      if (stickerBarcodeText) stickerBarcodeText.textContent = val;
+    });
+  }
+
+  if (formInputName && stickerNameDisplay) {
+    formInputName.addEventListener('input', () => {
+      stickerNameDisplay.textContent = formInputName.value || 'Nama Peralatan Sarpras';
+    });
+  }
+
+  if (formInputRoom && stickerRoomDisplay) {
+    formInputRoom.addEventListener('change', () => {
+      stickerRoomDisplay.textContent = formInputRoom.value;
+    });
+  }
+
+  if (formInputPrice && formPricePreviewFormatted) {
+    formInputPrice.addEventListener('input', () => {
+      const val = Number(formInputPrice.value) || 0;
+      formPricePreviewFormatted.textContent = 'Rp ' + val.toLocaleString('id-ID') + ',00';
+    });
+  }
+});
+
+// ==========================================================================
+// THEME SWITCHER
+// ==========================================================================
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('sarpras_theme', theme);
+  const sun = document.getElementById('themeIconSun');
+  const moon = document.getElementById('themeIconMoon');
+  if (sun && moon) {
+    if (theme === 'dark') {
+      sun.style.display = 'block';
+      moon.style.display = 'none';
+    } else {
+      sun.style.display = 'none';
+      moon.style.display = 'block';
+    }
+  }
+  // Re-render chart color options on theme switch
+  initCharts();
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  setTheme(current === 'light' ? 'dark' : 'light');
+}
+
+// ==========================================================================
+// INTERACTIVE CHART.JS INTEGRATION
+// ==========================================================================
+function initCharts() {
+  if (typeof Chart === 'undefined') return;
+
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const textColor = isDark ? '#9CA3AF' : '#4B5563';
+  const titleColor = isDark ? '#F9FAFB' : '#111827';
+  const gridColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)';
+  const tooltipBg = isDark ? '#1F2937' : '#FFFFFF';
+  const tooltipBorder = isDark ? 'rgba(255, 255, 255, 0.12)' : '#E2E8F0';
+
+  Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+  Chart.defaults.font.size = 11;
+
+  // 1. Asset Valuation & Growth Combo Chart
+  const ctxGrowth = document.getElementById('assetGrowthChart');
+  if (ctxGrowth) {
+    if (growthChartInstance) growthChartInstance.destroy();
+    
+    growthChartInstance = new Chart(ctxGrowth, {
+      type: 'bar',
+      data: {
+        labels: ['2022', '2023', '2024', '2025', '2026 (Berjalan)'],
+        datasets: [
+          {
+            type: 'line',
+            label: 'Valuasi Kumulatif (Miliar Rp)',
+            data: [2.45, 3.10, 3.85, 4.32, 4.85],
+            borderColor: isDark ? '#3B82F6' : '#1D4ED8',
+            backgroundColor: isDark ? 'rgba(59, 130, 246, 0.15)' : 'rgba(29, 78, 216, 0.08)',
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.35,
+            pointBackgroundColor: isDark ? '#3B82F6' : '#1D4ED8',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            yAxisID: 'yValuasi'
+          },
+          {
+            type: 'bar',
+            label: 'Pengadaan Unit Baru',
+            data: [120, 185, 210, 245, 182],
+            backgroundColor: isDark ? 'rgba(16, 185, 129, 0.45)' : 'rgba(5, 150, 105, 0.35)',
+            borderColor: isDark ? '#10B981' : '#059669',
+            borderWidth: 1,
+            borderRadius: 4,
+            yAxisID: 'yUnit'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { color: textColor, boxWidth: 12, font: { weight: 600 } }
+          },
+          tooltip: {
+            backgroundColor: tooltipBg,
+            titleColor: titleColor,
+            bodyColor: textColor,
+            borderColor: tooltipBorder,
+            borderWidth: 1,
+            padding: 10,
+            callbacks: {
+              label: function(context) {
+                if (context.dataset.yAxisID === 'yValuasi') {
+                  return ` Valuasi: Rp ${context.raw} Miliar`;
+                }
+                return ` Pengadaan: ${context.raw} Unit Baru`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: gridColor },
+            ticks: { color: textColor, font: { weight: 600 } }
+          },
+          yValuasi: {
+            type: 'linear',
+            position: 'left',
+            grid: { color: gridColor },
+            ticks: { color: textColor, callback: value => 'Rp ' + value + ' M' }
+          },
+          yUnit: {
+            type: 'linear',
+            position: 'right',
+            grid: { display: false },
+            ticks: { color: textColor, callback: value => value + ' Unit' }
+          }
         }
       }
-      // Re-render chart colors on theme switch
-      initCharts();
-    }
+    });
+  }
 
-    function toggleTheme() {
-      const current = document.documentElement.getAttribute('data-theme') || 'light';
-      setTheme(current === 'light' ? 'dark' : 'light');
-    }
+  // 2. Category Distribution Doughnut Chart
+  const ctxCategory = document.getElementById('categoryDistributionChart');
+  if (ctxCategory) {
+    if (categoryChartInstance) categoryChartInstance.destroy();
 
-    // ==========================================================================
-    // INTERACTIVE CHART.JS DATA VISUALIZATION ENGINE
-    // ==========================================================================
-    function initCharts() {
-      if (typeof Chart === 'undefined') return;
-
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      const textColor = isDark ? '#9CA3AF' : '#4B5563';
-      const titleColor = isDark ? '#F9FAFB' : '#111827';
-      const gridColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)';
-      const tooltipBg = isDark ? '#1F2937' : '#FFFFFF';
-      const tooltipBorder = isDark ? 'rgba(255, 255, 255, 0.12)' : '#E2E8F0';
-
-      Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
-      Chart.defaults.font.size = 11;
-
-      // 1. Asset Valuation & Growth Combo Chart (Line + Bar)
-      const ctxGrowth = document.getElementById('assetGrowthChart');
-      if (ctxGrowth) {
-        if (growthChartInstance) growthChartInstance.destroy();
-        
-        growthChartInstance = new Chart(ctxGrowth, {
-          type: 'bar',
-          data: {
-            labels: ['2022', '2023', '2024', '2025', '2026 (Berjalan)'],
-            datasets: [
-              {
-                type: 'line',
-                label: 'Valuasi Aset Kumulatif (Miliar Rp)',
-                data: [2.45, 3.10, 3.85, 4.32, 4.85],
-                borderColor: isDark ? '#3B82F6' : '#1D4ED8',
-                backgroundColor: isDark ? 'rgba(59, 130, 246, 0.15)' : 'rgba(29, 78, 216, 0.08)',
-                borderWidth: 2.5,
-                fill: true,
-                tension: 0.35,
-                pointBackgroundColor: isDark ? '#3B82F6' : '#1D4ED8',
-                pointRadius: 4,
-                pointHoverRadius: 6,
-                yAxisID: 'yValuasi'
-              },
-              {
-                type: 'bar',
-                label: 'Pengadaan Unit Baru',
-                data: [120, 185, 210, 245, 182],
-                backgroundColor: isDark ? 'rgba(16, 185, 129, 0.45)' : 'rgba(5, 150, 105, 0.35)',
-                borderColor: isDark ? '#10B981' : '#059669',
-                borderWidth: 1,
-                borderRadius: 4,
-                yAxisID: 'yUnit'
-              }
-            ]
+    categoryChartInstance = new Chart(ctxCategory, {
+      type: 'doughnut',
+      data: {
+        labels: ['Peralatan Lab & Riset', 'Infrastruktur IT & Server', 'Sarana Ruang Kuliah', 'Fasilitas & Utilitas'],
+        datasets: [{
+          data: [563, 400, 311, 208],
+          backgroundColor: isDark 
+            ? ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6']
+            : ['#1E3A8A', '#059669', '#D97706', '#6366F1'],
+          borderWidth: 2,
+          borderColor: isDark ? '#111827' : '#FFFFFF',
+          hoverOffset: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '68%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: textColor, boxWidth: 10, padding: 12, font: { weight: 600 } }
           },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: {
-              mode: 'index',
-              intersect: false
-            },
-            plugins: {
-              legend: {
-                position: 'top',
-                labels: {
-                  color: textColor,
-                  boxWidth: 12,
-                  font: { weight: 600 }
-                }
-              },
-              tooltip: {
-                backgroundColor: tooltipBg,
-                titleColor: titleColor,
-                bodyColor: textColor,
-                borderColor: tooltipBorder,
-                borderWidth: 1,
-                padding: 10,
-                boxPadding: 4,
-                callbacks: {
-                  label: function(context) {
-                    if (context.dataset.yAxisID === 'yValuasi') {
-                      return ` Valuasi: Rp ${context.raw} Miliar`;
-                    }
-                    return ` Pengadaan: ${context.raw} Unit Baru`;
-                  }
-                }
-              }
-            },
-            scales: {
-              x: {
-                grid: { color: gridColor },
-                ticks: { color: textColor, font: { weight: 600 } }
-              },
-              yValuasi: {
-                type: 'linear',
-                position: 'left',
-                grid: { color: gridColor },
-                ticks: {
-                  color: textColor,
-                  callback: value => 'Rp ' + value + ' M'
-                }
-              },
-              yUnit: {
-                type: 'linear',
-                position: 'right',
-                grid: { display: false },
-                ticks: {
-                  color: textColor,
-                  callback: value => value + ' Unit'
-                }
+          tooltip: {
+            backgroundColor: tooltipBg,
+            titleColor: titleColor,
+            bodyColor: textColor,
+            borderColor: tooltipBorder,
+            borderWidth: 1,
+            padding: 10,
+            callbacks: {
+              label: function(context) {
+                const total = 1482;
+                const pct = ((context.raw / total) * 100).toFixed(1);
+                return ` ${context.label}: ${context.raw} Unit (${pct}%)`;
               }
             }
           }
-        });
+        }
       }
+    });
+  }
+}
 
-      // 2. Category Distribution Doughnut Chart
-      const ctxCategory = document.getElementById('categoryDistributionChart');
-      if (ctxCategory) {
-        if (categoryChartInstance) categoryChartInstance.destroy();
+// ==========================================================================
+// REAL TAB NAVIGATION SYSTEM
+// ==========================================================================
+const breadcrumbTitles = {
+  'view-dashboard': 'EXECUTIVE DASHBOARD',
+  'view-data-master': 'MASTER DATA SARPRAS',
+  'view-form-aset': 'REGISTRASI ASET BARU',
+  'view-laporan': 'PUSAT LAPORAN & KIR',
+  'view-peminjaman': 'PEMINJAMAN & MUTASI FASILITAS',
+  'view-maintenance': 'SERVIS & KALIBRASI ALAT',
+  'view-ruangan': 'DIREKTORI RUANGAN & GEDUNG'
+};
 
-        categoryChartInstance = new Chart(ctxCategory, {
-          type: 'doughnut',
-          data: {
-            labels: ['Peralatan Lab & Riset', 'Infrastruktur IT & Server', 'Sarana Ruang Kuliah', 'Fasilitas Umum & Utilitas'],
-            datasets: [{
-              data: [563, 400, 311, 208],
-              backgroundColor: isDark 
-                ? ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6']
-                : ['#1E3A8A', '#059669', '#D97706', '#6366F1'],
-              borderWidth: 2,
-              borderColor: isDark ? '#111827' : '#FFFFFF',
-              hoverOffset: 6
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '68%',
-            plugins: {
-              legend: {
-                position: 'bottom',
-                labels: {
-                  color: textColor,
-                  boxWidth: 10,
-                  padding: 12,
-                  font: { weight: 600 }
-                }
-              },
-              tooltip: {
-                backgroundColor: tooltipBg,
-                titleColor: titleColor,
-                bodyColor: textColor,
-                borderColor: tooltipBorder,
-                borderWidth: 1,
-                padding: 10,
-                callbacks: {
-                  label: function(context) {
-                    const total = 1482;
-                    const pct = ((context.raw / total) * 100).toFixed(1);
-                    return ` ${context.label}: ${context.raw} Unit (${pct}%)`;
-                  }
-                }
-              }
-            }
-          }
-        });
+function navigateToTab(tabId) {
+  const allPanes = document.querySelectorAll('.tab-content-view');
+  allPanes.forEach(pane => pane.classList.remove('active'));
+
+  const targetPane = document.getElementById(tabId);
+  if (targetPane) {
+    targetPane.classList.add('active');
+  }
+
+  const navLinks = document.querySelectorAll('.nav-item-link');
+  navLinks.forEach(link => {
+    if (link.getAttribute('data-target') === tabId) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+
+  const headerBreadcrumbTitle = document.getElementById('headerBreadcrumbTitle');
+  if (headerBreadcrumbTitle && breadcrumbTitles[tabId]) {
+    headerBreadcrumbTitle.textContent = breadcrumbTitles[tabId];
+  }
+
+  // If opening dashboard, trigger chart resize for smoothness
+  if (tabId === 'view-dashboard') {
+    if (growthChartInstance) growthChartInstance.resize();
+    if (categoryChartInstance) categoryChartInstance.resize();
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ==========================================================================
+// MASTER DATA TABLE SORTING, FILTERING & REAL PAGINATION
+// ==========================================================================
+function toggleSort(field) {
+  if (currentSortColumn === field) {
+    currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+  } else {
+    currentSortColumn = field;
+    currentSortOrder = 'asc';
+  }
+
+  // Update sort indicators in table headers
+  const fields = ['code', 'name', 'category', 'room', 'price', 'condition'];
+  fields.forEach(f => {
+    const el = document.getElementById(`sortIndicator-${f}`);
+    if (el) {
+      if (f === currentSortColumn) {
+        el.textContent = currentSortOrder === 'asc' ? '▲' : '▼';
+        el.style.color = 'var(--color-accent-cobalt)';
+      } else {
+        el.textContent = '↕';
+        el.style.color = 'var(--color-text-muted)';
       }
     }
+  });
 
-    // ==========================================================================
-    // REAL TAB NAVIGATION SYSTEM
-    // ==========================================================================
-    const breadcrumbTitles = {
-      'view-dashboard': 'EXECUTIVE DASHBOARD',
-      'view-data-master': 'MASTER DATA SARPRAS',
-      'view-form-aset': 'REGISTRASI ASET BARU',
-      'view-laporan': 'PUSAT LAPORAN & KIR',
-      'view-peminjaman': 'PEMINJAMAN & MUTASI FASILITAS',
-      'view-maintenance': 'SERVIS & KALIBRASI ALAT',
-      'view-ruangan': 'DIREKTORI RUANGAN & GEDUNG'
+  renderInventoryTable();
+  triggerToast(`Data diurutkan berdasarkan ${field.toUpperCase()} (${currentSortOrder.toUpperCase()})`);
+}
+
+function renderInventoryTable() {
+  const tbody = document.getElementById('inventoryListTbody');
+  if (!tbody) return;
+
+  const filterQuery = (document.getElementById('tableFilterInput')?.value || '').toLowerCase();
+  const filterKat = document.getElementById('selectKategoriFilter')?.value || 'all';
+  const filterKon = document.getElementById('selectKondisiFilter')?.value || 'all';
+
+  // 1. Filter
+  let result = inventoryData.filter(item => {
+    const matchesQuery = item.name.toLowerCase().includes(filterQuery) || item.code.toLowerCase().includes(filterQuery) || item.room.toLowerCase().includes(filterQuery);
+    const matchesKat = filterKat === 'all' || item.category === filterKat;
+    const matchesKon = filterKon === 'all' || item.condition === filterKon;
+    return matchesQuery && matchesKat && matchesKon;
+  });
+
+  // 2. Sort
+  result.sort((a, b) => {
+    let valA = a[currentSortColumn];
+    let valB = b[currentSortColumn];
+    if (typeof valA === 'string') {
+      const comp = valA.localeCompare(valB);
+      return currentSortOrder === 'asc' ? comp : -comp;
+    } else {
+      return currentSortOrder === 'asc' ? valA - valB : valB - valA;
+    }
+  });
+
+  // 3. Paginate
+  const totalItems = result.length;
+  const totalPages = Math.ceil(totalItems / pageSize) || 1;
+  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage < 1) currentPage = 1;
+
+  const startIndex = (currentPage - 1) * pageSize;
+  const pageItems = result.slice(startIndex, startIndex + pageSize);
+
+  tbody.innerHTML = '';
+
+  if (pageItems.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align: center; padding: 32px; color: var(--color-text-muted);">
+          Tidak ada data sarana yang sesuai dengan filter pencarian.
+        </td>
+      </tr>
+    `;
+  } else {
+    pageItems.forEach((item, indexInPage) => {
+      const globalIndex = inventoryData.findIndex(x => x.code === item.code);
+      let badgeClass = 'normal';
+      if (item.condition === 'Perawatan') badgeClass = 'warning';
+      if (item.condition === 'Rusak Berat') badgeClass = 'critical';
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="text-align: center;">
+          <input type="checkbox" class="table-row-cb">
+        </td>
+        <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${item.code}</td>
+        <td style="font-weight: 600;">${item.name}</td>
+        <td>${item.category}</td>
+        <td style="color: var(--color-text-secondary);">${item.room}</td>
+        <td class="font-mono">Rp ${item.price.toLocaleString('id-ID')}</td>
+        <td><span class="status-badge-pill ${badgeClass} font-mono">${item.condition}</span></td>
+        <td style="text-align: right;">
+          <button class="table-action-link" onclick="openAssetDetailModal('${item.code}')">Detail</button>
+          <button class="table-action-link danger" onclick="openDecommissionModal('${item.code}', '${item.name}', ${globalIndex})">Afkir</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // 4. Update Header Stats
+  const tableFilterStats = document.getElementById('tableFilterStats');
+  if (tableFilterStats) {
+    tableFilterStats.textContent = `Menampilkan ${startIndex + 1} - ${Math.min(startIndex + pageSize, totalItems)} dari ${totalItems} data disaring`;
+  }
+  const summaryTotalAset = document.getElementById('summaryTotalAset');
+  if (summaryTotalAset) summaryTotalAset.textContent = inventoryData.length;
+  const sidebarAssetCount = document.getElementById('sidebarAssetCount');
+  if (sidebarAssetCount) sidebarAssetCount.textContent = inventoryData.length;
+
+  const showingRecordsText = document.getElementById('showingRecordsText');
+  if (showingRecordsText) {
+    showingRecordsText.textContent = `Halaman ${currentPage} dari ${totalPages} (Total ${totalItems} record terdaftar)`;
+  }
+
+  // 5. Render Pagination Controls
+  renderPaginationControls(totalPages);
+}
+
+function renderPaginationControls(totalPages) {
+  const container = document.getElementById('inventoryPaginationControls');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  // Prev Button
+  const btnPrev = document.createElement('button');
+  btnPrev.className = 'btn-page-number';
+  btnPrev.innerHTML = '&lt;';
+  btnPrev.disabled = currentPage === 1;
+  btnPrev.onclick = () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderInventoryTable();
+    }
+  };
+  container.appendChild(btnPrev);
+
+  // Page numbers
+  for (let i = 1; i <= totalPages; i++) {
+    const btnPage = document.createElement('button');
+    btnPage.className = `btn-page-number ${i === currentPage ? 'active' : ''}`;
+    btnPage.textContent = i;
+    btnPage.onclick = () => {
+      currentPage = i;
+      renderInventoryTable();
     };
+    container.appendChild(btnPage);
+  }
 
-    function navigateToTab(tabId) {
-      // 1. Switch Active Pane
-      const allPanes = document.querySelectorAll('.tab-content-view');
-      allPanes.forEach(pane => pane.classList.remove('active'));
-
-      const targetPane = document.getElementById(tabId);
-      if (targetPane) {
-        targetPane.classList.add('active');
-      }
-
-      // 2. Update Sidebar Active Link
-      const navLinks = document.querySelectorAll('.nav-item-link');
-      navLinks.forEach(link => {
-        if (link.getAttribute('data-target') === tabId) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
-      });
-
-      // 3. Update Breadcrumbs in Header
-      const headerBreadcrumbTitle = document.getElementById('headerBreadcrumbTitle');
-      if (headerBreadcrumbTitle && breadcrumbTitles[tabId]) {
-        headerBreadcrumbTitle.textContent = breadcrumbTitles[tabId];
-      }
-
-      // Scroll viewport to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Next Button
+  const btnNext = document.createElement('button');
+  btnNext.className = 'btn-page-number';
+  btnNext.innerHTML = '&gt;';
+  btnNext.disabled = currentPage === totalPages;
+  btnNext.onclick = () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderInventoryTable();
     }
+  };
+  container.appendChild(btnNext);
+}
 
-    // ==========================================================================
-    // MASTER DATA TABLE RENDERER & FILTER ENGINE
-    // ==========================================================================
-    function renderInventoryTable() {
-      const tbody = document.getElementById('inventoryListTbody');
-      if (!tbody) return;
+function openAssetDetailModal(code) {
+  const item = inventoryData.find(x => x.code === code);
+  if (!item) return;
+  triggerToast(`Detail ${item.code}: ${item.name} (${item.room})`);
+}
 
-      const filterQuery = (document.getElementById('tableFilterInput')?.value || '').toLowerCase();
-      const filterKat = document.getElementById('selectKategoriFilter')?.value || 'all';
-      const filterKon = document.getElementById('selectKondisiFilter')?.value || 'all';
+// ==========================================================================
+// FORM REGISTRASI HANDLER
+// ==========================================================================
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const code = document.getElementById('formInputCode').value.trim();
+  const name = document.getElementById('formInputName').value.trim();
+  const category = document.getElementById('formInputCategory').value;
+  const model = document.getElementById('formInputModel')?.value.trim() || 'Standar Pabrikan';
+  const serial = document.getElementById('formInputSerial')?.value.trim() || 'SN: ' + Math.floor(Math.random() * 900000 + 100000);
+  const room = document.getElementById('formInputRoom').value;
+  const price = Number(document.getElementById('formInputPrice').value) || 0;
+  const condition = document.getElementById('formInputCondition').value;
 
-      const filtered = inventoryData.filter(item => {
-        const matchesQuery = item.name.toLowerCase().includes(filterQuery) || item.code.toLowerCase().includes(filterQuery);
-        const matchesKat = filterKat === 'all' || item.category === filterKat;
-        const matchesKon = filterKon === 'all' || item.condition === filterKon;
-        return matchesQuery && matchesKat && matchesKon;
-      });
+  if (!code || !name) {
+    triggerToast('Harap lengkapi kode aset dan nama peralatan');
+    return;
+  }
 
-      tbody.innerHTML = '';
+  // Insert to in-memory store
+  inventoryData.unshift({
+    code: code,
+    name: name,
+    category: category,
+    room: room,
+    price: price,
+    condition: condition,
+    serial: serial,
+    model: model
+  });
 
-      if (filtered.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="8" style="text-align: center; padding: 32px; color: var(--color-text-muted);">
-              Tidak ada data sarana yang sesuai dengan filter pencarian.
-            </td>
-          </tr>
-        `;
-        return;
-      }
+  // Reset Form
+  document.getElementById('newAssetForm').reset();
+  document.getElementById('formInputCode').value = 'AST-LAB-2026-0' + (inventoryData.length + 90);
+  document.getElementById('stickerCodeDisplay').textContent = document.getElementById('formInputCode').value;
+  document.getElementById('stickerBarcodeText').textContent = document.getElementById('formInputCode').value;
 
-      filtered.forEach((item, idx) => {
-        let badgeClass = 'normal';
-        if (item.condition === 'Perawatan') badgeClass = 'warning';
-        if (item.condition === 'Rusak Berat') badgeClass = 'critical';
+  // Navigate to Master Data
+  currentPage = 1;
+  renderInventoryTable();
+  navigateToTab('view-data-master');
+  triggerToast(`Sarana ${name} berhasil didaftarkan ke inventaris.`);
+}
 
+function setConditionSelect(cond) {
+  document.getElementById('formInputCondition').value = cond;
+  document.querySelectorAll('.radio-card-label').forEach(c => c.classList.remove('selected'));
+  if (cond === 'Baik') document.getElementById('condCardBaik').classList.add('selected');
+  if (cond === 'Perawatan') document.getElementById('condCardPerawatan').classList.add('selected');
+  if (cond === 'Rusak Berat') document.getElementById('condCardRusak').classList.add('selected');
+}
+
+// ==========================================================================
+// ROOM DIRECTORY & DYNAMIC KIR SYNCHRONIZATION
+// ==========================================================================
+function openRoomKir(roomName) {
+  navigateToTab('view-laporan');
+  const selector = document.getElementById('kirRoomSelector');
+  if (selector) selector.value = roomName;
+  updateKirRoomView(roomName);
+}
+
+function updateKirRoomView(roomName) {
+  const titleEl = document.getElementById('kirCurrentRoomName');
+  if (titleEl) titleEl.textContent = roomName;
+
+  const meta = roomMetadata[roomName] || {
+    building: "Gedung Fasilitas Kampus",
+    area: "100 m²",
+    pj: "Biro Sarana dan Prasarana",
+    nip: "19760312 200112 1 002"
+  };
+
+  const bldEl = document.getElementById('kirBuildingName');
+  if (bldEl) bldEl.textContent = meta.building;
+  const areaEl = document.getElementById('kirAreaSpecs');
+  if (areaEl) areaEl.textContent = meta.area;
+  const pjEl = document.getElementById('kirPjName');
+  if (pjEl) pjEl.textContent = meta.pj;
+  const sigPjEl = document.getElementById('kirSigPjName');
+  if (sigPjEl) sigPjEl.textContent = meta.pj;
+  const sigNipEl = document.getElementById('kirSigPjNip');
+  if (sigNipEl) sigNipEl.textContent = 'NIP. ' + meta.nip;
+
+  // Filter assets belonging to this room
+  const roomAssets = inventoryData.filter(item => item.room === roomName);
+  const tbody = document.getElementById('kirTableListBody');
+  if (tbody) {
+    tbody.innerHTML = '';
+    if (roomAssets.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="7" style="text-align: center; padding: 24px; color: var(--color-text-muted);">
+            Belum ada sarana terdata pada ruangan ini.
+          </td>
+        </tr>
+      `;
+    } else {
+      roomAssets.forEach((item, idx) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td style="text-align: center;">
-            <input type="checkbox" class="table-row-cb">
-          </td>
+          <td class="font-mono">${idx + 1}</td>
           <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${item.code}</td>
           <td style="font-weight: 600;">${item.name}</td>
-          <td>${item.category}</td>
-          <td style="color: var(--color-text-secondary);">${item.room}</td>
-          <td class="font-mono">Rp ${item.price.toLocaleString('id-ID')}</td>
-          <td><span class="status-badge-pill ${badgeClass} font-mono">${item.condition}</span></td>
-          <td style="text-align: right;">
-            <button class="table-action-link" onclick="triggerToast('Melihat rincian ${item.code}')">Detail</button>
-            <button class="table-action-link danger" onclick="openDecommissionModal('${item.code}', '${item.name}', ${idx})">Afkir</button>
-          </td>
+          <td>${item.model || '-'}</td>
+          <td class="font-mono">${item.serial || '-'}</td>
+          <td class="font-mono">1 Unit</td>
+          <td><span class="status-badge-pill ${item.condition === 'Baik' ? 'normal' : 'warning'} font-mono">${item.condition}</span></td>
         `;
         tbody.appendChild(tr);
       });
-
-      // Update counters
-      const tableFilterStats = document.getElementById('tableFilterStats');
-      if (tableFilterStats) {
-        tableFilterStats.textContent = `Menampilkan ${filtered.length} dari ${inventoryData.length} data`;
-      }
-      const summaryTotalAset = document.getElementById('summaryTotalAset');
-      if (summaryTotalAset) summaryTotalAset.textContent = inventoryData.length;
-      const sidebarAssetCount = document.getElementById('sidebarAssetCount');
-      if (sidebarAssetCount) sidebarAssetCount.textContent = inventoryData.length;
     }
+  }
 
-    // ==========================================================================
-    // FORM REGISTRASI SUBMISSION HANDLER
-    // ==========================================================================
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      const code = document.getElementById('formInputCode').value.trim();
-      const name = document.getElementById('formInputName').value.trim();
-      const category = document.getElementById('formInputCategory').value;
-      const room = document.getElementById('formInputRoom').value;
-      const price = Number(document.getElementById('formInputPrice').value) || 0;
-      const condition = document.getElementById('formInputCondition').value;
+  triggerToast(`Memuat lembar KIR resmi untuk: ${roomName}`);
+}
 
-      if (!code || !name) {
-        triggerToast('Harap lengkapi kode aset dan nama peralatan');
-        return;
-      }
+// ==========================================================================
+// MODAL DIALOGS ENGINE
+// ==========================================================================
+function openModal(modalId) {
+  const el = document.getElementById(modalId);
+  if (el) el.classList.add('open');
+}
 
-      // Add to inventory database
-      inventoryData.unshift({
-        code: code,
-        name: name,
-        category: category,
-        room: room,
-        price: price,
-        condition: condition
-      });
+function closeModal(modalId) {
+  const el = document.getElementById(modalId);
+  if (el) el.classList.remove('open');
+}
 
-      // Reset form
-      document.getElementById('newAssetForm').reset();
-      document.getElementById('formInputCode').value = 'AST-LAB-2026-0' + (inventoryData.length + 90);
+function openDecommissionModal(code, name, index) {
+  currentSelectedAfkirIndex = index;
+  const codeEl = document.getElementById('modalAfkirCode');
+  const nameEl = document.getElementById('modalAfkirName');
+  if (codeEl) codeEl.textContent = code;
+  if (nameEl) nameEl.textContent = name;
+  openModal('modalDecommission');
+}
 
-      // Re-render table and navigate to Master Data
-      renderInventoryTable();
-      navigateToTab('view-data-master');
-      triggerToast(`Berhasil mendaftarkan sarana baru: ${name}`);
+function executeDecommission() {
+  if (currentSelectedAfkirIndex !== null && inventoryData[currentSelectedAfkirIndex]) {
+    const removed = inventoryData.splice(currentSelectedAfkirIndex, 1);
+    renderInventoryTable();
+    closeModal('modalDecommission');
+    triggerToast(`Aset ${removed[0].code} berhasil diafkirkan dari inventaris.`);
+  }
+}
+
+function openBorrowModal() {
+  openModal('modalBorrow');
+}
+
+function submitBorrowLoan() {
+  const assetName = document.getElementById('borrowModalSelectAsset').value;
+  const borrower = document.getElementById('borrowModalBorrower').value.trim() || 'Unit Kegiatan Kampus';
+  const startDate = document.getElementById('borrowModalStartDate').value;
+  const endDate = document.getElementById('borrowModalEndDate').value;
+
+  const tbody = document.getElementById('borrowingListBody');
+  if (tbody) {
+    const tr = document.createElement('tr');
+    const randId = 'PINJ-2026-0' + Math.floor(Math.random() * 80 + 50);
+    tr.innerHTML = `
+      <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${randId}</td>
+      <td style="font-weight: 600;">${assetName}</td>
+      <td>${borrower}</td>
+      <td class="font-mono">${startDate}</td>
+      <td class="font-mono">${endDate}</td>
+      <td><span class="status-badge-pill warning font-mono">Dipinjam</span></td>
+      <td style="text-align: right;">
+        <button class="table-action-link" onclick="markReturnItem(this)">Proses Kembali</button>
+      </td>
+    `;
+    tbody.prepend(tr);
+  }
+
+  closeModal('modalBorrow');
+  triggerToast(`Peminjaman sarana ${assetName} disetujui.`);
+}
+
+function markReturnItem(btn) {
+  const tr = btn.closest('tr');
+  if (tr) {
+    const statusBadge = tr.querySelector('.status-badge-pill');
+    if (statusBadge) {
+      statusBadge.className = 'status-badge-pill normal font-mono';
+      statusBadge.textContent = 'Kembali';
     }
+    btn.remove();
+    triggerToast('Sarana telah diverifikasi kembali dalam kondisi utuh.');
+  }
+}
 
-    function setConditionSelect(cond) {
-      document.getElementById('formInputCondition').value = cond;
-      document.querySelectorAll('.radio-card-label').forEach(c => c.classList.remove('selected'));
-      if (cond === 'Baik') document.getElementById('condCardBaik').classList.add('selected');
-      if (cond === 'Perawatan') document.getElementById('condCardPerawatan').classList.add('selected');
-      if (cond === 'Rusak Berat') document.getElementById('condCardRusak').classList.add('selected');
-    }
+function openWorkOrderModal() {
+  openModal('modalWorkOrder');
+}
 
-    // ==========================================================================
-    // ROOM & KIR VIEWER
-    // ==========================================================================
-    function openRoomKir(roomName) {
-      navigateToTab('view-laporan');
-      const selector = document.getElementById('kirRoomSelector');
-      if (selector) selector.value = roomName;
-      updateKirRoomView(roomName);
-    }
+function submitNewWorkOrder() {
+  const item = document.getElementById('woInputItem').value.trim() || 'Instrumen Lab Terpadu';
+  const vendor = document.getElementById('woInputVendor').value.trim() || 'Tim Teknisi Kampus';
+  const cost = Number(document.getElementById('woInputCost').value) || 3500000;
+  const date = document.getElementById('woInputDate').value;
 
-    function updateKirRoomView(roomName) {
-      const titleEl = document.getElementById('kirCurrentRoomName');
-      if (titleEl) titleEl.textContent = roomName;
-      triggerToast(`Memuat lembar KIR untuk: ${roomName}`);
-    }
+  const tbody = document.getElementById('woListBody');
+  if (tbody) {
+    const tr = document.createElement('tr');
+    const woId = 'WO-2026-0' + Math.floor(Math.random() * 80 + 95);
+    tr.innerHTML = `
+      <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${woId}</td>
+      <td style="font-weight: 600;">${item}</td>
+      <td>${vendor}</td>
+      <td class="font-mono">Rp ${cost.toLocaleString('id-ID')}</td>
+      <td class="font-mono">${date}</td>
+      <td><span class="status-badge-pill warning font-mono">Pengerjaan</span></td>
+      <td style="text-align: right;">
+        <button class="table-action-link" onclick="triggerToast('Detail Berita Acara Servis dimuat')">Detail WO</button>
+      </td>
+    `;
+    tbody.prepend(tr);
+  }
 
-    // ==========================================================================
-    // MODALS ENGINE
-    // ==========================================================================
-    function openModal(modalId) {
-      const el = document.getElementById(modalId);
-      if (el) el.classList.add('open');
-    }
+  closeModal('modalWorkOrder');
+  triggerToast(`Perintah kerja servis berhasil diterbitkan.`);
+}
 
-    function closeModal(modalId) {
-      const el = document.getElementById(modalId);
-      if (el) el.classList.remove('open');
-    }
+function exportTableToCSV() {
+  let csv = 'Kode Aset,Nama Peralatan,Kategori,Lokasi Ruangan,Nilai Perolehan,Kondisi\n';
+  inventoryData.forEach(item => {
+    csv += `"${item.code}","${item.name}","${item.category}","${item.room}",${item.price},"${item.condition}"\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Master_Data_Sarpras_2026.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+  triggerToast('Berkas CSV berhasil diekspor.');
+}
 
-    function openDecommissionModal(code, name, index) {
-      currentSelectedAfkirIndex = index;
-      document.getElementById('modalAfkirCode').textContent = code;
-      document.getElementById('modalAfkirName').textContent = name;
-      openModal('modalDecommission');
-    }
+// ==========================================================================
+// TOAST NOTIFICATIONS
+// ==========================================================================
+function triggerToast(message) {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
 
-    function executeDecommission() {
-      if (currentSelectedAfkirIndex !== null && inventoryData[currentSelectedAfkirIndex]) {
-        const removed = inventoryData.splice(currentSelectedAfkirIndex, 1);
-        renderInventoryTable();
-        closeModal('modalDecommission');
-        triggerToast(`Aset ${removed[0].code} berhasil diafkirkan dari daftar.`);
-      }
-    }
+  const toast = document.createElement('div');
+  toast.className = 'toast-card';
+  toast.innerHTML = `
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-signal-normal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span>${message}</span>
+  `;
 
-    function openBorrowModal() {
-      openModal('modalBorrow');
-    }
+  container.appendChild(toast);
 
-    function submitBorrowLoan() {
-      const assetName = document.getElementById('borrowModalSelectAsset').value;
-      const borrower = document.getElementById('borrowModalBorrower').value.trim() || 'Unit Kegiatan Kampus';
-      const startDate = document.getElementById('borrowModalStartDate').value;
-      const endDate = document.getElementById('borrowModalEndDate').value;
-
-      const tbody = document.getElementById('borrowingListBody');
-      if (tbody) {
-        const tr = document.createElement('tr');
-        const randId = 'PINJ-2026-0' + Math.floor(Math.random() * 80 + 50);
-        tr.innerHTML = `
-          <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${randId}</td>
-          <td style="font-weight: 600;">${assetName}</td>
-          <td>${borrower}</td>
-          <td class="font-mono">${startDate}</td>
-          <td class="font-mono">${endDate}</td>
-          <td><span class="status-badge-pill warning font-mono">Dipinjam</span></td>
-          <td style="text-align: right;">
-            <button class="table-action-link" onclick="markReturnItem(this)">Proses Kembali</button>
-          </td>
-        `;
-        tbody.prepend(tr);
-      }
-
-      closeModal('modalBorrow');
-      triggerToast(`Permohonan pinjam ${assetName} telah disetujui`);
-    }
-
-    function markReturnItem(btn) {
-      const tr = btn.closest('tr');
-      if (tr) {
-        const statusBadge = tr.querySelector('.status-badge-pill');
-        if (statusBadge) {
-          statusBadge.className = 'status-badge-pill normal font-mono';
-          statusBadge.textContent = 'Kembali';
-        }
-        btn.remove();
-        triggerToast('Sarana telah diverifikasi kembali dalam kondisi utuh.');
-      }
-    }
-
-    function openWorkOrderModal() {
-      openModal('modalWorkOrder');
-    }
-
-    function submitNewWorkOrder() {
-      const item = document.getElementById('woInputItem').value.trim() || 'Instrumen Lab Terpadu';
-      const vendor = document.getElementById('woInputVendor').value.trim() || 'Tim Teknisi Kampus';
-      const cost = Number(document.getElementById('woInputCost').value) || 3500000;
-      const date = document.getElementById('woInputDate').value;
-
-      const tbody = document.getElementById('woListBody');
-      if (tbody) {
-        const tr = document.createElement('tr');
-        const woId = 'WO-2026-0' + Math.floor(Math.random() * 80 + 95);
-        tr.innerHTML = `
-          <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${woId}</td>
-          <td style="font-weight: 600;">${item}</td>
-          <td>${vendor}</td>
-          <td class="font-mono">Rp ${cost.toLocaleString('id-ID')}</td>
-          <td class="font-mono">${date}</td>
-          <td><span class="status-badge-pill warning font-mono">Pengerjaan</span></td>
-          <td style="text-align: right;">
-            <button class="table-action-link" onclick="triggerToast('Detail Berita Acara Servis dimuat')">Detail WO</button>
-          </td>
-        `;
-        tbody.prepend(tr);
-      }
-
-      closeModal('modalWorkOrder');
-      triggerToast(`Perintah kerja pemeliharaan berhasil diterbitkan.`);
-    }
-
-    function exportTableToCSV() {
-      let csv = 'Kode Aset,Nama Peralatan,Kategori,Lokasi Ruangan,Nilai Perolehan,Kondisi\n';
-      inventoryData.forEach(item => {
-        csv += `"${item.code}","${item.name}","${item.category}","${item.room}",${item.price},"${item.condition}"\n`;
-      });
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'Master_Data_Sarpras_2026.csv';
-      a.click();
-      URL.revokeObjectURL(url);
-      triggerToast('Berkas CSV berhasil diekspor.');
-    }
-
-    // ==========================================================================
-    // ZERO-DEPENDENCY TOAST NOTIFICATION
-    // ==========================================================================
-    function triggerToast(message) {
-      const container = document.getElementById('toastContainer');
-      if (!container) return;
-
-      const toast = document.createElement('div');
-      toast.className = 'toast-card';
-      toast.innerHTML = `
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-signal-normal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-        <span>${message}</span>
-      `;
-
-      container.appendChild(toast);
-
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(8px)';
-        toast.style.transition = 'all 160ms ease';
-        setTimeout(() => toast.remove(), 160);
-      }, 2800);
-    }
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(8px)';
+    toast.style.transition = 'all 160ms ease';
+    setTimeout(() => toast.remove(), 160);
+  }, 2600);
+}
