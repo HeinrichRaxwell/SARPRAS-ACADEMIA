@@ -9,11 +9,16 @@
     ];
 
     let currentSelectedAfkirIndex = null;
+    let growthChartInstance = null;
+    let categoryChartInstance = null;
 
     document.addEventListener('DOMContentLoaded', () => {
       // 1. Initial Theme Check (Light Mode Default)
       const savedTheme = localStorage.getItem('sarpras_theme') || 'light';
       setTheme(savedTheme);
+
+      // 1b. Initialize Interactive Chart.js Visualizations
+      initCharts();
 
       // 2. Render Initial Master Data Table
       renderInventoryTable();
@@ -212,11 +217,181 @@
           moon.style.display = 'block';
         }
       }
+      // Re-render chart colors on theme switch
+      initCharts();
     }
 
     function toggleTheme() {
       const current = document.documentElement.getAttribute('data-theme') || 'light';
       setTheme(current === 'light' ? 'dark' : 'light');
+    }
+
+    // ==========================================================================
+    // INTERACTIVE CHART.JS DATA VISUALIZATION ENGINE
+    // ==========================================================================
+    function initCharts() {
+      if (typeof Chart === 'undefined') return;
+
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const textColor = isDark ? '#9CA3AF' : '#4B5563';
+      const titleColor = isDark ? '#F9FAFB' : '#111827';
+      const gridColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)';
+      const tooltipBg = isDark ? '#1F2937' : '#FFFFFF';
+      const tooltipBorder = isDark ? 'rgba(255, 255, 255, 0.12)' : '#E2E8F0';
+
+      Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+      Chart.defaults.font.size = 11;
+
+      // 1. Asset Valuation & Growth Combo Chart (Line + Bar)
+      const ctxGrowth = document.getElementById('assetGrowthChart');
+      if (ctxGrowth) {
+        if (growthChartInstance) growthChartInstance.destroy();
+        
+        growthChartInstance = new Chart(ctxGrowth, {
+          type: 'bar',
+          data: {
+            labels: ['2022', '2023', '2024', '2025', '2026 (Berjalan)'],
+            datasets: [
+              {
+                type: 'line',
+                label: 'Valuasi Aset Kumulatif (Miliar Rp)',
+                data: [2.45, 3.10, 3.85, 4.32, 4.85],
+                borderColor: isDark ? '#3B82F6' : '#1D4ED8',
+                backgroundColor: isDark ? 'rgba(59, 130, 246, 0.15)' : 'rgba(29, 78, 216, 0.08)',
+                borderWidth: 2.5,
+                fill: true,
+                tension: 0.35,
+                pointBackgroundColor: isDark ? '#3B82F6' : '#1D4ED8',
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                yAxisID: 'yValuasi'
+              },
+              {
+                type: 'bar',
+                label: 'Pengadaan Unit Baru',
+                data: [120, 185, 210, 245, 182],
+                backgroundColor: isDark ? 'rgba(16, 185, 129, 0.45)' : 'rgba(5, 150, 105, 0.35)',
+                borderColor: isDark ? '#10B981' : '#059669',
+                borderWidth: 1,
+                borderRadius: 4,
+                yAxisID: 'yUnit'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+              mode: 'index',
+              intersect: false
+            },
+            plugins: {
+              legend: {
+                position: 'top',
+                labels: {
+                  color: textColor,
+                  boxWidth: 12,
+                  font: { weight: 600 }
+                }
+              },
+              tooltip: {
+                backgroundColor: tooltipBg,
+                titleColor: titleColor,
+                bodyColor: textColor,
+                borderColor: tooltipBorder,
+                borderWidth: 1,
+                padding: 10,
+                boxPadding: 4,
+                callbacks: {
+                  label: function(context) {
+                    if (context.dataset.yAxisID === 'yValuasi') {
+                      return ` Valuasi: Rp ${context.raw} Miliar`;
+                    }
+                    return ` Pengadaan: ${context.raw} Unit Baru`;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                grid: { color: gridColor },
+                ticks: { color: textColor, font: { weight: 600 } }
+              },
+              yValuasi: {
+                type: 'linear',
+                position: 'left',
+                grid: { color: gridColor },
+                ticks: {
+                  color: textColor,
+                  callback: value => 'Rp ' + value + ' M'
+                }
+              },
+              yUnit: {
+                type: 'linear',
+                position: 'right',
+                grid: { display: false },
+                ticks: {
+                  color: textColor,
+                  callback: value => value + ' Unit'
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // 2. Category Distribution Doughnut Chart
+      const ctxCategory = document.getElementById('categoryDistributionChart');
+      if (ctxCategory) {
+        if (categoryChartInstance) categoryChartInstance.destroy();
+
+        categoryChartInstance = new Chart(ctxCategory, {
+          type: 'doughnut',
+          data: {
+            labels: ['Peralatan Lab & Riset', 'Infrastruktur IT & Server', 'Sarana Ruang Kuliah', 'Fasilitas Umum & Utilitas'],
+            datasets: [{
+              data: [563, 400, 311, 208],
+              backgroundColor: isDark 
+                ? ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6']
+                : ['#1E3A8A', '#059669', '#D97706', '#6366F1'],
+              borderWidth: 2,
+              borderColor: isDark ? '#111827' : '#FFFFFF',
+              hoverOffset: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '68%',
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  color: textColor,
+                  boxWidth: 10,
+                  padding: 12,
+                  font: { weight: 600 }
+                }
+              },
+              tooltip: {
+                backgroundColor: tooltipBg,
+                titleColor: titleColor,
+                bodyColor: textColor,
+                borderColor: tooltipBorder,
+                borderWidth: 1,
+                padding: 10,
+                callbacks: {
+                  label: function(context) {
+                    const total = 1482;
+                    const pct = ((context.raw / total) * 100).toFixed(1);
+                    return ` ${context.label}: ${context.raw} Unit (${pct}%)`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
     }
 
     // ==========================================================================
