@@ -107,11 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Quick CTA in sidebar
+  // Quick CTA in sidebar - opens fast registration modal
   const btnSidebarRegister = document.getElementById('btnSidebarRegister');
   if (btnSidebarRegister) {
     btnSidebarRegister.addEventListener('click', () => {
-      navigateToTab('view-form-aset');
+      openCreateAssetModal();
     });
   }
 
@@ -126,47 +126,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 8. Sidebar Collapse & Expand (Panah < > di Atas)
+  // 8. Sidebar Collapse & Expand (Panah < > Tunggal di Top Header Bar)
   const sidebarRail = document.getElementById('sidebarRail');
-  const btnSidebarCollapseTop = document.getElementById('btnSidebarCollapseTop');
   const btnDesktopRailToggle = document.getElementById('btnDesktopRailToggle');
-  const btnToggleSidebarRail = document.getElementById('btnToggleSidebarRail');
+  const chevronHeaderSvg = document.getElementById('chevronHeaderSvg');
 
   function toggleSidebar() {
     if (!sidebarRail) return;
     sidebarRail.classList.toggle('collapsed');
     const isCollapsed = sidebarRail.classList.contains('collapsed');
 
-    // Update bottom label if exists
-    const toggleText = btnToggleSidebarRail?.querySelector('.toggle-text');
-    if (toggleText) toggleText.textContent = isCollapsed ? '' : 'Perkecil Menu';
-
-    // Update chevrons (< >) on both top buttons!
-    const svgSidebar = document.getElementById('chevronSidebarSvg');
-    const svgHeader = document.getElementById('chevronHeaderSvg');
-    const newPoints = isCollapsed ? "9 18 15 12 9 6" : "15 18 9 12 15 6"; // > when collapsed, < when open
-    
-    if (svgSidebar) {
-      const poly = svgSidebar.querySelector('polyline');
-      if (poly) poly.setAttribute('points', newPoints);
-    }
-    if (svgHeader) {
-      const poly = svgHeader.querySelector('polyline');
-      if (poly) poly.setAttribute('points', newPoints);
+    // Panah: < jika terbuka, > jika tertutup/terciut
+    if (chevronHeaderSvg) {
+      const poly = chevronHeaderSvg.querySelector('polyline');
+      if (poly) {
+        poly.setAttribute('points', isCollapsed ? "9 18 15 12 9 6" : "15 18 9 12 15 6");
+      }
     }
 
-    // Trigger chart resize
+    if (btnDesktopRailToggle) {
+      btnDesktopRailToggle.setAttribute('title', isCollapsed ? 'Rentangkan Menu Sidebar (>)' : 'Ciutkan Menu Sidebar (<)');
+      btnDesktopRailToggle.setAttribute('aria-label', isCollapsed ? 'Rentangkan Menu' : 'Ciutkan Menu');
+    }
+
+    // Trigger chart resize safely with debounce
     setTimeout(() => {
       if (growthChartInstance) growthChartInstance.resize();
       if (categoryChartInstance) categoryChartInstance.resize();
-    }, 240);
+    }, 250);
 
-    triggerToast(isCollapsed ? 'Sidebar diperkecil (Mode Ikon)' : 'Sidebar direntangkan penuh');
+    triggerToast(isCollapsed ? 'Sidebar diciutkan ke mode ikon (>)' : 'Sidebar direntangkan (<)');
   }
 
-  if (btnSidebarCollapseTop) btnSidebarCollapseTop.addEventListener('click', toggleSidebar);
   if (btnDesktopRailToggle) btnDesktopRailToggle.addEventListener('click', toggleSidebar);
-  if (btnToggleSidebarRail) btnToggleSidebarRail.addEventListener('click', toggleSidebar);
 
   // 9. Mobile Drawer Navigation
   const btnMobileNavToggle = document.getElementById('btnMobileNavToggle');
@@ -210,6 +202,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dropdownProfile) dropdownProfile.classList.remove('show');
   });
 
+  // Modal Backdrop Click Closes Dialog
+  document.querySelectorAll('.modal-overlay-bg').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        closeModal(overlay.id);
+      }
+    });
+  });
+
   // 11. Global Keyboard Shortcuts (Ctrl + K to Search, Esc to Dismiss)
   document.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -222,11 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     if (e.key === 'Escape') {
-      closeModal('modalDecommission');
-      closeModal('modalBorrow');
-      closeModal('modalWorkOrder');
-      closeModal('modalAssetDetail');
-      closeModal('modalAssetEdit');
+      document.querySelectorAll('.modal-overlay-bg.open').forEach(modal => {
+        closeModal(modal.id);
+      });
       if (dropdownNotifications) dropdownNotifications.classList.remove('show');
       if (dropdownProfile) dropdownProfile.classList.remove('show');
     }
@@ -484,6 +483,7 @@ function initCharts() {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        resizeDelay: 150,
         interaction: { mode: 'index', intersect: false },
         plugins: {
           legend: {
@@ -551,6 +551,7 @@ function initCharts() {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        resizeDelay: 150,
         cutout: '68%',
         plugins: {
           legend: {
@@ -1128,6 +1129,88 @@ function exportTableToCSV() {
   a.click();
   URL.revokeObjectURL(url);
   triggerToast('Berkas CSV berhasil diekspor.');
+}
+
+// ==========================================================================
+// MODAL CREATE ASSET & EXPORT WORKFLOW
+// ==========================================================================
+function openCreateAssetModal() {
+  const form = document.getElementById('modalNewAssetForm');
+  if (form) form.reset();
+  const nextCode = 'AST-LAB-2026-0' + (inventoryData.length + 91);
+  const codeInput = document.getElementById('modalInputCode');
+  if (codeInput) codeInput.value = nextCode;
+  openModal('modalCreateAsset');
+}
+
+function submitCreateAssetModal(e) {
+  e.preventDefault();
+  const code = document.getElementById('modalInputCode').value.trim();
+  const name = document.getElementById('modalInputName').value.trim();
+  const category = document.getElementById('modalInputCategory').value;
+  const room = document.getElementById('modalInputRoom').value;
+  const model = document.getElementById('modalInputModel')?.value.trim() || 'Standar Pabrikan';
+  const serial = document.getElementById('modalInputSerial')?.value.trim() || 'SN: ' + Math.floor(Math.random() * 900000 + 100000);
+  const price = Number(document.getElementById('modalInputPrice').value) || 0;
+  const condition = document.getElementById('modalInputCondition').value;
+
+  if (!code || !name) {
+    triggerToast('Harap lengkapi kode dan nama sarana.');
+    return;
+  }
+
+  inventoryData.unshift({
+    code: code,
+    name: name,
+    category: category,
+    room: room,
+    price: price,
+    condition: condition,
+    serial: serial,
+    model: model
+  });
+
+  closeModal('modalCreateAsset');
+  currentPage = 1;
+  renderInventoryTable();
+  triggerToast(`Sarana ${name} berhasil ditambahkan ke inventaris.`);
+}
+
+function openExportModal() {
+  openModal('modalExportData');
+}
+
+function executeExportDownload(format) {
+  closeModal('modalExportData');
+  if (format === 'csv') {
+    exportTableToCSV();
+  } else if (format === 'xlsx') {
+    let content = '\uFEFF"KODE SARPRAS"\t"NAMA PERALATAN"\t"KATEGORI"\t"PENEMPATAN RUANGAN"\t"NILAI BUKU (RP)"\t"KONDISI FISIK"\n';
+    inventoryData.forEach(item => {
+      content += `"${item.code}"\t"${item.name}"\t"${item.category}"\t"${item.room}"\t"${item.price}"\t"${item.condition}"\n`;
+    });
+    const blob = new Blob([content], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Rekapitulasi_Sarpras_Academia_2026.xls';
+    a.click();
+    URL.revokeObjectURL(url);
+    triggerToast('Rekapitulasi Excel (.xls) berhasil diunduh.');
+  } else if (format === 'print') {
+    triggerToast('Membuka pratinjau cetak...');
+    setTimeout(() => {
+      window.print();
+    }, 300);
+  }
+}
+
+function openWorkOrderModalFor(code, name) {
+  const itemInput = document.getElementById('woInputItem');
+  if (itemInput) {
+    itemInput.value = `${name} [${code}]`;
+  }
+  openModal('modalWorkOrder');
 }
 
 // ==========================================================================
