@@ -2,10 +2,10 @@
        1. DESIGN SYSTEM TOKENS - LIGHT THEME (DEFAULT) & DARK THEME
        ========================================================================== */
     :root, [data-theme="light"] {
-      /* Base Canvas & Glass Surfaces */
-      --color-canvas: #F4F6F9;
+      /* Base Canvas & Glass Surfaces (Talent Pool & SiRupat Standards) */
+      --color-canvas: #F8FAFC;
       --color-surface: #FFFFFF;
-      --color-surface-glass: rgba(255, 255, 255, 0.92);
+      --color-surface-glass: rgba(255, 255, 255, 0.94);
       --color-surface-elevated: #F8FAFC;
       --color-surface-subtle: #F1F5F9;
       
@@ -14,18 +14,18 @@
       --color-border-specular: #CBD5E1;
       --color-border-strong: #94A3B8;
       
-      /* Typography Colors */
-      --color-text-primary: #111827;
-      --color-text-secondary: #4B5563;
-      --color-text-muted: #6B7280;
+      /* Typography Colors (High Contrast Institutional Slate) */
+      --color-text-primary: #0F172A;
+      --color-text-secondary: #334155;
+      --color-text-muted: #64748B;
       
-      /* Buttons & Actions (Institutional Academic Navy) */
-      --color-primary-cta: #1E3A8A;
-      --color-primary-cta-hover: #1D4ED8;
+      /* Buttons & Actions (Prestigious Institutional Navy #0E1937) */
+      --color-primary-cta: #0E1937;
+      --color-primary-cta-hover: #162854;
       --color-primary-cta-text: #FFFFFF;
       --color-secondary-cta-bg: #FFFFFF;
-      --color-secondary-cta-border: #D1D5DB;
-      --color-secondary-cta-hover: #F9FAFB;
+      --color-secondary-cta-border: #CBD5E1;
+      --color-secondary-cta-hover: #F8FAFC;
       
       /* Semantic Signals */
       --color-accent-cobalt: #1D4ED8;
@@ -44,10 +44,10 @@
       --color-signal-critical-bg: #FEF2F2;
       --color-signal-critical-border: #FECACA;
       
-      /* Elevation & Shadows */
-      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
-      --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
-      --popover-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      /* Elevation & Shadows (Photometric Soft Diffuse) */
+      --card-shadow: 0 1px 3px rgba(15, 23, 42, 0.05), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+      --card-shadow-hover: 0 6px 18px -2px rgba(15, 23, 42, 0.08);
+      --popover-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.12), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
       
       /* Geometry */
       --sidebar-width: 256px;
@@ -56,61 +56,61 @@
       --footer-height: 48px;
       --radius-sm: 6px;
       --radius-md: 8px;
-      --radius-lg: 12px;
+      --radius-lg: 10px;
       
       /* Physics */
-      --ease-physics: cubic-bezier(0.23, 1, 0.32, 1);
-      --speed-fast: 150ms;
+      --ease-physics: cubic-bezier(0.16, 1, 0.3, 1);
+      --speed-fast: 140ms;
       --speed-normal: 220ms;
     }
 
     [data-theme="dark"] {
-      /* Base Canvas & Glass Surfaces */
-      --color-canvas: #0B0F19;
-      --color-surface: #111827;
-      --color-surface-glass: rgba(17, 24, 39, 0.90);
-      --color-surface-elevated: #1F2937;
-      --color-surface-subtle: #161F30;
+      /* Base Canvas & Glass Surfaces (Deep Prestige Midnight Navy #070D1E) */
+      --color-canvas: #070D1E;
+      --color-surface: #0E1937;
+      --color-surface-glass: rgba(14, 25, 55, 0.92);
+      --color-surface-elevated: #162854;
+      --color-surface-subtle: #122146;
       
       /* Borders & Outlines */
-      --color-border-whisper: rgba(255, 255, 255, 0.08);
-      --color-border-specular: rgba(255, 255, 255, 0.16);
-      --color-border-strong: rgba(255, 255, 255, 0.24);
+      --color-border-whisper: rgba(255, 255, 255, 0.09);
+      --color-border-specular: rgba(255, 255, 255, 0.18);
+      --color-border-strong: rgba(255, 255, 255, 0.28);
       
       /* Typography Colors */
-      --color-text-primary: #F9FAFB;
-      --color-text-secondary: #9CA3AF;
-      --color-text-muted: #6B7280;
+      --color-text-primary: #F8FAFC;
+      --color-text-secondary: #CBD5E1;
+      --color-text-muted: #94A3B8;
       
       /* Buttons & Actions */
-      --color-primary-cta: #2563EB;
-      --color-primary-cta-hover: #3B82F6;
+      --color-primary-cta: #1D4ED8;
+      --color-primary-cta-hover: #2563EB;
       --color-primary-cta-text: #FFFFFF;
       --color-secondary-cta-bg: rgba(255, 255, 255, 0.04);
-      --color-secondary-cta-border: rgba(255, 255, 255, 0.12);
+      --color-secondary-cta-border: rgba(255, 255, 255, 0.14);
       --color-secondary-cta-hover: rgba(255, 255, 255, 0.08);
       
       /* Semantic Signals */
       --color-accent-cobalt: #3B82F6;
-      --color-accent-cobalt-bg: rgba(59, 130, 246, 0.15);
-      --color-accent-cobalt-border: rgba(59, 130, 246, 0.30);
+      --color-accent-cobalt-bg: rgba(59, 130, 246, 0.16);
+      --color-accent-cobalt-border: rgba(59, 130, 246, 0.32);
       
       --color-signal-normal: #10B981;
-      --color-signal-normal-bg: rgba(16, 185, 129, 0.12);
-      --color-signal-normal-border: rgba(16, 185, 129, 0.28);
+      --color-signal-normal-bg: rgba(16, 185, 129, 0.14);
+      --color-signal-normal-border: rgba(16, 185, 129, 0.30);
       
       --color-signal-warning: #F59E0B;
-      --color-signal-warning-bg: rgba(245, 158, 11, 0.12);
-      --color-signal-warning-border: rgba(245, 158, 11, 0.28);
+      --color-signal-warning-bg: rgba(245, 158, 11, 0.14);
+      --color-signal-warning-border: rgba(245, 158, 11, 0.30);
       
       --color-signal-critical: #EF4444;
-      --color-signal-critical-bg: rgba(239, 68, 68, 0.12);
-      --color-signal-critical-border: rgba(239, 68, 68, 0.28);
+      --color-signal-critical-bg: rgba(239, 68, 68, 0.14);
+      --color-signal-critical-border: rgba(239, 68, 68, 0.30);
       
       /* Shadows */
-      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-      --card-shadow-hover: 0 8px 26px rgba(0, 0, 0, 0.45);
-      --popover-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --card-shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.55);
+      --popover-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
     }
 
     /* ==========================================================================
@@ -601,74 +601,6 @@
 
     .btn-header-control:active {
       transform: scale(0.96);
-    }
-
-    .notification-badge-counter {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      min-width: 18px;
-      height: 18px;
-      padding: 0 4px;
-      border-radius: 9px;
-      background: var(--color-signal-critical);
-      color: #FFFFFF;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid var(--color-surface);
-      box-shadow: 0 2px 5px rgba(220, 38, 38, 0.4);
-    }
-
-    .notif-item-card {
-      padding: 12px 16px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      border-bottom: 1px solid var(--color-border-whisper);
-      transition: background var(--speed-fast) ease;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .notif-item-card.unread {
-      background: var(--color-surface-elevated);
-    }
-
-    .notif-item-card:hover {
-      background: var(--color-accent-cobalt-bg);
-    }
-
-    .notif-item-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--color-accent-cobalt);
-      flex-shrink: 0;
-      margin-top: 4px;
-    }
-
-    .notif-item-card.read .notif-item-dot {
-      background: transparent;
-      border: 1px solid var(--color-border-strong);
-    }
-
-    .btn-dismiss-notif {
-      background: none;
-      border: none;
-      color: var(--color-text-muted);
-      cursor: pointer;
-      font-size: 14px;
-      line-height: 1;
-      padding: 2px;
-      margin-left: auto;
-    }
-
-    .btn-dismiss-notif:hover {
-      color: var(--color-signal-critical);
     }
 
     /* User Profile Pill */

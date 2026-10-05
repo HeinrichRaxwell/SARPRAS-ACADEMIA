@@ -58,13 +58,6 @@ const roomMetadata = {
   }
 };
 
-// Interactive Notifications State
-let notificationsData = [
-  { id: 1, title: "Jatuh Tempo Kalibrasi", desc: "Spektrofotometer Lab Kimia R.302 perlu uji ulang ISO/IEC 17025.", time: "10m lalu", unread: true, targetTab: "view-maintenance" },
-  { id: 2, title: "Permohonan Pinjam Sarana", desc: "Lab Pemetaan Geodesi mengajukan peminjaman Drone LiDAR RTK.", time: "1j lalu", unread: true, targetTab: "view-peminjaman" },
-  { id: 3, title: "Verifikasi Dokumen KIR", desc: "Jadwal pemeriksaan inventaris fisik Smart Classroom 401.", time: "3j lalu", unread: true, targetTab: "view-laporan" }
-];
-
 // Pagination & Sorting State
 let currentPage = 1;
 const pageSize = 5;
@@ -91,13 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. Render Master Data Table & Pagination
   renderInventoryTable();
 
-  // 4. Initialize Interactive Notifications
-  renderNotifications();
-
-  // 5. Connect and synchronize with Backend REST API if running on server
+  // 4. Connect and synchronize with Backend REST API if running on server
   syncWithBackend();
 
-  // 6. Initialize KIR Table for Default or URL-selected Room
+  // 5. Initialize KIR Table for Default or URL-selected Room
   const urlParams = new URLSearchParams(window.location.search);
   const roomParam = urlParams.get('room');
   if (roomParam && roomMetadata[roomParam]) {
@@ -188,30 +178,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 10. Popovers Toggle (Notifications & Profile)
-  const btnHeaderNotif = document.getElementById('btnHeaderNotif');
-  const dropdownNotifications = document.getElementById('dropdownNotifications');
+  // 10. User Profile Dropdown Toggle
   const btnHeaderProfile = document.getElementById('btnHeaderProfile');
   const dropdownProfile = document.getElementById('dropdownProfile');
-
-  if (btnHeaderNotif && dropdownNotifications) {
-    btnHeaderNotif.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (dropdownProfile) dropdownProfile.classList.remove('show');
-      dropdownNotifications.classList.toggle('show');
-    });
-  }
 
   if (btnHeaderProfile && dropdownProfile) {
     btnHeaderProfile.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (dropdownNotifications) dropdownNotifications.classList.remove('show');
       dropdownProfile.classList.toggle('show');
     });
   }
 
   document.addEventListener('click', () => {
-    if (dropdownNotifications) dropdownNotifications.classList.remove('show');
     if (dropdownProfile) dropdownProfile.classList.remove('show');
   });
 
@@ -239,7 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.modal-overlay-bg.open').forEach(modal => {
         closeModal(modal.id);
       });
-      if (dropdownNotifications) dropdownNotifications.classList.remove('show');
       if (dropdownProfile) dropdownProfile.classList.remove('show');
     }
   });
@@ -392,84 +369,6 @@ function setTheme(theme) {
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme') || 'light';
   setTheme(current === 'light' ? 'dark' : 'light');
-}
-
-// ==========================================================================
-// INTERACTIVE NOTIFICATIONS ENGINE
-// ==========================================================================
-function renderNotifications() {
-  const container = document.getElementById('notifItemsContainer');
-  const badgeCount = document.getElementById('notifBadgeCount');
-  const headerPill = document.getElementById('notifHeaderPill');
-  if (!container) return;
-
-  const unreadCount = notificationsData.filter(n => n.unread).length;
-
-  if (badgeCount) {
-    if (unreadCount > 0) {
-      badgeCount.style.display = 'flex';
-      badgeCount.textContent = unreadCount;
-    } else {
-      badgeCount.style.display = 'none';
-    }
-  }
-
-  if (headerPill) {
-    headerPill.textContent = unreadCount > 0 ? `${unreadCount} Baru` : '0 Baru';
-    headerPill.className = unreadCount > 0 ? 'status-badge-pill warning font-mono' : 'status-badge-pill normal font-mono';
-  }
-
-  container.innerHTML = '';
-
-  if (notificationsData.length === 0) {
-    container.innerHTML = `
-      <div style="padding: 24px 16px; text-align: center; color: var(--color-text-muted); font-size: 12px;">
-        Semua pemberitahuan telah dibersihkan.
-      </div>
-    `;
-    return;
-  }
-
-  notificationsData.forEach(item => {
-    const card = document.createElement('div');
-    card.className = `notif-item-card ${item.unread ? 'unread' : 'read'}`;
-    card.innerHTML = `
-      <span class="notif-item-dot" title="${item.unread ? 'Belum dibaca' : 'Sudah dibaca'}"></span>
-      <div style="flex: 1; min-width: 0;" onclick="handleNotifClick(${item.id})">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <strong style="color: var(--color-text-primary); font-size: 12px;">${item.title}</strong>
-          <span class="font-mono" style="font-size: 10px; color: var(--color-text-muted);">${item.time}</span>
-        </div>
-        <p style="font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.4;">${item.desc}</p>
-      </div>
-      <button class="btn-dismiss-notif" onclick="event.stopPropagation(); dismissNotification(${item.id})" title="Hapus notifikasi">&times;</button>
-    `;
-    container.appendChild(card);
-  });
-}
-
-function handleNotifClick(id) {
-  const item = notificationsData.find(n => n.id === id);
-  if (item) {
-    item.unread = false;
-    renderNotifications();
-    const pop = document.getElementById('dropdownNotifications');
-    if (pop) pop.classList.remove('show');
-    if (item.targetTab) navigateToTab(item.targetTab);
-    triggerToast(`Membuka: ${item.title}`);
-  }
-}
-
-function markAllNotificationsRead() {
-  notificationsData.forEach(n => n.unread = false);
-  renderNotifications();
-  triggerToast('Semua pemberitahuan telah ditandai sebagai dibaca');
-}
-
-function dismissNotification(id) {
-  notificationsData = notificationsData.filter(n => n.id !== id);
-  renderNotifications();
-  triggerToast('Pemberitahuan dihapus');
 }
 
 // ==========================================================================
