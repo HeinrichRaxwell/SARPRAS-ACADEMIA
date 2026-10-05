@@ -225,7 +225,6 @@
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
             </svg>
           </button>
-          </div>
 
           <!-- User Profile Dropdown Pill -->
           <div class="user-profile-wrapper">
@@ -281,23 +280,23 @@
         <div class="four-cards-row">
           <div class="glass-panel-card" style="padding: 16px 20px;">
             <span class="card-top-tag">TOTAL UNIT SARPRAS</span>
-            <div class="card-metric-value font-mono" id="summaryTotalAset">1.482</div>
+            <div class="card-metric-value font-mono" id="summaryTotalAset">12</div>
             <div class="card-metric-subtext">Terdata & Terverifikasi Fisik</div>
           </div>
           <div class="glass-panel-card" style="padding: 16px 20px;">
             <span class="card-top-tag">VALUASI BUKU FISKAL</span>
-            <div class="card-metric-value font-mono">Rp 4.85 M</div>
+            <div class="card-metric-value font-mono" id="summaryValuasiAset">Rp 4.85 M</div>
             <div class="card-metric-subtext">Nilai Kapitalisasi Berjalan</div>
           </div>
           <div class="glass-panel-card" style="padding: 16px 20px;">
             <span class="card-top-tag">KONDISI PRIMA (BAIK)</span>
-            <div class="card-metric-value font-mono" style="color: var(--color-signal-normal);">1.280</div>
-            <div class="card-metric-subtext">86.4% Siap Operasional Penuh</div>
+            <div class="card-metric-value font-mono" id="summaryBaikAset" style="color: var(--color-signal-normal);">10</div>
+            <div class="card-metric-subtext">83.3% Siap Operasional Penuh</div>
           </div>
           <div class="glass-panel-card" style="padding: 16px 20px;">
             <span class="card-top-tag">PERAWATAN & KARANTINA</span>
-            <div class="card-metric-value font-mono" style="color: var(--color-signal-warning);">202</div>
-            <div class="card-metric-subtext">13.6% Memerlukan Penanganan</div>
+            <div class="card-metric-value font-mono" id="summaryPerawatanAset" style="color: var(--color-signal-warning);">2</div>
+            <div class="card-metric-subtext">16.7% Memerlukan Penanganan</div>
           </div>
         </div>
 
@@ -306,12 +305,12 @@
           
           <!-- Filters & Actions Header Bar -->
           <div class="table-controls-bar">
-            <div class="table-search-field-wrap">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-text-muted);">
+            <div class="table-search-field-wrap" style="position: relative; display: flex; align-items: center;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-text-muted); position: absolute; left: 10px; pointer-events: none;">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
-              <input type="text" class="table-search-input" id="tableFilterInput" placeholder="Filter kode aset, nama alat, ruangan...">
+              <input type="text" class="table-search-input" id="tableFilterInput" placeholder="Cari kode, nama alat, ruangan...">
             </div>
 
             <div class="table-dropdown-filters">
@@ -629,7 +628,7 @@
   </div>
 
   <!-- Toast Stack -->
-  <div class="toast-stack" id="toastContainer" aria-live="polite"></div>
+  
 
   <!-- JavaScript Client-Side Engine -->
   <script src="../assets/js/chart.min.js"></script>

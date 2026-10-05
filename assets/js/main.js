@@ -679,6 +679,12 @@ function renderInventoryTable() {
   }
   const summaryTotalAset = document.getElementById('summaryTotalAset');
   if (summaryTotalAset) summaryTotalAset.textContent = inventoryData.length;
+  const countBaik = inventoryData.filter(x => x.condition === 'Baik').length;
+  const countPerawatan = inventoryData.filter(x => x.condition !== 'Baik').length;
+  const summaryBaik = document.getElementById('summaryBaikAset');
+  if (summaryBaik) summaryBaik.textContent = countBaik;
+  const summaryPerawatan = document.getElementById('summaryPerawatanAset');
+  if (summaryPerawatan) summaryPerawatan.textContent = countPerawatan;
   const sidebarAssetCount = document.getElementById('sidebarAssetCount');
   if (sidebarAssetCount) sidebarAssetCount.textContent = inventoryData.length;
 
@@ -1232,27 +1238,8 @@ function openWorkOrderModalFor(code, name) {
 }
 
 // ==========================================================================
-// TOAST NOTIFICATIONS
+// TOAST NOTIFICATIONS (Silenced per user specification - zero intrusive alerts)
 // ==========================================================================
 function triggerToast(message) {
-  const container = document.getElementById('toastContainer');
-  if (!container) return;
-
-  const toast = document.createElement('div');
-  toast.className = 'toast-card';
-  toast.innerHTML = `
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-signal-normal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
-    <span>${message}</span>
-  `;
-
-  container.appendChild(toast);
-
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateY(8px)';
-    toast.style.transition = 'all 160ms ease';
-    setTimeout(() => toast.remove(), 160);
-  }, 2600);
+  // Disabled: Clean executive UI without disruptive toast alerts
 }

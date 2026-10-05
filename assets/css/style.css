@@ -304,10 +304,11 @@
     }
 
     .brand-sub-title {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--color-text-muted);
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
     }
 
     /* Sidebar CTA Quick Action */
@@ -951,7 +952,7 @@
     /* Bento Cards & Containers */
     .bento-cards-row {
       display: grid;
-      grid-template-columns: 5fr 3.5fr 3.5fr;
+      grid-template-columns: 1.35fr 1fr 1fr;
       gap: 18px;
     }
 
@@ -1010,10 +1011,13 @@
     }
 
     .card-metric-value {
-      font-size: 26px;
+      font-size: clamp(20px, 2.2vw, 26px);
       font-weight: 800;
       color: var(--color-text-primary);
       letter-spacing: -0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .card-metric-subtext {
@@ -1092,28 +1096,69 @@
     }
 
     .table-controls-bar {
-      padding: 16px 20px;
+      padding: 14px 18px;
       border-bottom: 1px solid var(--color-border-whisper);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
       background: var(--color-surface-subtle);
     }
 
-    .table-select-filter {
+    .table-search-input {
+      width: 260px;
       height: 36px;
       background: var(--color-surface);
       border: 1px solid var(--color-border-whisper);
       border-radius: var(--radius-sm);
-      padding: 0 12px;
+      padding: 0 12px 0 32px;
+      color: var(--color-text-primary);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      outline: none;
+      transition-property: background-color, border-color, box-shadow;
+      transition-duration: var(--speed-fast);
+      transition-timing-function: var(--ease-physics);
+    }
+
+    .table-search-input:focus {
+      border-color: var(--color-accent-cobalt);
+      box-shadow: 0 0 0 2px var(--color-accent-cobalt-border);
+    }
+
+    .form-select-filter, .table-select-filter {
+      height: 36px;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 0 28px 0 12px;
       color: var(--color-text-primary);
       font-family: inherit;
       font-size: 12px;
       font-weight: 500;
       outline: none;
       cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      transition-property: background-color, border-color, box-shadow;
+      transition-duration: var(--speed-fast);
+      transition-timing-function: var(--ease-physics);
+    }
+
+    .form-select-filter:focus, .table-select-filter:focus {
+      border-color: var(--color-accent-cobalt);
+      box-shadow: 0 0 0 2px var(--color-accent-cobalt-border);
+    }
+
+    .table-dropdown-filters {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .table-responsive-box {
@@ -1125,12 +1170,12 @@
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 13px;
+      font-size: 12.5px;
     }
 
     .data-table-main th {
       background: var(--color-surface-elevated);
-      padding: 12px 18px;
+      padding: 10px 14px;
       font-size: 11px;
       font-weight: 700;
       color: var(--color-text-muted);
@@ -1140,12 +1185,19 @@
     }
 
     .data-table-main td {
-      padding: 14px 18px;
+      padding: 11px 14px;
       border-bottom: 1px solid var(--color-border-whisper);
       color: var(--color-text-primary);
       vertical-align: middle;
       white-space: nowrap;
       font-weight: 500;
+    }
+
+    .data-table-main th:last-child,
+    .data-table-main td:last-child {
+      padding-right: 28px;
+      text-align: right;
+      min-width: 130px;
     }
 
     .data-table-main tbody tr:hover {
@@ -1561,37 +1613,6 @@
       opacity: 0.9;
     }
 
-    /* Toast */
-    .toast-stack {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 120;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .toast-card {
-      padding: 12px 18px;
-      border-radius: var(--radius-sm);
-      background: var(--color-surface);
-      border: 1px solid var(--color-border-specular);
-      color: var(--color-text-primary);
-      font-size: 12px;
-      font-weight: 600;
-      box-shadow: var(--popover-shadow);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      animation: toastIn 180ms var(--ease-physics);
-    }
-
-    @keyframes toastIn {
-      from { transform: translateY(12px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
     /* ==========================================================================
        11. INSTITUTIONAL FOOTER
        ========================================================================== */
@@ -1613,7 +1634,7 @@
        12. PRINT MEDIA STYLESHEET
        ========================================================================== */
     @media print {
-      .sidebar-rail, .top-command-header, .site-footer, .view-action-header, .toast-stack, .modal-overlay-bg {
+      .sidebar-rail, .top-command-header, .site-footer, .view-action-header, .modal-overlay-bg {
         display: none !important;
       }
       body, .app-layout, .app-content-wrapper, .main-viewport {
@@ -1639,7 +1660,7 @@
     /* ==========================================================================
        13. RESPONSIVE BREAKPOINTS
        ========================================================================== */
-    @media (max-width: 1100px) {
+    @media (max-width: 1280px) {
       .bento-cards-row {
         grid-template-columns: 1fr;
       }
