@@ -663,10 +663,18 @@ function renderInventoryTable() {
         <td style="color: var(--color-text-secondary);">${item.room}</td>
         <td class="font-mono">Rp ${item.price.toLocaleString('id-ID')}</td>
         <td><span class="status-badge-pill ${badgeClass} font-mono">${item.condition}</span></td>
-        <td style="text-align: right; white-space: nowrap;">
-          <button class="table-action-link" onclick="openAssetDetailModal('${item.code}')">Detail</button>
-          <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openAssetEditModal('${item.code}')">Edit</button>
-          <button class="table-action-link danger" onclick="openDecommissionModal('${item.code}', '${item.name}', ${globalIndex})">Afkir</button>
+        <td style="text-align: right; white-space: nowrap; padding-right: 24px;">
+          <div class="enterprise-action-group">
+            <button class="table-action-icon-btn btn-view" title="Detail Spesifikasi Aset" onclick="openAssetDetailModal('${item.code}')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+            <button class="table-action-icon-btn btn-edit" title="Ubah Data Aset" onclick="openAssetEditModal('${item.code}')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </button>
+            <button class="table-action-icon-btn btn-delete" title="Afkirkan Aset BMN" onclick="openDecommissionModal('${item.code}', '${item.name}', ${globalIndex})">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+            </button>
+          </div>
         </td>
       `;
       tbody.appendChild(tr);

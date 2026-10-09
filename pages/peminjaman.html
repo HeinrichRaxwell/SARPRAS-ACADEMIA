@@ -168,14 +168,14 @@
         <div class="nav-group-title">Akses & Keamanan</div>
 
         <!-- 08. User & Role Management -->
-        <a href="users.html" class="nav-item-link" title="Manajemen Pengguna & Role" data-tooltip="Manajemen Pengguna & Role">
+        <a href="users.html" class="nav-item-link" title="Peran & Hak Akses" data-tooltip="Peran & Hak Akses (5)">
           <svg class="nav-item-icon" viewBox="0 0 24 24">
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
             <circle cx="9" cy="7" r="4"/>
             <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
             <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
-          <span class="nav-item-label">Pengguna & Role</span>
+          <span class="nav-item-label">Peran & Hak Akses</span>
           <span class="nav-badge-counter badge-subtle font-mono">5</span>
         </a>
 
@@ -345,8 +345,12 @@
                   <td class="font-mono">14 Mar 2026</td>
                   <td class="font-mono">16 Mar 2026</td>
                   <td><span class="status-badge-pill critical font-mono">Terlambat</span></td>
-                  <td style="text-align: right;">
-                    <button class="table-action-link" onclick="markReturnItem(this)">Proses Kembali</button>
+                  <td style="text-align: right; padding-right: 24px;">
+                    <div class="enterprise-action-group">
+                      <button class="table-action-icon-btn btn-view" title="Proses Pengembalian Sarana" onclick="markReturnItem(this)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                      </button>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -356,8 +360,12 @@
                   <td class="font-mono">15 Mar 2026</td>
                   <td class="font-mono">22 Mar 2026</td>
                   <td><span class="status-badge-pill warning font-mono">Dipinjam</span></td>
-                  <td style="text-align: right;">
-                    <button class="table-action-link" onclick="markReturnItem(this)">Proses Kembali</button>
+                  <td style="text-align: right; padding-right: 24px;">
+                    <div class="enterprise-action-group">
+                      <button class="table-action-icon-btn btn-view" title="Proses Pengembalian Sarana" onclick="markReturnItem(this)">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                      </button>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -367,8 +375,8 @@
                   <td class="font-mono">16 Mar 2026</td>
                   <td class="font-mono">18 Mar 2026</td>
                   <td><span class="status-badge-pill normal font-mono">Kembali</span></td>
-                  <td style="text-align: right;">
-                    <span style="font-size: 11px; color: var(--color-text-muted);">Selesai</span>
+                  <td style="text-align: right; padding-right: 24px;">
+                    <span class="status-badge-pill subtle font-mono" style="font-size: 10px;">Selesai</span>
                   </td>
                 </tr>
               </tbody>

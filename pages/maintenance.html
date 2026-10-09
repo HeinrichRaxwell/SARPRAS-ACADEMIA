@@ -168,14 +168,14 @@
         <div class="nav-group-title">Akses & Keamanan</div>
 
         <!-- 08. User & Role Management -->
-        <a href="users.html" class="nav-item-link" title="Manajemen Pengguna & Role" data-tooltip="Manajemen Pengguna & Role">
+        <a href="users.html" class="nav-item-link" title="Peran & Hak Akses" data-tooltip="Peran & Hak Akses (5)">
           <svg class="nav-item-icon" viewBox="0 0 24 24">
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
             <circle cx="9" cy="7" r="4"/>
             <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
             <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
-          <span class="nav-item-label">Pengguna & Role</span>
+          <span class="nav-item-label">Peran & Hak Akses</span>
           <span class="nav-badge-counter badge-subtle font-mono">5</span>
         </a>
 
@@ -345,8 +345,12 @@
                   <td class="font-mono">Rp 4.500.000</td>
                   <td class="font-mono">25 Mar 2026</td>
                   <td><span class="status-badge-pill warning font-mono">Pengerjaan</span></td>
-                  <td style="text-align: right;">
-                    <button class="table-action-link" onclick="triggerToast('Detail Berita Acara Servis dimuat')">Detail WO</button>
+                  <td style="text-align: right; padding-right: 24px;">
+                    <div class="enterprise-action-group">
+                      <button class="table-action-icon-btn btn-view" title="Detail Berita Acara Work Order" onclick="openWorkOrderDetailModal('WO-2026-091')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                      </button>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -356,8 +360,12 @@
                   <td class="font-mono">Rp 8.200.000</td>
                   <td class="font-mono">28 Mar 2026</td>
                   <td><span class="status-badge-pill warning font-mono">Pengerjaan</span></td>
-                  <td style="text-align: right;">
-                    <button class="table-action-link" onclick="triggerToast('Detail Berita Acara Servis dimuat')">Detail WO</button>
+                  <td style="text-align: right; padding-right: 24px;">
+                    <div class="enterprise-action-group">
+                      <button class="table-action-icon-btn btn-view" title="Detail Berita Acara Work Order" onclick="openWorkOrderDetailModal('WO-2026-092')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                      </button>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -367,8 +375,12 @@
                   <td class="font-mono">Rp 12.500.000</td>
                   <td class="font-mono">10 Mar 2026</td>
                   <td><span class="status-badge-pill normal font-mono">Selesai</span></td>
-                  <td style="text-align: right;">
-                    <button class="table-action-link" onclick="triggerToast('Sertifikat Laik Uji ISO terlampir')">Sertifikat</button>
+                  <td style="text-align: right; padding-right: 24px;">
+                    <div class="enterprise-action-group">
+                      <button class="table-action-icon-btn btn-view" title="Unduh Sertifikat Laik Uji ISO" onclick="openWorkOrderDetailModal('WO-2026-088')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.62 2.48A2 2 0 0 0 4.56 21h14.88a2 2 0 0 0 1.94-1.52L22 17"/></svg>
+                      </button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
