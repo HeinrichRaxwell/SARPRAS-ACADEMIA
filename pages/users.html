@@ -296,7 +296,7 @@
         <div class="view-action-header">
           <div class="view-title-group">
             <h1>Manajemen Pengguna & Otorisasi Hak Akses</h1>
-            <p>Pengelolaan akun personel, penetapan role wewenang BMN, dan tata kelola kredensial sistem SARPRAS ACADEMIA</p>
+            <p>Master data akun personel, matriks penugasan peran BMN, dan audit otorisasi kredensial sistem</p>
           </div>
           <div class="view-header-buttons">
             <button class="btn-action-secondary" onclick="exportUsersCsv()">
@@ -305,24 +305,24 @@
                 <polyline points="7 10 12 15 17 10"></polyline>
                 <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
-              <span>Unduh Rekap Akun CSV</span>
+              <span>Unduh Rekap CSV</span>
             </button>
             <button class="btn-action-primary" onclick="openCreateUserModal()">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
-              <span>+ Tambah Pengguna Baru</span>
+              <span>+ Tambah Pegawai</span>
             </button>
           </div>
         </div>
 
-        <!-- 4 Bento Metric Cards -->
+        <!-- 4 KPI Metrics Row (SuperApps Portal Standard) -->
         <div class="four-cards-row">
           <div class="glass-panel-card" style="padding: 16px 20px;">
-            <span class="card-top-tag">TOTAL PENGGUNA RESMI</span>
+            <span class="card-top-tag">TOTAL AKUN TERDAFTAR</span>
             <div class="card-metric-value font-mono">5 Personel</div>
-            <div class="card-metric-subtext">100% Terverifikasi SSO Kampus</div>
+            <div class="card-metric-subtext">Terkoneksi SSO & Role Matrix</div>
           </div>
           <div class="glass-panel-card" style="padding: 16px 20px;">
             <span class="card-top-tag">SUPERADMIN SISTEM</span>
@@ -332,7 +332,7 @@
           <div class="glass-panel-card" style="padding: 16px 20px;">
             <span class="card-top-tag">STRUKTUR TINGKAT ROLE</span>
             <div class="card-metric-value font-mono" style="color: var(--color-signal-normal);">5 Tingkatan</div>
-            <div class="card-metric-subtext">Matriks Otorisasi Keamanan Multi-Tier</div>
+            <div class="card-metric-subtext">Matriks Wewenang Multi-Tier</div>
           </div>
           <div class="glass-panel-card" style="padding: 16px 20px;">
             <span class="card-top-tag">STATUS OPERASIONAL AKUN</span>
@@ -341,252 +341,313 @@
           </div>
         </div>
 
-        <!-- Section 1: Role Definition Grid -->
-        <div class="glass-panel-card" style="padding: 20px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-            <div>
-              <h2 style="font-size: 15px; font-weight: 700; color: var(--color-text-primary);">Matriks Otorisasi & Peran Institusi (Role Architecture)</h2>
-              <p style="font-size: 12px; color: var(--color-text-muted); margin-top: 2px;">Pembagian wewenang tata kelola BMN sesuai standar pengawasan aset perguruan tinggi</p>
-            </div>
-            <span class="status-badge-pill normal font-mono">5 Role Standar</span>
-          </div>
-
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
-            
-            <!-- Role 1: Superadmin -->
-            <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-accent-cobalt-border); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="status-badge-pill cobalt font-mono">Level 0: Root</span>
-                <span class="font-mono" style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">1 User</span>
-              </div>
-              <strong style="font-size: 14px; color: var(--color-text-primary);">Superadmin</strong>
-              <div style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.45;">
-                Akses penuh seluruh kontrol modul, manajemen akun & role, backup basis data, serta audit log sistem.
-              </div>
-              <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--color-border-whisper); font-size: 11px; color: var(--color-accent-cobalt); font-weight: 600;">
-                Pemegang: Haidar Reyhan (NIM. 231011400547)
-              </div>
-            </div>
-
-            <!-- Role 2: Kepala Biro Sarpras -->
-            <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border-whisper); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="status-badge-pill normal font-mono">Level 1: Exec</span>
-                <span class="font-mono" style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">1 User</span>
-              </div>
-              <strong style="font-size: 14px; color: var(--color-text-primary);">Kepala Biro Sarpras</strong>
-              <div style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.45;">
-                Pengawasan eksekutif, pengesahan dokumen KIR resmi, otorisasi pengadaan, dan approval afkir BMN.
-              </div>
-              <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--color-border-whisper); font-size: 11px; color: var(--color-signal-normal); font-weight: 600;">
-                Pemegang: Dr. Ir. Hendra Wicaksono, M.T.
-              </div>
-            </div>
-
-            <!-- Role 3: Penanggung Jawab Lab -->
-            <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border-whisper); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="status-badge-pill warning font-mono">Level 2: Verifier</span>
-                <span class="font-mono" style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">1 User</span>
-              </div>
-              <strong style="font-size: 14px; color: var(--color-text-primary);">PJ Lab & Ruangan</strong>
-              <div style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.45;">
-                Validasi fisik aset ruangan, monitoring keselamatan lab, dan usulan kalibrasi alat presisi ISO 17025.
-              </div>
-              <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--color-border-whisper); font-size: 11px; color: var(--color-signal-warning); font-weight: 600;">
-                Pemegang: Dr. Retno Lestari, M.Si
-              </div>
-            </div>
-
-            <!-- Role 4: Operator Aset BMN -->
-            <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border-whisper); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="status-badge-pill cobalt font-mono">Level 3: Ops</span>
-                <span class="font-mono" style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">1 User</span>
-              </div>
-              <strong style="font-size: 14px; color: var(--color-text-primary);">Operator Aset BMN</strong>
-              <div style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.45;">
-                Registrasi sarpras baru, pencetakan stiker barcode termal 75x50mm, serta input transaksi sirkulasi.
-              </div>
-              <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--color-border-whisper); font-size: 11px; color: var(--color-accent-cobalt); font-weight: 600;">
-                Pemegang: Ir. Faisal Akbar, M.Kom
-              </div>
-            </div>
-
-            <!-- Role 5: Teknisi Pemeliharaan -->
-            <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border-whisper); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="status-badge-pill critical font-mono">Level 3: Tech</span>
-                <span class="font-mono" style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">1 User</span>
-              </div>
-              <strong style="font-size: 14px; color: var(--color-text-primary);">Teknisi Pemeliharaan</strong>
-              <div style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.45;">
-                Penerbitan Work Order servis, inspeksi mekanikal elektrikal kampus, dan logbook perbaikan instrumen.
-              </div>
-              <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--color-border-whisper); font-size: 11px; color: var(--color-signal-critical); font-weight: 600;">
-                Pemegang: Ahmad Fauzi, S.T.
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Section 2: User Account Management Table -->
-        <div class="glass-table-wrapper">
+        <!-- TABEL 1: Enterprise Grid: User (Manajemen Pengguna ASN & Civitas) -->
+        <div class="enterprise-grid-card">
           
-          <div class="table-controls-bar">
-            <div class="table-search-field-wrap" style="position: relative; display: flex; align-items: center;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-text-muted); position: absolute; left: 10px; pointer-events: none;">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          <!-- Deep Navy Header Bar -->
+          <div class="enterprise-grid-header">
+            <div class="enterprise-grid-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
               </svg>
-              <input type="text" class="table-search-input" id="userFilterInput" placeholder="Cari nama, NIM, NIP, role...">
+              <span>User (Manajemen Pengguna Sistem & Akses Pegawai)</span>
             </div>
-
-            <div class="table-dropdown-filters">
-              <select class="form-select-filter" id="selectRoleFilter">
-                <option value="all">Semua Role</option>
-                <option value="Superadmin">Superadmin</option>
-                <option value="Kepala Biro Sarpras">Kepala Biro Sarpras</option>
-                <option value="Penanggung Jawab Lab">Penanggung Jawab Lab</option>
-                <option value="Operator Aset BMN">Operator Aset BMN</option>
-                <option value="Teknisi Pemeliharaan">Teknisi Pemeliharaan</option>
-              </select>
-            </div>
-            
-            <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted); margin-left: auto;" id="userFilterStats">
-              Menampilkan 5 personel tervalidasi
+            <div class="enterprise-grid-meta" id="userGridMeta">
+              Showing 1-5 of 5 registered users.
             </div>
           </div>
 
-          <!-- Main Users Table -->
-          <div class="table-responsive-box">
-            <table class="data-table-main" id="userAccountsTable">
+          <!-- Sub-Toolbar (SuperApps Portal Pattern) -->
+          <div class="enterprise-grid-toolbar">
+            <div class="enterprise-grid-hint">
+              * Ukuran tabel responsif & kolom dapat difilter langsung per kriteria pencarian.
+            </div>
+            <div class="enterprise-grid-actions">
+              <button onclick="openCreateUserModal()" class="btn-action-primary" style="height: 30px; padding: 0 10px; font-size: 11.5px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Tambah</span>
+              </button>
+              <button onclick="refreshUsersData()" class="btn-action-secondary" style="height: 30px; padding: 0 10px; font-size: 11.5px; color: #16a34a; border-color: #bbf7d0;" title="Muat Ulang Data">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                <span>Refresh</span>
+              </button>
+              <button onclick="resetUserFilters()" class="btn-action-secondary" style="height: 30px; padding: 0 10px; font-size: 11.5px;">
+                Reset Filter
+              </button>
+              <button onclick="exportUsersCsv()" class="btn-action-secondary" style="height: 30px; padding: 0 10px; font-size: 11.5px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Ekspor CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Enterprise Table with Inline Filter Row -->
+          <div class="enterprise-table-wrapper">
+            <table class="enterprise-table" id="tableUsersMain">
               <thead>
                 <tr>
-                  <th style="width: 50px; text-align: center;">AVATAR</th>
-                  <th>NAMA LENGKAP & IDENTITAS RESMI</th>
-                  <th>USERNAME</th>
-                  <th>EMAIL INSTITUSI</th>
-                  <th>ROLE WEWENANG</th>
-                  <th>STATUS AKUN</th>
-                  <th>CAKUPAN IZIN AKSES</th>
-                  <th style="text-align: right; min-width: 130px; padding-right: 28px;">AKSI</th>
+                  <th style="width: 36px; text-align: center;"><input type="checkbox" title="Pilih Semua"></th>
+                  <th style="width: 36px; text-align: center;">#</th>
+                  <th style="min-width: 150px;">Username / Identitas</th>
+                  <th style="min-width: 190px;">Nama Lengkap & Gelar</th>
+                  <th style="min-width: 160px;">Surel / Email Kampus</th>
+                  <th style="min-width: 180px;">Unit Kerja / Satker</th>
+                  <th style="width: 90px; text-align: center;">Status</th>
+                  <th style="width: 140px; text-align: center;">Role</th>
+                  <th style="width: 110px; text-align: center;">Aksi</th>
+                </tr>
+                <!-- Inline Column Search Filter Row (Ala MrBean / Talent Pool DJKA) -->
+                <tr class="enterprise-filter-row">
+                  <th></th>
+                  <th></th>
+                  <th>
+                    <input type="text" class="enterprise-filter-input font-mono" id="filterColId" placeholder="Filter ID/NIM..." oninput="applyEnterpriseFilters()">
+                  </th>
+                  <th>
+                    <input type="text" class="enterprise-filter-input" id="filterColName" placeholder="Filter Nama..." oninput="applyEnterpriseFilters()">
+                  </th>
+                  <th>
+                    <input type="text" class="enterprise-filter-input" id="filterColEmail" placeholder="Filter Email..." oninput="applyEnterpriseFilters()">
+                  </th>
+                  <th>
+                    <select class="enterprise-filter-select" id="filterColUnit" onchange="applyEnterpriseFilters()">
+                      <option value="ALL">Semua Unit</option>
+                      <option value="Biro Sarana dan Prasarana">Biro Sarana dan Prasarana</option>
+                      <option value="Laboratorium Terpadu">Laboratorium Terpadu</option>
+                      <option value="Pusat Data & Server">Pusat Data & Server</option>
+                      <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
+                    </select>
+                  </th>
+                  <th>
+                    <select class="enterprise-filter-select" id="filterColStatus" onchange="applyEnterpriseFilters()">
+                      <option value="ALL">Semua</option>
+                      <option value="Aktif">Aktif</option>
+                      <option value="Nonaktif">Nonaktif</option>
+                    </select>
+                  </th>
+                  <th>
+                    <select class="enterprise-filter-select" id="filterColRole" onchange="applyEnterpriseFilters()">
+                      <option value="ALL">Semua Role</option>
+                      <option value="Superadmin">Superadmin</option>
+                      <option value="Kepala Biro Sarpras">Kepala Biro Sarpras</option>
+                      <option value="Penanggung Jawab Lab">Penanggung Jawab Lab</option>
+                      <option value="Operator Aset BMN">Operator Aset BMN</option>
+                      <option value="Teknisi Pemeliharaan">Teknisi Pemeliharaan</option>
+                    </select>
+                  </th>
+                  <th style="text-align: center;">
+                    <button onclick="resetUserFilters()" class="btn-action-secondary" style="height: 24px; padding: 0 6px; font-size: 10px;">Reset</button>
+                  </th>
                 </tr>
               </thead>
-              <tbody id="userListTbody">
-                <!-- Row 1: Superadmin -->
-                <tr>
-                  <td style="text-align: center;">
-                    <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-accent-cobalt);">HR</div>
-                  </td>
-                  <td>
-                    <strong style="color: var(--color-text-primary);">Haidar Reyhan</strong>
-                    <div class="font-mono" style="font-size: 11px; color: var(--color-accent-cobalt); font-weight: 700;">NIM. 231011400547</div>
-                  </td>
-                  <td class="font-mono" style="font-weight: 600;">haidar</td>
-                  <td style="color: var(--color-text-secondary);">haidar.reyhan@unpam.ac.id</td>
-                  <td><span class="status-badge-pill cobalt font-mono">Superadmin</span></td>
-                  <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
-                  <td style="font-size: 11.5px; color: var(--color-text-secondary);">Akses Penuh Sistem, Manajemen Role, BMN Audit, Backup DB</td>
-                  <td style="text-align: right; padding-right: 28px;">
-                    <button class="table-action-link" onclick="openUserDetailModal('haidar')">Detail</button>
-                    <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('haidar')">Role</button>
-                  </td>
-                </tr>
-
-                <!-- Row 2: Kepala Biro -->
-                <tr>
-                  <td style="text-align: center;">
-                    <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-signal-normal);">HW</div>
-                  </td>
-                  <td>
-                    <strong style="color: var(--color-text-primary);">Dr. Ir. Hendra Wicaksono, M.T.</strong>
-                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19760312 200112 1 002</div>
-                  </td>
-                  <td class="font-mono" style="font-weight: 600;">hendra</td>
-                  <td style="color: var(--color-text-secondary);">hendra.wicaksono@unpam.ac.id</td>
-                  <td><span class="status-badge-pill normal font-mono">Kepala Biro Sarpras</span></td>
-                  <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
-                  <td style="font-size: 11.5px; color: var(--color-text-secondary);">Executive Dashboard, Pengesahan KIR, Approval Afkir BMN</td>
-                  <td style="text-align: right; padding-right: 28px;">
-                    <button class="table-action-link" onclick="openUserDetailModal('hendra')">Detail</button>
-                    <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('hendra')">Role</button>
-                  </td>
-                </tr>
-
-                <!-- Row 3: PJ Lab -->
-                <tr>
-                  <td style="text-align: center;">
-                    <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-signal-warning);">RL</div>
-                  </td>
-                  <td>
-                    <strong style="color: var(--color-text-primary);">Dr. Retno Lestari, M.Si</strong>
-                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19820514 200812 2 001</div>
-                  </td>
-                  <td class="font-mono" style="font-weight: 600;">retno</td>
-                  <td style="color: var(--color-text-secondary);">retno.lestari@unpam.ac.id</td>
-                  <td><span class="status-badge-pill warning font-mono">Penanggung Jawab Lab</span></td>
-                  <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
-                  <td style="font-size: 11.5px; color: var(--color-text-secondary);">Validasi KIR Ruangan, Usulan Kalibrasi & Servis Instrumen Lab</td>
-                  <td style="text-align: right; padding-right: 28px;">
-                    <button class="table-action-link" onclick="openUserDetailModal('retno')">Detail</button>
-                    <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('retno')">Role</button>
-                  </td>
-                </tr>
-
-                <!-- Row 4: Operator BMN -->
-                <tr>
-                  <td style="text-align: center;">
-                    <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-accent-cobalt);">FA</div>
-                  </td>
-                  <td>
-                    <strong style="color: var(--color-text-primary);">Ir. Faisal Akbar, M.Kom</strong>
-                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19790820 200501 1 003</div>
-                  </td>
-                  <td class="font-mono" style="font-weight: 600;">faisal</td>
-                  <td style="color: var(--color-text-secondary);">faisal.akbar@unpam.ac.id</td>
-                  <td><span class="status-badge-pill cobalt font-mono">Operator Aset BMN</span></td>
-                  <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
-                  <td style="font-size: 11.5px; color: var(--color-text-secondary);">Registrasi BMN Baru, Sirkulasi Peminjaman, Cetak Barcode Termal</td>
-                  <td style="text-align: right; padding-right: 28px;">
-                    <button class="table-action-link" onclick="openUserDetailModal('faisal')">Detail</button>
-                    <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('faisal')">Role</button>
-                  </td>
-                </tr>
-
-                <!-- Row 5: Teknisi Pemeliharaan -->
-                <tr>
-                  <td style="text-align: center;">
-                    <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-signal-critical);">AF</div>
-                  </td>
-                  <td>
-                    <strong style="color: var(--color-text-primary);">Ahmad Fauzi, S.T.</strong>
-                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19921105 201903 1 004</div>
-                  </td>
-                  <td class="font-mono" style="font-weight: 600;">fauzi</td>
-                  <td style="color: var(--color-text-secondary);">ahmad.fauzi@unpam.ac.id</td>
-                  <td><span class="status-badge-pill critical font-mono">Teknisi Pemeliharaan</span></td>
-                  <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
-                  <td style="font-size: 11.5px; color: var(--color-text-secondary);">Eksekusi Work Order Servis, Jadwal Kalibrasi, Log Perbaikan Fisik</td>
-                  <td style="text-align: right; padding-right: 28px;">
-                    <button class="table-action-link" onclick="openUserDetailModal('fauzi')">Detail</button>
-                    <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('fauzi')">Role</button>
-                  </td>
-                </tr>
-
+              <tbody id="userTableBody">
+                <!-- Data populated dynamically via JS -->
               </tbody>
             </table>
           </div>
 
-          <!-- Pagination Footer -->
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-top: 1px solid var(--color-border-whisper); background: var(--color-surface); font-size: 12px; color: var(--color-text-muted);">
-            <div>Halaman 1 dari 1 (Total 5 personel aktif)</div>
+          <!-- Table Footer Pagination Summary -->
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; border-top: 1px solid var(--color-border-whisper); background: var(--color-surface); font-size: 12px; color: var(--color-text-muted);">
+            <div id="userPaginationMeta">Showing <strong>1-5</strong> of <strong>5</strong> registered users.</div>
             <div style="display: flex; gap: 4px;">
-              <button class="btn-header-control" style="width: 28px; height: 28px;" disabled>&lt;</button>
-              <button class="btn-header-control" style="width: 28px; height: 28px; background: var(--color-accent-cobalt); color: #FFF; border-color: var(--color-accent-cobalt);">1</button>
-              <button class="btn-header-control" style="width: 28px; height: 28px;" disabled>&gt;</button>
+              <button class="btn-header-control" style="width: 26px; height: 26px; font-size: 11px;" disabled>&lt;</button>
+              <button class="btn-header-control" style="width: 26px; height: 26px; font-size: 11px; background: var(--color-accent-cobalt); color: #FFF; border-color: var(--color-accent-cobalt);">1</button>
+              <button class="btn-header-control" style="width: 26px; height: 26px; font-size: 11px;" disabled>&gt;</button>
             </div>
+          </div>
+
+        </div>
+
+        <!-- TABEL 2: Enterprise Grid: Matriks Peran & Hak Akses (Role & Permission Matrix) -->
+        <div class="enterprise-grid-card">
+          
+          <!-- Deep Navy Header Bar -->
+          <div class="enterprise-grid-header">
+            <div class="enterprise-grid-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+              <span>Matriks Peran & Hak Akses Institusi (Role & Permission Matrix)</span>
+            </div>
+            <div class="enterprise-grid-meta">
+              5 Tingkat Peran &bull; ISO 55001 Compliance
+            </div>
+          </div>
+
+          <!-- Sub-Toolbar -->
+          <div class="enterprise-grid-toolbar">
+            <div class="enterprise-grid-hint">
+              * Struktur otorisasi multi-tier untuk pembagian wewenang tata kelola BMN sesuai standar pengawasan aset perguruan tinggi.
+            </div>
+            <div class="enterprise-grid-actions">
+              <button onclick="openCreateUserModal()" class="btn-action-primary" style="height: 30px; padding: 0 10px; font-size: 11.5px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Tambah Penugasan Role</span>
+              </button>
+              <button onclick="exportRolesMatrixCsv()" class="btn-action-secondary" style="height: 30px; padding: 0 10px; font-size: 11.5px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Ekspor Matriks CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Enterprise Table: Role Management Matrix -->
+          <div class="enterprise-table-wrapper">
+            <table class="enterprise-table">
+              <thead>
+                <tr>
+                  <th style="width: 40px; text-align: center;">#</th>
+                  <th style="width: 130px;">Tingkat Otorisasi</th>
+                  <th style="width: 170px;">Nama Peran (Role)</th>
+                  <th style="min-width: 220px;">Pemegang Akun Resmi</th>
+                  <th style="min-width: 260px;">Hak Akses Modul BMN</th>
+                  <th style="min-width: 240px;">Deskripsi Wewenang Institusi</th>
+                  <th style="width: 90px; text-align: center;">Status</th>
+                  <th style="width: 90px; text-align: center;">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Role 1: Superadmin -->
+                <tr>
+                  <td style="text-align: center; font-weight: 700; color: var(--color-text-muted);">1</td>
+                  <td><span class="status-badge-pill cobalt font-mono">Level 0: Root</span></td>
+                  <td><strong style="color: var(--color-text-primary);">Superadmin</strong></td>
+                  <td>
+                    <div style="font-weight: 700; color: var(--color-accent-cobalt);">Haidar Reyhan</div>
+                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIM. 231011400547 (Siswa S1 T. Informatika)</div>
+                  </td>
+                  <td>
+                    <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                      <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Dashboard</span>
+                      <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Master Data</span>
+                      <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Form BMN</span>
+                      <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">KIR Resmi</span>
+                      <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Peminjaman</span>
+                      <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Servis WO</span>
+                      <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Kelola Akun</span>
+                      <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Database Root</span>
+                    </div>
+                  </td>
+                  <td style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.4;">
+                    Akses penuh seluruh kontrol modul, manajemen akun & role, backup basis data, serta audit log sistem.
+                  </td>
+                  <td style="text-align: center;"><span class="status-badge-pill normal font-mono">Aktif</span></td>
+                  <td style="text-align: center;">
+                    <button class="table-action-link" onclick="openUserDetailModal('haidar')">Detail</button>
+                  </td>
+                </tr>
+
+                <!-- Role 2: Kepala Biro Sarpras -->
+                <tr>
+                  <td style="text-align: center; font-weight: 700; color: var(--color-text-muted);">2</td>
+                  <td><span class="status-badge-pill normal font-mono">Level 1: Exec</span></td>
+                  <td><strong style="color: var(--color-text-primary);">Kepala Biro Sarpras</strong></td>
+                  <td>
+                    <div style="font-weight: 700; color: var(--color-text-primary);">Dr. Ir. Hendra Wicaksono, M.T.</div>
+                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19760312 200112 1 002</div>
+                  </td>
+                  <td>
+                    <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                      <span class="status-badge-pill normal font-mono" style="font-size: 10px;">Executive Dashboard</span>
+                      <span class="status-badge-pill normal font-mono" style="font-size: 10px;">Pengesahan KIR</span>
+                      <span class="status-badge-pill normal font-mono" style="font-size: 10px;">Approval Afkir BMN</span>
+                      <span class="status-badge-pill normal font-mono" style="font-size: 10px;">Otorisasi Pengadaan</span>
+                    </div>
+                  </td>
+                  <td style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.4;">
+                    Pengawasan eksekutif, pengesahan dokumen KIR resmi, otorisasi pengadaan, dan persetujuan afkir BMN.
+                  </td>
+                  <td style="text-align: center;"><span class="status-badge-pill normal font-mono">Aktif</span></td>
+                  <td style="text-align: center;">
+                    <button class="table-action-link" onclick="openUserDetailModal('hendra')">Detail</button>
+                  </td>
+                </tr>
+
+                <!-- Role 3: PJ Lab & Ruangan -->
+                <tr>
+                  <td style="text-align: center; font-weight: 700; color: var(--color-text-muted);">3</td>
+                  <td><span class="status-badge-pill warning font-mono">Level 2: Verifier</span></td>
+                  <td><strong style="color: var(--color-text-primary);">Penanggung Jawab Lab</strong></td>
+                  <td>
+                    <div style="font-weight: 700; color: var(--color-text-primary);">Dr. Retno Lestari, M.Si</div>
+                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19820514 200812 2 001</div>
+                  </td>
+                  <td>
+                    <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                      <span class="status-badge-pill warning font-mono" style="font-size: 10px;">Validasi Fisik KIR</span>
+                      <span class="status-badge-pill warning font-mono" style="font-size: 10px;">Usulan Kalibrasi</span>
+                      <span class="status-badge-pill warning font-mono" style="font-size: 10px;">Inspeksi Alat Riset</span>
+                    </div>
+                  </td>
+                  <td style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.4;">
+                    Validasi fisik aset ruangan, monitoring keselamatan lab, dan usulan kalibrasi alat presisi ISO 17025.
+                  </td>
+                  <td style="text-align: center;"><span class="status-badge-pill normal font-mono">Aktif</span></td>
+                  <td style="text-align: center;">
+                    <button class="table-action-link" onclick="openUserDetailModal('retno')">Detail</button>
+                  </td>
+                </tr>
+
+                <!-- Role 4: Operator Aset BMN -->
+                <tr>
+                  <td style="text-align: center; font-weight: 700; color: var(--color-text-muted);">4</td>
+                  <td><span class="status-badge-pill cobalt font-mono">Level 3: Ops</span></td>
+                  <td><strong style="color: var(--color-text-primary);">Operator Aset BMN</strong></td>
+                  <td>
+                    <div style="font-weight: 700; color: var(--color-text-primary);">Ir. Faisal Akbar, M.Kom</div>
+                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19790820 200501 1 003</div>
+                  </td>
+                  <td>
+                    <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                      <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Registrasi BMN Baru</span>
+                      <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Cetak Stiker Barcode</span>
+                      <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Peminjaman & Mutasi</span>
+                    </div>
+                  </td>
+                  <td style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.4;">
+                    Registrasi sarpras baru, pencetakan stiker barcode termal 75x50mm, serta input transaksi sirkulasi.
+                  </td>
+                  <td style="text-align: center;"><span class="status-badge-pill normal font-mono">Aktif</span></td>
+                  <td style="text-align: center;">
+                    <button class="table-action-link" onclick="openUserDetailModal('faisal')">Detail</button>
+                  </td>
+                </tr>
+
+                <!-- Role 5: Teknisi Pemeliharaan -->
+                <tr>
+                  <td style="text-align: center; font-weight: 700; color: var(--color-text-muted);">5</td>
+                  <td><span class="status-badge-pill critical font-mono">Level 3: Tech</span></td>
+                  <td><strong style="color: var(--color-text-primary);">Teknisi Pemeliharaan</strong></td>
+                  <td>
+                    <div style="font-weight: 700; color: var(--color-text-primary);">Ahmad Fauzi, S.T.</div>
+                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19921105 201903 1 004</div>
+                  </td>
+                  <td>
+                    <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                      <span class="status-badge-pill critical font-mono" style="font-size: 10px;">Terbitkan Work Order</span>
+                      <span class="status-badge-pill critical font-mono" style="font-size: 10px;">Jadwal Kalibrasi</span>
+                      <span class="status-badge-pill critical font-mono" style="font-size: 10px;">Logbook Servis</span>
+                    </div>
+                  </td>
+                  <td style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.4;">
+                    Penerbitan Work Order servis, inspeksi mekanikal elektrikal kampus, dan logbook perbaikan instrumen.
+                  </td>
+                  <td style="text-align: center;"><span class="status-badge-pill normal font-mono">Aktif</span></td>
+                  <td style="text-align: center;">
+                    <button class="table-action-link" onclick="openUserDetailModal('fauzi')">Detail</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer -->
+          <div style="padding: 12px 18px; border-top: 1px solid var(--color-border-whisper); background: var(--color-surface); font-size: 12px; color: var(--color-text-muted);">
+            Menampilkan seluruh 5 tingkatan wewenang peran resmi institusional SARPRAS ACADEMIA.
           </div>
 
         </div>
@@ -647,15 +708,25 @@
               <input type="email" class="form-input-field" id="newUserEmail" placeholder="nama@unpam.ac.id">
             </div>
             <div class="form-group-item">
-              <label class="form-label-text">Role Wewenang *</label>
-              <select class="form-select-field" id="newUserRole">
-                <option value="Operator Aset BMN">Operator Aset BMN</option>
-                <option value="Penanggung Jawab Lab">Penanggung Jawab Lab</option>
-                <option value="Teknisi Pemeliharaan">Teknisi Pemeliharaan</option>
-                <option value="Kepala Biro Sarpras">Kepala Biro Sarpras</option>
-                <option value="Superadmin">Superadmin</option>
+              <label class="form-label-text">Unit Kerja / Satker *</label>
+              <select class="form-select-field" id="newUserUnit">
+                <option value="Biro Sarana dan Prasarana">Biro Sarana dan Prasarana</option>
+                <option value="Laboratorium Terpadu">Laboratorium Terpadu</option>
+                <option value="Pusat Data & Server">Pusat Data & Server</option>
+                <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
               </select>
             </div>
+          </div>
+
+          <div class="form-group-item">
+            <label class="form-label-text">Role Wewenang *</label>
+            <select class="form-select-field" id="newUserRole">
+              <option value="Operator Aset BMN">Operator Aset BMN</option>
+              <option value="Penanggung Jawab Lab">Penanggung Jawab Lab</option>
+              <option value="Teknisi Pemeliharaan">Teknisi Pemeliharaan</option>
+              <option value="Kepala Biro Sarpras">Kepala Biro Sarpras</option>
+              <option value="Superadmin">Superadmin</option>
+            </select>
           </div>
         </div>
         <div class="modal-foot-actions">
@@ -697,6 +768,10 @@
             <span id="detailUserEmail">haidar.reyhan@unpam.ac.id</span>
           </div>
           <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--color-text-muted);">Unit Kerja:</span>
+            <span id="detailUserUnit" style="font-weight: 600;">Biro Sarana dan Prasarana</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
             <span style="color: var(--color-text-muted);">Role Otorisasi:</span>
             <span id="detailUserRole" class="status-badge-pill cobalt font-mono">Superadmin</span>
           </div>
@@ -721,14 +796,145 @@
   <!-- JavaScript Modules -->
   <script src="../assets/js/main.js"></script>
   <script>
-    // In-page User Management Handlers
-    const usersDataset = [
-      { u: 'haidar', n: 'Haidar Reyhan', id: 'NIM. 231011400547', e: 'haidar.reyhan@unpam.ac.id', r: 'Superadmin', s: 'Aktif', p: 'Akses Penuh Sistem, Manajemen Pengguna & Role, BMN Audit, Backup DB' },
-      { u: 'hendra', n: 'Dr. Ir. Hendra Wicaksono, M.T.', id: 'NIP. 19760312 200112 1 002', e: 'hendra.wicaksono@unpam.ac.id', r: 'Kepala Biro Sarpras', s: 'Aktif', p: 'Executive Dashboard, Pengesahan Dokumen KIR, Approval Afkir BMN' },
-      { u: 'retno', n: 'Dr. Retno Lestari, M.Si', id: 'NIP. 19820514 200812 2 001', e: 'retno.lestari@unpam.ac.id', r: 'Penanggung Jawab Lab', s: 'Aktif', p: 'Validasi KIR Ruangan, Usulan Kalibrasi & Servis Instrumen Lab' },
-      { u: 'faisal', n: 'Ir. Faisal Akbar, M.Kom', id: 'NIP. 19790820 200501 1 003', e: 'faisal.akbar@unpam.ac.id', r: 'Operator Aset BMN', s: 'Aktif', p: 'Registrasi BMN Baru, Sirkulasi Peminjaman, Cetak Stiker Barcode' },
-      { u: 'fauzi', n: 'Ahmad Fauzi, S.T.', id: 'NIP. 19921105 201903 1 004', e: 'ahmad.fauzi@unpam.ac.id', r: 'Teknisi Pemeliharaan', s: 'Aktif', p: 'Eksekusi Work Order Servis, Jadwal Kalibrasi, Log Perbaikan Fisik' }
+    // In-page User Management Handlers (SuperApps Portal / Talent Pool Standard)
+    let usersDataset = [
+      { u: 'haidar', n: 'Haidar Reyhan', id: 'NIM. 231011400547', e: 'haidar.reyhan@unpam.ac.id', unit: 'Biro Sarana dan Prasarana', r: 'Superadmin', s: 'Aktif', p: 'Akses Penuh Sistem, Manajemen Pengguna & Role, BMN Audit, Backup DB' },
+      { u: 'hendra', n: 'Dr. Ir. Hendra Wicaksono, M.T.', id: 'NIP. 19760312 200112 1 002', e: 'hendra.wicaksono@unpam.ac.id', unit: 'Biro Sarana dan Prasarana', r: 'Kepala Biro Sarpras', s: 'Aktif', p: 'Executive Dashboard, Pengesahan Dokumen KIR, Approval Afkir BMN' },
+      { u: 'retno', n: 'Dr. Retno Lestari, M.Si', id: 'NIP. 19820514 200812 2 001', e: 'retno.lestari@unpam.ac.id', unit: 'Laboratorium Terpadu', r: 'Penanggung Jawab Lab', s: 'Aktif', p: 'Validasi KIR Ruangan, Usulan Kalibrasi & Servis Instrumen Lab' },
+      { u: 'faisal', n: 'Ir. Faisal Akbar, M.Kom', id: 'NIP. 19790820 200501 1 003', e: 'faisal.akbar@unpam.ac.id', unit: 'Pusat Data & Server', r: 'Operator Aset BMN', s: 'Aktif', p: 'Registrasi BMN Baru, Sirkulasi Peminjaman, Cetak Stiker Barcode' },
+      { u: 'fauzi', n: 'Ahmad Fauzi, S.T.', id: 'NIP. 19921105 201903 1 004', e: 'ahmad.fauzi@unpam.ac.id', unit: 'Biro Sarana dan Prasarana', r: 'Teknisi Pemeliharaan', s: 'Aktif', p: 'Eksekusi Work Order Servis, Jadwal Kalibrasi, Log Perbaikan Fisik' }
     ];
+
+    const roleBadgeClasses = {
+      'Superadmin': 'cobalt',
+      'Kepala Biro Sarpras': 'normal',
+      'Penanggung Jawab Lab': 'warning',
+      'Operator Aset BMN': 'cobalt',
+      'Teknisi Pemeliharaan': 'critical'
+    };
+
+    function renderUserTable(dataToRender) {
+      const tbody = document.getElementById('userTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (dataToRender.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" style="text-align: center; padding: 2rem 1rem; color: var(--color-text-muted);">
+              Tidak ada data pengguna yang sesuai dengan kriteria filter pencarian.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      dataToRender.forEach((u, idx) => {
+        const badgeCls = roleBadgeClasses[u.r] || 'cobalt';
+        const initials = u.n.split(' ').map(x => x[0]).slice(0, 2).join('').toUpperCase();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="text-align: center;"><input type="checkbox"></td>
+          <td style="text-align: center; font-weight: 700; color: var(--color-text-muted);">${idx + 1}</td>
+          <td>
+            <code style="font-weight: 800; color: var(--color-accent-cobalt); font-family: var(--font-mono); font-size: 12px;">${u.u}</code>
+            <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">${u.id}</div>
+          </td>
+          <td>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 6px; background: var(--color-accent-cobalt-bg); color: var(--color-accent-cobalt); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; flex-shrink: 0; border: 1px solid var(--color-accent-cobalt-border);">
+                ${initials}
+              </div>
+              <div>
+                <strong>${u.n}</strong>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div style="color: var(--color-accent-cobalt); font-weight: 600; font-size: 12px;">${u.e}</div>
+          </td>
+          <td>
+            <div style="font-size: 12px; font-weight: 600; color: var(--color-text-primary);">${u.unit || 'Biro Sarpras UNPAM'}</div>
+          </td>
+          <td style="text-align: center;">
+            <span class="status-badge-pill normal font-mono" style="font-size: 11px;">
+              ${u.s || 'Aktif'}
+            </span>
+          </td>
+          <td style="text-align: center;">
+            <span class="status-badge-pill ${badgeCls} font-mono" style="font-size: 11px;">${u.r}</span>
+          </td>
+          <td style="text-align: center;">
+            <div class="enterprise-action-group">
+              <button onclick="openUserDetailModal('${u.u}')" class="enterprise-icon-btn btn-view" title="Lihat Profil Pegawai">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+              <button onclick="openUserDetailModal('${u.u}')" class="enterprise-icon-btn btn-edit" title="Ubah Hak Akses / Role">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const meta = document.getElementById('userGridMeta');
+      if (meta) meta.textContent = `Showing 1-${dataToRender.length} of ${usersDataset.length} registered users.`;
+      const pagMeta = document.getElementById('userPaginationMeta');
+      if (pagMeta) pagMeta.innerHTML = `Showing <strong>1-${dataToRender.length}</strong> of <strong>${usersDataset.length}</strong> registered users.`;
+    }
+
+    function applyEnterpriseFilters() {
+      const qId = (document.getElementById('filterColId')?.value || '').toLowerCase();
+      const qName = (document.getElementById('filterColName')?.value || '').toLowerCase();
+      const qEmail = (document.getElementById('filterColEmail')?.value || '').toLowerCase();
+      const qUnit = document.getElementById('filterColUnit')?.value || 'ALL';
+      const qStatus = document.getElementById('filterColStatus')?.value || 'ALL';
+      const qRole = document.getElementById('filterColRole')?.value || 'ALL';
+
+      const filtered = usersDataset.filter(u => {
+        if (qId && !(u.u.toLowerCase().includes(qId) || u.id.toLowerCase().includes(qId))) return false;
+        if (qName && !u.n.toLowerCase().includes(qName)) return false;
+        if (qEmail && !u.e.toLowerCase().includes(qEmail)) return false;
+        if (qUnit !== 'ALL' && u.unit !== qUnit) return false;
+        if (qStatus !== 'ALL' && u.s !== qStatus) return false;
+        if (qRole !== 'ALL' && u.r !== qRole) return false;
+        return true;
+      });
+
+      renderUserTable(filtered);
+    }
+
+    function resetUserFilters() {
+      if (document.getElementById('filterColId')) document.getElementById('filterColId').value = '';
+      if (document.getElementById('filterColName')) document.getElementById('filterColName').value = '';
+      if (document.getElementById('filterColEmail')) document.getElementById('filterColEmail').value = '';
+      if (document.getElementById('filterColUnit')) document.getElementById('filterColUnit').value = 'ALL';
+      if (document.getElementById('filterColStatus')) document.getElementById('filterColStatus').value = 'ALL';
+      if (document.getElementById('filterColRole')) document.getElementById('filterColRole').value = 'ALL';
+      renderUserTable(usersDataset);
+    }
+
+    function refreshUsersData() {
+      fetch('/api/users')
+        .then(r => r.json())
+        .then(liveUsers => {
+          if (Array.isArray(liveUsers) && liveUsers.length > 0) {
+            usersDataset = liveUsers.map(u => ({
+              u: u.username,
+              n: u.full_name,
+              id: u.identity_number || '-',
+              e: u.email || `${u.username}@unpam.ac.id`,
+              unit: 'Biro Sarana dan Prasarana',
+              r: u.role,
+              s: u.status || 'Aktif',
+              p: u.permissions || 'Akses Operasional BMN'
+            }));
+            renderUserTable(usersDataset);
+          }
+        })
+        .catch(() => renderUserTable(usersDataset));
+    }
 
     function openCreateUserModal() {
       openModal('modalCreateUser');
@@ -741,14 +947,11 @@
       document.getElementById('detailUserIdNumber').textContent = u.id;
       document.getElementById('detailUserUsername').textContent = u.u;
       document.getElementById('detailUserEmail').textContent = u.e;
+      document.getElementById('detailUserUnit').textContent = u.unit || 'Biro Sarpras UNPAM';
       document.getElementById('detailUserRole').textContent = u.r;
       document.getElementById('detailUserPermissions').textContent = u.p;
-      document.getElementById('detailUserAvatar').textContent = u.n.split(' ').map(x => x[0]).slice(0, 2).join('');
+      document.getElementById('detailUserAvatar').textContent = u.n.split(' ').map(x => x[0]).slice(0, 2).join('').toUpperCase();
       openModal('modalUserDetail');
-    }
-
-    function openEditRoleModal(username) {
-      openUserDetailModal(username);
     }
 
     function submitNewUser(e) {
@@ -757,6 +960,7 @@
       const idNum = document.getElementById('newUserIdNumber').value;
       const uname = document.getElementById('newUserUsername').value;
       const email = document.getElementById('newUserEmail').value || `${uname}@unpam.ac.id`;
+      const unit = document.getElementById('newUserUnit').value;
       const role = document.getElementById('newUserRole').value;
 
       const newUser = {
@@ -764,39 +968,16 @@
         n: name,
         id: idNum,
         e: email,
+        unit: unit,
         r: role,
         s: 'Aktif',
         p: 'Akses Operasional Modul Terpilih'
       };
 
       usersDataset.push(newUser);
+      renderUserTable(usersDataset);
 
-      // Append row to table
-      const tbody = document.getElementById('userListTbody');
-      if (tbody) {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td style="text-align: center;">
-            <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-accent-cobalt);">${name.slice(0, 2).toUpperCase()}</div>
-          </td>
-          <td>
-            <strong style="color: var(--color-text-primary);">${name}</strong>
-            <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">${idNum}</div>
-          </td>
-          <td class="font-mono" style="font-weight: 600;">${uname}</td>
-          <td style="color: var(--color-text-secondary);">${email}</td>
-          <td><span class="status-badge-pill cobalt font-mono">${role}</span></td>
-          <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
-          <td style="font-size: 11.5px; color: var(--color-text-secondary);">${newUser.p}</td>
-          <td style="text-align: right; padding-right: 28px;">
-            <button class="table-action-link" onclick="openUserDetailModal('${uname}')">Detail</button>
-            <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('${uname}')">Role</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      }
-
-      // Try syncing to backend
+      // Backend sync
       fetch('/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -807,16 +988,16 @@
           email: email,
           role: role
         })
-      }).catch(err => console.log('Offline user registered:', err));
+      }).catch(err => console.log('Offline fallback:', err));
 
       closeModal('modalCreateUser');
       e.target.reset();
     }
 
     function exportUsersCsv() {
-      let csv = 'No,Nama Lengkap,Identitas,Username,Email,Role,Status,Hak Akses\\n';
+      let csv = 'No,Username,Nama Lengkap,Identitas,Email,Unit Kerja,Status,Role,Hak Akses\n';
       usersDataset.forEach((u, i) => {
-        csv += `${i + 1},"${u.n}","${u.id}","${u.u}","${u.e}","${u.r}","${u.s}","${u.p}"\\n`;
+        csv += `${i + 1},"${u.u}","${u.n}","${u.id}","${u.e}","${u.unit}","${u.s}","${u.r}","${u.p}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
@@ -827,33 +1008,26 @@
       URL.revokeObjectURL(url);
     }
 
-    // Filter functionality
-    document.getElementById('userFilterInput')?.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase();
-      const rows = document.querySelectorAll('#userListTbody tr');
-      let visible = 0;
-      rows.forEach(r => {
-        const text = r.textContent.toLowerCase();
-        const show = text.includes(q);
-        r.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
-      const stats = document.getElementById('userFilterStats');
-      if (stats) stats.textContent = `Menampilkan ${visible} personel disaring`;
-    });
+    function exportRolesMatrixCsv() {
+      let csv = 'No,Level,Nama Role,Pemegang Default,Hak Akses Modul,Deskripsi\n';
+      csv += '1,Level 0: Root,Superadmin,Haidar Reyhan (NIM. 231011400547),"Dashboard, Master Data, Form, KIR, Peminjaman, Servis, Kelola Akun, Database",Akses penuh seluruh sistem\n';
+      csv += '2,Level 1: Exec,Kepala Biro Sarpras,"Dr. Ir. Hendra Wicaksono, M.T. (NIP. 19760312 200112 1 002)","Executive Dashboard, Pengesahan KIR, Approval Afkir BMN",Pengawasan eksekutif dan persetujuan pengadaan\n';
+      csv += '3,Level 2: Verifier,Penanggung Jawab Lab,"Dr. Retno Lestari, M.Si (NIP. 19820514 200812 2 001)","Validasi Fisik KIR, Usulan Kalibrasi, Inspeksi Alat",Validasi sarana fisik dan usulan kalibrasi alat riset\n';
+      csv += '4,Level 3: Ops,Operator Aset BMN,"Ir. Faisal Akbar, M.Kom (NIP. 19790820 200501 1 003)","Registrasi BMN Baru, Cetak Barcode Termal, Peminjaman & Mutasi",Pencatatan sarana baru dan sirkulasi peminjaman\n';
+      csv += '5,Level 3: Tech,Teknisi Pemeliharaan,"Ahmad Fauzi, S.T. (NIP. 19921105 201903 1 004)","Work Order Servis, Jadwal Kalibrasi, Logbook Pemeliharaan",Pelaksana perbaikan fisik dan kalibrasi berkala\n';
 
-    document.getElementById('selectRoleFilter')?.addEventListener('change', (e) => {
-      const role = e.target.value;
-      const rows = document.querySelectorAll('#userListTbody tr');
-      let visible = 0;
-      rows.forEach(r => {
-        const text = r.textContent;
-        const show = role === 'all' || text.includes(role);
-        r.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
-      const stats = document.getElementById('userFilterStats');
-      if (stats) stats.textContent = `Menampilkan ${visible} personel disaring`;
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'matriks_peran_sarpras_unpam.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Initial table render
+    document.addEventListener('DOMContentLoaded', () => {
+      renderUserTable(usersDataset);
     });
   </script>
 </body>
