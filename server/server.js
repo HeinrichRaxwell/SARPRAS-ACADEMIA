@@ -30,7 +30,10 @@ app.get('/laporan', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'lapo
 app.get('/peminjaman', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'peminjaman.html')));
 app.get('/maintenance', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'maintenance.html')));
 app.get('/ruangan', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'ruangan.html')));
+app.get('/users', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'users.html')));
+app.get('/users.html', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'users.html')));
 app.get('/layout', (req, res) => res.sendFile(path.join(rootDir, 'layout.html')));
+app.get('/layout.html', (req, res) => res.sendFile(path.join(rootDir, 'layout.html')));
 
 // ============================================================================
 // REST API ENDPOINTS
@@ -277,6 +280,87 @@ app.post('/api/work-orders', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// 11. User Management & Role Permissions
+app.get('/api/users', async (req, res) => {
+  try {
+    const result = await db.query('SELECT id, username, full_name, identity_number, email, role, status, permissions, created_at FROM users ORDER BY id ASC');
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/users', async (req, res) => {
+  try {
+    const { username, full_name, identity_number, email, role, status, permissions } = req.body;
+    if (!username || !full_name) {
+      return res.status(400).json({ error: 'Username dan Nama Lengkap wajib diisi' });
+    }
+    const query = `
+      INSERT INTO users (username, password_hash, full_name, identity_number, email, role, status, permissions)
+      VALUES ($1, 'password123', $2, $3, $4, $5, $6, $7)
+      RETURNING id, username, full_name, identity_number, email, role, status, permissions, created_at
+    `;
+    const result = await db.query(query, [
+      username,
+      full_name,
+      identity_number || '-',
+      email || `${username}@unpam.ac.id`,
+      role || 'Operator Aset BMN',
+      status || 'Aktif',
+      permissions || 'Akses Operasional'
+    ]);
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/roles', (req, res) => {
+  res.json([
+    {
+      id: 'superadmin',
+      name: 'Superadmin',
+      identity: 'Haidar Reyhan (NIM. 231011400547)',
+      description: 'Akses penuh seluruh kontrol sistem, manajemen pengguna, konfigurasi BMN, backup database, dan audit log institusi.',
+      users_count: 1,
+      color: 'cobalt'
+    },
+    {
+      id: 'kepala_biro',
+      name: 'Kepala Biro Sarpras',
+      identity: 'Dr. Ir. Hendra Wicaksono, M.T.',
+      description: 'Pengawasan eksekutif, otorisasi dokumen KIR resmi, dan persetujuan penghapusan/afkir BMN.',
+      users_count: 1,
+      color: 'normal'
+    },
+    {
+      id: 'pj_ruangan',
+      name: 'Penanggung Jawab Lab',
+      identity: 'Dr. Retno Lestari, M.Si',
+      description: 'Verifikasi inventaris ruangan fisik, pengajuan jadwal kalibrasi, dan inspeksi alat riset.',
+      users_count: 1,
+      color: 'warning'
+    },
+    {
+      id: 'operator_bmn',
+      name: 'Operator Aset BMN',
+      identity: 'Ir. Faisal Akbar, M.Kom',
+      description: 'Pencatatan data sarana baru, pencetakan barcode termal, serta input sirkulasi peminjaman.',
+      users_count: 1,
+      color: 'cobalt'
+    },
+    {
+      id: 'teknisi',
+      name: 'Teknisi Pemeliharaan',
+      identity: 'Ahmad Fauzi, S.T.',
+      description: 'Pelaksana Work Order perawatan berkala, kalibrasi instrumen, dan penanganan kerusakan fisik.',
+      users_count: 1,
+      color: 'critical'
+    }
+  ]);
 });
 
 // Start Server

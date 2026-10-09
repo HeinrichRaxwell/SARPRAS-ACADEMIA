@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Pengguna & Role - SARPRAS ACADEMIA</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+  
+  <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="ambient-shape-1"></div>
+    <div class="ambient-shape-2"></div>
+  </div>
+
+  <div class="app-layout">
+
+    <!-- ======================================================================
+         1. SIDEBAR RAIL
+         ====================================================================== -->
+    <aside class="sidebar-rail" id="sidebarRail" aria-label="Navigasi Menu">
+
+      <!-- Floating Minimize/Expand Tab on Outer Right Border (SuperApps Portal & Talent Pool Pattern) -->
+      <button class="sidebar-collapse-floating-btn" id="btnDesktopRailToggle" title="Ciutkan Menu Sidebar (<)" aria-label="Ciutkan Menu Sidebar">
+        <svg id="chevronHeaderSvg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      
+      <!-- Brand Logo Header -->
+      <div class="sidebar-brand">
+        <div class="brand-logo-wrap" title="SARPRAS ACADEMIA">
+          <svg viewBox="0 0 48 48" width="38" height="38" fill="none">
+            <defs>
+              <linearGradient id="sbShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1E3A8A"/>
+                <stop offset="100%" stop-color="#1E40AF"/>
+              </linearGradient>
+              <linearGradient id="sbAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#60A5FA"/>
+                <stop offset="100%" stop-color="#3B82F6"/>
+              </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="44" height="44" rx="10" fill="url(#sbShieldGrad)"/>
+            <rect x="2" y="2" width="44" height="44" rx="10" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+            <path d="M12 17L24 9L36 17H12Z" fill="#FFFFFF" fill-opacity="0.95"/>
+            <rect x="13" y="18" width="22" height="2" rx="0.5" fill="url(#sbAccentGrad)"/>
+            <rect x="15" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+            <rect x="22.5" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+            <rect x="30" y="22" width="3" height="11" rx="0.5" fill="#FFFFFF"/>
+            <path d="M11 35H37V37C37 37.5523 36.5523 38 36 38H12C11.4477 38 11 37.5523 11 37V35Z" fill="url(#sbAccentGrad)"/>
+            <circle cx="24" cy="27.5" r="2" fill="#F59E0B"/>
+          </svg>
+        </div>
+        <div class="brand-text-group">
+          <span class="brand-main-title">SARPRAS ACADEMIA</span>
+          <span class="brand-sub-title">MANAJEMEN FASILITAS KAMPUS</span>
+        </div>
+      </div>
+
+      <!-- Quick Fast Action Button -->
+      <div class="sidebar-quick-action">
+        <button class="btn-quick-register" id="btnSidebarRegister" title="Daftarkan Aset Baru" data-tooltip="Registrasi Aset Baru">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span class="btn-text">Registrasi Aset Baru</span>
+        </button>
+      </div>
+
+      <!-- Menu Items List -->
+      <nav class="sidebar-nav-container">
+        
+        <div class="nav-group-title">Manajemen Utama</div>
+
+        <!-- 01. Dashboard -->
+        <a href="dashboard.html" class="nav-item-link" title="Executive Dashboard" data-tooltip="Executive Dashboard">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <rect width="7" height="9" x="3" y="3" rx="1"/>
+            <rect width="7" height="5" x="14" y="3" rx="1"/>
+            <rect width="7" height="9" x="14" y="12" rx="1"/>
+            <rect width="7" height="5" x="3" y="16" rx="1"/>
+          </svg>
+          <span class="nav-item-label">Executive Dashboard</span>
+        </a>
+
+        <!-- 02. Master Data -->
+        <a href="data-master.html" class="nav-item-link" title="Master Data Sarpras" data-tooltip="Master Data Sarpras (12)">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+            <path d="m3.3 7 8.7 5 8.7-5"/>
+            <path d="M12 22V12"/>
+          </svg>
+          <span class="nav-item-label">Master Data Sarpras</span>
+          <span class="nav-badge-counter badge-subtle font-mono" id="sidebarAssetCount">12</span>
+        </a>
+
+        <!-- 03. Form Registrasi -->
+        <a href="form.html" class="nav-item-link" title="Form Registrasi Aset" data-tooltip="Form Registrasi Aset">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+          <span class="nav-item-label">Form Registrasi Aset</span>
+        </a>
+
+        <!-- 04. Pusat Laporan & KIR -->
+        <a href="laporan.html" class="nav-item-link" title="Pusat Laporan & KIR" data-tooltip="Pusat Laporan & KIR">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          <span class="nav-item-label">Pusat Laporan & KIR</span>
+        </a>
+
+        <div class="nav-group-title">Sirkulasi & Fasilitas</div>
+
+        <!-- 05. Peminjaman & Mutasi -->
+        <a href="peminjaman.html" class="nav-item-link" title="Peminjaman & Mutasi" data-tooltip="Peminjaman & Mutasi (3)">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <path d="m16 3 4 4-4 4"/>
+            <path d="M20 7H4"/>
+            <path d="m8 21-4-4 4-4"/>
+            <path d="M4 17h16"/>
+          </svg>
+          <span class="nav-item-label">Peminjaman & Mutasi</span>
+          <span class="nav-badge-counter badge-critical font-mono" title="3 Transaksi Terlambat">3</span>
+        </a>
+
+        <!-- 06. Servis & Kalibrasi -->
+        <a href="maintenance.html" class="nav-item-link" title="Servis & Kalibrasi" data-tooltip="Servis & Kalibrasi (23)">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+          <span class="nav-item-label">Servis & Kalibrasi</span>
+          <span class="nav-badge-counter badge-warning font-mono" title="23 Tiket Kalibrasi Kritis">23</span>
+        </a>
+
+        <!-- 07. Ruangan & Gedung -->
+        <a href="ruangan.html" class="nav-item-link" title="Direktori Ruangan" data-tooltip="Direktori Ruangan">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
+            <path d="M9 22v-4h6v4"/>
+            <path d="M8 6h.01"/>
+            <path d="M16 6h.01"/>
+            <path d="M8 10h.01"/>
+            <path d="M16 10h.01"/>
+            <path d="M8 14h.01"/>
+            <path d="M16 14h.01"/>
+          </svg>
+          <span class="nav-item-label">Direktori Ruangan</span>
+        </a>
+
+        <div class="nav-group-title">Akses & Keamanan</div>
+
+        <!-- 08. User & Role Management -->
+        <a href="users.html" class="nav-item-link active" title="Manajemen Pengguna & Role" data-tooltip="Manajemen Pengguna & Role">
+          <svg class="nav-item-icon" viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span class="nav-item-label">Pengguna & Role</span>
+          <span class="nav-badge-counter badge-subtle font-mono">5</span>
+        </a>
+
+      </nav>
+
+      <!-- Sidebar Institutional Role Indicator (Talent Pool & SiRupat Standard) -->
+      <div class="sidebar-institutional-footer">
+        <div class="sidebar-role-indicator">
+          <div class="role-badge-tag">SISTEM RESMI</div>
+          <div class="role-badge-name">Biro Sarpras UNPAM</div>
+          <div class="role-badge-restriction">Terakreditasi ISO 55001</div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ======================================================================
+         2. TOP COMMAND HEADER BAR
+         ====================================================================== -->
+    <div class="app-content-wrapper">
+      
+      <header class="top-command-header">
+        
+        <!-- Left: Hamburger (Mobile) & Breadcrumbs -->
+        <div class="header-left-cluster">
+          <button class="btn-mobile-nav-toggle" id="btnMobileNavToggle" aria-label="Buka Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+
+          <div class="breadcrumbs-bar">
+            <span>SARPRAS ACADEMIA</span>
+            <span style="opacity: 0.4;">/</span>
+            <span class="breadcrumb-active-tag" id="headerBreadcrumbTitle">MANAJEMEN PENGGUNA & ROLE</span>
+          </div>
+        </div>
+
+        <!-- Center: Search Command Bar -->
+        <div class="header-center-search">
+          <div class="search-box-input-wrap">
+            <svg class="search-input-icon" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" class="search-box-input" id="mainGlobalSearch" placeholder="Cari personel, NIM, NIP, role... (Ctrl + K)">
+            <span class="search-shortcut-badge font-mono">Ctrl K</span>
+          </div>
+        </div>
+
+        <!-- Right: Theme Toggle & Profile -->
+        <div class="header-right-cluster">
+          
+          <!-- Theme Switcher -->
+          <button class="btn-header-control" id="btnThemeToggle" title="Ganti Mode Tampilan (Terang / Gelap)" aria-label="Ganti Tema">
+            <svg id="themeIconSun" style="display: none;" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg id="themeIconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+
+          <!-- User Profile Dropdown Pill -->
+          <div class="user-profile-wrapper">
+            <button class="user-profile-button" id="btnHeaderProfile">
+              <div class="user-avatar-badge font-mono">HR</div>
+              <div class="user-meta-text">
+                <span class="user-meta-name">Haidar Reyhan</span>
+                <span class="user-meta-role">Superadmin (NIM. 231011400547)</span>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+
+            <!-- Profile Menu Dropdown -->
+            <div class="user-menu-popover" id="dropdownProfile">
+              <div style="padding: 10px 14px; border-bottom: 1px solid var(--color-border-whisper);">
+                <div style="font-weight: 700; color: var(--color-text-primary); font-size: 12px;">Haidar Reyhan</div>
+                <div style="font-size: 11px; color: var(--color-text-muted); font-family: monospace;">NIM. 231011400547 &bull; Superadmin</div>
+              </div>
+              <a href="users.html" class="user-menu-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>Manajemen Pengguna & Role</span>
+              </a>
+              <a href="data-master.html" class="user-menu-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Kelola Data Sarpras</span>
+              </a>
+              <div style="border-top: 1px solid var(--color-border-whisper); margin: 4px 0;"></div>
+              <a href="../index.html" class="user-menu-item" style="color: var(--color-signal-critical);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                <span>Keluar / Logout</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </header>
+
+      <!-- ======================================================================
+           3. MAIN VIEWPORT: USER & ROLE MANAGEMENT
+           ====================================================================== -->
+      <main class="main-viewport">
+        
+        <div class="view-action-header">
+          <div class="view-title-group">
+            <h1>Manajemen Pengguna & Otorisasi Hak Akses</h1>
+            <p>Pengelolaan akun personel, penetapan role wewenang BMN, dan tata kelola kredensial sistem SARPRAS ACADEMIA</p>
+          </div>
+          <div class="view-header-buttons">
+            <button class="btn-action-secondary" onclick="exportUsersCsv()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Unduh Rekap Akun CSV</span>
+            </button>
+            <button class="btn-action-primary" onclick="openCreateUserModal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>+ Tambah Pengguna Baru</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Bento Metric Cards -->
+        <div class="four-cards-row">
+          <div class="glass-panel-card" style="padding: 16px 20px;">
+            <span class="card-top-tag">TOTAL PENGGUNA RESMI</span>
+            <div class="card-metric-value font-mono">5 Personel</div>
+            <div class="card-metric-subtext">100% Terverifikasi SSO Kampus</div>
+          </div>
+          <div class="glass-panel-card" style="padding: 16px 20px;">
+            <span class="card-top-tag">SUPERADMIN SISTEM</span>
+            <div class="card-metric-value font-mono" style="font-size: 19px; color: var(--color-accent-cobalt);">Haidar Reyhan</div>
+            <div class="card-metric-subtext">NIM. 231011400547 (Root Access)</div>
+          </div>
+          <div class="glass-panel-card" style="padding: 16px 20px;">
+            <span class="card-top-tag">STRUKTUR TINGKAT ROLE</span>
+            <div class="card-metric-value font-mono" style="color: var(--color-signal-normal);">5 Tingkatan</div>
+            <div class="card-metric-subtext">Matriks Otorisasi Keamanan Multi-Tier</div>
+          </div>
+          <div class="glass-panel-card" style="padding: 16px 20px;">
+            <span class="card-top-tag">STATUS OPERASIONAL AKUN</span>
+            <div class="card-metric-value font-mono" style="color: var(--color-accent-cobalt);">100% Aktif</div>
+            <div class="card-metric-subtext">0 Akun Terkunci / Dinonaktifkan</div>
+          </div>
+        </div>
+
+        <!-- Section 1: Role Definition Grid -->
+        <div class="glass-panel-card" style="padding: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <div>
+              <h2 style="font-size: 15px; font-weight: 700; color: var(--color-text-primary);">Matriks Otorisasi & Peran Institusi (Role Architecture)</h2>
+              <p style="font-size: 12px; color: var(--color-text-muted); margin-top: 2px;">Pembagian wewenang tata kelola BMN sesuai standar pengawasan aset perguruan tinggi</p>
+            </div>
+            <span class="status-badge-pill normal font-mono">5 Role Standar</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
+            
+            <!-- Role 1: Superadmin -->
+            <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-accent-cobalt-border); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="status-badge-pill cobalt font-mono">Level 0: Root</span>
+                <span class="font-mono" style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">1 User</span>
+              </div>
+              <strong style="font-size: 14px; color: var(--color-text-primary);">Superadmin</strong>
+              <div style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.45;">
+                Akses penuh seluruh kontrol modul, manajemen akun & role, backup basis data, serta audit log sistem.
+              </div>
+              <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--color-border-whisper); font-size: 11px; color: var(--color-accent-cobalt); font-weight: 600;">
+                Pemegang: Haidar Reyhan (NIM. 231011400547)
+              </div>
+            </div>
+
+            <!-- Role 2: Kepala Biro Sarpras -->
+            <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border-whisper); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="status-badge-pill normal font-mono">Level 1: Exec</span>
+                <span class="font-mono" style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">1 User</span>
+              </div>
+              <strong style="font-size: 14px; color: var(--color-text-primary);">Kepala Biro Sarpras</strong>
+              <div style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.45;">
+                Pengawasan eksekutif, pengesahan dokumen KIR resmi, otorisasi pengadaan, dan approval afkir BMN.
+              </div>
+              <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--color-border-whisper); font-size: 11px; color: var(--color-signal-normal); font-weight: 600;">
+                Pemegang: Dr. Ir. Hendra Wicaksono, M.T.
+              </div>
+            </div>
+
+            <!-- Role 3: Penanggung Jawab Lab -->
+            <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border-whisper); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="status-badge-pill warning font-mono">Level 2: Verifier</span>
+                <span class="font-mono" style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">1 User</span>
+              </div>
+              <strong style="font-size: 14px; color: var(--color-text-primary);">PJ Lab & Ruangan</strong>
+              <div style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.45;">
+                Validasi fisik aset ruangan, monitoring keselamatan lab, dan usulan kalibrasi alat presisi ISO 17025.
+              </div>
+              <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--color-border-whisper); font-size: 11px; color: var(--color-signal-warning); font-weight: 600;">
+                Pemegang: Dr. Retno Lestari, M.Si
+              </div>
+            </div>
+
+            <!-- Role 4: Operator Aset BMN -->
+            <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border-whisper); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="status-badge-pill cobalt font-mono">Level 3: Ops</span>
+                <span class="font-mono" style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">1 User</span>
+              </div>
+              <strong style="font-size: 14px; color: var(--color-text-primary);">Operator Aset BMN</strong>
+              <div style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.45;">
+                Registrasi sarpras baru, pencetakan stiker barcode termal 75x50mm, serta input transaksi sirkulasi.
+              </div>
+              <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--color-border-whisper); font-size: 11px; color: var(--color-accent-cobalt); font-weight: 600;">
+                Pemegang: Ir. Faisal Akbar, M.Kom
+              </div>
+            </div>
+
+            <!-- Role 5: Teknisi Pemeliharaan -->
+            <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border-whisper); border-radius: var(--radius-sm); padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="status-badge-pill critical font-mono">Level 3: Tech</span>
+                <span class="font-mono" style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">1 User</span>
+              </div>
+              <strong style="font-size: 14px; color: var(--color-text-primary);">Teknisi Pemeliharaan</strong>
+              <div style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.45;">
+                Penerbitan Work Order servis, inspeksi mekanikal elektrikal kampus, dan logbook perbaikan instrumen.
+              </div>
+              <div style="margin-top: auto; padding-top: 8px; border-top: 1px solid var(--color-border-whisper); font-size: 11px; color: var(--color-signal-critical); font-weight: 600;">
+                Pemegang: Ahmad Fauzi, S.T.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Section 2: User Account Management Table -->
+        <div class="glass-table-wrapper">
+          
+          <div class="table-controls-bar">
+            <div class="table-search-field-wrap" style="position: relative; display: flex; align-items: center;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-text-muted); position: absolute; left: 10px; pointer-events: none;">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" class="table-search-input" id="userFilterInput" placeholder="Cari nama, NIM, NIP, role...">
+            </div>
+
+            <div class="table-dropdown-filters">
+              <select class="form-select-filter" id="selectRoleFilter">
+                <option value="all">Semua Role</option>
+                <option value="Superadmin">Superadmin</option>
+                <option value="Kepala Biro Sarpras">Kepala Biro Sarpras</option>
+                <option value="Penanggung Jawab Lab">Penanggung Jawab Lab</option>
+                <option value="Operator Aset BMN">Operator Aset BMN</option>
+                <option value="Teknisi Pemeliharaan">Teknisi Pemeliharaan</option>
+              </select>
+            </div>
+            
+            <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted); margin-left: auto;" id="userFilterStats">
+              Menampilkan 5 personel tervalidasi
+            </div>
+          </div>
+
+          <!-- Main Users Table -->
+          <div class="table-responsive-box">
+            <table class="data-table-main" id="userAccountsTable">
+              <thead>
+                <tr>
+                  <th style="width: 50px; text-align: center;">AVATAR</th>
+                  <th>NAMA LENGKAP & IDENTITAS RESMI</th>
+                  <th>USERNAME</th>
+                  <th>EMAIL INSTITUSI</th>
+                  <th>ROLE WEWENANG</th>
+                  <th>STATUS AKUN</th>
+                  <th>CAKUPAN IZIN AKSES</th>
+                  <th style="text-align: right; min-width: 130px; padding-right: 28px;">AKSI</th>
+                </tr>
+              </thead>
+              <tbody id="userListTbody">
+                <!-- Row 1: Superadmin -->
+                <tr>
+                  <td style="text-align: center;">
+                    <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-accent-cobalt);">HR</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--color-text-primary);">Haidar Reyhan</strong>
+                    <div class="font-mono" style="font-size: 11px; color: var(--color-accent-cobalt); font-weight: 700;">NIM. 231011400547</div>
+                  </td>
+                  <td class="font-mono" style="font-weight: 600;">haidar</td>
+                  <td style="color: var(--color-text-secondary);">haidar.reyhan@unpam.ac.id</td>
+                  <td><span class="status-badge-pill cobalt font-mono">Superadmin</span></td>
+                  <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
+                  <td style="font-size: 11.5px; color: var(--color-text-secondary);">Akses Penuh Sistem, Manajemen Role, BMN Audit, Backup DB</td>
+                  <td style="text-align: right; padding-right: 28px;">
+                    <button class="table-action-link" onclick="openUserDetailModal('haidar')">Detail</button>
+                    <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('haidar')">Role</button>
+                  </td>
+                </tr>
+
+                <!-- Row 2: Kepala Biro -->
+                <tr>
+                  <td style="text-align: center;">
+                    <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-signal-normal);">HW</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--color-text-primary);">Dr. Ir. Hendra Wicaksono, M.T.</strong>
+                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19760312 200112 1 002</div>
+                  </td>
+                  <td class="font-mono" style="font-weight: 600;">hendra</td>
+                  <td style="color: var(--color-text-secondary);">hendra.wicaksono@unpam.ac.id</td>
+                  <td><span class="status-badge-pill normal font-mono">Kepala Biro Sarpras</span></td>
+                  <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
+                  <td style="font-size: 11.5px; color: var(--color-text-secondary);">Executive Dashboard, Pengesahan KIR, Approval Afkir BMN</td>
+                  <td style="text-align: right; padding-right: 28px;">
+                    <button class="table-action-link" onclick="openUserDetailModal('hendra')">Detail</button>
+                    <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('hendra')">Role</button>
+                  </td>
+                </tr>
+
+                <!-- Row 3: PJ Lab -->
+                <tr>
+                  <td style="text-align: center;">
+                    <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-signal-warning);">RL</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--color-text-primary);">Dr. Retno Lestari, M.Si</strong>
+                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19820514 200812 2 001</div>
+                  </td>
+                  <td class="font-mono" style="font-weight: 600;">retno</td>
+                  <td style="color: var(--color-text-secondary);">retno.lestari@unpam.ac.id</td>
+                  <td><span class="status-badge-pill warning font-mono">Penanggung Jawab Lab</span></td>
+                  <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
+                  <td style="font-size: 11.5px; color: var(--color-text-secondary);">Validasi KIR Ruangan, Usulan Kalibrasi & Servis Instrumen Lab</td>
+                  <td style="text-align: right; padding-right: 28px;">
+                    <button class="table-action-link" onclick="openUserDetailModal('retno')">Detail</button>
+                    <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('retno')">Role</button>
+                  </td>
+                </tr>
+
+                <!-- Row 4: Operator BMN -->
+                <tr>
+                  <td style="text-align: center;">
+                    <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-accent-cobalt);">FA</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--color-text-primary);">Ir. Faisal Akbar, M.Kom</strong>
+                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19790820 200501 1 003</div>
+                  </td>
+                  <td class="font-mono" style="font-weight: 600;">faisal</td>
+                  <td style="color: var(--color-text-secondary);">faisal.akbar@unpam.ac.id</td>
+                  <td><span class="status-badge-pill cobalt font-mono">Operator Aset BMN</span></td>
+                  <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
+                  <td style="font-size: 11.5px; color: var(--color-text-secondary);">Registrasi BMN Baru, Sirkulasi Peminjaman, Cetak Barcode Termal</td>
+                  <td style="text-align: right; padding-right: 28px;">
+                    <button class="table-action-link" onclick="openUserDetailModal('faisal')">Detail</button>
+                    <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('faisal')">Role</button>
+                  </td>
+                </tr>
+
+                <!-- Row 5: Teknisi Pemeliharaan -->
+                <tr>
+                  <td style="text-align: center;">
+                    <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-signal-critical);">AF</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--color-text-primary);">Ahmad Fauzi, S.T.</strong>
+                    <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">NIP. 19921105 201903 1 004</div>
+                  </td>
+                  <td class="font-mono" style="font-weight: 600;">fauzi</td>
+                  <td style="color: var(--color-text-secondary);">ahmad.fauzi@unpam.ac.id</td>
+                  <td><span class="status-badge-pill critical font-mono">Teknisi Pemeliharaan</span></td>
+                  <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
+                  <td style="font-size: 11.5px; color: var(--color-text-secondary);">Eksekusi Work Order Servis, Jadwal Kalibrasi, Log Perbaikan Fisik</td>
+                  <td style="text-align: right; padding-right: 28px;">
+                    <button class="table-action-link" onclick="openUserDetailModal('fauzi')">Detail</button>
+                    <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('fauzi')">Role</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer -->
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-top: 1px solid var(--color-border-whisper); background: var(--color-surface); font-size: 12px; color: var(--color-text-muted);">
+            <div>Halaman 1 dari 1 (Total 5 personel aktif)</div>
+            <div style="display: flex; gap: 4px;">
+              <button class="btn-header-control" style="width: 28px; height: 28px;" disabled>&lt;</button>
+              <button class="btn-header-control" style="width: 28px; height: 28px; background: var(--color-accent-cobalt); color: #FFF; border-color: var(--color-accent-cobalt);">1</button>
+              <button class="btn-header-control" style="width: 28px; height: 28px;" disabled>&gt;</button>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+
+      <!-- Institutional Footer -->
+      <footer class="site-footer">
+        <div>
+          <span>&copy; 2026 <strong>SARPRAS ACADEMIA</strong> - Sistem Informasi Manajemen Sarana dan Prasarana Kampus</span>
+        </div>
+        <div>
+          <span>Standar Tata Kelola Fasilitas Terakreditasi &bull; ISO 55001</span>
+        </div>
+      </footer>
+
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       MODALS DIALOG SYSTEM (USERS & ROLES)
+       ========================================================================== -->
+
+  <!-- Modal: Tambah Pengguna Baru -->
+  <div class="modal-overlay-bg" id="modalCreateUser" role="dialog" aria-modal="true">
+    <div class="modal-window-card" style="max-width: 520px;">
+      <div class="modal-head">
+        <div>
+          <strong style="color: var(--color-accent-cobalt); font-size: 13px;">PENDAFTARAN PERSONEL & HAK AKSES BARU</strong>
+          <div style="font-size: 11px; color: var(--color-text-muted); margin-top: 2px;">Pembuatan kredensial sistem SARPRAS ACADEMIA</div>
+        </div>
+        <button class="btn-header-control" style="width: 28px; height: 28px;" onclick="closeModal('modalCreateUser')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <form id="formNewUser" onsubmit="submitNewUser(event)">
+        <div class="modal-content-body">
+          <div class="form-group-item">
+            <label class="form-label-text">Nama Lengkap & Gelar *</label>
+            <input type="text" class="form-input-field" id="newUserName" placeholder="Contoh: Budi Santoso, S.Kom, M.Kom" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group-item">
+              <label class="form-label-text">Nomor Identitas (NIM / NIP) *</label>
+              <input type="text" class="form-input-field font-mono" id="newUserIdNumber" placeholder="NIM/NIP" required>
+            </div>
+            <div class="form-group-item">
+              <label class="form-label-text">Username SSO *</label>
+              <input type="text" class="form-input-field font-mono" id="newUserUsername" placeholder="username" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group-item">
+              <label class="form-label-text">Email Institusi (@unpam.ac.id)</label>
+              <input type="email" class="form-input-field" id="newUserEmail" placeholder="nama@unpam.ac.id">
+            </div>
+            <div class="form-group-item">
+              <label class="form-label-text">Role Wewenang *</label>
+              <select class="form-select-field" id="newUserRole">
+                <option value="Operator Aset BMN">Operator Aset BMN</option>
+                <option value="Penanggung Jawab Lab">Penanggung Jawab Lab</option>
+                <option value="Teknisi Pemeliharaan">Teknisi Pemeliharaan</option>
+                <option value="Kepala Biro Sarpras">Kepala Biro Sarpras</option>
+                <option value="Superadmin">Superadmin</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot-actions">
+          <button type="button" class="btn-action-secondary" onclick="closeModal('modalCreateUser')">Batalkan</button>
+          <button type="submit" class="btn-action-primary">Simpan Personel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Detail Pengguna -->
+  <div class="modal-overlay-bg" id="modalUserDetail" role="dialog" aria-modal="true">
+    <div class="modal-window-card" style="max-width: 480px;">
+      <div class="modal-head">
+        <div>
+          <strong style="color: var(--color-accent-cobalt); font-size: 13px;">PROFIL OTORISASI PERSONEL</strong>
+          <div style="font-size: 11px; color: var(--color-text-muted); margin-top: 2px;">Informasi wewenang dan cakupan sistem</div>
+        </div>
+        <button class="btn-header-control" style="width: 28px; height: 28px;" onclick="closeModal('modalUserDetail')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-content-body">
+        <div style="display: flex; align-items: center; gap: 14px; padding: 12px; background: var(--color-surface-elevated); border-radius: var(--radius-sm);">
+          <div class="user-avatar-badge font-mono" id="detailUserAvatar" style="width: 42px; height: 42px; font-size: 14px;">HR</div>
+          <div>
+            <strong id="detailUserName" style="font-size: 14px; color: var(--color-text-primary);">Haidar Reyhan</strong>
+            <div class="font-mono" id="detailUserIdNumber" style="font-size: 11px; color: var(--color-accent-cobalt); font-weight: 700;">NIM. 231011400547</div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12.5px;">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--color-text-muted);">Username SSO:</span>
+            <strong class="font-mono" id="detailUserUsername">haidar</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--color-text-muted);">Email Kampus:</span>
+            <span id="detailUserEmail">haidar.reyhan@unpam.ac.id</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--color-text-muted);">Role Otorisasi:</span>
+            <span id="detailUserRole" class="status-badge-pill cobalt font-mono">Superadmin</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--color-text-muted);">Status Kredensial:</span>
+            <span class="status-badge-pill normal font-mono">Aktif</span>
+          </div>
+          <div style="margin-top: 6px;">
+            <span style="color: var(--color-text-muted);">Cakupan Hak Akses:</span>
+            <div id="detailUserPermissions" style="margin-top: 4px; padding: 8px; background: var(--color-surface-elevated); border-radius: 4px; font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.4;">
+              Akses Penuh Sistem, Manajemen Pengguna & Role, BMN Audit, Backup DB
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-foot-actions">
+        <button type="button" class="btn-action-primary" style="width: 100%; justify-content: center;" onclick="closeModal('modalUserDetail')">Tutup Pratinjau</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // In-page User Management Handlers
+    const usersDataset = [
+      { u: 'haidar', n: 'Haidar Reyhan', id: 'NIM. 231011400547', e: 'haidar.reyhan@unpam.ac.id', r: 'Superadmin', s: 'Aktif', p: 'Akses Penuh Sistem, Manajemen Pengguna & Role, BMN Audit, Backup DB' },
+      { u: 'hendra', n: 'Dr. Ir. Hendra Wicaksono, M.T.', id: 'NIP. 19760312 200112 1 002', e: 'hendra.wicaksono@unpam.ac.id', r: 'Kepala Biro Sarpras', s: 'Aktif', p: 'Executive Dashboard, Pengesahan Dokumen KIR, Approval Afkir BMN' },
+      { u: 'retno', n: 'Dr. Retno Lestari, M.Si', id: 'NIP. 19820514 200812 2 001', e: 'retno.lestari@unpam.ac.id', r: 'Penanggung Jawab Lab', s: 'Aktif', p: 'Validasi KIR Ruangan, Usulan Kalibrasi & Servis Instrumen Lab' },
+      { u: 'faisal', n: 'Ir. Faisal Akbar, M.Kom', id: 'NIP. 19790820 200501 1 003', e: 'faisal.akbar@unpam.ac.id', r: 'Operator Aset BMN', s: 'Aktif', p: 'Registrasi BMN Baru, Sirkulasi Peminjaman, Cetak Stiker Barcode' },
+      { u: 'fauzi', n: 'Ahmad Fauzi, S.T.', id: 'NIP. 19921105 201903 1 004', e: 'ahmad.fauzi@unpam.ac.id', r: 'Teknisi Pemeliharaan', s: 'Aktif', p: 'Eksekusi Work Order Servis, Jadwal Kalibrasi, Log Perbaikan Fisik' }
+    ];
+
+    function openCreateUserModal() {
+      openModal('modalCreateUser');
+    }
+
+    function openUserDetailModal(username) {
+      const u = usersDataset.find(x => x.u === username);
+      if (!u) return;
+      document.getElementById('detailUserName').textContent = u.n;
+      document.getElementById('detailUserIdNumber').textContent = u.id;
+      document.getElementById('detailUserUsername').textContent = u.u;
+      document.getElementById('detailUserEmail').textContent = u.e;
+      document.getElementById('detailUserRole').textContent = u.r;
+      document.getElementById('detailUserPermissions').textContent = u.p;
+      document.getElementById('detailUserAvatar').textContent = u.n.split(' ').map(x => x[0]).slice(0, 2).join('');
+      openModal('modalUserDetail');
+    }
+
+    function openEditRoleModal(username) {
+      openUserDetailModal(username);
+    }
+
+    function submitNewUser(e) {
+      e.preventDefault();
+      const name = document.getElementById('newUserName').value;
+      const idNum = document.getElementById('newUserIdNumber').value;
+      const uname = document.getElementById('newUserUsername').value;
+      const email = document.getElementById('newUserEmail').value || `${uname}@unpam.ac.id`;
+      const role = document.getElementById('newUserRole').value;
+
+      const newUser = {
+        u: uname,
+        n: name,
+        id: idNum,
+        e: email,
+        r: role,
+        s: 'Aktif',
+        p: 'Akses Operasional Modul Terpilih'
+      };
+
+      usersDataset.push(newUser);
+
+      // Append row to table
+      const tbody = document.getElementById('userListTbody');
+      if (tbody) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="text-align: center;">
+            <div class="user-avatar-badge font-mono" style="margin: 0 auto; background: var(--color-accent-cobalt);">${name.slice(0, 2).toUpperCase()}</div>
+          </td>
+          <td>
+            <strong style="color: var(--color-text-primary);">${name}</strong>
+            <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">${idNum}</div>
+          </td>
+          <td class="font-mono" style="font-weight: 600;">${uname}</td>
+          <td style="color: var(--color-text-secondary);">${email}</td>
+          <td><span class="status-badge-pill cobalt font-mono">${role}</span></td>
+          <td><span class="status-badge-pill normal font-mono">Aktif</span></td>
+          <td style="font-size: 11.5px; color: var(--color-text-secondary);">${newUser.p}</td>
+          <td style="text-align: right; padding-right: 28px;">
+            <button class="table-action-link" onclick="openUserDetailModal('${uname}')">Detail</button>
+            <button class="table-action-link" style="color: var(--color-text-secondary);" onclick="openEditRoleModal('${uname}')">Role</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      // Try syncing to backend
+      fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: uname,
+          full_name: name,
+          identity_number: idNum,
+          email: email,
+          role: role
+        })
+      }).catch(err => console.log('Offline user registered:', err));
+
+      closeModal('modalCreateUser');
+      e.target.reset();
+    }
+
+    function exportUsersCsv() {
+      let csv = 'No,Nama Lengkap,Identitas,Username,Email,Role,Status,Hak Akses\\n';
+      usersDataset.forEach((u, i) => {
+        csv += `${i + 1},"${u.n}","${u.id}","${u.u}","${u.e}","${u.r}","${u.s}","${u.p}"\\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'rekap_pengguna_sarpras_unpam.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Filter functionality
+    document.getElementById('userFilterInput')?.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('#userListTbody tr');
+      let visible = 0;
+      rows.forEach(r => {
+        const text = r.textContent.toLowerCase();
+        const show = text.includes(q);
+        r.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      const stats = document.getElementById('userFilterStats');
+      if (stats) stats.textContent = `Menampilkan ${visible} personel disaring`;
+    });
+
+    document.getElementById('selectRoleFilter')?.addEventListener('change', (e) => {
+      const role = e.target.value;
+      const rows = document.querySelectorAll('#userListTbody tr');
+      let visible = 0;
+      rows.forEach(r => {
+        const text = r.textContent;
+        const show = role === 'all' || text.includes(role);
+        r.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      const stats = document.getElementById('userFilterStats');
+      if (stats) stats.textContent = `Menampilkan ${visible} personel disaring`;
+    });
+  </script>
+</body>
+</html>
