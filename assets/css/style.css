@@ -255,11 +255,54 @@
       height: 100vh;
       transition: width var(--speed-normal) var(--ease-physics), background-color var(--speed-normal) ease;
       z-index: 50;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .sidebar-rail.collapsed {
       width: var(--sidebar-collapsed-width);
+    }
+
+    /* Floating Sidebar Minimize/Expand Button (SuperApps Portal, DJKA Talent Pool & SiRupat Pattern) */
+    .sidebar-collapse-floating-btn {
+      position: absolute;
+      top: 18px;
+      right: -13px;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      border: 1px solid var(--color-border-specular);
+      background: var(--color-surface);
+      color: var(--color-text-secondary);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04);
+      cursor: pointer;
+      transition-property: background-color, border-color, color, transform, box-shadow;
+      transition-duration: var(--speed-fast);
+      transition-timing-function: var(--ease-physics);
+    }
+
+    .sidebar-collapse-floating-btn:hover {
+      background: var(--color-surface-elevated);
+      color: var(--color-accent-cobalt);
+      border-color: var(--color-accent-cobalt);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.14);
+      transform: scale(1.08);
+    }
+
+    .sidebar-collapse-floating-btn:active {
+      transform: scale(0.95);
+    }
+
+    .sidebar-collapse-floating-btn svg {
+      transition: transform 220ms var(--ease-physics);
+      stroke: currentColor;
+    }
+
+    .sidebar-rail.collapsed .sidebar-collapse-floating-btn svg {
+      transform: rotate(180deg);
     }
 
     /* Sidebar Brand Section */
@@ -358,6 +401,7 @@
       flex: 1;
       padding: 10px 10px;
       overflow-y: auto;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -505,6 +549,90 @@
       min-height: 40px;
       margin: 0 auto;
       box-shadow: none;
+    }
+
+    /* Tooltip on Collapsed Sidebar (Portal SuperApps & Talent Pool Standard) */
+    .sidebar-rail.collapsed .nav-item-link,
+    .sidebar-rail.collapsed .btn-quick-register {
+      position: relative;
+    }
+
+    .sidebar-rail.collapsed .nav-item-link::after,
+    .sidebar-rail.collapsed .btn-quick-register::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: calc(100% + 14px);
+      top: 50%;
+      transform: translateY(-50%);
+      background: #0E1937;
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 5px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--speed-fast) ease, transform var(--speed-fast) ease;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    }
+
+    [data-theme="dark"] .sidebar-rail.collapsed .nav-item-link::after,
+    [data-theme="dark"] .sidebar-rail.collapsed .btn-quick-register::after {
+      background: #1E293B;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .sidebar-rail.collapsed .nav-item-link:hover::after,
+    .sidebar-rail.collapsed .btn-quick-register:hover::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(2px);
+    }
+
+    /* Sidebar Institutional Role Indicator (Talent Pool & SiRupat Standard) */
+    .sidebar-institutional-footer {
+      padding: 10px 10px 14px 10px;
+      margin-top: auto;
+      flex-shrink: 0;
+      transition: opacity var(--speed-fast) ease;
+    }
+
+    .sidebar-role-indicator {
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-whisper);
+      border-radius: var(--radius-sm);
+      padding: 9px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .role-badge-tag {
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--color-accent-cobalt);
+    }
+
+    .role-badge-name {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+    }
+
+    .role-badge-restriction {
+      font-size: 10px;
+      color: var(--color-text-muted);
+      margin-top: 3px;
+      line-height: 1.35;
+      border-top: 1px solid var(--color-border-whisper);
+      padding-top: 3px;
+    }
+
+    .sidebar-rail.collapsed .sidebar-institutional-footer {
+      display: none;
     }
 
     /* ==========================================================================
@@ -1690,6 +1818,9 @@
       .sidebar-rail.mobile-open {
         left: 0;
         width: var(--sidebar-width);
+      }
+      .sidebar-collapse-floating-btn {
+        display: none !important;
       }
       .btn-mobile-nav-toggle {
         display: flex;

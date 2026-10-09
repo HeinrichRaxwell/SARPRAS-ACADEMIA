@@ -129,36 +129,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 8. Sidebar Collapse & Expand (Panah < > Tunggal di Top Header Bar)
+  // 8. Sidebar Collapse & Expand (Floating Tab on Sidebar Border - SuperApps Portal & Talent Pool Standard)
   const sidebarRail = document.getElementById('sidebarRail');
   const btnDesktopRailToggle = document.getElementById('btnDesktopRailToggle');
-  const chevronHeaderSvg = document.getElementById('chevronHeaderSvg');
+
+  // Restore persisted sidebar state from localStorage
+  if (sidebarRail && localStorage.getItem('sarpras_sidebar_collapsed') === 'true') {
+    sidebarRail.classList.add('collapsed');
+    if (btnDesktopRailToggle) {
+      btnDesktopRailToggle.setAttribute('title', 'Rentangkan Menu Sidebar (>)');
+      btnDesktopRailToggle.setAttribute('aria-label', 'Rentangkan Menu Sidebar');
+    }
+  }
 
   function toggleSidebar() {
     if (!sidebarRail) return;
     sidebarRail.classList.toggle('collapsed');
     const isCollapsed = sidebarRail.classList.contains('collapsed');
 
-    // Panah: < jika terbuka, > jika tertutup/terciut
-    if (chevronHeaderSvg) {
-      const poly = chevronHeaderSvg.querySelector('polyline');
-      if (poly) {
-        poly.setAttribute('points', isCollapsed ? "9 18 15 12 9 6" : "15 18 9 12 15 6");
-      }
-    }
+    // Persist preference across pages
+    localStorage.setItem('sarpras_sidebar_collapsed', isCollapsed ? 'true' : 'false');
 
     if (btnDesktopRailToggle) {
       btnDesktopRailToggle.setAttribute('title', isCollapsed ? 'Rentangkan Menu Sidebar (>)' : 'Ciutkan Menu Sidebar (<)');
-      btnDesktopRailToggle.setAttribute('aria-label', isCollapsed ? 'Rentangkan Menu' : 'Ciutkan Menu');
+      btnDesktopRailToggle.setAttribute('aria-label', isCollapsed ? 'Rentangkan Menu Sidebar' : 'Ciutkan Menu Sidebar');
     }
 
     // Trigger chart resize safely with debounce
     setTimeout(() => {
-      if (growthChartInstance) growthChartInstance.resize();
-      if (categoryChartInstance) categoryChartInstance.resize();
+      if (typeof growthChartInstance !== 'undefined' && growthChartInstance) growthChartInstance.resize();
+      if (typeof categoryChartInstance !== 'undefined' && categoryChartInstance) categoryChartInstance.resize();
     }, 250);
-
-    triggerToast(isCollapsed ? 'Sidebar diciutkan ke mode ikon (>)' : 'Sidebar direntangkan (<)');
   }
 
   if (btnDesktopRailToggle) btnDesktopRailToggle.addEventListener('click', toggleSidebar);
