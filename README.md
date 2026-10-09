@@ -395,7 +395,7 @@ cd SARPRAS-ACADEMIA
    ```bash
    npm start
    ```
-   Aplikasi siap diakses pada `http://localhost:3000` dengan endpoint REST API aktif pada `/api/assets`, `/api/dashboard/stats`, `/api/loans`, dll.
+   Aplikasi siap diakses pada `http://localhost:3050` dengan endpoint REST API aktif pada `/api/assets`, `/api/dashboard/stats`, `/api/loans`, dll.
 
 ---
 
@@ -403,10 +403,10 @@ cd SARPRAS-ACADEMIA
 Jika dijalankan di lingkungan pengujian tanpa Docker:
 * Cukup buka langsung berkas `index.html` pada peramban web (Chrome, Edge, Firefox).
 * Atau gunakan web server lokal ringan:
-  ```bash
-  python -m http.server 3000
-  ```
-  Lalu buka `http://localhost:3000`.
+   ```bash
+   python -m http.server 3050
+   ```
+   Lalu buka `http://localhost:3050`.
 
 ---
 
