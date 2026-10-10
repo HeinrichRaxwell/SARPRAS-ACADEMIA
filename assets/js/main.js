@@ -78,6 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('sarpras_theme') || 'light';
   setTheme(savedTheme);
 
+  // 1.1 Sync Active Logged-In User Profile into Header & UI
+  syncActiveUserProfile();
+
   // 3. Render Master Data Table & Pagination
   renderInventoryTable();
   renderLoansTable();
@@ -367,6 +370,56 @@ async function syncWithBackend() {
       console.info('Operating in client-side mock fallback mode:', e.message);
     }
   }
+}
+
+// ==========================================================================
+// ACTIVE SESSION & USER PROFILE SYNCHRONIZATION
+// ==========================================================================
+function syncActiveUserProfile() {
+  let activeUser = null;
+  try {
+    const raw = localStorage.getItem('sarpras_active_user');
+    if (raw) activeUser = JSON.parse(raw);
+  } catch (e) {}
+
+  if (!activeUser) {
+    activeUser = {
+      username: 'haidar',
+      full_name: 'Haidar Reyhan',
+      identity_number: 'NIM. 231011400547',
+      role: 'Superadmin',
+      email: 'haidar.reyhan@unpam.ac.id'
+    };
+  }
+
+  const initials = activeUser.full_name
+    ? activeUser.full_name.split(' ').filter(Boolean).map(x => x[0]).slice(0, 2).join('').toUpperCase()
+    : 'HR';
+
+  const avatarBadges = document.querySelectorAll('.user-avatar-badge');
+  avatarBadges.forEach(el => { el.textContent = initials; });
+
+  const nameEls = document.querySelectorAll('.user-meta-name');
+  nameEls.forEach(el => { el.textContent = activeUser.full_name; });
+
+  const roleEls = document.querySelectorAll('.user-meta-role');
+  roleEls.forEach(el => { el.textContent = `${activeUser.role} (${activeUser.identity_number})`; });
+
+  const popover = document.getElementById('dropdownProfile');
+  if (popover) {
+    const nameDiv = popover.querySelector('div > div:first-child');
+    if (nameDiv) nameDiv.textContent = activeUser.full_name;
+    const subDiv = popover.querySelector('div > div:nth-child(2)');
+    if (subDiv) subDiv.textContent = `${activeUser.identity_number} • ${activeUser.role}`;
+  }
+
+  // Logout click event listener to clear session
+  const logoutLinks = document.querySelectorAll('a[href="/"]');
+  logoutLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      localStorage.removeItem('sarpras_active_user');
+    });
+  });
 }
 
 // ==========================================================================
