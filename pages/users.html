@@ -503,19 +503,15 @@
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div class="form-group-item">
-              <label class="form-label-text">NIP / NIM *</label>
-              <input type="text" class="form-input-field font-mono" id="newUserIdNumber" placeholder="NIP/NIM" required>
+              <label class="form-label-text">Nomor Identitas (NIP / NIM) *</label>
+              <input type="text" class="form-input-field font-mono" id="newUserIdNumber" placeholder="Contoh: 1985... / 2310114..." required>
             </div>
-            <div class="form-group-item">
-              <label class="form-label-text">Username SSO *</label>
-              <input type="text" class="form-input-field font-mono" id="newUserUsername" placeholder="username" required>
-            </div>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div class="form-group-item">
               <label class="form-label-text">Email Kedinasan *</label>
               <input type="email" class="form-input-field" id="newUserEmail" placeholder="nama@unpam.ac.id" required>
             </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div class="form-group-item">
               <label class="form-label-text">Direktorat / Unit Kerja *</label>
               <select class="form-select-field" id="newUserUnit" required>
@@ -524,16 +520,16 @@
                 <option value="Pusat Data & Server">Pusat Data & Server</option>
               </select>
             </div>
-          </div>
-          <div class="form-group-item">
-            <label class="form-label-text">Peran / Role Otorisasi *</label>
-            <select class="form-select-field" id="newUserRole" required>
-              <option value="Operator Aset BMN">Operator Aset BMN</option>
-              <option value="Penanggung Jawab Lab">Penanggung Jawab Lab</option>
-              <option value="Teknisi Pemeliharaan">Teknisi Pemeliharaan</option>
-              <option value="Kepala Biro Sarpras">Kepala Biro Sarpras</option>
-              <option value="Superadmin">Superadmin</option>
-            </select>
+            <div class="form-group-item">
+              <label class="form-label-text">Peran / Role Otorisasi *</label>
+              <select class="form-select-field" id="newUserRole" required>
+                <option value="Operator Aset BMN">Operator Aset BMN</option>
+                <option value="Penanggung Jawab Lab">Penanggung Jawab Lab</option>
+                <option value="Teknisi Pemeliharaan">Teknisi Pemeliharaan</option>
+                <option value="Kepala Biro Sarpras">Kepala Biro Sarpras</option>
+                <option value="Superadmin">Superadmin</option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="modal-foot-actions" style="padding: 14px 20px; background: var(--color-surface-subtle);">
@@ -583,8 +579,8 @@
         <!-- Two Column Key-Value Info -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; background: var(--color-surface); padding: 12px; border-radius: 6px; border: 1px solid var(--color-border-whisper);">
           <div>
-            <div style="color: var(--color-text-muted); font-size: 10.5px;">USERNAME SSO</div>
-            <strong class="font-mono" id="detailUserUsername" style="color: var(--color-text-primary);">haidar</strong>
+            <div style="color: var(--color-text-muted); font-size: 10.5px;">NOMOR IDENTITAS RESMI</div>
+            <strong class="font-mono" id="detailUserUsername" style="color: var(--color-accent-cobalt); font-size: 11.5px;">231011400547</strong>
           </div>
           <div>
             <div style="color: var(--color-text-muted); font-size: 10.5px;">PERAN SISTEM</div>
@@ -912,10 +908,10 @@
       e.preventDefault();
       const name = document.getElementById('newUserName').value;
       const idNum = document.getElementById('newUserIdNumber').value;
-      const uname = document.getElementById('newUserUsername').value;
       const email = document.getElementById('newUserEmail').value;
       const unit = document.getElementById('newUserUnit').value;
       const role = document.getElementById('newUserRole').value;
+      const uname = email ? email.split('@')[0].toLowerCase() : ('user_' + idNum.replace(/\D/g, ''));
 
       const newUser = {
         u: uname,
