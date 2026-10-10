@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Masuk - SARPRAS ACADEMIA</title>
-  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
   
   <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Shared Sliced Stylesheet -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
@@ -52,7 +52,7 @@
       <!-- Brand Header -->
       <div class="login-brand-header">
         <div class="login-logo-box">
-          <img src="assets/img/logo_sarpras.svg" alt="Logo SARPRAS ACADEMIA" width="52" height="52">
+          <img src="/assets/img/logo_sarpras.svg" alt="Logo SARPRAS ACADEMIA" width="52" height="52">
         </div>
         <h1 class="login-title-main">SARPRAS ACADEMIA</h1>
         <p class="login-subtitle-desc">
@@ -102,7 +102,7 @@
           <span>ATAU MASUK DENGAN IDENTITAS TUNGGAL</span>
         </div>
 
-        <button type="button" class="btn-action-secondary" style="width: 100%; height: 40px; justify-content: center;" onclick="triggerToast('Menghubungkan ke layanan SSO Kemendikbudristek...'); setTimeout(() => { window.location.href = 'pages/dashboard.html'; }, 800);">
+        <button type="button" class="btn-action-secondary" style="width: 100%; height: 40px; justify-content: center;" onclick="triggerToast('Menghubungkan ke layanan SSO Kemendikbudristek...'); setTimeout(() => { window.location.href = "/dashboard"; }, 800);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
           </svg>
@@ -192,7 +192,7 @@
 
       triggerToast('Autentikasi berhasil! Mengalihkan ke panel...');
       setTimeout(() => {
-        window.location.href = 'pages/dashboard.html';
+        window.location.href = "/dashboard";
       }, 600);
     }
 

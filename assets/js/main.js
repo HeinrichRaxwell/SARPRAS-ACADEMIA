@@ -975,7 +975,7 @@ function handleFormSubmit(e) {
   } else {
     triggerToast(`Sarana ${name} berhasil didaftarkan. Mengalihkan...`);
     setTimeout(() => {
-      window.location.href = 'data-master.html';
+      window.location.href = "/data-master";
     }, 600);
   }
 }

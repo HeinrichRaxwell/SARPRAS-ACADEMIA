@@ -2,15 +2,45 @@
   "version": 2,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.js" },
+
     { "source": "/dashboard", "destination": "/pages/dashboard.html" },
+    { "source": "/dashboard.html", "destination": "/pages/dashboard.html" },
+    { "source": "/pages/dashboard", "destination": "/pages/dashboard.html" },
+
     { "source": "/data-master", "destination": "/pages/data-master.html" },
+    { "source": "/data-master.html", "destination": "/pages/data-master.html" },
+    { "source": "/pages/data-master", "destination": "/pages/data-master.html" },
+
     { "source": "/form", "destination": "/pages/form.html" },
+    { "source": "/form.html", "destination": "/pages/form.html" },
+    { "source": "/pages/form", "destination": "/pages/form.html" },
+
     { "source": "/laporan", "destination": "/pages/laporan.html" },
+    { "source": "/laporan.html", "destination": "/pages/laporan.html" },
+    { "source": "/pages/laporan", "destination": "/pages/laporan.html" },
+
     { "source": "/peminjaman", "destination": "/pages/peminjaman.html" },
+    { "source": "/peminjaman.html", "destination": "/pages/peminjaman.html" },
+    { "source": "/pages/peminjaman", "destination": "/pages/peminjaman.html" },
+
     { "source": "/maintenance", "destination": "/pages/maintenance.html" },
+    { "source": "/maintenance.html", "destination": "/pages/maintenance.html" },
+    { "source": "/pages/maintenance", "destination": "/pages/maintenance.html" },
+
     { "source": "/ruangan", "destination": "/pages/ruangan.html" },
+    { "source": "/ruangan.html", "destination": "/pages/ruangan.html" },
+    { "source": "/pages/ruangan", "destination": "/pages/ruangan.html" },
+
     { "source": "/users", "destination": "/pages/users.html" },
+    { "source": "/users.html", "destination": "/pages/users.html" },
+    { "source": "/pages/users", "destination": "/pages/users.html" },
+
     { "source": "/layout", "destination": "/layout.html" },
+    { "source": "/layout.html", "destination": "/layout.html" },
+    { "source": "/pages/layout", "destination": "/layout.html" },
+
+    { "source": "/index", "destination": "/index.html" },
+    { "source": "/index.html", "destination": "/index.html" },
     { "source": "/", "destination": "/index.html" }
   ]
 }

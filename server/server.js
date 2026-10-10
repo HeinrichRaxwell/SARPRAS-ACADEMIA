@@ -22,18 +22,16 @@ app.use('/pages', express.static(path.join(rootDir, 'pages')));
 app.use('/docs', express.static(path.join(rootDir, 'docs')));
 
 // Clean page routes
-app.get('/', (req, res) => res.sendFile(path.join(rootDir, 'index.html')));
-app.get('/dashboard', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'dashboard.html')));
-app.get('/data-master', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'data-master.html')));
-app.get('/form', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'form.html')));
-app.get('/laporan', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'laporan.html')));
-app.get('/peminjaman', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'peminjaman.html')));
-app.get('/maintenance', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'maintenance.html')));
-app.get('/ruangan', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'ruangan.html')));
-app.get('/users', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'users.html')));
-app.get('/users.html', (req, res) => res.sendFile(path.join(rootDir, 'pages', 'users.html')));
-app.get('/layout', (req, res) => res.sendFile(path.join(rootDir, 'layout.html')));
-app.get('/layout.html', (req, res) => res.sendFile(path.join(rootDir, 'layout.html')));
+app.get(['/', '/index', '/index.html'], (req, res) => res.sendFile(path.join(rootDir, 'index.html')));
+app.get(['/dashboard', '/dashboard.html'], (req, res) => res.sendFile(path.join(rootDir, 'pages', 'dashboard.html')));
+app.get(['/data-master', '/data-master.html'], (req, res) => res.sendFile(path.join(rootDir, 'pages', 'data-master.html')));
+app.get(['/form', '/form.html'], (req, res) => res.sendFile(path.join(rootDir, 'pages', 'form.html')));
+app.get(['/laporan', '/laporan.html'], (req, res) => res.sendFile(path.join(rootDir, 'pages', 'laporan.html')));
+app.get(['/peminjaman', '/peminjaman.html'], (req, res) => res.sendFile(path.join(rootDir, 'pages', 'peminjaman.html')));
+app.get(['/maintenance', '/maintenance.html'], (req, res) => res.sendFile(path.join(rootDir, 'pages', 'maintenance.html')));
+app.get(['/ruangan', '/ruangan.html'], (req, res) => res.sendFile(path.join(rootDir, 'pages', 'ruangan.html')));
+app.get(['/users', '/users.html'], (req, res) => res.sendFile(path.join(rootDir, 'pages', 'users.html')));
+app.get(['/layout', '/layout.html'], (req, res) => res.sendFile(path.join(rootDir, 'layout.html')));
 
 // ============================================================================
 // REST API ENDPOINTS
