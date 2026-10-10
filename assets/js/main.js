@@ -78,13 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('sarpras_theme') || 'light';
   setTheme(savedTheme);
 
-  // 2. Initialize Visual Charts (Chart.js)
-  initCharts();
-
   // 3. Render Master Data Table & Pagination
   renderInventoryTable();
   renderLoansTable();
   renderWorkOrdersTable();
+  updateRoomsDirectoryView();
 
   // 4. Connect and synchronize with Backend REST API if running on server
   syncWithBackend();
@@ -341,6 +339,7 @@ async function syncWithBackend() {
           renderInventoryTable();
           const activeRoom = document.getElementById('kirCurrentRoomName')?.textContent || "Lab Kimia Terpadu R.302";
           updateKirRoomView(activeRoom);
+          updateRoomsDirectoryView();
         }
       }
 
@@ -1056,6 +1055,33 @@ function updateKirRoomView(roomName) {
   }
 
   triggerToast(`Memuat lembar KIR resmi untuk: ${roomName}`);
+}
+
+function updateRoomsDirectoryView() {
+  const cards = document.querySelectorAll('.room-modular-card[data-room-name]');
+  if (!cards || cards.length === 0) return;
+
+  cards.forEach(card => {
+    const rName = card.getAttribute('data-room-name');
+    const matched = inventoryData.filter(x => x.room && (x.room === rName || x.room.toLowerCase().includes(rName.toLowerCase().split(' ')[0])));
+    const totalVal = matched.reduce((acc, x) => acc + Number(x.price || 0), 0);
+    const count = matched.length;
+    const statEl = card.querySelector('.room-stat-text');
+    if (statEl) {
+      statEl.textContent = `${count} Unit Sarana (Rp ${totalVal.toLocaleString('id-ID')})`;
+    }
+    const badge = card.querySelector('.status-badge-pill');
+    if (badge) {
+      const hasPerawatan = matched.some(x => x.condition !== 'Baik');
+      if (hasPerawatan) {
+        badge.className = 'status-badge-pill warning font-mono';
+        badge.textContent = 'Perawatan';
+      } else {
+        badge.className = 'status-badge-pill normal font-mono';
+        badge.textContent = 'KIR Valid';
+      }
+    }
+  });
 }
 
 // ==========================================================================
