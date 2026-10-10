@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.js" },
+    { "source": "/dashboard", "destination": "/pages/dashboard.html" },
+    { "source": "/data-master", "destination": "/pages/data-master.html" },
+    { "source": "/form", "destination": "/pages/form.html" },
+    { "source": "/laporan", "destination": "/pages/laporan.html" },
+    { "source": "/peminjaman", "destination": "/pages/peminjaman.html" },
+    { "source": "/maintenance", "destination": "/pages/maintenance.html" },
+    { "source": "/ruangan", "destination": "/pages/ruangan.html" },
+    { "source": "/users", "destination": "/pages/users.html" },
+    { "source": "/layout", "destination": "/layout.html" },
+    { "source": "/", "destination": "/index.html" }
+  ]
+}

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matriks Peran & Hak Akses - SARPRAS ACADEMIA</title>
+  <title>Manajemen Peran & Pengguna - SARPRAS ACADEMIA</title>
   <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
   
   <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
@@ -179,7 +179,7 @@
 
       </nav>
 
-      <!-- Sidebar Institutional Role Indicator (Talent Pool & SiRupat Standard) -->
+      <!-- Sidebar Institutional Role Indicator -->
       <div class="sidebar-institutional-footer">
         <div class="sidebar-role-indicator">
           <div class="role-badge-tag">SISTEM RESMI</div>
@@ -221,7 +221,7 @@
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="text" class="search-box-input" id="mainGlobalSearch" placeholder="Cari peran, pejabat, NIM, NIP, modul... (Ctrl + K)">
+            <input type="text" class="search-box-input" id="mainGlobalSearch" placeholder="Cari nama, NIM, NIP, role... (Ctrl + K)">
             <span class="search-shortcut-badge font-mono">Ctrl K</span>
           </div>
         </div>
@@ -287,30 +287,30 @@
       </header>
 
       <!-- ======================================================================
-           3. MAIN VIEWPORT: USER ROLE & PERMISSION MATRIX
+           3. MAIN VIEWPORT: CLEAN SINGLE ENTERPRISE TABLE (SiRupat / Talent Pool Standard)
            ====================================================================== -->
       <main class="main-viewport">
         
         <div class="view-action-header">
           <div class="view-title-group">
-            <h1>Matriks Peran & Hak Akses Pengguna</h1>
-            <p>Konfigurasi tingkat wewenang institusi, penetapan pejabat pemegang peran, dan matriks hak akses modul sarpras</p>
+            <h1>Manajemen Peran & Pengguna Sistem</h1>
+            <p>Master data akun civitas, penetapan peran resmi BMN, dan status akses terpusat</p>
           </div>
           <div class="view-header-buttons">
-            <button class="btn-action-secondary" onclick="exportRolesMatrixCsv()">
+            <button class="btn-action-secondary" onclick="exportUsersCsv()">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
                 <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
-              <span>Unduh Matriks CSV</span>
+              <span>Unduh Rekap CSV</span>
             </button>
-            <button class="btn-action-primary" onclick="openConfigureRoleModal()">
+            <button class="btn-action-primary" onclick="openCreateUserModal()">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
-              <span>+ Tetapkan Peran Baru</span>
+              <span>+ Tambah Pegawai</span>
             </button>
           </div>
         </div>
@@ -318,62 +318,64 @@
         <!-- 4 KPI Metrics Row -->
         <div class="four-cards-row">
           <div class="glass-panel-card" style="padding: 16px 20px;">
-            <span class="card-top-tag">TINGKAT PERAN RESMI</span>
-            <div class="card-metric-value font-mono">5 Tingkatan</div>
-            <div class="card-metric-subtext">Multi-Tier RBAC Architecture</div>
+            <span class="card-top-tag">TOTAL PEGAWAI TERDAFTAR</span>
+            <div class="card-metric-value font-mono" id="summaryTotalUsers">5 Personel</div>
+            <div class="card-metric-subtext">Terkoneksi SSO Kampus</div>
           </div>
           <div class="glass-panel-card" style="padding: 16px 20px;">
-            <span class="card-top-tag">SUPERADMIN SISTEM</span>
+            <span class="card-top-tag">SUPERADMIN UTAMA</span>
             <div class="card-metric-value font-mono" style="font-size: 19px; color: var(--color-accent-cobalt);">Haidar Reyhan</div>
-            <div class="card-metric-subtext">NIM. 231011400547 (Root Privileges)</div>
+            <div class="card-metric-subtext">NIM. 231011400547 (Root)</div>
           </div>
           <div class="glass-panel-card" style="padding: 16px 20px;">
-            <span class="card-top-tag">PEJABAT TERDAFTAR</span>
-            <div class="card-metric-value font-mono" style="color: var(--color-signal-normal);">5 Personel</div>
-            <div class="card-metric-subtext">100% Terverifikasi Akun SSO</div>
+            <span class="card-top-tag">STRUKTUR TINGKAT ROLE</span>
+            <div class="card-metric-value font-mono" style="color: var(--color-signal-normal);">5 Peran</div>
+            <div class="card-metric-subtext">Matriks RBAC ISO 55001</div>
           </div>
           <div class="glass-panel-card" style="padding: 16px 20px;">
-            <span class="card-top-tag">STATUS HAK AKSES</span>
+            <span class="card-top-tag">STATUS OPERASIONAL</span>
             <div class="card-metric-value font-mono" style="color: var(--color-accent-cobalt);">100% Aktif</div>
-            <div class="card-metric-subtext">Kepatuhan Audit ISO 55001</div>
+            <div class="card-metric-subtext">0 Akun Terkunci / Dinonaktifkan</div>
           </div>
         </div>
 
-        <!-- SATU TABEL MASTER: Matriks Peran & Hak Akses (SuperApps Portal Enterprise Table) -->
+        <!-- SATU TABEL MASTER BERSIH (Persis Format SiRupat & Talent Pool DJKA) -->
         <div class="enterprise-grid-card">
           
           <!-- Deep Navy Header Bar -->
           <div class="enterprise-grid-header">
             <div class="enterprise-grid-title">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
-                <path d="m9 12 2 2 4-4"/>
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
               </svg>
-              <span>Matriks Peran & Otorisasi Pengguna (Role & Permissions Matrix)</span>
+              <span>Daftar Pengguna & Hak Akses (User Role Management)</span>
             </div>
-            <div class="enterprise-grid-meta" id="roleGridMeta">
-              Showing 1-5 of 5 roles configured.
+            <div class="enterprise-grid-meta" id="userGridMeta">
+              Showing 1-5 of 5 registered users.
             </div>
           </div>
 
-          <!-- Sub-Toolbar (SuperApps Portal Standard) -->
+          <!-- Sub-Toolbar -->
           <div class="enterprise-grid-toolbar">
             <div class="enterprise-grid-hint">
-              * Struktur wewenang formal tata kelola sarana prasarana akademik & Barang Milik Negara (BMN).
+              * Ukuran tabel responsif & kolom dapat difilter langsung per kriteria pencarian.
             </div>
             <div class="enterprise-grid-actions">
-              <button onclick="openConfigureRoleModal()" class="btn-action-primary" style="height: 30px; padding: 0 10px; font-size: 11.5px;">
+              <button onclick="openCreateUserModal()" class="btn-action-primary" style="height: 30px; padding: 0 10px; font-size: 11.5px;">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                <span>Tetapkan Peran</span>
+                <span>Tambah</span>
               </button>
-              <button onclick="refreshRolesData()" class="btn-action-secondary" style="height: 30px; padding: 0 10px; font-size: 11.5px; color: #16a34a; border-color: #bbf7d0;" title="Muat Ulang Data">
+              <button onclick="refreshUsersData()" class="btn-action-secondary" style="height: 30px; padding: 0 10px; font-size: 11.5px; color: #16a34a; border-color: #bbf7d0;" title="Muat Ulang Data">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
                 <span>Refresh</span>
               </button>
-              <button onclick="resetRoleFilters()" class="btn-action-secondary" style="height: 30px; padding: 0 10px; font-size: 11.5px;">
+              <button onclick="resetUserFilters()" class="btn-action-secondary" style="height: 30px; padding: 0 10px; font-size: 11.5px;">
                 Reset Filter
               </button>
-              <button onclick="exportRolesMatrixCsv()" class="btn-action-secondary" style="height: 30px; padding: 0 10px; font-size: 11.5px;">
+              <button onclick="exportUsersCsv()" class="btn-action-secondary" style="height: 30px; padding: 0 10px; font-size: 11.5px;">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 <span>Ekspor CSV</span>
               </button>
@@ -381,75 +383,76 @@
           </div>
 
           <!-- Enterprise Table with Inline Filter Row -->
-          <div class="enterprise-table-wrapper">
-            <table class="enterprise-table" id="tableRolesMaster">
+          <div class="enterprise-table-wrapper" style="overflow-x: auto;">
+            <table class="enterprise-table" id="tableUsersMain" style="width: 100%; table-layout: fixed;">
               <thead>
                 <tr>
-                  <th style="width: 36px; text-align: center;"><input type="checkbox" title="Pilih Semua"></th>
-                  <th style="width: 36px; text-align: center;">#</th>
-                  <th style="width: 120px;">Tingkat (Tier)</th>
-                  <th style="min-width: 170px;">Nama Peran (Role)</th>
-                  <th style="min-width: 230px;">Pejabat / Pemegang Akun</th>
-                  <th style="min-width: 180px;">Unit Kerja / Satker</th>
-                  <th style="min-width: 260px;">Hak Akses Modul BMN</th>
-                  <th style="min-width: 220px;">Lingkup Kewenangan</th>
-                  <th style="width: 80px; text-align: center;">Status</th>
-                  <th style="width: 90px; text-align: center;">Aksi</th>
+                  <th style="width: 28px; text-align: center;"><input type="checkbox" title="Pilih Semua"></th>
+                  <th style="width: 28px; text-align: center;">#</th>
+                  <th style="width: 165px;">Nama Pegawai</th>
+                  <th style="width: 130px;">NIP / NIM</th>
+                  <th style="width: 160px;">Email Kedinasan</th>
+                  <th style="width: 140px;">Unit Kerja</th>
+                  <th style="width: 130px; text-align: center;">Peran (Role)</th>
+                  <th style="width: 75px; text-align: center;">Status</th>
+                  <th style="width: 80px; text-align: center;">Aksi</th>
                 </tr>
-                <!-- Inline Column Filter Row (Ala MrBean / Talent Pool SuperApps) -->
+                <!-- Inline Column Search Filter Row (SiRupat / Talent Pool Standard) -->
                 <tr class="enterprise-filter-row">
                   <th></th>
                   <th></th>
                   <th>
-                    <select class="enterprise-filter-select" id="filterTier" onchange="applyRoleMatrixFilters()">
-                      <option value="ALL">Semua Tier</option>
-                      <option value="Level 0">Level 0: Root</option>
-                      <option value="Level 1">Level 1: Exec</option>
-                      <option value="Level 2">Level 2: Verifier</option>
-                      <option value="Level 3">Level 3: Ops/Tech</option>
+                    <input type="text" class="enterprise-filter-input" id="filterColName" placeholder="Filter..." oninput="applyUserFilters()">
+                  </th>
+                  <th>
+                    <input type="text" class="enterprise-filter-input font-mono" id="filterColId" placeholder="Filter..." oninput="applyUserFilters()">
+                  </th>
+                  <th>
+                    <input type="text" class="enterprise-filter-input" id="filterColEmail" placeholder="Filter..." oninput="applyUserFilters()">
+                  </th>
+                  <th>
+                    <select class="enterprise-filter-select" id="filterColUnit" onchange="applyUserFilters()">
+                      <option value="ALL">Semua</option>
+                      <option value="Biro Sarana dan Prasarana">Biro Sarpras</option>
+                      <option value="Laboratorium Terpadu">Lab Terpadu</option>
+                      <option value="Pusat Data & Server">Pusat Data</option>
                     </select>
                   </th>
                   <th>
-                    <input type="text" class="enterprise-filter-input" id="filterRoleName" placeholder="Filter Peran..." oninput="applyRoleMatrixFilters()">
-                  </th>
-                  <th>
-                    <input type="text" class="enterprise-filter-input" id="filterPersonName" placeholder="Filter Nama/NIM/NIP..." oninput="applyRoleMatrixFilters()">
-                  </th>
-                  <th>
-                    <select class="enterprise-filter-select" id="filterUnit" onchange="applyRoleMatrixFilters()">
-                      <option value="ALL">Semua Satker</option>
-                      <option value="Biro Sarana dan Prasarana">Biro Sarana dan Prasarana</option>
-                      <option value="Laboratorium Terpadu">Laboratorium Terpadu</option>
-                      <option value="Pusat Data & Server">Pusat Data & Server</option>
+                    <select class="enterprise-filter-select" id="filterColRole" onchange="applyUserFilters()">
+                      <option value="ALL">Semua</option>
+                      <option value="Superadmin">Superadmin</option>
+                      <option value="Kepala Biro Sarpras">Kepala Biro</option>
+                      <option value="Penanggung Jawab Lab">PJ Lab</option>
+                      <option value="Operator Aset BMN">Operator</option>
+                      <option value="Teknisi Pemeliharaan">Teknisi</option>
                     </select>
                   </th>
                   <th>
-                    <input type="text" class="enterprise-filter-input" id="filterModule" placeholder="Filter Modul..." oninput="applyRoleMatrixFilters()">
-                  </th>
-                  <th></th>
-                  <th>
-                    <select class="enterprise-filter-select" id="filterStatus" onchange="applyRoleMatrixFilters()">
+                    <select class="enterprise-filter-select" id="filterColStatus" onchange="applyUserFilters()">
                       <option value="ALL">Semua</option>
                       <option value="Aktif">Aktif</option>
                       <option value="Nonaktif">Nonaktif</option>
                     </select>
                   </th>
                   <th style="text-align: center;">
-                    <button onclick="resetRoleFilters()" class="btn-action-secondary" style="height: 24px; padding: 0 6px; font-size: 10px;">Reset</button>
+                    <button onclick="resetUserFilters()" class="btn-action-secondary" style="height: 22px; padding: 0 4px; font-size: 10px; width: 100%;">Reset</button>
                   </th>
                 </tr>
               </thead>
-              <tbody id="roleMatrixTableBody">
-                <!-- Data populated dynamically via JS -->
+              <tbody id="userTableBody">
+                <!-- Dynamically rendered via JS -->
               </tbody>
             </table>
           </div>
 
-          <!-- Table Footer -->
+          <!-- Table Footer Pagination Summary -->
           <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; border-top: 1px solid var(--color-border-whisper); background: var(--color-surface); font-size: 12px; color: var(--color-text-muted);">
-            <div id="rolePaginationMeta">Showing <strong>1-5</strong> of <strong>5</strong> configured roles.</div>
-            <div style="font-size: 11.5px; color: var(--color-text-muted);">
-              Standar Tata Kelola Otorisasi Multi-Tier &bull; ISO 55001
+            <div id="userPaginationMeta">Showing <strong>1-5</strong> of <strong>5</strong> registered users.</div>
+            <div style="display: flex; gap: 4px;">
+              <button class="btn-header-control" style="width: 26px; height: 26px; font-size: 11px;" disabled>&lt;</button>
+              <button class="btn-header-control" style="width: 26px; height: 26px; font-size: 11px; background: var(--color-accent-cobalt); color: #FFF; border-color: var(--color-accent-cobalt);">1</button>
+              <button class="btn-header-control" style="width: 26px; height: 26px; font-size: 11px;" disabled>&gt;</button>
             </div>
           </div>
 
@@ -472,479 +475,495 @@
   </div>
 
   <!-- ==========================================================================
-       LUXURY MODALS DIALOG SYSTEM (ROLE & ACCESS PERMISSIONS)
+       MODALS SYSTEM (SIMPLE, LUXURIOUS, INFORMATIVE - SIRUPAT & TALENT POOL STYLE)
        ========================================================================== -->
 
-  <!-- Modal: Tetapkan / Konfigurasi Peran Baru -->
-  <div class="modal-overlay-bg" id="modalConfigureRole" role="dialog" aria-modal="true">
-    <div class="modal-window-card" style="max-width: 560px;">
-      
-      <!-- Elevated Luxury Header -->
-      <div class="modal-head" style="background: var(--color-surface); border-bottom: 1px solid var(--color-border-whisper); padding: 18px 24px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <div style="width: 36px; height: 36px; border-radius: 8px; background: #0E1937; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
-              <path d="m9 12 2 2 4-4"/>
-            </svg>
+  <!-- Modal: Tambah Pegawai Baru -->
+  <div class="modal-overlay-bg" id="modalCreateUser" role="dialog" aria-modal="true">
+    <div class="modal-window-card" style="max-width: 500px;">
+      <div class="modal-head" style="padding: 16px 20px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 32px; height: 32px; border-radius: 6px; background: #0E1937; color: #FFFFFF; display: flex; align-items: center; justify-content: center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
           </div>
           <div>
-            <h3 style="font-size: 14.5px; font-weight: 700; color: var(--color-text-primary); letter-spacing: -0.01em;">Penetapan Peran & Otorisasi Hak Akses</h3>
-            <p style="font-size: 11.5px; color: var(--color-text-muted); margin-top: 2px;">Konfigurasi wewenang dan penugasan pejabat pemegang akun</p>
+            <h3 style="font-size: 14px; font-weight: 700; color: var(--color-text-primary);">Tambah Pegawai Baru</h3>
+            <p style="font-size: 11px; color: var(--color-text-muted);">Pendaftaran kredensial akses sistem sarpras</p>
           </div>
         </div>
-        <button class="btn-header-control" style="width: 28px; height: 28px;" onclick="closeModal('modalConfigureRole')" aria-label="Tutup">
+        <button class="btn-header-control" style="width: 28px; height: 28px;" onclick="closeModal('modalCreateUser')" aria-label="Tutup">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
       </div>
-
-      <!-- Luxury Form Body -->
-      <form id="formConfigureRole" onsubmit="submitConfigureRole(event)">
-        <div class="modal-content-body" style="padding: 24px; gap: 18px;">
-          
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+      <form id="formNewUser" onsubmit="submitNewUser(event)">
+        <div class="modal-content-body" style="padding: 20px; gap: 14px;">
+          <div class="form-group-item">
+            <label class="form-label-text">Nama Lengkap Pegawai *</label>
+            <input type="text" class="form-input-field" id="newUserName" placeholder="Contoh: Ir. Bambang Hermanto, M.T." required>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div class="form-group-item">
-              <label class="form-label-text">Tingkat Otorisasi (Tier) *</label>
-              <select class="form-select-field" id="cfgRoleTier" required>
-                <option value="Level 0: Root">Level 0: Root (Administrator)</option>
-                <option value="Level 1: Exec">Level 1: Exec (Kepala Biro)</option>
-                <option value="Level 2: Verifier">Level 2: Verifier (PJ Ruangan)</option>
-                <option value="Level 3: Ops">Level 3: Ops (Operator BMN)</option>
-                <option value="Level 3: Tech">Level 3: Tech (Teknisi Lapangan)</option>
-              </select>
+              <label class="form-label-text">NIP / NIM *</label>
+              <input type="text" class="form-input-field font-mono" id="newUserIdNumber" placeholder="NIP/NIM" required>
             </div>
             <div class="form-group-item">
-              <label class="form-label-text">Nama Peran (Role Title) *</label>
-              <input type="text" class="form-input-field" id="cfgRoleName" placeholder="Contoh: Pengawas Kalibrasi" required>
+              <label class="form-label-text">Username SSO *</label>
+              <input type="text" class="form-input-field font-mono" id="newUserUsername" placeholder="username" required>
             </div>
           </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div class="form-group-item">
-              <label class="form-label-text">Nama Pejabat / Pemegang *</label>
-              <input type="text" class="form-input-field" id="cfgPersonName" placeholder="Nama lengkap & gelar" required>
+              <label class="form-label-text">Email Kedinasan *</label>
+              <input type="email" class="form-input-field" id="newUserEmail" placeholder="nama@unpam.ac.id" required>
             </div>
             <div class="form-group-item">
-              <label class="form-label-text">Nomor Identitas (NIM / NIP) *</label>
-              <input type="text" class="form-input-field font-mono" id="cfgPersonId" placeholder="NIM/NIP resmi" required>
-            </div>
-          </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-            <div class="form-group-item">
-              <label class="form-label-text">Surel Institusi (@unpam.ac.id)</label>
-              <input type="email" class="form-input-field" id="cfgPersonEmail" placeholder="nama@unpam.ac.id">
-            </div>
-            <div class="form-group-item">
-              <label class="form-label-text">Unit Kerja / Satker *</label>
-              <select class="form-select-field" id="cfgPersonUnit">
+              <label class="form-label-text">Direktorat / Unit Kerja *</label>
+              <select class="form-select-field" id="newUserUnit" required>
                 <option value="Biro Sarana dan Prasarana">Biro Sarana dan Prasarana</option>
                 <option value="Laboratorium Terpadu">Laboratorium Terpadu</option>
                 <option value="Pusat Data & Server">Pusat Data & Server</option>
-                <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
               </select>
             </div>
           </div>
-
           <div class="form-group-item">
-            <label class="form-label-text">Lingkup Kewenangan Formal *</label>
-            <input type="text" class="form-input-field" id="cfgRoleScope" placeholder="Deskripsi ringkas wewenang jabatan..." required>
+            <label class="form-label-text">Peran / Role Otorisasi *</label>
+            <select class="form-select-field" id="newUserRole" required>
+              <option value="Operator Aset BMN">Operator Aset BMN</option>
+              <option value="Penanggung Jawab Lab">Penanggung Jawab Lab</option>
+              <option value="Teknisi Pemeliharaan">Teknisi Pemeliharaan</option>
+              <option value="Kepala Biro Sarpras">Kepala Biro Sarpras</option>
+              <option value="Superadmin">Superadmin</option>
+            </select>
           </div>
-
         </div>
-
-        <!-- Luxury Footer Actions -->
-        <div class="modal-foot-actions" style="padding: 16px 24px; background: var(--color-surface-subtle); border-top: 1px solid var(--color-border-whisper);">
-          <button type="button" class="btn-action-secondary" onclick="closeModal('modalConfigureRole')">Batalkan</button>
-          <button type="submit" class="btn-action-primary" style="display: inline-flex; align-items: center; gap: 6px;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-            <span>Simpan Otorisasi Peran</span>
-          </button>
+        <div class="modal-foot-actions" style="padding: 14px 20px; background: var(--color-surface-subtle);">
+          <button type="button" class="btn-action-secondary" onclick="closeModal('modalCreateUser')">Batalkan</button>
+          <button type="submit" class="btn-action-primary">Simpan Pegawai</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Modal: Detail Otorisasi Peran (Luxury Dossier) -->
-  <div class="modal-overlay-bg" id="modalRoleDetail" role="dialog" aria-modal="true">
+  <!-- Modal: Detail Pegawai (Luxury Enterprise Dossier) -->
+  <div class="modal-overlay-bg" id="modalUserDetail" role="dialog" aria-modal="true">
     <div class="modal-window-card" style="max-width: 520px;">
-      
-      <!-- Elevated Luxury Header -->
-      <div class="modal-head" style="background: var(--color-surface); border-bottom: 1px solid var(--color-border-whisper); padding: 18px 24px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <div style="width: 36px; height: 36px; border-radius: 8px; background: #0E1937; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
+      <div class="modal-head" style="padding: 16px 20px; background: #0E1937; color: #FFFFFF; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: #60A5FA;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
           </div>
           <div>
-            <h3 style="font-size: 14.5px; font-weight: 700; color: var(--color-text-primary); letter-spacing: -0.01em;">Berkas Otorisasi Peran (Role Dossier)</h3>
-            <p style="font-size: 11.5px; color: var(--color-text-muted); margin-top: 2px;">Spesifikasi hak akses dan akuntabilitas institusi</p>
+            <div style="font-size: 13px; font-weight: 800; letter-spacing: 0.5px;">PROFIL PEGAWAI & OTORISASI RBAC</div>
+            <div style="font-size: 10.5px; opacity: 0.8; font-family: monospace;">Sistem Manajemen Sarana Kampus &bull; ISO 55001</div>
           </div>
         </div>
-        <button class="btn-header-control" style="width: 28px; height: 28px;" onclick="closeModal('modalRoleDetail')" aria-label="Tutup">
+        <button class="btn-header-control" style="width: 28px; height: 28px; background: rgba(255,255,255,0.1); color: #FFF; border-color: transparent;" onclick="closeModal('modalUserDetail')" aria-label="Tutup">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
       </div>
 
-      <!-- Dossier Body -->
-      <div class="modal-content-body" style="padding: 24px; gap: 18px;">
+      <div class="modal-content-body" style="padding: 20px; gap: 16px;">
         
-        <!-- Officer Badge Card -->
-        <div style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--color-surface-elevated); border: 1px solid var(--color-border-whisper); border-radius: var(--radius-sm);">
-          <div class="user-avatar-badge font-mono" id="dossierAvatar" style="width: 44px; height: 44px; font-size: 15px; background: #0E1937; color: #FFFFFF;">HR</div>
+        <!-- User Top Identity Card -->
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--color-surface-elevated); border-radius: 8px; border: 1px solid var(--color-border-whisper);">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="user-avatar-badge font-mono" id="detailUserAvatar" style="width: 46px; height: 46px; font-size: 15px; border-radius: 50%; background: #0E1937; color: #FFFFFF; box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.2);">HR</div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <strong id="detailUserName" style="font-size: 14.5px; color: var(--color-text-primary);">Haidar Reyhan</strong>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#2563EB"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              </div>
+              <div class="font-mono" id="detailUserIdNumber" style="font-size: 11.5px; color: var(--color-accent-cobalt); font-weight: 700; margin-top: 2px;">NIM. 231011400547</div>
+              <div id="detailUserUnit" style="font-size: 11px; color: var(--color-text-muted); margin-top: 2px;">Biro Sarana dan Prasarana UNPAM</div>
+            </div>
+          </div>
+          <span id="detailUserStatusPill" class="status-badge-pill normal font-mono" style="font-size: 11px;">Aktif (SSO)</span>
+        </div>
+
+        <!-- Two Column Key-Value Info -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; background: var(--color-surface); padding: 12px; border-radius: 6px; border: 1px solid var(--color-border-whisper);">
           <div>
-            <strong id="dossierPersonName" style="font-size: 14.5px; color: var(--color-text-primary);">Haidar Reyhan</strong>
-            <div class="font-mono" id="dossierPersonId" style="font-size: 11.5px; color: var(--color-accent-cobalt); font-weight: 700;">NIM. 231011400547</div>
-            <div id="dossierUnit" style="font-size: 11px; color: var(--color-text-muted); margin-top: 2px;">Biro Sarana dan Prasarana UNPAM</div>
+            <div style="color: var(--color-text-muted); font-size: 10.5px;">USERNAME SSO</div>
+            <strong class="font-mono" id="detailUserUsername" style="color: var(--color-text-primary);">haidar</strong>
+          </div>
+          <div>
+            <div style="color: var(--color-text-muted); font-size: 10.5px;">PERAN SISTEM</div>
+            <span id="detailUserRole" class="status-badge-pill cobalt font-mono" style="font-size: 10.5px;">Superadmin</span>
+          </div>
+          <div style="grid-column: span 2;">
+            <div style="color: var(--color-text-muted); font-size: 10.5px;">EMAIL KEDINASAN RESMI</div>
+            <span id="detailUserEmail" style="color: var(--color-text-primary); font-weight: 600;">haidar.reyhan@unpam.ac.id</span>
           </div>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 12.5px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--color-border-whisper);">
-            <span style="color: var(--color-text-muted);">Tingkat Otorisasi:</span>
-            <span id="dossierTier" class="status-badge-pill cobalt font-mono">Level 0: Root</span>
+        <!-- Section: Matriks Otorisasi Modul BMN -->
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: var(--color-text-muted); letter-spacing: 0.5px; margin-bottom: 8px;">
+            HAK AKSES MODUL & OTORISASI BMN
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--color-border-whisper);">
-            <span style="color: var(--color-text-muted);">Nama Peran (Role):</span>
-            <strong id="dossierRoleName" style="color: var(--color-text-primary);">Superadmin</strong>
+          <div id="detailUserPermissionsList" style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Executive Dashboard</span>
+            <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Master Data Sarpras</span>
+            <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Form Registrasi BMN</span>
+            <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Pusat Laporan & KIR</span>
+            <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Peminjaman & Mutasi</span>
+            <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Servis & Kalibrasi WO</span>
+            <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Kelola User & Role</span>
+            <span class="status-badge-pill cobalt font-mono" style="font-size: 10px;">Root Database</span>
           </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--color-border-whisper);">
-            <span style="color: var(--color-text-muted);">Surel Institusi:</span>
-            <span id="dossierEmail" class="font-mono" style="font-size: 12px; color: var(--color-text-primary);">haidar.reyhan@unpam.ac.id</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--color-border-whisper);">
-            <span style="color: var(--color-text-muted);">Status Otorisasi:</span>
-            <span class="status-badge-pill normal font-mono">Aktif (Tervalidasi)</span>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 6px; padding-top: 4px;">
-            <span style="color: var(--color-text-muted);">Hak Akses Modul BMN:</span>
-            <div id="dossierModules" style="display: flex; flex-wrap: wrap; gap: 5px;">
-              <!-- Badges rendered by JS -->
-            </div>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 6px; padding-top: 4px;">
-            <span style="color: var(--color-text-muted);">Deskripsi & Akuntabilitas Formal:</span>
-            <div id="dossierScope" style="padding: 10px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border-whisper); border-radius: var(--radius-sm); font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.45;">
-              Akses penuh seluruh kontrol modul, manajemen akun & role, backup basis data, serta audit log sistem.
-            </div>
-          </div>
+        </div>
+
+        <!-- Section: Klausul Kepatuhan Audit ISO 55001 -->
+        <div style="padding: 10px 12px; background: var(--color-surface-elevated); border-radius: 6px; font-size: 11px; color: var(--color-text-secondary); line-height: 1.45; border-left: 3px solid var(--color-accent-cobalt);">
+          Akun ini terotentikasi melalui Single Sign-On (SSO) institusional Universitas Pamulang dan memegang sertifikasi hak kelola fasilitas akademik berstandar ISO 55001. Setiap tindakan data tercatat dalam audit log permanen.
         </div>
 
       </div>
 
-      <!-- Dossier Foot -->
-      <div class="modal-foot-actions" style="padding: 16px 24px; background: var(--color-surface-subtle); border-top: 1px solid var(--color-border-whisper);">
-        <button type="button" class="btn-action-primary" style="width: 100%; justify-content: center;" onclick="closeModal('modalRoleDetail')">Tutup Pratinjau</button>
+      <div class="modal-foot-actions" style="padding: 14px 20px; background: var(--color-surface-subtle); display: flex; justify-content: flex-end; gap: 8px;">
+        <button type="button" class="btn-action-secondary" onclick="exportUsersCsv()">Unduh Kredensial</button>
+        <button type="button" class="btn-action-primary" onclick="closeModal('modalUserDetail')">Tutup Pratinjau</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal: Ubah Peran Pengguna (SiRupat Standard) -->
+  <div class="modal-overlay-bg" id="modalEditRole" role="dialog" aria-modal="true">
+    <div class="modal-window-card" style="max-width: 440px;">
+      <div class="modal-head" style="padding: 16px 20px;">
+        <strong style="color: var(--color-accent-cobalt); font-size: 13px;">UBAH PERAN & HAK AKSES PEGAWAI</strong>
+        <button class="btn-header-control" style="width: 28px; height: 28px;" onclick="closeModal('modalEditRole')" aria-label="Tutup">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <form id="formEditRole" onsubmit="submitEditRole(event)">
+        <input type="hidden" id="editRoleUsername">
+        <div class="modal-content-body" style="padding: 20px; gap: 14px;">
+          <div style="padding: 10px 12px; background: var(--color-surface-elevated); border-radius: 4px;">
+            <strong id="editRolePegawaiName" style="color: var(--color-text-primary); font-size: 13px;">-</strong>
+            <div class="font-mono" id="editRolePegawaiId" style="font-size: 11px; color: var(--color-text-muted);">-</div>
+          </div>
+          <div class="form-group-item">
+            <label class="form-label-text">Pilih Peran Baru *</label>
+            <select class="form-select-field" id="selectNewRole" required>
+              <option value="Operator Aset BMN">Operator Aset BMN</option>
+              <option value="Penanggung Jawab Lab">Penanggung Jawab Lab</option>
+              <option value="Teknisi Pemeliharaan">Teknisi Pemeliharaan</option>
+              <option value="Kepala Biro Sarpras">Kepala Biro Sarpras</option>
+              <option value="Superadmin">Superadmin</option>
+            </select>
+          </div>
+          <div class="form-group-item">
+            <label class="form-label-text">Status Akun *</label>
+            <select class="form-select-field" id="selectNewStatus" required>
+              <option value="Aktif">Aktif</option>
+              <option value="Nonaktif">Nonaktif</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-foot-actions" style="padding: 14px 20px;">
+          <button type="button" class="btn-action-secondary" onclick="closeModal('modalEditRole')">Batal</button>
+          <button type="submit" class="btn-action-primary">Simpan Perubahan</button>
+        </div>
+      </form>
     </div>
   </div>
 
   <!-- JavaScript Modules -->
   <script src="../assets/js/main.js"></script>
   <script>
-    // Master Role & Permission Dataset (Unified Master Architecture)
-    let rolesMasterDataset = [
-      {
-        id: 'haidar',
-        tier: 'Level 0: Root',
-        tierShort: 'Level 0',
-        role: 'Superadmin',
-        person: 'Haidar Reyhan',
-        identity: 'NIM. 231011400547',
-        email: 'haidar.reyhan@unpam.ac.id',
-        unit: 'Biro Sarana dan Prasarana',
-        modules: ['Dashboard', 'Master Data', 'Form BMN', 'KIR Resmi', 'Peminjaman', 'Servis WO', 'Kelola Role', 'Root DB'],
-        scope: 'Akses penuh seluruh kontrol modul, manajemen peran & hak akses, backup basis data, serta audit log sistem.',
-        status: 'Aktif'
-      },
-      {
-        id: 'hendra',
-        tier: 'Level 1: Exec',
-        tierShort: 'Level 1',
-        role: 'Kepala Biro Sarpras',
-        person: 'Dr. Ir. Hendra Wicaksono, M.T.',
-        identity: 'NIP. 19760312 200112 1 002',
-        email: 'hendra.wicaksono@unpam.ac.id',
-        unit: 'Biro Sarana dan Prasarana',
-        modules: ['Executive Dashboard', 'Pengesahan KIR', 'Approval Afkir BMN', 'Otorisasi Pengadaan'],
-        scope: 'Pengawasan eksekutif, pengesahan dokumen KIR resmi, otorisasi pengadaan, dan persetujuan afkir BMN.',
-        status: 'Aktif'
-      },
-      {
-        id: 'retno',
-        tier: 'Level 2: Verifier',
-        tierShort: 'Level 2',
-        role: 'Penanggung Jawab Lab',
-        person: 'Dr. Retno Lestari, M.Si',
-        identity: 'NIP. 19820514 200812 2 001',
-        email: 'retno.lestari@unpam.ac.id',
-        unit: 'Laboratorium Terpadu',
-        modules: ['Validasi Fisik KIR', 'Usulan Kalibrasi', 'Inspeksi Alat Riset'],
-        scope: 'Validasi fisik aset ruangan, monitoring keselamatan lab, dan usulan kalibrasi alat presisi ISO 17025.',
-        status: 'Aktif'
-      },
-      {
-        id: 'faisal',
-        tier: 'Level 3: Ops',
-        tierShort: 'Level 3',
-        role: 'Operator Aset BMN',
-        person: 'Ir. Faisal Akbar, M.Kom',
-        identity: 'NIP. 19790820 200501 1 003',
-        email: 'faisal.akbar@unpam.ac.id',
-        unit: 'Pusat Data & Server',
-        modules: ['Registrasi BMN Baru', 'Cetak Barcode Termal', 'Peminjaman & Mutasi'],
-        scope: 'Registrasi sarpras baru, pencetakan stiker barcode termal 75x50mm, serta input transaksi sirkulasi.',
-        status: 'Aktif'
-      },
-      {
-        id: 'fauzi',
-        tier: 'Level 3: Tech',
-        tierShort: 'Level 3',
-        role: 'Teknisi Pemeliharaan',
-        person: 'Ahmad Fauzi, S.T.',
-        identity: 'NIP. 19921105 201903 1 004',
-        email: 'ahmad.fauzi@unpam.ac.id',
-        unit: 'Biro Sarana dan Prasarana',
-        modules: ['Work Order Servis', 'Jadwal Kalibrasi', 'Logbook Pemeliharaan'],
-        scope: 'Penerbitan Work Order servis, inspeksi mekanikal elektrikal kampus, dan logbook perbaikan instrumen.',
-        status: 'Aktif'
-      }
+    // In-page User Management Handlers (SuperApps Portal / Talent Pool Standard)
+    let usersDataset = [
+      { u: 'haidar', n: 'Haidar Reyhan', id: 'NIM. 231011400547', e: 'haidar.reyhan@unpam.ac.id', unit: 'Biro Sarana dan Prasarana', r: 'Superadmin', s: 'Aktif' },
+      { u: 'hendra', n: 'Dr. Ir. Hendra Wicaksono, M.T.', id: 'NIP. 19760312 200112 1 002', e: 'hendra.wicaksono@unpam.ac.id', unit: 'Biro Sarana dan Prasarana', r: 'Kepala Biro Sarpras', s: 'Aktif' },
+      { u: 'retno', n: 'Dr. Retno Lestari, M.Si', id: 'NIP. 19820514 200812 2 001', e: 'retno.lestari@unpam.ac.id', unit: 'Laboratorium Terpadu', r: 'Penanggung Jawab Lab', s: 'Aktif' },
+      { u: 'faisal', n: 'Ir. Faisal Akbar, M.Kom', id: 'NIP. 19790820 200501 1 003', e: 'faisal.akbar@unpam.ac.id', unit: 'Pusat Data & Server', r: 'Operator Aset BMN', s: 'Aktif' },
+      { u: 'fauzi', n: 'Ahmad Fauzi, S.T.', id: 'NIP. 19921105 201903 1 004', e: 'ahmad.fauzi@unpam.ac.id', unit: 'Biro Sarana dan Prasarana', r: 'Teknisi Pemeliharaan', s: 'Aktif' }
     ];
 
-    function renderRoleMatrixTable(dataToRender) {
-      const tbody = document.getElementById('roleMatrixTableBody');
+    const roleBadgeStyles = {
+      'Superadmin': 'cobalt',
+      'Kepala Biro Sarpras': 'normal',
+      'Penanggung Jawab Lab': 'warning',
+      'Operator Aset BMN': 'cobalt',
+      'Teknisi Pemeliharaan': 'critical'
+    };
+
+    function renderUserTable(data) {
+      const tbody = document.getElementById('userTableBody');
       if (!tbody) return;
       tbody.innerHTML = '';
 
-      if (dataToRender.length === 0) {
+      if (data.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="10" style="text-align: center; padding: 2.5rem 1rem; color: var(--color-text-muted);">
-              Tidak ada konfigurasi peran yang sesuai dengan filter pencarian.
+            <td colspan="9" style="text-align: center; padding: 2rem 1rem; color: var(--color-text-muted);">
+              Tidak ada data pegawai yang sesuai dengan filter pencarian.
             </td>
           </tr>
         `;
         return;
       }
 
-      dataToRender.forEach((item, idx) => {
-        const initials = item.person.split(' ').map(x => x[0]).slice(0, 2).join('').toUpperCase();
+      data.forEach((u, idx) => {
+        const badgeCls = roleBadgeStyles[u.r] || 'cobalt';
+        const initials = u.n.split(' ').map(x => x[0]).slice(0, 2).join('').toUpperCase();
+        const isSuperadmin = (u.u === 'haidar' || u.u === 'admin' || u.r === 'Superadmin');
         const tr = document.createElement('tr');
-        
-        // Modules Badges (Clean Muted Institutional Style)
-        const modulesHtml = item.modules.map(m => 
-          `<span class="status-badge-pill subtle font-mono" style="font-size: 10px; padding: 1px 6px;">${m}</span>`
-        ).join(' ');
 
         tr.innerHTML = `
           <td style="text-align: center;"><input type="checkbox"></td>
-          <td style="text-align: center; font-weight: 700; color: var(--color-text-muted);">${idx + 1}</td>
-          <td>
-            <span class="status-badge-pill cobalt font-mono" style="font-size: 10.5px;">${item.tier}</span>
-          </td>
-          <td>
-            <strong style="color: var(--color-text-primary); font-size: 13px;">${item.role}</strong>
-          </td>
-          <td>
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div style="width: 26px; height: 26px; border-radius: 6px; background: #0E1937; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 10.5px; flex-shrink: 0;">
+          <td style="text-align: center; font-weight: 700; color: var(--color-text-muted); font-size: 11px;">${idx + 1}</td>
+          <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            <div style="display: flex; align-items: center; gap: 6px; overflow: hidden;">
+              <div style="width: 24px; height: 24px; border-radius: 5px; background: #0E1937; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 10px; flex-shrink: 0;">
                 ${initials}
               </div>
-              <div>
-                <strong style="color: var(--color-text-primary); font-size: 12.5px;">${item.person}</strong>
-                <div class="font-mono" style="font-size: 11px; color: var(--color-text-muted);">${item.identity}</div>
+              <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                <strong style="font-size: 12px;">${u.n}</strong>
               </div>
             </div>
           </td>
-          <td>
-            <div style="font-size: 12px; font-weight: 500; color: var(--color-text-secondary);">${item.unit}</div>
+          <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            <code style="font-weight: 700; color: var(--color-accent-cobalt); font-family: var(--font-mono); font-size: 11px;">${u.id}</code>
           </td>
-          <td>
-            <div style="display: flex; flex-wrap: wrap; gap: 4px; max-width: 280px;">
-              ${modulesHtml}
-            </div>
+          <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            <div style="color: var(--color-text-primary); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis;">${u.e}</div>
           </td>
-          <td>
-            <div style="font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.4; max-width: 230px;">
-              ${item.scope}
-            </div>
+          <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            <div style="font-size: 11.5px; font-weight: 500; color: var(--color-text-secondary); overflow: hidden; text-overflow: ellipsis;">${u.unit || 'Biro Sarpras UNPAM'}</div>
+          </td>
+          <td style="text-align: center; white-space: nowrap;">
+            <span class="status-badge-pill ${badgeCls} font-mono" style="font-size: 10px; padding: 2px 6px;">${u.r}</span>
+          </td>
+          <td style="text-align: center; white-space: nowrap;">
+            <span class="status-badge-pill ${u.s === 'Aktif' ? 'normal' : 'critical'} font-mono" style="font-size: 10px; padding: 2px 6px;">
+              ${u.s || 'Aktif'}
+            </span>
           </td>
           <td style="text-align: center;">
-            <span class="status-badge-pill normal font-mono" style="font-size: 10.5px;">${item.status}</span>
-          </td>
-          <td style="text-align: center;">
-            <div class="enterprise-action-group">
-              <button onclick="openRoleDetailModal('${item.id}')" class="table-action-icon-btn btn-view" title="Detail Berkas Peran & Wewenang">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            <div class="enterprise-action-group" style="justify-content: center; gap: 3px;">
+              <button onclick="openUserDetailModal('${u.u}')" class="table-action-icon-btn btn-view" title="Lihat Profil Pegawai">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
               </button>
-              <button onclick="openConfigureRoleModal('${item.id}')" class="table-action-icon-btn btn-edit" title="Konfigurasi Hak Akses Peran">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              <button onclick="openEditRoleModal('${u.u}')" class="table-action-icon-btn btn-edit" title="Ubah Peran Pegawai">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
               </button>
+              ${isSuperadmin ? '' : `
+                <button onclick="deleteUserRow('${u.u}', '${u.n}')" class="table-action-icon-btn btn-delete" title="Hapus Pegawai">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                </button>
+              `}
             </div>
           </td>
         `;
         tbody.appendChild(tr);
       });
 
-      const meta = document.getElementById('roleGridMeta');
-      if (meta) meta.textContent = `Showing 1-${dataToRender.length} of ${rolesMasterDataset.length} roles configured.`;
-      const pagMeta = document.getElementById('rolePaginationMeta');
-      if (pagMeta) pagMeta.innerHTML = `Showing <strong>1-${dataToRender.length}</strong> of <strong>${rolesMasterDataset.length}</strong> configured roles.`;
+      const meta = document.getElementById('userGridMeta');
+      if (meta) meta.textContent = `Showing 1-${data.length} of ${usersDataset.length} registered users.`;
+      const pagMeta = document.getElementById('userPaginationMeta');
+      if (pagMeta) pagMeta.innerHTML = `Showing <strong>1-${data.length}</strong> of <strong>${usersDataset.length}</strong> registered users.`;
+      const countEl = document.getElementById('summaryTotalUsers');
+      if (countEl) countEl.textContent = usersDataset.length + ' Personel';
     }
 
-    function applyRoleMatrixFilters() {
-      const qTier = document.getElementById('filterTier')?.value || 'ALL';
-      const qRole = (document.getElementById('filterRoleName')?.value || '').toLowerCase();
-      const qPerson = (document.getElementById('filterPersonName')?.value || '').toLowerCase();
-      const qUnit = document.getElementById('filterUnit')?.value || 'ALL';
-      const qMod = (document.getElementById('filterModule')?.value || '').toLowerCase();
-      const qStatus = document.getElementById('filterStatus')?.value || 'ALL';
+    function applyUserFilters() {
+      const qName = (document.getElementById('filterColName')?.value || '').toLowerCase();
+      const qId = (document.getElementById('filterColId')?.value || '').toLowerCase();
+      const qEmail = (document.getElementById('filterColEmail')?.value || '').toLowerCase();
+      const qUnit = document.getElementById('filterColUnit')?.value || 'ALL';
+      const qRole = document.getElementById('filterColRole')?.value || 'ALL';
+      const qStatus = document.getElementById('filterColStatus')?.value || 'ALL';
 
-      const filtered = rolesMasterDataset.filter(item => {
-        if (qTier !== 'ALL' && !item.tier.includes(qTier)) return false;
-        if (qRole && !item.role.toLowerCase().includes(qRole)) return false;
-        if (qPerson && !(item.person.toLowerCase().includes(qPerson) || item.identity.toLowerCase().includes(qPerson))) return false;
-        if (qUnit !== 'ALL' && item.unit !== qUnit) return false;
-        if (qMod && !item.modules.join(' ').toLowerCase().includes(qMod)) return false;
-        if (qStatus !== 'ALL' && item.status !== qStatus) return false;
+      const filtered = usersDataset.filter(u => {
+        if (qName && !u.n.toLowerCase().includes(qName)) return false;
+        if (qId && !(u.id.toLowerCase().includes(qId) || u.u.toLowerCase().includes(qId))) return false;
+        if (qEmail && !u.e.toLowerCase().includes(qEmail)) return false;
+        if (qUnit !== 'ALL' && u.unit !== qUnit) return false;
+        if (qRole !== 'ALL' && u.r !== qRole) return false;
+        if (qStatus !== 'ALL' && u.s !== qStatus) return false;
         return true;
       });
 
-      renderRoleMatrixTable(filtered);
+      renderUserTable(filtered);
     }
 
-    function resetRoleFilters() {
-      if (document.getElementById('filterTier')) document.getElementById('filterTier').value = 'ALL';
-      if (document.getElementById('filterRoleName')) document.getElementById('filterRoleName').value = '';
-      if (document.getElementById('filterPersonName')) document.getElementById('filterPersonName').value = '';
-      if (document.getElementById('filterUnit')) document.getElementById('filterUnit').value = 'ALL';
-      if (document.getElementById('filterModule')) document.getElementById('filterModule').value = '';
-      if (document.getElementById('filterStatus')) document.getElementById('filterStatus').value = 'ALL';
-      renderRoleMatrixTable(rolesMasterDataset);
+    function resetUserFilters() {
+      if (document.getElementById('filterColName')) document.getElementById('filterColName').value = '';
+      if (document.getElementById('filterColId')) document.getElementById('filterColId').value = '';
+      if (document.getElementById('filterColEmail')) document.getElementById('filterColEmail').value = '';
+      if (document.getElementById('filterColUnit')) document.getElementById('filterColUnit').value = 'ALL';
+      if (document.getElementById('filterColRole')) document.getElementById('filterColRole').value = 'ALL';
+      if (document.getElementById('filterColStatus')) document.getElementById('filterColStatus').value = 'ALL';
+      renderUserTable(usersDataset);
     }
 
-    function refreshRolesData() {
+    function refreshUsersData() {
       fetch('/api/users')
         .then(r => r.json())
         .then(liveUsers => {
           if (Array.isArray(liveUsers) && liveUsers.length > 0) {
-            // Synchronize officials
-            liveUsers.forEach(lu => {
-              const match = rolesMasterDataset.find(x => x.id === lu.username);
-              if (match) {
-                match.person = lu.full_name;
-                match.identity = lu.identity_number || match.identity;
-                match.email = lu.email || match.email;
-              }
-            });
-            renderRoleMatrixTable(rolesMasterDataset);
+            usersDataset = liveUsers.map(u => ({
+              u: u.username,
+              n: u.full_name,
+              id: u.identity_number || '-',
+              e: u.email || `${u.username}@unpam.ac.id`,
+              unit: 'Biro Sarana dan Prasarana',
+              r: u.role,
+              s: u.status || 'Aktif'
+            }));
+            renderUserTable(usersDataset);
           }
         })
-        .catch(() => renderRoleMatrixTable(rolesMasterDataset));
+        .catch(() => renderUserTable(usersDataset));
     }
 
-    function openConfigureRoleModal(roleId) {
-      if (roleId) {
-        const item = rolesMasterDataset.find(x => x.id === roleId);
-        if (item) {
-          document.getElementById('cfgRoleTier').value = item.tier;
-          document.getElementById('cfgRoleName').value = item.role;
-          document.getElementById('cfgPersonName').value = item.person;
-          document.getElementById('cfgPersonId').value = item.identity;
-          document.getElementById('cfgPersonEmail').value = item.email;
-          document.getElementById('cfgPersonUnit').value = item.unit;
-          document.getElementById('cfgRoleScope').value = item.scope;
-        }
-      } else {
-        document.getElementById('formConfigureRole')?.reset();
-      }
-      openModal('modalConfigureRole');
+    function openCreateUserModal() {
+      openModal('modalCreateUser');
     }
 
-    function openRoleDetailModal(roleId) {
-      const item = rolesMasterDataset.find(x => x.id === roleId);
-      if (!item) return;
+    const rolePermissionsMap = {
+      'Superadmin': ['Executive Dashboard', 'Master Data Sarpras', 'Form Registrasi BMN', 'Pusat Laporan & KIR', 'Peminjaman & Mutasi', 'Servis & Kalibrasi WO', 'Kelola User & Role', 'Root Database'],
+      'Kepala Biro Sarpras': ['Executive Dashboard', 'Master Data Sarpras', 'Pusat Laporan & KIR (Approval KIR)', 'Peminjaman & Mutasi', 'Laporan Rekap BMN'],
+      'Penanggung Jawab Lab': ['Master Data Sarpras (Lab)', 'Validasi KIR Ruangan', 'Peminjaman Sarana Lab', 'Usulan Kalibrasi & Servis'],
+      'Operator Aset BMN': ['Master Data Sarpras', 'Form Registrasi BMN', 'Peminjaman & Mutasi', 'Cetak Barcode BMN'],
+      'Teknisi Pemeliharaan': ['Servis & Kalibrasi WO', 'Log Perbaikan Fisik', 'Laporan Berita Acara Servis']
+    };
 
-      document.getElementById('dossierPersonName').textContent = item.person;
-      document.getElementById('dossierPersonId').textContent = item.identity;
-      document.getElementById('dossierUnit').textContent = item.unit;
-      document.getElementById('dossierTier').textContent = item.tier;
-      document.getElementById('dossierRoleName').textContent = item.role;
-      document.getElementById('dossierEmail').textContent = item.email;
-      document.getElementById('dossierScope').textContent = item.scope;
-      document.getElementById('dossierAvatar').textContent = item.person.split(' ').map(x => x[0]).slice(0, 2).join('').toUpperCase();
-
-      const container = document.getElementById('dossierModules');
-      if (container) {
-        container.innerHTML = item.modules.map(m => 
-          `<span class="status-badge-pill cobalt font-mono" style="font-size: 11px;">${m}</span>`
-        ).join('');
-      }
-
-      openModal('modalRoleDetail');
-    }
-
-    function submitConfigureRole(e) {
-      e.preventDefault();
-      const tier = document.getElementById('cfgRoleTier').value;
-      const roleName = document.getElementById('cfgRoleName').value;
-      const personName = document.getElementById('cfgPersonName').value;
-      const personId = document.getElementById('cfgPersonId').value;
-      const email = document.getElementById('cfgPersonEmail').value || 'personel@unpam.ac.id';
-      const unit = document.getElementById('cfgPersonUnit').value;
-      const scope = document.getElementById('cfgRoleScope').value;
-
-      const newId = roleName.toLowerCase().replace(/[^a-z0-9]/g, '_');
-      const existing = rolesMasterDataset.find(x => x.role.toLowerCase() === roleName.toLowerCase());
-
-      if (existing) {
-        existing.person = personName;
-        existing.identity = personId;
-        existing.email = email;
-        existing.unit = unit;
-        existing.scope = scope;
-        existing.tier = tier;
-      } else {
-        rolesMasterDataset.push({
-          id: newId,
-          tier: tier,
-          tierShort: tier.split(':')[0],
-          role: roleName,
-          person: personName,
-          identity: personId,
-          email: email,
-          unit: unit,
-          modules: ['Dashboard', 'Katalog Aset'],
-          scope: scope,
-          status: 'Aktif'
+    function openUserDetailModal(username) {
+      const u = usersDataset.find(x => x.u === username);
+      if (!u) return;
+      document.getElementById('detailUserName').textContent = u.n;
+      document.getElementById('detailUserIdNumber').textContent = u.id;
+      document.getElementById('detailUserUsername').textContent = u.u;
+      document.getElementById('detailUserEmail').textContent = u.e;
+      document.getElementById('detailUserUnit').textContent = u.unit || 'Biro Sarana dan Prasarana';
+      document.getElementById('detailUserRole').textContent = u.r;
+      document.getElementById('detailUserAvatar').textContent = u.n.split(' ').map(x => x[0]).slice(0, 2).join('').toUpperCase();
+      
+      const permList = document.getElementById('detailUserPermissionsList');
+      if (permList) {
+        permList.innerHTML = '';
+        const perms = rolePermissionsMap[u.r] || ['Akses Standar'];
+        perms.forEach(p => {
+          const pill = document.createElement('span');
+          pill.className = 'status-badge-pill cobalt font-mono';
+          pill.style.fontSize = '10px';
+          pill.textContent = p;
+          permList.appendChild(pill);
         });
       }
 
-      renderRoleMatrixTable(rolesMasterDataset);
-      closeModal('modalConfigureRole');
+      const statusPill = document.getElementById('detailUserStatusPill');
+      if (statusPill) {
+        statusPill.className = `status-badge-pill ${u.s === 'Aktif' ? 'normal' : 'critical'} font-mono`;
+        statusPill.textContent = u.s === 'Aktif' ? 'Aktif (SSO)' : 'Nonaktif';
+      }
+
+      openModal('modalUserDetail');
     }
 
-    function exportRolesMatrixCsv() {
-      let csv = 'No,Tingkat Otorisasi,Nama Peran,Pejabat Pemegang,Identitas Resmi,Surel,Unit Kerja,Hak Akses Modul,Deskripsi Wewenang,Status\n';
-      rolesMasterDataset.forEach((item, i) => {
-        csv += `${i + 1},"${item.tier}","${item.role}","${item.person}","${item.identity}","${item.email}","${item.unit}","${item.modules.join(', ')}","${item.scope}","${item.status}"\n`;
+    function openEditRoleModal(username) {
+      const u = usersDataset.find(x => x.u === username);
+      if (!u) return;
+      document.getElementById('editRoleUsername').value = u.u;
+      document.getElementById('editRolePegawaiName').textContent = u.n;
+      document.getElementById('editRolePegawaiId').textContent = u.id;
+      document.getElementById('selectNewRole').value = u.r;
+      document.getElementById('selectNewStatus').value = u.s || 'Aktif';
+      openModal('modalEditRole');
+    }
+
+    function submitEditRole(e) {
+      e.preventDefault();
+      const username = document.getElementById('editRoleUsername').value;
+      const newRole = document.getElementById('selectNewRole').value;
+      const newStatus = document.getElementById('selectNewStatus').value;
+
+      const u = usersDataset.find(x => x.u === username);
+      if (u) {
+        u.r = newRole;
+        u.s = newStatus;
+        renderUserTable(usersDataset);
+      }
+
+      fetch(`/api/users/${encodeURIComponent(username)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: newRole, status: newStatus })
+      }).catch(err => console.log('Offline role update:', err));
+
+      closeModal('modalEditRole');
+    }
+
+    function deleteUserRow(username, name) {
+      if (!confirm(`Apakah Anda yakin ingin menghapus akses untuk ${name}?`)) return;
+
+      usersDataset = usersDataset.filter(x => x.u !== username);
+      renderUserTable(usersDataset);
+
+      fetch(`/api/users/${encodeURIComponent(username)}`, {
+        method: 'DELETE'
+      }).catch(err => console.log('Offline delete:', err));
+    }
+
+    function submitNewUser(e) {
+      e.preventDefault();
+      const name = document.getElementById('newUserName').value;
+      const idNum = document.getElementById('newUserIdNumber').value;
+      const uname = document.getElementById('newUserUsername').value;
+      const email = document.getElementById('newUserEmail').value;
+      const unit = document.getElementById('newUserUnit').value;
+      const role = document.getElementById('newUserRole').value;
+
+      const newUser = {
+        u: uname,
+        n: name,
+        id: idNum,
+        e: email,
+        unit: unit,
+        r: role,
+        s: 'Aktif'
+      };
+
+      usersDataset.push(newUser);
+      renderUserTable(usersDataset);
+
+      fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: uname,
+          full_name: name,
+          identity_number: idNum,
+          email: email,
+          role: role
+        })
+      }).catch(err => console.log('Offline user create:', err));
+
+      closeModal('modalCreateUser');
+      e.target.reset();
+    }
+
+    function exportUsersCsv() {
+      let csv = 'No,NIP / NIM,Nama Lengkap,Username,Email Kedinasan,Unit Kerja,Peran,Status\n';
+      usersDataset.forEach((u, i) => {
+        csv += `${i + 1},"${u.id}","${u.n}","${u.u}","${u.e}","${u.unit}","${u.r}","${u.s}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'matriks_peran_hak_akses_unpam.csv';
+      a.download = 'rekap_pengguna_sarpras_unpam.csv';
       a.click();
       URL.revokeObjectURL(url);
     }
 
-    // Initialize
+    // Initial table render & sync
     document.addEventListener('DOMContentLoaded', () => {
-      renderRoleMatrixTable(rolesMasterDataset);
+      renderUserTable(usersDataset);
+      refreshUsersData();
     });
   </script>
 </body>

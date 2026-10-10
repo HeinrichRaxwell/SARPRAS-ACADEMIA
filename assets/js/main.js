@@ -83,6 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 3. Render Master Data Table & Pagination
   renderInventoryTable();
+  renderLoansTable();
+  renderWorkOrdersTable();
 
   // 4. Connect and synchronize with Backend REST API if running on server
   syncWithBackend();
@@ -321,9 +323,10 @@ document.addEventListener('DOMContentLoaded', () => {
 async function syncWithBackend() {
   if (typeof window !== 'undefined' && window.location.protocol.startsWith('http')) {
     try {
-      const res = await fetch('/api/assets');
-      if (res.ok) {
-        const liveAssets = await res.json();
+      // 1. Sync Assets
+      const resAssets = await fetch('/api/assets');
+      if (resAssets.ok) {
+        const liveAssets = await resAssets.json();
         if (Array.isArray(liveAssets) && liveAssets.length > 0) {
           inventoryData = liveAssets.map(item => ({
             code: item.code,
@@ -340,6 +343,27 @@ async function syncWithBackend() {
           updateKirRoomView(activeRoom);
         }
       }
+
+      // 2. Sync Loans
+      const resLoans = await fetch('/api/loans');
+      if (resLoans.ok) {
+        const liveLoans = await resLoans.json();
+        if (Array.isArray(liveLoans) && liveLoans.length > 0) {
+          loansData = liveLoans;
+          renderLoansTable();
+        }
+      }
+
+      // 3. Sync Work Orders
+      const resWo = await fetch('/api/work-orders');
+      if (resWo.ok) {
+        const liveWo = await resWo.json();
+        if (Array.isArray(liveWo) && liveWo.length > 0) {
+          workOrdersData = liveWo;
+          renderWorkOrdersTable();
+        }
+      }
+
     } catch (e) {
       console.info('Operating in client-side mock fallback mode:', e.message);
     }
@@ -1035,6 +1059,81 @@ function executeDecommission() {
   }
 }
 
+// State for Loans & Work Orders
+let loansData = [
+  { id: 1, loan_code: 'PINJ-2026-041', asset_name: 'Proyektor Laser Epson 4K 6000 Lumens', borrower: 'Himpunan Mahasiswa Elektro', start_date: '2026-03-14', end_date: '2026-03-16', status: 'Terlambat' },
+  { id: 2, loan_code: 'PINJ-2026-042', asset_name: 'Drone LiDAR DJI Matrice 350 RTK', borrower: 'Lab Pemetaan Geodesi', start_date: '2026-03-15', end_date: '2026-03-22', status: 'Dipinjam' },
+  { id: 3, loan_code: 'PINJ-2026-043', asset_name: 'Sound System Array Portable Yamaha TF5', borrower: 'Unit Kegiatan Mahasiswa Musik', start_date: '2026-03-16', end_date: '2026-03-18', status: 'Kembali' }
+];
+
+let workOrdersData = [
+  { id: 1, wo_code: 'WO-2026-091', item_name: 'Spektrofotometer UV-Vis Shimadzu (Lab R.302)', vendor: 'PT Dynatech Instrumentasi', estimated_cost: 4500000, target_date: '2026-03-25', status: 'Pengerjaan' },
+  { id: 2, wo_code: 'WO-2026-092', item_name: 'Chiller HVAC Central Daikin 40 TR (Auditorium)', vendor: 'CV Sejuk Mandiri Teknik', estimated_cost: 8200000, target_date: '2026-03-28', status: 'Pengerjaan' },
+  { id: 3, wo_code: 'WO-2026-088', item_name: 'Universal Testing Machine Shimadzu 100kN', vendor: 'PT Labora Mega Mandiri', estimated_cost: 12500000, target_date: '2026-03-10', status: 'Selesai' }
+];
+
+function renderLoansTable() {
+  const tbody = document.getElementById('borrowingListBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  loansData.forEach(item => {
+    const isReturned = item.status === 'Kembali';
+    const badgeClass = isReturned ? 'normal' : (item.status === 'Terlambat' ? 'critical' : 'warning');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${item.loan_code}</td>
+      <td style="font-weight: 600;">${item.asset_name}</td>
+      <td>${item.borrower}</td>
+      <td class="font-mono">${item.start_date ? String(item.start_date).split('T')[0] : '-'}</td>
+      <td class="font-mono">${item.end_date ? String(item.end_date).split('T')[0] : '-'}</td>
+      <td><span class="status-badge-pill ${badgeClass} font-mono">${item.status}</span></td>
+      <td style="text-align: right; padding-right: 24px;">
+        <div class="enterprise-action-group">
+          ${isReturned ? `
+            <button class="table-action-icon-btn" style="opacity: 0.7; cursor: default; background: var(--color-surface-elevated); color: var(--color-signal-normal); border-color: rgba(22, 163, 74, 0.3);" title="Pengembalian Telah Diverifikasi">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          ` : `
+            <button class="table-action-icon-btn btn-view" title="Proses Pengembalian Sarana" onclick="markReturnLoan('${item.id || item.loan_code}')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </button>
+          `}
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderWorkOrdersTable() {
+  const tbody = document.getElementById('woListBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  workOrdersData.forEach(item => {
+    const isDone = item.status === 'Selesai';
+    const badgeClass = isDone ? 'normal' : 'warning';
+    const costFormatted = Number(item.estimated_cost).toLocaleString('id-ID');
+    const targetFormatted = item.target_date ? String(item.target_date).split('T')[0] : '-';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${item.wo_code}</td>
+      <td style="font-weight: 600;">${item.item_name}</td>
+      <td>${item.vendor}</td>
+      <td class="font-mono">Rp ${costFormatted}</td>
+      <td class="font-mono">${targetFormatted}</td>
+      <td><span class="status-badge-pill ${badgeClass} font-mono">${item.status}</span></td>
+      <td style="text-align: right; padding-right: 24px;">
+        <div class="enterprise-action-group">
+          <button class="table-action-icon-btn btn-view" title="Detail Berita Acara Work Order" onclick="openWorkOrderDetailModal('${item.wo_code}')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
 function openBorrowModal() {
   openModal('modalBorrow');
 }
@@ -1047,56 +1146,83 @@ function submitBorrowLoan() {
 
   const randId = 'PINJ-2026-0' + Math.floor(Math.random() * 80 + 50);
 
+  const newLoan = {
+    loan_code: randId,
+    asset_name: assetName,
+    borrower: borrower,
+    start_date: startDate,
+    end_date: endDate,
+    status: 'Dipinjam'
+  };
+
+  loansData.unshift(newLoan);
+  renderLoansTable();
+
   if (typeof window !== 'undefined' && window.location.protocol.startsWith('http')) {
     fetch('/api/loans', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        loan_code: randId,
-        asset_name: assetName,
-        borrower: borrower,
-        start_date: startDate,
-        end_date: endDate
-      })
+      body: JSON.stringify(newLoan)
     }).catch(err => console.warn('Could not sync loan to backend:', err));
   }
 
-  const tbody = document.getElementById('borrowingListBody');
-  if (tbody) {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${randId}</td>
-      <td style="font-weight: 600;">${assetName}</td>
-      <td>${borrower}</td>
-      <td class="font-mono">${startDate}</td>
-      <td class="font-mono">${endDate}</td>
-      <td><span class="status-badge-pill warning font-mono">Dipinjam</span></td>
-      <td style="text-align: right;">
-        <button class="table-action-link" onclick="markReturnItem(this)">Proses Kembali</button>
-      </td>
-    `;
-    tbody.prepend(tr);
+  closeModal('modalBorrow');
+}
+
+function markReturnLoan(id) {
+  const item = loansData.find(x => String(x.id) === String(id) || x.loan_code === String(id));
+  if (item) {
+    item.status = 'Kembali';
+    renderLoansTable();
   }
 
-  closeModal('modalBorrow');
-  triggerToast(`Peminjaman sarana ${assetName} disetujui.`);
+  if (typeof window !== 'undefined' && window.location.protocol.startsWith('http')) {
+    fetch(`/api/loans/${encodeURIComponent(id)}/return`, {
+      method: 'PUT'
+    }).catch(err => console.warn('Could not sync return to backend:', err));
+  }
 }
 
 function markReturnItem(btn) {
   const tr = btn.closest('tr');
   if (tr) {
-    const statusBadge = tr.querySelector('.status-badge-pill');
-    if (statusBadge) {
-      statusBadge.className = 'status-badge-pill normal font-mono';
-      statusBadge.textContent = 'Kembali';
-    }
-    btn.remove();
-    triggerToast('Sarana telah diverifikasi kembali dalam kondisi utuh.');
+    const code = tr.querySelector('td.font-mono')?.textContent?.trim();
+    if (code) markReturnLoan(code);
   }
 }
 
 function openWorkOrderModal() {
   openModal('modalWorkOrder');
+}
+
+function openWorkOrderDetailModal(woCode) {
+  const item = workOrdersData.find(x => x.wo_code === woCode) || {
+    wo_code: woCode,
+    item_name: 'Peralatan Lab Terpadu',
+    vendor: 'PT Dynatech Instrumentasi',
+    estimated_cost: 4500000,
+    target_date: '2026-03-25',
+    status: 'Pengerjaan'
+  };
+
+  const idEl = document.getElementById('modalWoDetailCode');
+  const itemEl = document.getElementById('modalWoDetailItem');
+  const vendorEl = document.getElementById('modalWoDetailVendor');
+  const costEl = document.getElementById('modalWoDetailCost');
+  const dateEl = document.getElementById('modalWoDetailDate');
+  const statusEl = document.getElementById('modalWoDetailStatus');
+
+  if (idEl) idEl.textContent = item.wo_code;
+  if (itemEl) itemEl.textContent = item.item_name;
+  if (vendorEl) vendorEl.textContent = item.vendor;
+  if (costEl) costEl.textContent = 'Rp ' + Number(item.estimated_cost).toLocaleString('id-ID');
+  if (dateEl) dateEl.textContent = item.target_date ? String(item.target_date).split('T')[0] : '-';
+  if (statusEl) {
+    statusEl.className = `status-badge-pill ${item.status === 'Selesai' ? 'normal' : 'warning'} font-mono`;
+    statusEl.textContent = item.status;
+  }
+
+  openModal('modalWorkOrderDetail');
 }
 
 function submitNewWorkOrder() {
@@ -1106,39 +1232,27 @@ function submitNewWorkOrder() {
   const date = document.getElementById('woInputDate').value;
   const woId = 'WO-2026-0' + Math.floor(Math.random() * 80 + 95);
 
+  const newWo = {
+    wo_code: woId,
+    item_name: item,
+    vendor: vendor,
+    estimated_cost: cost,
+    target_date: date,
+    status: 'Pengerjaan'
+  };
+
+  workOrdersData.unshift(newWo);
+  renderWorkOrdersTable();
+
   if (typeof window !== 'undefined' && window.location.protocol.startsWith('http')) {
     fetch('/api/work-orders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        wo_code: woId,
-        item_name: item,
-        vendor: vendor,
-        estimated_cost: cost,
-        target_date: date
-      })
+      body: JSON.stringify(newWo)
     }).catch(err => console.warn('Could not sync work order to backend:', err));
   }
 
-  const tbody = document.getElementById('woListBody');
-  if (tbody) {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td class="font-mono" style="color: var(--color-accent-cobalt); font-weight: 700;">${woId}</td>
-      <td style="font-weight: 600;">${item}</td>
-      <td>${vendor}</td>
-      <td class="font-mono">Rp ${cost.toLocaleString('id-ID')}</td>
-      <td class="font-mono">${date}</td>
-      <td><span class="status-badge-pill warning font-mono">Pengerjaan</span></td>
-      <td style="text-align: right;">
-        <button class="table-action-link" onclick="triggerToast('Detail Berita Acara Servis dimuat')">Detail WO</button>
-      </td>
-    `;
-    tbody.prepend(tr);
-  }
-
   closeModal('modalWorkOrder');
-  triggerToast(`Perintah kerja servis berhasil diterbitkan.`);
 }
 
 function exportTableToCSV() {

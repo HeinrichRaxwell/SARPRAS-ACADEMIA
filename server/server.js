@@ -249,7 +249,16 @@ app.post('/api/loans', async (req, res) => {
 
 app.put('/api/loans/:id/return', async (req, res) => {
   try {
-    const result = await db.query("UPDATE loans SET status = 'Kembali' WHERE id = $1 RETURNING *", [req.params.id]);
+    const idParam = req.params.id;
+    const isNum = /^\d+$/.test(idParam);
+    const query = isNum 
+      ? "UPDATE loans SET status = 'Kembali' WHERE id = $1 OR loan_code = $2 RETURNING *"
+      : "UPDATE loans SET status = 'Kembali' WHERE loan_code = $1 RETURNING *";
+    const params = isNum ? [parseInt(idParam, 10), idParam] : [idParam];
+    const result = await db.query(query, params);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Data peminjaman tidak ditemukan' });
+    }
     res.json(result.rows[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -313,6 +322,47 @@ app.post('/api/users', async (req, res) => {
       permissions || 'Akses Operasional'
     ]);
     res.status(201).json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put('/api/users/:identifier', async (req, res) => {
+  try {
+    const { role, status, full_name, email } = req.body;
+    const query = `
+      UPDATE users 
+      SET role = COALESCE($1, role),
+          status = COALESCE($2, status),
+          full_name = COALESCE($3, full_name),
+          email = COALESCE($4, email)
+      WHERE username = $5 OR identity_number = $5 OR id::text = $5
+      RETURNING id, username, full_name, identity_number, email, role, status, permissions
+    `;
+    const result = await db.query(query, [role, status, full_name, email, req.params.identifier]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Pengguna tidak ditemukan' });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.delete('/api/users/:identifier', async (req, res) => {
+  try {
+    const target = req.params.identifier;
+    if (target === 'haidar' || target === 'admin' || target === '231011400547') {
+      return res.status(403).json({ error: 'Akun Superadmin Utama dilindungi dan tidak dapat dihapus' });
+    }
+    const result = await db.query(
+      'DELETE FROM users WHERE username = $1 OR identity_number = $1 OR id::text = $1 RETURNING id, username, full_name',
+      [target]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Pengguna tidak ditemukan' });
+    }
+    res.json({ message: 'Pengguna berhasil dihapus', user: result.rows[0] });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
