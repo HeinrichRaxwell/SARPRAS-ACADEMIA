@@ -497,20 +497,31 @@ function initCharts() {
     });
   }
 
-  // 2. Category Distribution Doughnut Chart
+  // 2. Category Distribution Doughnut Chart (Dynamic from Live Inventory Data)
   const ctxCategory = document.getElementById('categoryDistributionChart');
   if (ctxCategory) {
     if (categoryChartInstance) categoryChartInstance.destroy();
 
+    // Dynamically calculate category counts from live inventoryData
+    const catMap = {};
+    inventoryData.forEach(item => {
+      const c = item.category || 'Lain-lain';
+      catMap[c] = (catMap[c] || 0) + 1;
+    });
+
+    const catLabels = Object.keys(catMap);
+    const catCounts = Object.values(catMap);
+    const totalItems = inventoryData.length || 1;
+
     categoryChartInstance = new Chart(ctxCategory, {
       type: 'doughnut',
       data: {
-        labels: ['Peralatan Lab & Riset', 'Infrastruktur IT & Server', 'Sarana Ruang Kuliah', 'Fasilitas & Utilitas'],
+        labels: catLabels.length > 0 ? catLabels : ['Peralatan Laboratorium', 'Infrastruktur IT', 'Sarana Ruang Kuliah'],
         datasets: [{
-          data: [563, 400, 311, 208],
+          data: catCounts.length > 0 ? catCounts : [5, 4, 3],
           backgroundColor: isDark 
-            ? ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6']
-            : ['#1E3A8A', '#059669', '#D97706', '#6366F1'],
+            ? ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899']
+            : ['#1E3A8A', '#059669', '#D97706', '#6366F1', '#DB2777'],
           borderWidth: 2,
           borderColor: isDark ? '#111827' : '#FFFFFF',
           hoverOffset: 6
@@ -535,8 +546,7 @@ function initCharts() {
             padding: 10,
             callbacks: {
               label: function(context) {
-                const total = 1482;
-                const pct = ((context.raw / total) * 100).toFixed(1);
+                const pct = ((context.raw / totalItems) * 100).toFixed(1);
                 return ` ${context.label}: ${context.raw} Unit (${pct}%)`;
               }
             }
@@ -721,6 +731,31 @@ function renderInventoryTable() {
   const sidebarAssetCount = document.getElementById('sidebarAssetCount');
   if (sidebarAssetCount) sidebarAssetCount.textContent = inventoryData.length;
 
+  // Dynamic Dashboard Valuation & Integrity updates from live inventoryData
+  const totalValuation = inventoryData.reduce((acc, x) => acc + Number(x.price || 0), 0);
+  const elValuation = document.getElementById('dashboardValuationTotal');
+  if (elValuation) elValuation.textContent = 'Rp ' + totalValuation.toLocaleString('id-ID');
+
+  const elSubCount = document.getElementById('dashboardAssetCountSub');
+  if (elSubCount) elSubCount.textContent = `${inventoryData.length} unit sarana BMN terdaftar di sistem`;
+
+  const totalInv = inventoryData.length || 1;
+  const countRusak = inventoryData.filter(x => x.condition === 'Rusak Berat').length;
+  const countRawat = inventoryData.filter(x => x.condition === 'Perawatan').length;
+  const pctPrima = ((countBaik / totalInv) * 100).toFixed(1);
+
+  const elPct = document.getElementById('dashboardConditionPct');
+  if (elPct) elPct.textContent = pctPrima + '%';
+  const elBar = document.getElementById('dashboardConditionBar');
+  if (elBar) elBar.style.width = pctPrima + '%';
+
+  const elBaik = document.getElementById('dashboardConditionBaik');
+  if (elBaik) elBaik.textContent = `${countBaik} Prima`;
+  const elRawat = document.getElementById('dashboardConditionPerawatan');
+  if (elRawat) elRawat.textContent = `${countRawat} Pemeliharaan`;
+  const elRusak = document.getElementById('dashboardConditionRusak');
+  if (elRusak) elRusak.textContent = `${countRusak} Afkir`;
+
   const showingRecordsText = document.getElementById('showingRecordsText');
   if (showingRecordsText) {
     showingRecordsText.textContent = `Halaman ${currentPage} dari ${totalPages} (Total ${totalItems} record terdaftar)`;
@@ -895,7 +930,7 @@ function handleFormSubmit(e) {
   const name = document.getElementById('formInputName').value.trim();
   const category = document.getElementById('formInputCategory').value;
   const model = document.getElementById('formInputModel')?.value.trim() || 'Standar Pabrikan';
-  const serial = document.getElementById('formInputSerial')?.value.trim() || 'SN: ' + Math.floor(Math.random() * 900000 + 100000);
+  const serial = document.getElementById('formInputSerial')?.value.trim() || ('SN-' + new Date().getFullYear() + '-' + String(inventoryData.length + 1).padStart(4, '0'));
   const room = document.getElementById('formInputRoom').value;
   const price = Number(document.getElementById('formInputPrice').value) || 0;
   const condition = document.getElementById('formInputCondition').value;
@@ -1076,6 +1111,20 @@ function renderLoansTable() {
   const tbody = document.getElementById('borrowingListBody');
   if (!tbody) return;
   tbody.innerHTML = '';
+
+  const activeCount = loansData.filter(x => x.status === 'Dipinjam').length;
+  const overdueCount = loansData.filter(x => x.status === 'Terlambat').length;
+  const returnedCount = loansData.filter(x => x.status === 'Kembali').length;
+
+  const elActive = document.getElementById('kpiActiveLoans');
+  if (elActive) elActive.textContent = activeCount;
+  const elOverdue = document.getElementById('kpiOverdueLoans');
+  if (elOverdue) elOverdue.textContent = overdueCount;
+  const elReturned = document.getElementById('kpiReturnedLoans');
+  if (elReturned) elReturned.textContent = returnedCount;
+  const elTotal = document.getElementById('kpiTotalLoans');
+  if (elTotal) elTotal.textContent = loansData.length;
+
   loansData.forEach(item => {
     const isReturned = item.status === 'Kembali';
     const badgeClass = isReturned ? 'normal' : (item.status === 'Terlambat' ? 'critical' : 'warning');
@@ -1109,6 +1158,20 @@ function renderWorkOrdersTable() {
   const tbody = document.getElementById('woListBody');
   if (!tbody) return;
   tbody.innerHTML = '';
+
+  const activeWo = workOrdersData.filter(x => x.status === 'Pengerjaan').length;
+  const doneWo = workOrdersData.filter(x => x.status === 'Selesai').length;
+  const totalCost = workOrdersData.reduce((acc, x) => acc + Number(x.estimated_cost || 0), 0);
+
+  const elActive = document.getElementById('kpiActiveWo');
+  if (elActive) elActive.textContent = activeWo;
+  const elCrit = document.getElementById('kpiCriticalWo');
+  if (elCrit) elCrit.textContent = activeWo;
+  const elDone = document.getElementById('kpiDoneWo');
+  if (elDone) elDone.textContent = doneWo;
+  const elCost = document.getElementById('kpiTotalCostWo');
+  if (elCost) elCost.textContent = 'Rp ' + (totalCost / 1000000).toFixed(1) + ' Jt';
+
   workOrdersData.forEach(item => {
     const isDone = item.status === 'Selesai';
     const badgeClass = isDone ? 'normal' : 'warning';
@@ -1144,7 +1207,8 @@ function submitBorrowLoan() {
   const startDate = document.getElementById('borrowModalStartDate').value;
   const endDate = document.getElementById('borrowModalEndDate').value;
 
-  const randId = 'PINJ-2026-0' + Math.floor(Math.random() * 80 + 50);
+  const nextSeq = String(loansData.length + 1).padStart(3, '0');
+  const randId = 'PINJ-2026-' + nextSeq;
 
   const newLoan = {
     loan_code: randId,
@@ -1230,7 +1294,8 @@ function submitNewWorkOrder() {
   const vendor = document.getElementById('woInputVendor').value.trim() || 'Tim Teknisi Kampus';
   const cost = Number(document.getElementById('woInputCost').value) || 3500000;
   const date = document.getElementById('woInputDate').value;
-  const woId = 'WO-2026-0' + Math.floor(Math.random() * 80 + 95);
+  const nextWoSeq = String(workOrdersData.length + 1).padStart(3, '0');
+  const woId = 'WO-2026-' + nextWoSeq;
 
   const newWo = {
     wo_code: woId,
@@ -1289,7 +1354,7 @@ function submitCreateAssetModal(e) {
   const category = document.getElementById('modalInputCategory').value;
   const room = document.getElementById('modalInputRoom').value;
   const model = document.getElementById('modalInputModel')?.value.trim() || 'Standar Pabrikan';
-  const serial = document.getElementById('modalInputSerial')?.value.trim() || 'SN: ' + Math.floor(Math.random() * 900000 + 100000);
+  const serial = document.getElementById('modalInputSerial')?.value.trim() || ('SN-' + new Date().getFullYear() + '-' + String(inventoryData.length + 1).padStart(4, '0'));
   const price = Number(document.getElementById('modalInputPrice').value) || 0;
   const condition = document.getElementById('modalInputCondition').value;
 

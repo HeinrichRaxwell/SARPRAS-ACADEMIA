@@ -300,22 +300,22 @@
         <div class="four-cards-row">
           <div class="glass-panel-card" style="padding: 16px 20px;">
             <span class="card-top-tag">WORK ORDER AKTIF</span>
-            <div class="card-metric-value font-mono">142</div>
+            <div class="card-metric-value font-mono" id="kpiActiveWo">3</div>
             <div class="card-metric-subtext">Tiket Perbaikan & Servis</div>
           </div>
           <div class="glass-panel-card" style="padding: 16px 20px;">
-            <span class="card-top-tag">KALIBRASI MENDESAK</span>
-            <div class="card-metric-value font-mono" style="color: var(--color-signal-critical);">23</div>
-            <div class="card-metric-subtext">Batas Toleransi Habis</div>
+            <span class="card-top-tag">STATUS PENGERJAAN</span>
+            <div class="card-metric-value font-mono" style="color: var(--color-signal-critical);" id="kpiCriticalWo">3</div>
+            <div class="card-metric-subtext">Instrumen Sedang Dikerjakan</div>
           </div>
           <div class="glass-panel-card" style="padding: 16px 20px;">
-            <span class="card-top-tag">SERVIS SELESAI Q3</span>
-            <div class="card-metric-value font-mono" style="color: var(--color-signal-normal);">89</div>
-            <div class="card-metric-subtext">Sertifikat Laik Uji Terbit</div>
+            <span class="card-top-tag">SERVIS SELESAI</span>
+            <div class="card-metric-value font-mono" style="color: var(--color-signal-normal);" id="kpiDoneWo">0</div>
+            <div class="card-metric-subtext">Tiket Kalibrasi Ditutup</div>
           </div>
           <div class="glass-panel-card" style="padding: 16px 20px;">
-            <span class="card-top-tag">TOTAL ANGGARAN SERVIS</span>
-            <div class="card-metric-value font-mono">Rp 184.5 Jt</div>
+            <span class="card-top-tag">ESTIMASI BIAYA SERVIS</span>
+            <div class="card-metric-value font-mono" id="kpiTotalCostWo">Rp 19.2 Jt</div>
             <div class="card-metric-subtext">Penyerapan Anggaran Pemeliharaan</div>
           </div>
         </div>

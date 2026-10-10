@@ -328,21 +328,21 @@
               <span class="card-top-tag">01. VALUASI FISKAL & INTEGRITAS ASET</span>
               <span class="status-badge-pill normal font-mono">Tervalidasi</span>
             </div>
-            <div class="card-metric-value font-mono" style="margin-top: 6px;">Rp 4.850.210.000</div>
-            <div class="card-metric-subtext">+38 pengadaan sarana baru kuartal ini • 1.482 unit terdaftar</div>
+            <div class="card-metric-value font-mono" id="dashboardValuationTotal" style="margin-top: 6px;">Rp 4.850.210.000</div>
+            <div class="card-metric-subtext" id="dashboardAssetCountSub">Akumulasi aset terdaftar aktif di sistem</div>
             
             <div style="margin-top: 16px;">
               <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; margin-bottom: 4px;">
                 <span>Kondisi Prima Operasional</span>
-                <span class="font-mono">86.4%</span>
+                <span class="font-mono" id="dashboardConditionPct">86.4%</span>
               </div>
               <div class="health-bar-rail">
-                <div class="health-bar-fill" style="width: 86.4%;"></div>
+                <div class="health-bar-fill" id="dashboardConditionBar" style="width: 86.4%;"></div>
               </div>
               <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--color-text-muted); margin-top: 8px;">
-                <span>1.280 Prima</span>
-                <span>142 Pemeliharaan</span>
-                <span>60 Karantina / Afkir</span>
+                <span id="dashboardConditionBaik">10 Prima</span>
+                <span id="dashboardConditionPerawatan">2 Pemeliharaan</span>
+                <span id="dashboardConditionRusak">0 Afkir</span>
               </div>
             </div>
           </div>
